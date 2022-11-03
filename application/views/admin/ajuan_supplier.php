@@ -7,6 +7,8 @@
         <div class="card-body">
             <form action="<?php echo base_url('pengajuan/tambah_pengajuan') ?>" method="post">
                 <input type="hidden" name="kd_supplier" id="kd_supplier" value="">
+                <label for="nama_supplier">SIAPA NAMANYA DIMANA RUMAHNYA :</label>
+                <input type="text" name="nama_supplier" id="nama_supplier" class="form-control mb-3">
                 <label for="nama_supplier">Nama Supplier :</label>
                 <input type="text" name="nama_supplier" id="nama_supplier" class="form-control mb-3">
                 <label for="nama_miniplant">Nama Mini Plant :</label>
