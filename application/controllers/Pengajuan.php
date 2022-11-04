@@ -8,6 +8,13 @@ class Pengajuan extends CI_Controller
     public function index()
     {
         $this->load->view('admin_parts/header.php');
+        $this->load->view('admin/data_ajuan');
+        $this->load->view('admin_parts/footer.php');
+    }
+
+    public function tambah_ajuan()
+    {
+        $this->load->view('admin_parts/header.php');
         $this->load->view('admin/ajuan_supplier');
         $this->load->view('admin_parts/footer.php');
     }
