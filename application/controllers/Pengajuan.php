@@ -7,6 +7,17 @@ class Pengajuan extends CI_Controller
 
     public function index()
     {
+        $data['supplier'] = $this->supplier_model->read_supplier();
+        $data['kd_supplier_auto'] = $this->supplier_model->kd_supplier_auto();
+        $data['pengajuan'] = $this->pengajuan_model->read_pengajuan();
+        $data['kd_pengajuan_auto'] = $this->pengajuan_model->kd_pengajuan_auto();
+        $this->load->view('admin_parts/header.php');
+        $this->load->view('admin/data_ajuan');
+        $this->load->view('admin_parts/footer.php');
+    }
+
+    public function tambah_ajuan()
+    {
         $this->load->view('admin_parts/header.php');
         $this->load->view('admin/ajuan_supplier');
         $this->load->view('admin_parts/footer.php');

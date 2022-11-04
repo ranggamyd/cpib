@@ -18,7 +18,7 @@
                     <thead>
                         <tr>
                             <th class="text-center">No</th>
-                            <th>Kode Perusahaan</th>
+                            <th>Kode Supplier</th>
                             <th>Nama Supplier</th>
                             <th>Nama Mini Plant</th>
                             <th>Alamat</th>
