@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Nov 2022 pada 17.22
+-- Waktu pembuatan: 04 Nov 2022 pada 09.53
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `cpib_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pengajuan`
+--
+
+CREATE TABLE `pengajuan` (
+  `id` int(11) NOT NULL,
+  `kd_pengajuan` varchar(20) NOT NULL,
+  `kd_supplier` varchar(20) NOT NULL,
+  `tgl_pengajuan` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -57,6 +70,14 @@ INSERT INTO `supplier` (`id`, `kd_supplier`, `nama_supplier`, `nama_miniplant`, 
 --
 
 --
+-- Indeks untuk tabel `pengajuan`
+--
+ALTER TABLE `pengajuan`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kd_pengajuan` (`kd_pengajuan`),
+  ADD KEY `kd_supplier` (`kd_supplier`);
+
+--
 -- Indeks untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
@@ -66,6 +87,12 @@ ALTER TABLE `supplier`
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `pengajuan`
+--
+ALTER TABLE `pengajuan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`

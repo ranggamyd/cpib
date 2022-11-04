@@ -18,6 +18,7 @@ class Pengajuan extends CI_Controller
 
     public function tambah_ajuan()
     {
+        $data['supplier'] = $this->supplier_model->read_supplier();
         $this->load->view('admin_parts/header.php');
         $this->load->view('admin/ajuan_supplier');
         $this->load->view('admin_parts/footer.php');
