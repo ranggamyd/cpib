@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard_supplier extends CI_Controller
+class Dashboard extends CI_Controller
 {
     function __construct()
     {
@@ -19,9 +19,9 @@ class Dashboard_supplier extends CI_Controller
         //     'js' => 'dashboard.js',
         // ];
 
-        $this->load->view('supplier/parts/header', $data);
-        $this->load->view('supplier/' . $file, $data);
-        $this->load->view('supplier/parts/footer', $data);
+        $this->load->view('admin/parts/header', $data);
+        $this->load->view('admin/' . $file, $data);
+        $this->load->view('admin/parts/footer', $data);
     }
 
     public function index()
