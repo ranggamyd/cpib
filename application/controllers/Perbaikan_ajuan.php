@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pengajuan extends CI_Controller
+class Perbaikan_ajuan extends CI_Controller
 {
     function __construct()
     {
@@ -20,35 +20,36 @@ class Pengajuan extends CI_Controller
         // ];
 
         $this->load->view('admin/parts/header', $data);
-        $this->load->view('admin/pengajuan/' . $file, $data);
+        $this->load->view('admin/perbaikan_ajuan/' . $file, $data);
         $this->load->view('admin/parts/footer', $data);
     }
 
     public function index()
     {
-        $data['pengajuan'] = $this->pengajuan_model->semuaPengajuan();
+        $data['perbaikan_ajuan'] = $this->perbaikan_ajuan_model->semuaPerbaikanAjuan();
 
-        $data['title'] = 'Ajuan Supplier';
-        $this->loadView('pengajuan', $data);
+        $data['title'] = 'Perbaikan Ajuan';
+        $this->loadView('perbaikan_ajuan', $data);
     }
 
-    public function tambah_ajuan()
+    public function perbaiki_ajuan($kd_pengajuan)
     {
-        $data['kd_pengajuan_auto'] = $this->pengajuan_model->kd_pengajuan_auto();
-        $data['suppliers'] = $this->supplier_model->suppliers();
-        $data['jenis_produk'] = $this->jenis_produk_model->semuaJenisProduk();
-
-        $data['title'] = 'Tambah Ajuan';
-        $this->loadView('tambah_ajuan', $data);
-    }
-
-    public function ubah_ajuan($kd_pengajuan)
-    {
+        $data['kd_perbaikan_ajuan_auto'] = $this->perbaikan_ajuan_model->kd_perbaikan_ajuan_auto();
         $data['pengajuan'] = $this->pengajuan_model->pengajuan($kd_pengajuan);
         $data['suppliers'] = $this->supplier_model->suppliers();
         $data['jenis_produk'] = $this->jenis_produk_model->semuaJenisProduk();
 
-        $data['title'] = 'Ubah Ajuan';
-        $this->loadView('ubah_ajuan', $data);
+        $data['title'] = 'Perbaiki Ajuan';
+        $this->loadView('perbaiki_ajuan', $data);
+    }
+
+    public function ubah_perbaikan($kd_perbaikan_ajuan)
+    {
+        $data['perbaikan_ajuan'] = $this->perbaikan_ajuan_model->perbaikan_ajuan($kd_perbaikan_ajuan);
+        $data['suppliers'] = $this->supplier_model->suppliers();
+        $data['jenis_produk'] = $this->jenis_produk_model->semuaJenisProduk();
+
+        $data['title'] = 'Ubah Perbaikan';
+        $this->loadView('ubah_perbaikan', $data);
     }
 }

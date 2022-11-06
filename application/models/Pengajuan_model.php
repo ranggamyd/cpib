@@ -21,12 +21,17 @@ class Pengajuan_model extends CI_Model
         return $kdpengajuan;
     }
 
-    public function read_pengajuan()
+    public function semuaPengajuan()
     {
+        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
+        $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = suppliers.kd_jenis_produk', 'left');
         return $this->db->get('pengajuan')->result_array();
     }
-    public function read_supplier()
+
+    public function pengajuan($kd_pengajuan)
     {
-        return $this->db->get('supplier')->result_array();
+        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
+        $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = suppliers.kd_jenis_produk', 'left');
+        return $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
     }
 }
