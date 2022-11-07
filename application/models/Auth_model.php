@@ -13,18 +13,36 @@ class Auth_model extends CI_Model
 		$this->db->where('username', $credential)->or_where('phone', $credential)->or_where('email', $credential);
 		$user = $this->db->get('users')->row();
 
-		if (!$user) return FALSE;
+		if ($user) {
+			echo 'user ditemukan';
+			if (password_verify($password, $user->password)) {
+				echo 'bener';
+			} else {
+				echo 'gagal';
+			}
+			// if (password_verify($password, $user->password)) {
+			// 	echo 'password sesuai';
+			// 	if ($user->kd_admin) {
+			// 		echo 'admin detected';
+			// 		$this->session->set_userdata(["login_as" => 'admin']);
 
-		if (!password_verify($password, $user->password)) return FALSE;
+			// 		if ($user->jabatan == 'Administrator') {
+			// 			echo 'jabatan administrator';
+			// 			$this->session->set_userdata(["role" => 'administrator']);
+			// 		} else {
+			// 			echo 'jabatan inspektur';
+			// 			$this->session->set_userdata(["role" => 'inspektur']);
+			// 		}
+			// 	} elseif ($user->kd_supplier) {
+			// 		echo 'supplier detected';
+			// 		$this->session->set_userdata(["login_as" => 'supplier']);
+			// 	}
 
-		if ($user->kd_admin) {
-			$this->session->set_userdata(["login_as" => 'admin']);
+			// 	$this->session->set_userdata([self::SESSION_KEY => $user->id]);
+
+			// 	return $this->session->has_userdata(self::SESSION_KEY);
+			// }
 		}
-
-		$this->session->set_userdata([self::SESSION_KEY => $user->id]);
-		// $this->_update_last_login($user->id);
-
-		return $this->session->has_userdata(self::SESSION_KEY);
 	}
 
 	public function current_user()

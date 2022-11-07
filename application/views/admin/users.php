@@ -73,7 +73,7 @@
           <label for="jabatan">Jabatan :</label><br>
           <select name="jabatan" id="jabatan" class="form-control mb-3" required>
             <option value="Administrator">Administrator</option>
-            <option value="Pegawai">Pegawai</option>
+            <option value="Inspektur">Inspektur</option>
           </select>
 
           <small>Info :

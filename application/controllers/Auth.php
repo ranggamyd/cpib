@@ -23,8 +23,6 @@ class Auth extends CI_Controller
 
   public function login()
   {
-    // $this->session->set_flashdata('sukses', 'Berhasil masuk !');
-    // redirect('dashboard');
     $this->form_validation->set_rules('credential', 'Credential', 'required');
     $this->form_validation->set_rules('password', 'Password', 'required');
 
@@ -34,23 +32,18 @@ class Auth extends CI_Controller
     } else {
       if ($this->auth_model->login()) {
         if ($this->session->userdata("login_as") == "admin") {
-          if ($this->session->userdata('referred_from')) {
-            $referred_from = $this->session->userdata('referred_from');
-            $this->session->set_flashdata('sukses', 'Berhasil masuk !');
-            redirect($referred_from);
-          } else {
-            $this->session->set_flashdata('sukses', 'Berhasil masuk !');
-            redirect('dashboard');
-          }
+          $page = 'dashboard';
         } else if ($this->session->userdata("login_as") == "supplier") {
-          if ($this->session->userdata('referred_from')) {
-            $referred_from = $this->session->userdata('referred_from');
-            $this->session->set_flashdata('sukses', 'Berhasil masuk !');
-            redirect($referred_from);
-          } else {
-            $this->session->set_flashdata('sukses', 'Berhasil masuk !');
-            redirect('dashboard_supplier');
-          }
+          $page = 'dashboard_supplier';
+        }
+
+        if ($this->session->userdata('referred_from')) {
+          $referred_from = $this->session->userdata('referred_from');
+          $this->session->set_flashdata('sukses', 'Berhasil masuk !');
+          redirect($referred_from);
+        } else {
+          $this->session->set_flashdata('sukses', 'Berhasil masuk !');
+          redirect($page);
         }
       } else {
         $this->session->set_flashdata('gagal', 'Pastikan Username dan Password sesuai !');
