@@ -18,7 +18,7 @@ class Auth_model extends CI_Model
 		if (!password_verify($password, $user->password)) return FALSE;
 
 		if ($user->kd_admin) {
-			$this->session->set_userdata(["login_as"=>'admin']);
+			$this->session->set_userdata(["login_as" => 'admin']);
 		}
 
 		$this->session->set_userdata([self::SESSION_KEY => $user->id]);

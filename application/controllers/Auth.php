@@ -33,7 +33,7 @@ class Auth extends CI_Controller
       $this->index();
     } else {
       if ($this->auth_model->login()) {
-        if ($this->session->userdata("login_as")=="admin") {
+        if ($this->session->userdata("login_as") == "admin") {
           if ($this->session->userdata('referred_from')) {
             $referred_from = $this->session->userdata('referred_from');
             $this->session->set_flashdata('sukses', 'Berhasil masuk !');
@@ -42,8 +42,8 @@ class Auth extends CI_Controller
             $this->session->set_flashdata('sukses', 'Berhasil masuk !');
             redirect('dashboard');
           }
-        }else if ($this->session->userdata("login_as")=="supplier") {
-            if ($this->session->userdata('referred_from')) {
+        } else if ($this->session->userdata("login_as") == "supplier") {
+          if ($this->session->userdata('referred_from')) {
             $referred_from = $this->session->userdata('referred_from');
             $this->session->set_flashdata('sukses', 'Berhasil masuk !');
             redirect($referred_from);
