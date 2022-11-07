@@ -11,11 +11,15 @@ class Auth_model extends CI_Model
 		$password = $this->input->post('password');
 
 		$this->db->where('username', $credential)->or_where('phone', $credential)->or_where('email', $credential);
-		$user = $this->db->get('user')->row();
+		$user = $this->db->get('users')->row();
 
 		if (!$user) return FALSE;
 
 		if (!password_verify($password, $user->password)) return FALSE;
+
+		if ($user->kd_admin) {
+			$this->session->set_userdata(["login_as"=>'admin']);
+		}
 
 		$this->session->set_userdata([self::SESSION_KEY => $user->id]);
 		// $this->_update_last_login($user->id);
