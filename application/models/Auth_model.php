@@ -10,38 +10,32 @@ class Auth_model extends CI_Model
 		$credential = $this->input->post('credential');
 		$password = $this->input->post('password');
 
+
+		$this->db->select('admin.*, suppliers.*, users.*');
+		$this->db->join('admin', 'admin.kd_admin=users.kd_admin', 'left');
+		$this->db->join('suppliers', 'suppliers.kd_supplier=users.kd_supplier', 'left');
 		$this->db->where('username', $credential)->or_where('phone', $credential)->or_where('email', $credential);
 		$user = $this->db->get('users')->row();
 
 		if ($user) {
-			echo 'user ditemukan';
-			if (password_verify($password, $user->password)) {
-				echo 'bener';
-			} else {
-				echo 'gagal';
+			if (md5($password) == $user->password) {
+				session_destroy();
+
+				if ($user->kd_admin) {
+					$this->session->set_userdata(["login_as" => 'admin']);
+					if ($user->jabatan == 'Administrator') {
+						$this->session->set_userdata(["role" => 'Administrator']);
+					} else {
+						$this->session->set_userdata(["role" => 'Inspektur']);
+					}
+				} elseif ($user->kd_supplier) {
+					$this->session->set_userdata(["login_as" => 'supplier']);
+				}
+
+				$this->session->set_userdata([self::SESSION_KEY => $user->id]);
+
+				return $this->session->has_userdata(self::SESSION_KEY);
 			}
-			// if (password_verify($password, $user->password)) {
-			// 	echo 'password sesuai';
-			// 	if ($user->kd_admin) {
-			// 		echo 'admin detected';
-			// 		$this->session->set_userdata(["login_as" => 'admin']);
-
-			// 		if ($user->jabatan == 'Administrator') {
-			// 			echo 'jabatan administrator';
-			// 			$this->session->set_userdata(["role" => 'administrator']);
-			// 		} else {
-			// 			echo 'jabatan inspektur';
-			// 			$this->session->set_userdata(["role" => 'inspektur']);
-			// 		}
-			// 	} elseif ($user->kd_supplier) {
-			// 		echo 'supplier detected';
-			// 		$this->session->set_userdata(["login_as" => 'supplier']);
-			// 	}
-
-			// 	$this->session->set_userdata([self::SESSION_KEY => $user->id]);
-
-			// 	return $this->session->has_userdata(self::SESSION_KEY);
-			// }
 		}
 	}
 

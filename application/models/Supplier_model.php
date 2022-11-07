@@ -45,7 +45,7 @@ class Supplier_model extends CI_Model
         $user = [
             'name' => $name,
             'username' => $username,
-            'password' => password_hash($username, PASSWORD_DEFAULT),
+            'password' => md5($username),
             'kd_supplier' => $kd_supplier,
         ];
 

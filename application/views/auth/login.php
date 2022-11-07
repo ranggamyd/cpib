@@ -15,13 +15,13 @@
                                 </div>
                                 <form action="<?= base_url('auth/login') ?>" method="POST" class="user">
                                     <div class="form-group">
-                                        <input type="text" name="credential" value="<?= set_value('credential') ?>" class="form-control form-control-user <?= form_error('credential') ? 'is-invalid' : '' ?>" id="credential" placeholder="Masukkan Username / Email / No. HP">
+                                        <input type="text" name="credential" value="<?= set_value('credential') ?>" class="form-control form-control-user <?= form_error('credential') ? 'is-invalid' : '' ?>" id="credential" placeholder="Masukkan Username / Email / No. HP" required>
                                         <div id="credential" class="invalid-feedback">
                                             <?= form_error('credential') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password" class="form-control form-control-user <?= form_error('password') ? 'is-invalid' : '' ?>" id="password" placeholder="Masukkan Password">
+                                        <input type="password" name="password" class="form-control form-control-user <?= form_error('password') ? 'is-invalid' : '' ?>" id="password" placeholder="Masukkan Password" required>
                                         <div id="password" class="invalid-feedback">
                                             <?= form_error('password') ?>
                                         </div>
