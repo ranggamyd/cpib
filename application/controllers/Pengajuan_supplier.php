@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -55,4 +55,4 @@ class Pengajuan_supplier extends CI_Controller
     //         ');
     //     redirect('pengajuan_supplier', 'refresh');
     // }
-}
+} -->

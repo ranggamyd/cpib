@@ -49,10 +49,6 @@ class Auth extends CI_Controller
         $this->session->set_flashdata('gagal', 'Pastikan Username dan Password sesuai !');
         $this->index();
       }
-
-      // echo "<pre>";
-      // print_r($this->session->userdata());
-      // echo "</pre>";
     }
   }
 
@@ -67,6 +63,29 @@ class Auth extends CI_Controller
   {
     $data['title'] = 'Daftar';
     $this->loadView('register', $data);
+  }
+
+  public function register_account()
+  {
+    $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
+    $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
+    $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required');
+    $this->form_validation->set_rules('email', 'email', 'required|valid_email|is_unique[users.username]');
+    $this->form_validation->set_rules('password1', 'Password', 'required');
+    $this->form_validation->set_rules('password2', 'Password Confirmation', 'required|matches[password1]');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('gagal', 'Gagal Masuk !');
+      $this->index();
+    } else {
+      if ($this->auth_model->register()) {
+        $this->session->set_flashdata('sukses', 'Berhasil mendaftarkan akun !');
+        redirect('auth');
+      } else {
+        $this->session->set_flashdata('gagal', 'Gagal mendaftarkan akun !');
+        $this->index();
+      }
+    }
   }
 
   // public function forgot_password()

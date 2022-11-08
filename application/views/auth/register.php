@@ -15,25 +15,43 @@
                                     </div>
                                     <form action="<?= base_url('auth/register_account') ?>" method="POST" class="user">
                                         <div class="form-group">
-                                            <input type="text" name="name" class="form-control form-control-user" id="nama" placeholder="Nama Lengkap">
+                                            <input type="text" name="name" value="<?= set_value('name') ?>" class="form-control form-control-user <?= form_error('name') ? 'is-invalid' : '' ?>" id="nama" placeholder="Nama Lengkap">
+                                            <div id="name" class="invalid-feedback">
+                                                <?= form_error('name') ?>
+                                            </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="text" name="username" class="form-control form-control-user" id="username" placeholder="Username">
+                                                <input type="text" name="username" value="<?= set_value('username') ?>" class="form-control form-control-user <?= form_error('username') ? 'is-invalid' : '' ?>" id="username" placeholder="Username">
+                                                <div id="username" class="invalid-feedback">
+                                                    <?= form_error('username') ?>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <input type="text" name="phone" class="form-control form-control-user" id="phone" placeholder="No. Telepon">
+                                                <input type="text" name="phone" value="<?= set_value('phone') ?>" class="form-control form-control-user <?= form_error('phone') ? 'is-invalid' : '' ?>" id="phone" placeholder="No. Telepon">
+                                                <div id="phone" class="invalid-feedback">
+                                                    <?= form_error('phone') ?>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="email" class="form-control form-control-user" id="email" placeholder="Alamat Email">
+                                            <input type="text" name="email" value="<?= set_value('email') ?>" class="form-control form-control-user <?= form_error('email') ? 'is-invalid' : '' ?>" id="email" placeholder="Alamat Email">
+                                            <div id="email" class="invalid-feedback">
+                                                <?= form_error('email') ?>
+                                            </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="password" name="password1" class="form-control form-control-user" id="password1" placeholder="Password">
+                                                <input type="password" name="password1" value="<?= set_value('password1') ?>" class="form-control form-control-user <?= form_error('password1') ? 'is-invalid' : '' ?>" id="password1" placeholder="Password">
+                                                <div id="password1" class="invalid-feedback">
+                                                    <?= form_error('password1') ?>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <input type="password" name="password2" class="form-control form-control-user" id="password2" placeholder="Ulangi password">
+                                                <input type="password" name="password2" value="<?= set_value('password2') ?>" class="form-control form-control-user <?= form_error('password2') ? 'is-invalid' : '' ?>" id="password2" placeholder="Ulangi password">
+                                                <div id="password2" class="invalid-feedback">
+                                                    <?= form_error('password2') ?>
+                                                </div>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">Daftar</button>

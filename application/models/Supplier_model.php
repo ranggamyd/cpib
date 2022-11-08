@@ -22,7 +22,7 @@ class Supplier_model extends CI_Model
 
     public function suppliers()
     {
-
+        $this->db->join('users', 'users.kd_supplier = suppliers.kd_supplier', 'left');
         $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = suppliers.kd_jenis_produk', 'left');
         return $this->db->get('suppliers')->result_array();
     }
@@ -69,5 +69,19 @@ class Supplier_model extends CI_Model
         $kd_supplier = $this->input->post('kd_supplier');
         if (!$this->db->delete('suppliers', ['kd_supplier' => $kd_supplier])) return FALSE;
         if ($this->db->delete('users', ['kd_supplier' => $kd_supplier])) return TRUE;
+    }
+
+    public function activation($kd_supplier)
+    {
+        $where = ['kd_supplier' => $kd_supplier];
+        $supp = $this->db->get_where('users', $where)->row('is_active');
+
+        if ($supp == 0) {
+            $this->db->update('users', ['is_active' => 1], $where);
+            return 'activated';
+        } else {
+            $this->db->update('users', ['is_active' => 0], $where);
+            return 'nonactivated';
+        }
     }
 }
