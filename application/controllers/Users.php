@@ -6,10 +6,11 @@ class Users extends CI_Controller
   function __construct()
   {
     parent::__construct();
-    // if (!$this->auth_model->current_user()) {
-    //     $this->session->set_userdata('referred_from', current_url());
-    //     redirect('auth');
-    // }
+    if (!$this->auth_model->current_user()) {
+        $this->session->set_userdata('referred_from', current_url());
+        $this->session->set_flashdata('gagal', 'Gagal mengakses, Silahkan login kembali !');
+        redirect('auth');
+    }
   }
 
   private function loadView($file, $data)
@@ -86,5 +87,18 @@ class Users extends CI_Controller
       $this->session->set_flashdata('gagal', 'Gagal menghapus !');
       $this->index();
     }
+  }
+
+  public function activation($kd_admin)
+  {
+      $activation = $this->user_model->activation($kd_admin);
+
+      if ($activation == 'activated') {
+          $this->session->set_flashdata('sukses', 'Berhasil mengaktifkan Admin !');
+          redirect('users');
+      } else {
+          $this->session->set_flashdata('sukses', 'Berhasil menonaktifkan Admin !');
+          $this->index();
+      }
   }
 }

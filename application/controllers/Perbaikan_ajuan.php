@@ -6,10 +6,11 @@ class Perbaikan_ajuan extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        // if (!$this->auth_model->current_user()) {
-        //     $this->session->set_userdata('referred_from', current_url());
-        //     redirect('auth');
-        // }
+        if (!$this->auth_model->current_user()) {
+            $this->session->set_userdata('referred_from', current_url());
+            $this->session->set_flashdata('gagal', 'Gagal mengakses, Silahkan login kembali !');
+            redirect('auth');
+        }
     }
 
     private function loadView($file, $data)

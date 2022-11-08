@@ -6,10 +6,11 @@ class Suppliers extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        // if (!$this->auth_model->current_user()) {
-        //     $this->session->set_userdata('referred_from', current_url());
-        //     redirect('auth');
-        // }
+        if (!$this->auth_model->current_user()) {
+            $this->session->set_userdata('referred_from', current_url());
+            $this->session->set_flashdata('gagal', 'Gagal mengakses, Silahkan login kembali !');
+            redirect('auth');
+        }
     }
 
     private function loadView($file, $data)
@@ -85,6 +86,19 @@ class Suppliers extends CI_Controller
             redirect('suppliers');
         } else {
             $this->session->set_flashdata('gagal', 'Gagal menghapus !');
+            $this->index();
+        }
+    }
+
+    public function activation($kd_supplier)
+    {
+        $activation = $this->supplier_model->activation($kd_supplier);
+
+        if ($activation == 'activated') {
+            $this->session->set_flashdata('sukses', 'Berhasil mengaktifkan Supplier !');
+            redirect('suppliers');
+        } else {
+            $this->session->set_flashdata('sukses', 'Berhasil menonaktifkan Supplier !');
             $this->index();
         }
     }

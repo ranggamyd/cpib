@@ -17,7 +17,8 @@
               <th>Jenis Kelamin</th>
               <th>Alamat</th>
               <th>Jabatan</th>
-              <th style="text-align:center;">Opsi</th>
+              <th>Status</th>
+              <th>Opsi</th>
             </tr>
           </thead>
           <tbody>
@@ -31,6 +32,13 @@
                 <td><?= $adm['jenis_kelamin']; ?></td>
                 <td><?= $adm['alamat']; ?></td>
                 <td><?= $adm['jabatan']; ?></td>
+                <td class="text-center">
+                  <?php if ($adm['is_active'] == 1) : ?>
+                    <a href="<?= base_url('users/activation/') . $adm['kd_admin'] ?>" onclick="alert('Apakah anda yakin ingin mengaktifkan Admin?')" class="badge badge-sm badge-success" data-toggle="tooltip" title="Nonaktifkan Admin?">Aktif</a>
+                  <?php else : ?>
+                    <a href="<?= base_url('users/activation/') . $adm['kd_admin'] ?>" onclick="alert('Apakah anda yakin ingin menonaktifkan Admin?')" class="badge badge-sm badge-danger" data-toggle="tooltip" title="Aktifkan Admin?">Nonaktif</a>
+                  <?php endif ?>
+                </td>
                 <td align="center">
                   <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="#" class="btn btn-success" data-toggle="modal" data-target="#detail_user<?= $adm['kd_admin']; ?>"><i class="fas fa-info-circle"></i></a>
@@ -167,7 +175,7 @@
             <label for="jabatan">Jabatan :</label><br>
             <select name="jabatan" id="jabatan" class="form-control mb-3" required>
               <option value="Administrator" <?= $adm['jabatan'] == 'Administrator' ? 'selected' : '' ?>>Administrator</option>
-              <option value="Pegawai" <?= $adm['jabatan'] == 'Pegawai' ? 'selected' : '' ?>>Pegawai</option>
+              <option value="Inspektur" <?= $adm['jabatan'] == 'Inspektur' ? 'selected' : '' ?>>Inspektur</option>
             </select>
           </div>
           <div class="modal-footer">
