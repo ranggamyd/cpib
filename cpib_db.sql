@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2022 at 08:22 AM
+-- Generation Time: Nov 08, 2022 at 06:31 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -33,8 +33,15 @@ CREATE TABLE `admin` (
   `nama_admin` varchar(50) NOT NULL,
   `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
   `alamat` text NOT NULL,
-  `jabatan` enum('Administrator','Pegawai') NOT NULL
+  `jabatan` enum('Administrator','Inspektur') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `kd_admin`, `nama_admin`, `jenis_kelamin`, `alamat`, `jabatan`) VALUES
+(1, 'ADM-001', 'Jeri adalah Admin2asd', 'Perempuan', 'asd2', 'Administrator');
 
 -- --------------------------------------------------------
 
@@ -49,14 +56,6 @@ CREATE TABLE `jenis_produk` (
   `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `jenis_produk`
---
-
-INSERT INTO `jenis_produk` (`id`, `kd_jenis_produk`, `jenis_produk`, `deskripsi`) VALUES
-(1, 'JPK-001', 'Udang Asin', 'hemmjhjhvjh'),
-(2, 'JPK-002', 'ikan asam', 'hehe');
-
 -- --------------------------------------------------------
 
 --
@@ -70,13 +69,6 @@ CREATE TABLE `pengajuan` (
   `tgl_pengajuan` date NOT NULL,
   `status` enum('Tertunda','Perlu Revisi','Diterima') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pengajuan`
---
-
-INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `tgl_pengajuan`, `status`) VALUES
-(1, 'AJU-001', 'SPL-001', '0000-00-00', '');
 
 -- --------------------------------------------------------
 
@@ -121,8 +113,7 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `kd_supplier`, `nama_supplier`, `nama_miniplant`, `alamat`, `kd_jenis_produk`, `ktp`, `npwp`, `nib`, `siup`, `akta_usaha`, `imb`, `layout`, `panduan_mutu`) VALUES
-(1, 'SPL-001', 'fgfhg', 'fghf', 'fhggf', 'JPK-001', '', '', '', '', '', '', '', ''),
-(2, 'SPL-002', 'udin', 'PT. sejahtera', 'lajsldhjasdjlkahdsk', 'JPK-001', '', '', '', '', '', '', '', '');
+(1, 'SPL-001', 'Jeri adalah supplier', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -139,16 +130,17 @@ CREATE TABLE `users` (
   `password` varchar(50) NOT NULL,
   `avatar` text NOT NULL,
   `kd_admin` varchar(20) NOT NULL,
-  `kd_supplier` varchar(20) NOT NULL
+  `kd_supplier` varchar(20) NOT NULL,
+  `is_active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `username`, `phone`, `password`, `avatar`, `kd_admin`, `kd_supplier`) VALUES
-(1, 'fgfhg', '', 'SPL-001_fgfhg', '', 'SPL-001_fgfhg', '', '', 'SPL-001'),
-(2, 'udin', '', 'SPL-002_udin', '', 'SPL-002_udin', '', '', 'SPL-002');
+INSERT INTO `users` (`id`, `name`, `email`, `username`, `phone`, `password`, `avatar`, `kd_admin`, `kd_supplier`, `is_active`) VALUES
+(1, 'Jeri adalah supplier', 'jersup@gmail.com', 'jersup', '123', 'fcff8aed60e0bedf984ea8e872ade9c6', '', '', 'SPL-001', 0),
+(2, 'Jeri adalah Admin2asd', '3213@fgh.com', 'ADM-001_Jeri2', '13212', '634e2488b31ccdb5b53da4c04c77424d', '', 'ADM-001', '', 1);
 
 --
 -- Indexes for dumped tables
@@ -201,19 +193,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `perbaikan_ajuan`
@@ -225,7 +217,7 @@ ALTER TABLE `perbaikan_ajuan`
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
