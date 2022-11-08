@@ -33,6 +33,12 @@ class User extends CI_Controller
     $this->loadView('user', $data);
   }
 
+  public function ubah_avatar()
+  {
+    $this->user_model->ubah_avatar();
+    redirect('user');
+  }
+
   public function ubah_profil()
   {
     $user = $this->db->get_where('users', ['kd_admin' => $this->input->post('kd_admin')])->row();
@@ -44,7 +50,9 @@ class User extends CI_Controller
     if ($this->input->post('phone') != $user->phone) $this->form_validation->set_rules('phone', 'No. Telepon', 'required|numeric|is_unique[users.phone]');
     $this->form_validation->set_rules('email', 'email', 'required|valid_email');
     if ($this->input->post('email') != $user->email) $this->form_validation->set_rules('email', 'email', 'required|valid_email|is_unique[users.email]');
-    if ($this->input->post('password1')) $this->form_validation->set_rules('password2', 'Password Confirmation', 'matches[password1]');
+    // if ($this->input->post('password1')) $this->form_validation->set_rules('password2', 'Password Confirmation', 'matches[password1]');
+    // $this->form_validation->set_rules('password1', 'Password', 'required');
+    // $this->form_validation->set_rules('password2', 'Password Confirmation', 'required|matches[password1]');
 
     if ($this->form_validation->run() == FALSE) {
       $this->session->set_flashdata('gagal', 'Gagal mengubah !');

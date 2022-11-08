@@ -67,15 +67,13 @@
 
             <hr class="sidebar-divider">
 
-            <div class="sidebar-heading">Lainnya</div>
+            <div class="sidebar-heading">Master Data</div>
             <li class="nav-item <?= ($this->uri->segment(1) == 'jenis_produk') ? 'active' : ''; ?>">
                 <a class="nav-link" href="<?= base_url('jenis_produk') ?>">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Jenis Produk</span>
                 </a>
             </li>
-
-            <hr class="sidebar-divider d-none d-md-block">
 
             <li class="nav-item <?= ($this->uri->segment(1) == 'suppliers') ? 'active' : ''; ?>">
                 <a class="nav-link" href="<?= base_url('suppliers') ?>">
@@ -87,6 +85,21 @@
                 <a class="nav-link" href="<?= base_url('users') ?>">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Data Pengguna</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="sidebar-heading">Lainnya</div>
+            <li class="nav-item <?= ($this->uri->segment(1) == 'user') ? 'active' : ''; ?>">
+                <a class="nav-link" href="<?= base_url('user') ?>">
+                    <i class="fas fa-fw fa-user-cog"></i>
+                    <span>Profil Saya</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('user/logout') ?>">
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Log Out</span>
                 </a>
             </li>
 
@@ -240,8 +253,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="<?= base_url('assets/img/undraw_profile.svg') ?>">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $this->session->userdata('username') ?></span>
+                                <img class="img-profile rounded-circle" src="<?= base_url('assets/img/' . $this->session->userdata('avatar')) ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

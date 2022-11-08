@@ -6,7 +6,7 @@
     <div class="col-md-4">
       <div class="card shadow">
         <div class="card-body text-center">
-          <img src="<?= base_url('assets/img/logo_bkipm2.png') ?>" class="rounded-circle" width="200" height="200" alt="" style="object-fit: cover;">
+          <img src="<?= base_url() . 'assets/img/' . $user->avatar; ?>" class="rounded-circle" width="200" height="200" alt="" style="object-fit: cover;">
         </div>
         <button type="button" class="btn btn-primary mx-5" data-toggle="modal" data-target="#edit_avatar" id="#myBtn" data-dismiss="modal"><i class="fas fa-camera fa-fw"></i> Perbarui foto</button>
         <hr>
@@ -54,6 +54,31 @@
 </div>
 </div>
 
+<!-- Modal Edit Gambar -->
+<div class="modal fade" id="edit_avatar" tabindex="-1" role="dialog" aria-labelledby="edit_userLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="edit_userLabel">Ubah Profil</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= base_url('user/ubah_avatar') ?>" method="post" enctype="multipart/form-data">
+        <div class="modal-body text-center">
+          <input type="hidden" name="kd_admin" value="<?= set_value('kd_admin', $user->kd_admin) ?>" id="kd_admin" class="form-control mb-3 <?= form_error('kd_admin') ? 'is-invalid' : '' ?>" readonly required>
+          <img src="<?= base_url() . 'assets/img/' . $user->avatar; ?>" class="rounded-circle" width="200" height="200" alt="" style="object-fit: cover;"><br>
+          <label for=""> PILIH AVATAR</label>
+          <input type="file" class="form-control-file" name="avatar" id="avatar">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tutup</button>
+          <input type="submit" value="Simpan Perubahan!" class="btn btn-success">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <!-- Modal Edit Profile -->
 <div class="modal fade" id="edit_user" tabindex="-1" role="dialog" aria-labelledby="edit_userLabel" aria-hidden="true">
@@ -116,8 +141,10 @@
                 <input type="file" name="avatar" id="avatar" class="form-control-file mb-4">
                 <div class="row">
                   <div class="col">
-                    <label for="password">Password</label>
-                    <input type="password" name="password1" id="password" class="form-control mb-3">
+                    <label for="password">Password Baru</label>
+                    <input type="password" name="password" id="password" class="form-control mb-3">
+                  </div>
+                  <!-- <div class="col">
                   </div>
                   <div class="col">
                     <label for="password">Konfirmasi Password</label>
@@ -125,7 +152,7 @@
                     <div id="password2" class="invalid-feedback text-warning">
                       <?= form_error('password2') ?>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
                 <h6 class="text-warning text-right">*Kosongkan jika tidak ada perubahan</h6>
               </div>
