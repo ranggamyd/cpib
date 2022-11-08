@@ -43,16 +43,16 @@ class Auth extends CI_Controller
           redirect($referred_from);
         } else {
           $this->session->set_flashdata('sukses', 'Berhasil masuk !');
-          // redirect($page);
+          redirect($page);
         }
       } else {
         $this->session->set_flashdata('gagal', 'Pastikan Username dan Password sesuai !');
-        // $this->index();
+        $this->index();
       }
 
-      echo "<pre>";
-      print_r($this->session->userdata());
-      echo "</pre>";
+      // echo "<pre>";
+      // print_r($this->session->userdata());
+      // echo "</pre>";
     }
   }
 
