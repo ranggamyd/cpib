@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2022 at 06:31 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 7.4.30
+-- Waktu pembuatan: 09 Nov 2022 pada 20.13
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Struktur dari tabel `admin`
 --
 
 CREATE TABLE `admin` (
@@ -37,16 +37,16 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `admin`
+-- Dumping data untuk tabel `admin`
 --
 
 INSERT INTO `admin` (`id`, `kd_admin`, `nama_admin`, `jenis_kelamin`, `alamat`, `jabatan`) VALUES
-(1, 'ADM-001', 'Jeri adalah Admin2asd', 'Perempuan', 'asd2', 'Administrator');
+(1, 'ADM-001', 'Jeri Maulana', 'Laki-laki', 'Cirebon', 'Administrator');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jenis_produk`
+-- Struktur dari tabel `jenis_produk`
 --
 
 CREATE TABLE `jenis_produk` (
@@ -56,10 +56,17 @@ CREATE TABLE `jenis_produk` (
   `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `jenis_produk`
+--
+
+INSERT INTO `jenis_produk` (`id`, `kd_jenis_produk`, `jenis_produk`, `deskripsi`) VALUES
+(1, 'JPK-001', 'Ikan Asin', 'asin');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengajuan`
+-- Struktur dari tabel `pengajuan`
 --
 
 CREATE TABLE `pengajuan` (
@@ -67,13 +74,22 @@ CREATE TABLE `pengajuan` (
   `kd_pengajuan` varchar(20) NOT NULL,
   `kd_supplier` varchar(20) NOT NULL,
   `tgl_pengajuan` date NOT NULL,
-  `status` enum('Tertunda','Perlu Revisi','Diterima') NOT NULL
+  `status` enum('Tertunda','Perlu Revisi','Diterima') NOT NULL,
+  `ktp` text NOT NULL,
+  `npwp` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pengajuan`
+--
+
+INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `tgl_pengajuan`, `status`, `ktp`, `npwp`) VALUES
+(5, 'AJU-0001', 'SPL-001', '2022-11-09', 'Tertunda', 'SERTIFIKAT_-_FATEH_NUR_MUHAMMAD.pdf', 'SURAT_PENGALAMAN_KERJA_-_FATEH_NUR_MUHAMMAD.pdf');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `perbaikan_ajuan`
+-- Struktur dari tabel `perbaikan_ajuan`
 --
 
 CREATE TABLE `perbaikan_ajuan` (
@@ -88,7 +104,7 @@ CREATE TABLE `perbaikan_ajuan` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suppliers`
+-- Struktur dari tabel `suppliers`
 --
 
 CREATE TABLE `suppliers` (
@@ -109,7 +125,7 @@ CREATE TABLE `suppliers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `suppliers`
+-- Dumping data untuk tabel `suppliers`
 --
 
 INSERT INTO `suppliers` (`id`, `kd_supplier`, `nama_supplier`, `nama_miniplant`, `alamat`, `kd_jenis_produk`, `ktp`, `npwp`, `nib`, `siup`, `akta_usaha`, `imb`, `layout`, `panduan_mutu`) VALUES
@@ -118,7 +134,7 @@ INSERT INTO `suppliers` (`id`, `kd_supplier`, `nama_supplier`, `nama_miniplant`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -135,31 +151,31 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `username`, `phone`, `password`, `avatar`, `kd_admin`, `kd_supplier`, `is_active`) VALUES
 (1, 'Jeri adalah supplier', 'jersup@gmail.com', 'jersup', '123', 'fcff8aed60e0bedf984ea8e872ade9c6', '', '', 'SPL-001', 0),
-(2, 'Jeri adalah Admin2asd', '3213@fgh.com', 'ADM-001_Jeri2', '13212', '634e2488b31ccdb5b53da4c04c77424d', '', 'ADM-001', '', 1);
+(2, 'Jeri Maulana', 'email@email.com', 'jeri1', '0822', '827ccb0eea8a706c4c34a16891f84e7b', 'cropped-logo-PDIP.jpg', 'ADM-001', '', 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indeks untuk tabel `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jenis_produk`
+-- Indeks untuk tabel `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pengajuan`
+-- Indeks untuk tabel `pengajuan`
 --
 ALTER TABLE `pengajuan`
   ADD PRIMARY KEY (`id`),
@@ -167,60 +183,60 @@ ALTER TABLE `pengajuan`
   ADD KEY `kd_supplier` (`kd_supplier`);
 
 --
--- Indexes for table `perbaikan_ajuan`
+-- Indeks untuk tabel `perbaikan_ajuan`
 --
 ALTER TABLE `perbaikan_ajuan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `suppliers`
+-- Indeks untuk tabel `suppliers`
 --
 ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `kd_supplier` (`kd_supplier`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT untuk tabel `admin`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `jenis_produk`
+-- AUTO_INCREMENT untuk tabel `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `pengajuan`
+-- AUTO_INCREMENT untuk tabel `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `perbaikan_ajuan`
+-- AUTO_INCREMENT untuk tabel `perbaikan_ajuan`
 --
 ALTER TABLE `perbaikan_ajuan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `suppliers`
+-- AUTO_INCREMENT untuk tabel `suppliers`
 --
 ALTER TABLE `suppliers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;

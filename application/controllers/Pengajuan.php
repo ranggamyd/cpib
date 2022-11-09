@@ -42,6 +42,26 @@ class Pengajuan extends CI_Controller
         $data['title'] = 'Tambah Ajuan';
         $this->loadView('tambah_ajuan', $data);
     }
+    public function simpan_ajuan()
+    {
+
+        $this->form_validation->set_rules('ktp', 'KTP', 'trim|xss_clean');
+        $this->form_validation->set_rules('npwp', 'NPWP', 'trim|xss_clean');
+        // $this->form_validation->set_rules('nib', 'NIB', 'required');
+        // $this->form_validation->set_rules('siup', 'SIUP', 'required');
+        // $this->form_validation->set_rules('akta_usaha', 'AKTA USAHA', 'required');
+        // $this->form_validation->set_rules('imb', 'IMB', 'required');
+        // $this->form_validation->set_rules('layout', 'LAYOUT', 'required');
+        // $this->form_validation->set_rules('panduan_mutu', 'PANDUAN MUTU', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+            $this->index();
+        } else {
+            $this->pengajuan_model->tambah();
+            redirect('pengajuan');
+        }
+    }
 
     public function ubah_ajuan($kd_pengajuan)
     {

@@ -4,7 +4,7 @@
 
   <div class="card shadow mb-4">
     <div class="card-body">
-      <form action="<?= base_url('pengajuan/tambah_ajuan') ?>" method="post">
+      <form action="<?= base_url('pengajuan/simpan_ajuan') ?>" method="post" enctype="multipart/form-data">
         <div class="row">
           <div class="col-md-5">
             <label for="kd_pengajuan">Kode Ajuan :</label>

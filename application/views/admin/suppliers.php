@@ -34,9 +34,9 @@
                 <td><?= $spl['jenis_produk']; ?></td>
                 <td class="text-center">
                   <?php if ($spl['is_active'] == 1) : ?>
-                    <a href="<?= base_url('suppliers/activation/') . $spl['kd_supplier'] ?>" onclick="alert('Apakah anda yakin ingin mengaktifkan Supplier?')" class="badge badge-sm badge-success" data-toggle="tooltip" title="Nonaktifkan Supplier?">Aktif</a>
+                    <a href="<?= base_url('suppliers/activation/') . $spl['kd_supplier'] ?>" onclick="return(confirm('Apakah anda yakin ingin mengaktifkan Supplier?'))" class="badge badge-sm badge-success" data-toggle="tooltip" title="Nonaktifkan Supplier?">Aktif</a>
                   <?php else : ?>
-                    <a href="<?= base_url('suppliers/activation/') . $spl['kd_supplier'] ?>" onclick="alert('Apakah anda yakin ingin menonaktifkan Supplier?')" class="badge badge-sm badge-danger" data-toggle="tooltip" title="Aktifkan Supplier?">Nonaktif</a>
+                    <a href="<?= base_url('suppliers/activation/') . $spl['kd_supplier'] ?>" onclick="return(confirm('Apakah anda yakin ingin menonaktifkan Supplier?'))" class="badge badge-sm badge-danger" data-toggle="tooltip" title="Aktifkan Supplier?">Nonaktif</a>
                   <?php endif ?>
                 </td>
                 <td align="center">

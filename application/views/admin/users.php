@@ -34,9 +34,9 @@
                 <td><?= $adm['jabatan']; ?></td>
                 <td class="text-center">
                   <?php if ($adm['is_active'] == 1) : ?>
-                    <a href="<?= base_url('users/activation/') . $adm['kd_admin'] ?>" onclick="alert('Apakah anda yakin ingin mengaktifkan Admin?')" class="badge badge-sm badge-success" data-toggle="tooltip" title="Nonaktifkan Admin?">Aktif</a>
+                    <a href="<?= base_url('users/activation/') . $adm['kd_admin'] ?>" onclick="return(confirm('Apakah anda yakin ingin mengaktifkan Admin?')" class="badge badge-sm badge-success" data-toggle="tooltip" title="Nonaktifkan Admin?">Aktif</a>
                   <?php else : ?>
-                    <a href="<?= base_url('users/activation/') . $adm['kd_admin'] ?>" onclick="alert('Apakah anda yakin ingin menonaktifkan Admin?')" class="badge badge-sm badge-danger" data-toggle="tooltip" title="Aktifkan Admin?">Nonaktif</a>
+                    <a href="<?= base_url('users/activation/') . $adm['kd_admin'] ?>" onclick="return(confirm('Apakah anda yakin ingin menonaktifkan Admin?'))" class="badge badge-sm badge-danger" data-toggle="tooltip" title="Aktifkan Admin?">Nonaktif</a>
                   <?php endif ?>
                 </td>
                 <td align="center">
