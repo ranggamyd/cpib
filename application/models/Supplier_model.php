@@ -29,13 +29,17 @@ class Supplier_model extends CI_Model
 
     public function tambah()
     {
+        $kd_supplier = $this->input->post('kd_supplier');
         $data = [
-            'kd_supplier' => $this->input->post('kd_supplier'),
+            'kd_supplier' => $kd_supplier,
             'nama_supplier' => $this->input->post('nama_supplier'),
             'nama_miniplant' => $this->input->post('nama_miniplant'),
-            'kd_jenis_produk' => $this->input->post('kd_jenis_produk'),
             'alamat' => $this->input->post('alamat'),
         ];
+
+        foreach ($this->input->post('kd_jenis_produk') as $item) {
+            if (!$this->db->insert('jenis_produk_supplier', ['kd_supplier' => $kd_supplier, 'kd_jenis_produk' => $item])) return FALSE;
+        }
 
         if (!$this->db->insert('suppliers', $data)) return FALSE;
 
@@ -54,6 +58,7 @@ class Supplier_model extends CI_Model
 
     public function ubah()
     {
+        $kd_supplier = $this->input->post('kd_supplier');
         $data = [
             'nama_supplier' => $this->input->post('nama_supplier'),
             'nama_miniplant' => $this->input->post('nama_miniplant'),
@@ -61,12 +66,19 @@ class Supplier_model extends CI_Model
             'alamat' => $this->input->post('alamat'),
         ];
 
-        if ($this->db->update('suppliers', $data, ['kd_supplier' => $this->input->post('kd_supplier')])) return TRUE;
+        if (!$this->db->delete('jenis_produk_supplier', ['kd_supplier' => $kd_supplier])) return FALSE;
+
+        foreach ($this->input->post('kd_jenis_produk') as $item) {
+            if (!$this->db->insert('jenis_produk_supplier', ['kd_supplier' => $kd_supplier, 'kd_jenis_produk' => $item])) return FALSE;
+        }
+
+        if ($this->db->update('suppliers', $data, ['kd_supplier' => $kd_supplier])) return TRUE;
     }
 
     public function hapus()
     {
         $kd_supplier = $this->input->post('kd_supplier');
+        if (!$this->db->delete('jenis_produk_supplier', ['kd_supplier' => $kd_supplier])) return FALSE;
         if (!$this->db->delete('suppliers', ['kd_supplier' => $kd_supplier])) return FALSE;
         if ($this->db->delete('users', ['kd_supplier' => $kd_supplier])) return TRUE;
     }

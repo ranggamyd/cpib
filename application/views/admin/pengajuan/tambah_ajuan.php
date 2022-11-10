@@ -15,41 +15,50 @@
             <input type="date" name="tgl_pengajuan" value="<?= date('Y-m-d') ?>" class="form-control mb-3" id="tgl_pengajuan" required>
           </div>
         </div>
-        <label for="kd_supplier">Supplier :</label>
-        <select name="kd_supplier" id="kd_supplier" class="form-control mb-3" required>
-          <?php foreach ($suppliers as $spl) : ?>
-            <option value="<?= $spl['kd_supplier'] ?>"><?= $spl['nama_supplier'] ?></option>
-          <?php endforeach ?>
-        </select>
-        <div class="row">
-          <div class="col">
-            <label for="nama_miniplant">Nama Mini Plant :</label>
-            <input type="text" name="nama_miniplant" id="nama_miniplant" class="form-control mb-3" required>
+        <div class="container bg-info rounded pt-2 pb-3 text-light">
+          <div class="row">
+            <div class="col">
+              <label for="kd_supplier">Supplier :</label>
+              <select name="kd_supplier" id="kd_supplier" class="form-control mb-3" required>
+                <?php foreach ($suppliers as $spl) : ?>
+                  <option value="<?= $spl['kd_supplier'] ?>"><?= $spl['nama_supplier'] ?></option>
+                <?php endforeach ?>
+              </select>
+            </div>
+            <div class="col">
+              <label for="nama_miniplant">Nama Mini Plant :</label>
+              <input type="text" name="nama_miniplant" id="nama_miniplant" class="form-control mb-3" readonly required>
+            </div>
           </div>
-          <div class="col">
-            <label for="jenis_produk">Jenis Produk :</label><br>
-            <select name="kd_produk" id="kd_produk" class="form-control mb-3" required>
-              <?php foreach ($jenis_produk as $jp) : ?>
-                <option value="<?= $jp['kd_jenis_produk'] ?>"><?= $jp['jenis_produk'] ?></option>
-              <?php endforeach ?>
-            </select>
+          <div class="row">
+            <div class="col">
+              <label for="alamat">Alamat :</label>
+              <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3" readonly required></textarea>
+            </div>
+            <div class="col">
+              <label for="jenis_produk">Jenis Produk :</label><br>
+              <select name="kd_produk" multiple id="kd_produk" class="form-control mb-3" readonly required>
+                <?php foreach ($jenis_produk as $jp) : ?>
+                  <option value="<?= $jp['kd_jenis_produk'] ?>"><?= $jp['jenis_produk'] ?></option>
+                <?php endforeach ?>
+              </select>
+              <a href="<?= base_url('suppliers/') ?>" class="btn btn-sm btn-primary float-right">Perbarui data supplier?</a>
+            </div>
           </div>
         </div>
-        <label for="alamat">Alamat :</label>
-        <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3" required></textarea>
         <hr>
 
-        <h5 class="mb-0">Dokumen Pelengkap</h5><br>
+        <h5 class="mb-0">Kelengkapan Dokumen</h5><br>
 
         <div class="row mt-0">
           <div class="col-md-6">
-            <label for="ktp">KTP</label>
+            <label for="ktp">KTP <small class="text-danger text-bold">*</small></label>
             <input type="file" name="ktp" id="ktp" class="form-control-file mb-3">
-            <label for="npwp">NPWP</label>
+            <label for="npwp">NPWP <small class="text-danger text-bold">*</small></label>
             <input type="file" name="npwp" id="npwp" class="form-control-file mb-3">
-            <label for="nib">NIB</label>
+            <label for="nib">NIB <small class="text-danger text-bold">*</small></label>
             <input type="file" name="nib" id="nib" class="form-control-file mb-3">
-            <label for="siup">SIUP</label>
+            <label for="siup">SIUP <small class="text-danger text-bold">*</small></label>
             <input type="file" name="siup" id="siup" class="form-control-file mb-3">
           </div>
           <div class="col-md-6">
@@ -57,7 +66,7 @@
             <input type="file" name="akta_usaha" id="akta_usaha" class="form-control-file mb-3">
             <label for="imb">IMB</label>
             <input type="file" name="imb" id="imb" class="form-control-file mb-3">
-            <label for="layout">LAY OUT/DENAH LOKASI</label>
+            <label for="layout">LAY-OUT / DENAH LOKASI</label>
             <input type="file" name="layout" id="layout" class="form-control-file mb-3">
             <label for="panduan_mutu">PANDUAN MUTU GMP-SSOP</label>
             <input type="file" name="panduan_mutu" id="panduan_mutu" class="form-control-file mb-3">

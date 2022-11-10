@@ -40,18 +40,18 @@ class Suppliers extends CI_Controller
         $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
         $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required');
         $this->form_validation->set_rules('nama_miniplant', 'Nama Mini Plant', 'required');
-        $this->form_validation->set_rules('kd_jenis_produk', 'Jenis Produk', 'required');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('kd_jenis_produk[]', 'Jenis Produk', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+            $this->session->set_flashdata('hasModalID', 'tambah_supplier');
             $this->index();
         } else {
             if ($this->supplier_model->tambah()) {
                 $this->session->set_flashdata('sukses', 'Berhasil menambahkan !');
                 redirect('suppliers');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+                $this->session->set_flashdata('gagal', 'Gagal menambahkanas !');
                 $this->index();
             }
         }
@@ -59,14 +59,17 @@ class Suppliers extends CI_Controller
 
     public function ubah()
     {
+        $kd_supplier = $this->input->post('kd_supplier');
+        $supplier = $this->db->get_where('suppliers', ['kd_supplier' => $kd_supplier])->row('kd_supplier');
+
         $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
         $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required');
         $this->form_validation->set_rules('nama_miniplant', 'Nama Mini Plant', 'required');
-        $this->form_validation->set_rules('kd_jenis_produk', 'Jenis Produk', 'required');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('kd_jenis_produk[]', 'Jenis Produk', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+            $this->session->set_flashdata('hasModalID', 'edit_supplier' . $supplier);
             $this->index();
         } else {
             if ($this->supplier_model->ubah()) {

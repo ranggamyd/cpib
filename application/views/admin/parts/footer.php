@@ -69,12 +69,15 @@
                         "positionClass": "toast-top-right",
                         "timeOut": "5000",
                     });
+                    <?php if ($this->session->flashdata('hasModalID')) : ?>
+                        $("#<?= $this->session->flashdata('hasModalID') ?>").modal();
+                    <?php endif ?>
                 </script>
             <?php endif ?>
 
             <!-- Perpage JS -->
             <?php if (isset($style['js'])) : ?>
-                <script src="<?= base_url('assets') ?>/dist/js/custom/<?= $style['js'] ?>"></script>
+                <script src="<?= base_url('assets') ?>/js/<?= $style['js'] ?>"></script>
             <?php endif ?>
             </body>
 

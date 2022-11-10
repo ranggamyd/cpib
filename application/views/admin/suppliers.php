@@ -31,7 +31,16 @@
                 <td><?= $spl['nama_supplier'] ?></td>
                 <td><?= $spl['nama_miniplant']; ?></td>
                 <td><?= $spl['alamat']; ?></td>
-                <td><?= $spl['jenis_produk']; ?></td>
+                <td class="text-center">
+                  <?php
+                  $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
+                  $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
+                  $jenis_produk_supplier = $this->db->get_where('jenis_produk_supplier', ['kd_supplier' => $spl['kd_supplier']])->result_array();
+                  foreach ($jenis_produk_supplier as $jp) :
+                  ?>
+                    <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
+                  <?php endforeach; ?>
+                </td>
                 <td class="text-center">
                   <?php if ($spl['is_active'] == 1) : ?>
                     <a href="<?= base_url('suppliers/activation/') . $spl['kd_supplier'] ?>" onclick="return(confirm('Apakah anda yakin ingin mengaktifkan Supplier?'))" class="badge badge-sm badge-success" data-toggle="tooltip" title="Nonaktifkan Supplier?">Aktif</a>
@@ -68,25 +77,37 @@
       <form action="<?= base_url('suppliers/tambah') ?>" method="post">
         <div class="modal-body">
           <label for="kd_supplier">Kode Supplier :</label>
-          <input type="text" name="kd_supplier" id="kd_supplier" class="form-control mb-3" value="<?= $kd_supplier_auto; ?>" readonly>
+          <input type="text" name="kd_supplier" id="kd_supplier" class="form-control mb-3 <?= form_error('kd_supplier') ? 'is-invalid' : '' ?>" value="<?= set_value('kd_supplier', $kd_supplier_auto) ?>" readonly required>
+          <div id='kd_supplier' class='invalid-feedback'>
+            <?= form_error('kd_supplier') ?>
+          </div>
           <label for="nama_supplier">Nama Supplier :</label>
-          <input type="text" name="nama_supplier" id="nama_supplier" class="form-control mb-3" required>
+          <input type="text" name="nama_supplier" id="nama_supplier" value="<?= set_value('nama_supplier') ?>" class="form-control mb-3 <?= form_error('nama_supplier') ? 'is-invalid' : '' ?>" required>
+          <div id='nama_supplier' class='invalid-feedback'>
+            <?= form_error('nama_supplier') ?>
+          </div>
           <div class="row">
             <div class="col">
               <label for="nama_miniplant">Nama Mini Plant :</label>
-              <input type="text" name="nama_miniplant" id="nama_miniplant" class="form-control mb-3" required>
+              <input type="text" name="nama_miniplant" id="nama_miniplant" value="<?= set_value('nama_miniplant') ?>" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" required>
+              <div id='nama_miniplant' class='invalid-feedback'>
+                <?= form_error('nama_miniplant') ?>
+              </div>
             </div>
             <div class="col">
-              <label for="kd_jenis_produk">Jenis Produk :</label><br>
-              <select name="kd_jenis_produk" id="kd_jenis_produk" class="form-control mb-3" required>
+              <label for="kd_jenis_produk[]">Jenis Produk :</label>
+              <select name="kd_jenis_produk[]" multiple id="kd_jenis_produk[]" class="form-control mb-3 <?= form_error('kd_jenis_produk[]') ? 'is-invalid' : '' ?>" required>
                 <?php foreach ($jenis_produk as $jp) : ?>
-                  <option value="<?= $jp['kd_jenis_produk'] ?>"><?= $jp['jenis_produk'] ?></option>
+                  <option value="<?= $jp['kd_jenis_produk'] ?>" <?= set_select('kd_jenis_produk[]', $jp['kd_jenis_produk']); ?>><?= $jp['jenis_produk'] ?></option>
                 <?php endforeach ?>
               </select>
+              <div id='kd_jenis_produk[]' class='invalid-feedback'>
+                <?= form_error('kd_jenis_produk[]') ?>
+              </div>
             </div>
           </div>
           <label for="alamat">Alamat :</label>
-          <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3" required></textarea>
+          <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3"><?= set_value('alamat') ?></textarea>
 
           <small>Info :
             <i>Data yang sudah di tambahkan akan segera muncul di dalam daftar nama supplier.
@@ -166,25 +187,37 @@
         <form action="<?= base_url('suppliers/ubah') ?>" method="post">
           <div class="modal-body">
             <label for="kd_supplier">Kode Supplier :</label>
-            <input type="text" name="kd_supplier" id="kd_supplier" class="form-control mb-3" value="<?= $spl['kd_supplier'] ?>" readonly>
+            <input type="text" name="kd_supplier" id="kd_supplier" class="form-control mb-3 <?= form_error('kd_supplier') ? 'is-invalid' : '' ?>" value="<?= set_value('kd_supplier', $spl['kd_supplier']) ?>" readonly>
+            <div id='kd_supplier' class='invalid-feedback'>
+              <?= form_error('kd_supplier') ?>
+            </div>
             <label for="nama_supplier">Nama Supplier :</label>
-            <input type="text" name="nama_supplier" id="nama_supplier" class="form-control mb-3" value="<?= $spl['nama_supplier'] ?>" required>
+            <input type="text" name="nama_supplier" id="nama_supplier" class="form-control mb-3 <?= form_error('nama_supplier') ? 'is-invalid' : '' ?>" value="<?= set_value('nama_supplier', $spl['nama_supplier']) ?>" required>
+            <div id='nama_supplier' class='invalid-feedback'>
+              <?= form_error('nama_supplier') ?>
+            </div>
             <div class="row">
               <div class="col">
                 <label for="nama_miniplant">Nama Mini Plant :</label>
-                <input type="text" name="nama_miniplant" id="nama_miniplant" class="form-control mb-3" value="<?= $spl['nama_miniplant'] ?>" required>
+                <input type="text" name="nama_miniplant" id="nama_miniplant" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" value="<?= set_value('nama_miniplant', $spl['nama_miniplant']) ?>" required>
+                <div id='nama_miniplant' class='invalid-feedback'>
+                  <?= form_error('nama_miniplant') ?>
+                </div>
               </div>
               <div class="col">
-                <label for="kd_jenis_produk">Jenis Produk :</label><br>
-                <select name="kd_jenis_produk" id="kd_jenis_produk" class="form-control mb-3" required>
+                <label for="kd_jenis_produk[]">Jenis Produk :</label>
+                <select name="kd_jenis_produk[]" multiple id="kd_jenis_produk[]" class="form-control mb-3 <?= form_error('kd_jenis_produk[]') ? 'is-invalid' : '' ?>" required>
                   <?php foreach ($jenis_produk as $jp) : ?>
-                    <option value="<?= $jp['kd_jenis_produk'] ?>" <?= $spl['kd_jenis_produk'] == $jp['kd_jenis_produk'] ? 'selected' : '' ?>><?= $jp['jenis_produk'] ?></option>
+                    <option value="<?= $jp['kd_jenis_produk'] ?>" <?= set_select('kd_jenis_produk[]', $jp['kd_jenis_produk']); ?>><?= $jp['jenis_produk'] ?></option>
                   <?php endforeach ?>
                 </select>
+                <div id='kd_jenis_produk[]' class='invalid-feedback'>
+                  <?= form_error('kd_jenis_produk[]') ?>
+                </div>
               </div>
             </div>
             <label for=" alamat">Alamat :</label>
-            <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3" required><?= $spl['alamat'] ?></textarea>
+            <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3"><?= set_value('alamat', $spl['alamat']) ?></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tutup</button>

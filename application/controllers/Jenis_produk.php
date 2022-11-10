@@ -7,9 +7,9 @@ class Jenis_produk extends CI_Controller
   {
     parent::__construct();
     if (!$this->auth_model->current_user()) {
-        $this->session->set_userdata('referred_from', current_url());
-        $this->session->set_flashdata('gagal', 'Gagal mengakses, Silahkan login kembali !');
-        redirect('auth');
+      $this->session->set_userdata('referred_from', current_url());
+      $this->session->set_flashdata('gagal', 'Gagal mengakses, Silahkan login kembali !');
+      redirect('auth');
     }
   }
 
@@ -37,11 +37,11 @@ class Jenis_produk extends CI_Controller
   public function tambah()
   {
     $this->form_validation->set_rules('kd_jenis_produk', 'Kode Jenis_produk', 'required');
-    $this->form_validation->set_rules('jenis_produk', 'Jenis Produk', 'required');
-    $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
+    $this->form_validation->set_rules('jenis_produk', 'Jenis Produk', 'required|is_unique[jenis_produk.jenis_produk]');
 
     if ($this->form_validation->run() == FALSE) {
       $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+      $this->session->set_flashdata('hasModalID', 'tambah_jenis_produk');
       $this->index();
     } else {
       if ($this->jenis_produk_model->tambah()) {
@@ -56,12 +56,16 @@ class Jenis_produk extends CI_Controller
 
   public function ubah()
   {
+    $kd_jenis_produk = $this->input->post('kd_jenis_produk');
+    $jenis_produk = $this->db->get_where('jenis_produk', ['kd_jenis_produk' => $kd_jenis_produk])->row('jenis_produk');
+
     $this->form_validation->set_rules('kd_jenis_produk', 'Kode Jenis_produk', 'required');
     $this->form_validation->set_rules('jenis_produk', 'Jenis Produk', 'required');
-    $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
+    if ($this->input->post('jenis_produk') != $jenis_produk) $this->form_validation->set_rules('jenis_produk', 'Jenis Produk', 'required|is_unique[jenis_produk.jenis_produk]');
 
     if ($this->form_validation->run() == FALSE) {
       $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+      $this->session->set_flashdata('hasModalID', 'edit_jenis_produk' . $kd_jenis_produk);
       $this->index();
     } else {
       if ($this->jenis_produk_model->ubah()) {

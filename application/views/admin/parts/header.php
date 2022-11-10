@@ -81,6 +81,12 @@
                     <span>Data Supplier</span>
                 </a>
             </li>
+            <li class="nav-item <?= ($this->uri->segment(1) == 'tim_inspeksi') ? 'active' : ''; ?>">
+                <a class="nav-link" href="<?= base_url('tim_inspeksi') ?>">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Tim Inspeksi</span>
+                </a>
+            </li>
             <li class="nav-item <?= ($this->uri->segment(1) == 'users') ? 'active' : ''; ?>">
                 <a class="nav-link" href="<?= base_url('users') ?>">
                     <i class="fas fa-fw fa-user"></i>

@@ -44,22 +44,29 @@ class Pengajuan extends CI_Controller
     }
     public function simpan_ajuan()
     {
-
+        $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
+        $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
+        $this->form_validation->set_rules('tgl_pengajuan', 'Tanggal Pengajuan', 'required');
         $this->form_validation->set_rules('ktp', 'KTP', 'trim|xss_clean');
         $this->form_validation->set_rules('npwp', 'NPWP', 'trim|xss_clean');
-        // $this->form_validation->set_rules('nib', 'NIB', 'required');
-        // $this->form_validation->set_rules('siup', 'SIUP', 'required');
-        // $this->form_validation->set_rules('akta_usaha', 'AKTA USAHA', 'required');
-        // $this->form_validation->set_rules('imb', 'IMB', 'required');
-        // $this->form_validation->set_rules('layout', 'LAYOUT', 'required');
-        // $this->form_validation->set_rules('panduan_mutu', 'PANDUAN MUTU', 'required');
+        $this->form_validation->set_rules('nib', 'NIB', 'trim|xss_clean');
+        $this->form_validation->set_rules('siup', 'SIUP', 'trim|xss_clean');
+        $this->form_validation->set_rules('akta_usaha', 'Akta Usaha', 'trim|xss_clean');
+        $this->form_validation->set_rules('imb', 'IMB', 'trim|xss_clean');
+        $this->form_validation->set_rules('layout', 'LAYOUT', 'trim|xss_clean');
+        $this->form_validation->set_rules('panduan_mutu', 'Panduan Mutu', 'trim|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
             $this->index();
         } else {
-            $this->pengajuan_model->tambah();
-            redirect('pengajuan');
+            if ($this->pengajuan_model->tambah()) {
+                $this->session->set_flashdata('sukses', 'Berhasil mengubah !');
+                redirect('pengajuan');
+            } else {
+                $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+                $this->index();
+            }
         }
     }
 

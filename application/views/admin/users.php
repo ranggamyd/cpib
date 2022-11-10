@@ -67,21 +67,27 @@
       </div>
       <form action="<?= base_url('users/tambah') ?>" method="post">
         <div class="modal-body">
-          <label for="kd_admin">Kode User :</label>
-          <input type="text" name="kd_admin" id="kd_admin" class="form-control mb-3" value="<?= $kd_admin_auto; ?>" readonly>
-          <label for="nama_admin">Nama User :</label>
-          <input type="text" name="nama_admin" id="nama_admin" class="form-control mb-3" required>
+          <label for="kd_admin">Kode Admin :</label>
+          <input type="text" name="kd_admin" id="kd_admin" class="form-control mb-3 <?= form_error('kd_admin') ? 'is-invalid' : '' ?>" value="<?= set_value('kd_admin', $kd_admin_auto) ?>" readonly required>
+          <div id='kd_admin' class='invalid-feedback'>
+            <?= form_error('kd_admin') ?>
+          </div>
+          <label for="nama_admin">Nama Admin :</label>
+          <input type="text" name="nama_admin" value="<?= set_value('nama_admin') ?>" id="nama_admin" class="form-control mb-3 <?= form_error('nama_admin') ? 'is-invalid' : '' ?>" required>
+          <div id='nama_admin' class='invalid-feedback'>
+            <?= form_error('nama_admin') ?>
+          </div>
           <label for="jenis_kelamin">Jenis Kelamin :</label>
-          <select name="jenis_kelamin" id="jenis_kelamin" class="form-control mb-3" required>
-            <option value="Laki-laki">Laki-laki</option>
-            <option value="Perempuan">Perempuan</option>
+          <select name="jenis_kelamin" id="jenis_kelamin" class="form-control mb-3">
+            <option value="Laki-laki" <?= set_select('jenis_kelamin', 'Laki-laki') ?>>Laki-laki</option>
+            <option value="Perempuan" <?= set_select('jenis_kelamin', 'Perempuan') ?>>Perempuan</option>
           </select>
           <label for="alamat">Alamat :</label>
-          <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3" required></textarea>
+          <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3"><?= set_value('alamat') ?></textarea>
           <label for="jabatan">Jabatan :</label><br>
-          <select name="jabatan" id="jabatan" class="form-control mb-3" required>
-            <option value="Administrator">Administrator</option>
-            <option value="Inspektur">Inspektur</option>
+          <select name="jabatan" id="jabatan" class="form-control mb-3 <?= form_error('jabatan') ? 'is-invalid' : '' ?>" required>
+            <option value="Administrator" <?= set_select('jabatan', 'Administrator') ?>>Administrator</option>
+            <option value="Inspektur" <?= set_select('jabatan', 'Inspektur') ?>>Inspektur</option>
           </select>
 
           <small>Info :
@@ -161,21 +167,27 @@
         </div>
         <form action="<?= base_url('users/ubah') ?>" method="post">
           <div class="modal-body">
-            <label for="kd_admin">Kode User :</label>
-            <input type="text" name="kd_admin" id="kd_admin" class="form-control mb-3" value="<?= $adm['kd_admin'] ?>" readonly>
-            <label for="nama_admin">Nama User :</label>
-            <input type="text" name="nama_admin" id="nama_admin" class="form-control mb-3" value="<?= $adm['nama_admin'] ?>" required>
-            <label for=" jenis_kelamin">Jenis Kelamin :</label>
-            <select name="jenis_kelamin" id="jenis_kelamin" class="form-control mb-3" required>
-              <option value="Laki-laki" <?= $adm['jenis_kelamin'] == 'Laki-laki' ? 'selected' : '' ?>>Laki-laki</option>
-              <option value="Perempuan" <?= $adm['jenis_kelamin'] == 'Perempuan' ? 'selected' : '' ?>>Perempuan</option>
+            <label for="kd_admin">Kode Admin :</label>
+            <input type="text" name="kd_admin" id="kd_admin" class="form-control mb-3 <?= form_error('kd_admin') ? 'is-invalid' : '' ?>" value="<?= set_value('kd_admin', $adm['kd_admin']) ?>" readonly required>
+            <div id='kd_admin' class='invalid-feedback'>
+              <?= form_error('kd_admin') ?>
+            </div>
+            <label for="nama_admin">Nama Admin :</label>
+            <input type="text" name="nama_admin" value="<?= set_value('nama_admin') ?>" id="nama_admin" class="form-control mb-3 <?= form_error('nama_admin', $adm['nama_admin']) ? 'is-invalid' : '' ?>" required>
+            <div id='nama_admin' class='invalid-feedback'>
+              <?= form_error('nama_admin') ?>
+            </div>
+            <label for="jenis_kelamin">Jenis Kelamin :</label>
+            <select name="jenis_kelamin" id="jenis_kelamin" class="form-control mb-3">
+              <option value="Laki-laki" <?= set_select('jenis_kelamin', 'Laki-laki', $adm['jenis_kelamin'] == 'Laki-laki' ? TRUE : FALSE) ?>>Laki-laki</option>
+              <option value="Perempuan" <?= set_select('jenis_kelamin', 'Laki-laki', $adm['jenis_kelamin'] == 'Perempuan' ? TRUE : FALSE) ?>>Perempuan</option>
             </select>
-            <label for=" alamat">Alamat :</label>
-            <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3" required><?= $adm['alamat'] ?></textarea>
+            <label for="alamat">Alamat :</label>
+            <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3"><?= set_value('alamat', $adm['alamat']) ?></textarea>
             <label for="jabatan">Jabatan :</label><br>
-            <select name="jabatan" id="jabatan" class="form-control mb-3" required>
-              <option value="Administrator" <?= $adm['jabatan'] == 'Administrator' ? 'selected' : '' ?>>Administrator</option>
-              <option value="Inspektur" <?= $adm['jabatan'] == 'Inspektur' ? 'selected' : '' ?>>Inspektur</option>
+            <select name="jabatan" id="jabatan" class="form-control mb-3 <?= form_error('jabatan') ? 'is-invalid' : '' ?>" required>
+              <option value="Administrator" <?= set_select('jabatan', 'Administrator', $adm['jabatan'] == 'Administrator' ? TRUE : FALSE) ?>>Administrator</option>
+              <option value="Inspektur" <?= set_select('jabatan', 'Inspektur', $adm['jabatan'] == 'Inspektur' ? TRUE : FALSE) ?>>Inspektur</option>
             </select>
           </div>
           <div class="modal-footer">

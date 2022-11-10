@@ -28,7 +28,7 @@ class Pengajuan_model extends CI_Model
 
         $this->load->library('upload', $config);
 
-        $files = ['ktp', 'npwp'];
+        $files = ['ktp', 'npwp', 'nib', 'siup', 'akta_usaha', 'imb', 'layout', 'panduan_mutu'];
 
         $uploadedFiles = [];
         foreach ($files as $item) {
@@ -49,14 +49,15 @@ class Pengajuan_model extends CI_Model
             'status' => 'Tertunda',
             'ktp' => $uploadedFiles[0],
             'npwp' => $uploadedFiles[1],
-            // 'nib' => $uploadedFiles[2],
-            // 'siup' => $uploadedFiles[3],
-            // 'akta_usaha' => $uploadedFiles[4],
-            // 'imb' => $uploadedFiles[5],
-            // 'layout' => $uploadedFiles[6],
-            // 'panduan_mutu' => $uploadedFiles[7],
+            'nib' => $uploadedFiles[2],
+            'siup' => $uploadedFiles[3],
+            'akta_usaha' => $uploadedFiles[4],
+            'imb' => $uploadedFiles[5],
+            'layout' => $uploadedFiles[6],
+            'panduan_mutu' => $uploadedFiles[7],
         ];
-        $this->db->insert('pengajuan', $data);
+
+        if ($this->db->insert('pengajuan', $data)) return TRUE;
     }
 
     public function semuaPengajuan()
