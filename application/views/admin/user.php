@@ -56,20 +56,26 @@
 
 <!-- Modal Edit Gambar -->
 <div class="modal fade" id="edit_avatar" tabindex="-1" role="dialog" aria-labelledby="edit_userLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md" role="document">
+  <div class="modal-dialog modal-sm text-center" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="edit_userLabel">Ubah Profil</h5>
+        <h5 class="modal-title" id="edit_userLabel">Ubah Foto Profil</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <form action="<?= base_url('user/ubah_avatar') ?>" method="post" enctype="multipart/form-data">
-        <div class="modal-body text-center">
+        <div class="modal-body py-4">
           <input type="hidden" name="kd_admin" value="<?= set_value('kd_admin', $user->kd_admin) ?>" id="kd_admin" class="form-control mb-3 <?= form_error('kd_admin') ? 'is-invalid' : '' ?>" readonly required>
-          <img src="<?= base_url() . 'assets/img/' . $user->avatar; ?>" class="rounded-circle" width="200" height="200" alt="" style="object-fit: cover;"><br>
-          <label for=""> PILIH AVATAR</label>
-          <input type="file" class="form-control-file" name="avatar" id="avatar">
+          <div id='kd_admin' class='invalid-feedback'>
+            <?= form_error('kd_admin') ?>
+          </div>
+          <img src="<?= base_url() . 'assets/img/' . $user->avatar; ?>" class="imgPreview rounded-circle mb-4 justify-content-center" width="200" height="200" alt="" style="object-fit: cover;"><br>
+          <label for="avatar" class="text-dark font-weight-bold text-left">PILIH FOTO</label>
+          <input type="file" class="form-control-file <?= form_error('avatar') ? 'is-invalid' : '' ?>" name="avatar" accept="image/*" id="avatar">
+          <div id='avatar' class='invalid-feedback'>
+            <?= form_error('avatar') ?>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tutup</button>
@@ -138,7 +144,7 @@
               </div>
               <div class="bg-secondary p-3 text-light rounded">
                 <label for="avatar">Foto Profil :</label>
-                <input type="file" name="avatar" id="avatar" class="form-control-file mb-4">
+                <input type="file" name="avatar" id="avatar" accept="image/*" class="form-control-file mb-4">
                 <div class="row">
                   <div class="col">
                     <label for="password">Password Baru</label>

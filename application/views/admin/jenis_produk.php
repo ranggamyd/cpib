@@ -6,16 +6,17 @@
   <div class="row">
     <?php
     $no = 1;
+    $colors = ["bg-primary","bg-success","bg-danger","bg-warning", "badge-info"];
     foreach ($jenis_produk as $jp) {
     ?>
       <div class="col-4">
         <div class="card shadow mb-4">
-          <a href="#<?= $jp['kd_jenis_produk'] ?>" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="<?= $jp['kd_jenis_produk'] ?>">
-            <h6 class="m-0 font-weight-bold text-primary"><?= $jp['jenis_produk'] ?></h6>
+          <a href="#<?= $jp['kd_jenis_produk'] ?>" class="d-block card-header <?= $colors[array_rand($colors)] ?> py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="<?= $jp['kd_jenis_produk'] ?>">
+            <h6 class="m-0 font-weight-bold text-light"><?= $jp['jenis_produk'] ?></h6>
           </a>
           <!-- Card Content - Collapse -->
           <div class="collapse" id="<?= $jp['kd_jenis_produk'] ?>">
-            <div class="card-body">
+            <div class="card-body bg-light">
               <?= $jp['deskripsi'] ?>
               <div class="text-right">
                 <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#edit_jenis_produk<?= $jp['kd_jenis_produk'] ?>" id="#myBtn" data-dismiss="modal"><i class="fa fa-fw fa-edit"></i></a>
@@ -42,11 +43,17 @@
       <form action="<?= base_url('jenis_produk/tambah') ?>" method="post">
         <div class="modal-body">
           <label for="kd_jenis_produk">Kode Jenis Produk :</label>
-          <input type="text" name="kd_jenis_produk" id="kd_jenis_produk" class="form-control mb-3" value="<?= $kd_jenis_produk_auto; ?>" readonly>
+          <input type="text" name="kd_jenis_produk" id="kd_jenis_produk" class="form-control mb-3 <?= form_error('kd_jenis_produk') ? 'is-invalid' : '' ?>" value="<?= set_value('kd_jenis_produk', $kd_jenis_produk_auto); ?>" readonly required>
+          <div id='kd_jenis_produk' class='invalid-feedback'>
+            <?= form_error('kd_jenis_produk') ?>
+          </div>
           <label for="jenis_produk">Jenis Produk :</label>
-          <input type="text" name="jenis_produk" id="jenis_produk" class="form-control mb-3" required>
+          <input type="text" name="jenis_produk" value="<?= set_value('jenis_produk') ?>" id="jenis_produk" class="form-control mb-3 <?= form_error('jenis_produk') ? 'is-invalid' : '' ?>" required>
+          <div id='jenis_produk' class='invalid-feedback'>
+            <?= form_error('jenis_produk') ?>
+          </div>
           <label for="deskripsi">Deskripsi :</label>
-          <textarea name="deskripsi" id="deskripsi" rows="4" class="form-control mb-3" required></textarea>
+          <textarea name="deskripsi" id="deskripsi" rows="4" class="form-control mb-3"><?= set_value('deskripsi') ?></textarea>
 
           <small>Info :
             <i>Data yang sudah di tambahkan akan segera muncul di dalam daftar Jenis Produk.
@@ -79,11 +86,17 @@
         <form action="<?= base_url('jenis_produk/ubah') ?>" method="post">
           <div class="modal-body">
             <label for="kd_jenis_produk">Kode Jenis Produk :</label>
-            <input type="text" name="kd_jenis_produk" id="kd_jenis_produk" class="form-control mb-3" value="<?= $jp['kd_jenis_produk'] ?>" readonly>
+            <input type="text" name="kd_jenis_produk" id="kd_jenis_produk" class="form-control mb-3 <?= form_error('kd_jenis_produk') ? 'is-invalid' : '' ?>" value="<?= set_value('kd_jenis_produk', $jp['kd_jenis_produk']) ?>" readonly required>
+            <div id='kd_jenis_produk' class='invalid-feedback'>
+              <?= form_error('kd_jenis_produk') ?>
+            </div>
             <label for="jenis_produk">Jenis Produk :</label>
-            <input type="text" name="jenis_produk" id="jenis_produk" class="form-control mb-3" value="<?= $jp['jenis_produk'] ?>" required>
+            <input type="text" name="jenis_produk" id="jenis_produk" class="form-control mb-3" value="<?= set_value('jenis_produk', $jp['jenis_produk']) ?>" required>
+            <div id='jenis_produk' class='invalid-feedback'>
+              <?= form_error('jenis_produk') ?>
+            </div>
             <label for="deskripsi">Deskripsi :</label>
-            <textarea name="deskripsi" id="deskripsi" rows="4" class="form-control mb-3" required><?= $jp['deskripsi'] ?></textarea>
+            <textarea name="deskripsi" id="deskripsi" rows="4" class="form-control mb-3"><?= set_value('deskripsi', $jp['deskripsi']) ?></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tutup</button>

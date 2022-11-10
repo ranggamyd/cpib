@@ -6,11 +6,11 @@ class Users extends CI_Controller
   function __construct()
   {
     parent::__construct();
-    if (!$this->auth_model->current_user()) {
-        $this->session->set_userdata('referred_from', current_url());
-        $this->session->set_flashdata('gagal', 'Gagal mengakses, Silahkan login kembali !');
-        redirect('auth');
-    }
+    // if (!$this->auth_model->current_user()) {
+    //     $this->session->set_userdata('referred_from', current_url());
+    //     $this->session->set_flashdata('gagal', 'Gagal mengakses, Silahkan login kembali !');
+    //     redirect('auth');
+    // }
   }
 
   private function loadView($file, $data)
@@ -38,12 +38,11 @@ class Users extends CI_Controller
   {
     $this->form_validation->set_rules('kd_admin', 'Kode Admin', 'required');
     $this->form_validation->set_rules('nama_admin', 'Nama Admin', 'required');
-    $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
-    $this->form_validation->set_rules('alamat', 'Alamat', 'required');
     $this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
 
     if ($this->form_validation->run() == FALSE) {
       $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+      $this->session->set_flashdata('hasModalID', 'tambah_user');
       $this->index();
     } else {
       if ($this->user_model->tambah()) {
@@ -58,14 +57,16 @@ class Users extends CI_Controller
 
   public function ubah()
   {
+    $kd_admin = $this->input->post('kd_admin');
+    $admin = $this->db->get_where('admin', ['kd_admin' => $kd_admin])->row('kd_admin');
+
     $this->form_validation->set_rules('kd_admin', 'Kode Admin', 'required');
     $this->form_validation->set_rules('nama_admin', 'Nama Admin', 'required');
-    $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
-    $this->form_validation->set_rules('alamat', 'Alamat', 'required');
     $this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
 
     if ($this->form_validation->run() == FALSE) {
       $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+      $this->session->set_flashdata('hasModalID', 'edit_user' . $admin);
       $this->index();
     } else {
       if ($this->user_model->ubah()) {
@@ -91,14 +92,14 @@ class Users extends CI_Controller
 
   public function activation($kd_admin)
   {
-      $activation = $this->user_model->activation($kd_admin);
+    $activation = $this->user_model->activation($kd_admin);
 
-      if ($activation == 'activated') {
-          $this->session->set_flashdata('sukses', 'Berhasil mengaktifkan Admin !');
-          redirect('users');
-      } else {
-          $this->session->set_flashdata('sukses', 'Berhasil menonaktifkan Admin !');
-          $this->index();
-      }
+    if ($activation == 'activated') {
+      $this->session->set_flashdata('sukses', 'Berhasil mengaktifkan Admin !');
+      redirect('users');
+    } else {
+      $this->session->set_flashdata('sukses', 'Berhasil menonaktifkan Admin !');
+      $this->index();
+    }
   }
 }
