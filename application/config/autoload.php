@@ -141,5 +141,6 @@ $autoload['model'] = [
     'pengajuan_model',
     'perbaikan_ajuan_model',
     'sertifikat_model',
-    'pengajuan_supplier_model'
+    'pengajuan_supplier_model',
+    'daftar_isian_model'
 ];

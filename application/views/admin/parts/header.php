@@ -68,6 +68,13 @@
             <hr class="sidebar-divider">
 
             <div class="sidebar-heading">Master Data</div>
+            <li class="nav-item <?= ($this->uri->segment(1) == 'daftar_isian') ? 'active' : ''; ?>">
+                <a class="nav-link" href="<?= base_url('daftar_isian') ?>">
+                    <i class="far fa-fw fa-file-alt"></i>
+                    <span>Daftar Isian</span>
+                </a>
+            </li>
+
             <li class="nav-item <?= ($this->uri->segment(1) == 'jenis_produk') ? 'active' : ''; ?>">
                 <a class="nav-link" href="<?= base_url('jenis_produk') ?>">
                     <i class="fas fa-fw fa-cog"></i>
