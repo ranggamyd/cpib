@@ -19,11 +19,12 @@
                     <thead class="text-center">
                         <tr>
                             <th>#</th>
+                            <th>Tanggal Pengajuan</th>
                             <th>Nama Supplier</th>
-                            <th>Nama Mini Plant</th>
                             <th>Jenis Produk</th>
                             <th>Alamat</th>
                             <th>Status</th>
+                            <th class="text-center">Opsi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,13 +33,22 @@
                         foreach ($pengajuan_supplier as $item) :
                         ?>
                             <tr>
-                                <td><?= $i++ ?></td>
-                                <td><?= $item['nama_supplier'] ?></td>
-                                <td></td>
+                                <td class="text-center"><?= $i++ ?></td>
+                                <td class="text-center"><?= date('d-M-Y', strtotime($item['tgl_pengajuan'])) ?></td>
+                                <td class="text-center"><?= $item['nama_supplier'] ?></td>
                                 <td></td>
                                 <td></td>
                                 <td class="text-center">
-                                    <div class="badge badge-success">Diterima</div>
+                                    <?php if ($item['status'] == 'Tertunda') { ?>
+                                        <div class="badge badge-info">Menunggu Inspeksi</div>
+                                    <?php } else { ?>
+                                        <div class="badge badge-success">Terdafar</div>
+                                    <?php } ?>
+                                </td>
+                                <td class="text-center">
+                                    <a href="" class="btn btn-success"><i class="fas fa-info-circle"></i></a>
+                                    <a href="" class="btn btn-primary"><i class="fa fa-fw fa-edit"></i></a>
+                                    <a href="" data-toggle="modal" data-target="#hapus_ajuan<?= $item['kd_pengajuan'] ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus"><i class="fas fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

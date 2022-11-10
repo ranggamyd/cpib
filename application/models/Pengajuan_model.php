@@ -17,7 +17,7 @@ class Pengajuan_model extends CI_Model
             $kd = 1;
         }
         $batas = str_pad($kd, 4, "0", STR_PAD_LEFT);
-        $kdpengajuan = "AJU-" . $batas;
+        $kdpengajuan = "REG-" . $batas;
         return $kdpengajuan;
     }
 
