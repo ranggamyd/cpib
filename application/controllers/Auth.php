@@ -67,19 +67,19 @@ class Auth extends CI_Controller
 
   public function register_account()
   {
-    $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
+    $this->form_validation->set_rules('name', 'Nama Lengkap', 'required');
     $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
-    $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required');
+    $this->form_validation->set_rules('phone', 'No. Telepon', 'required');
     $this->form_validation->set_rules('email', 'email', 'required|valid_email|is_unique[users.username]');
     $this->form_validation->set_rules('password1', 'Password', 'required');
     $this->form_validation->set_rules('password2', 'Password Confirmation', 'required|matches[password1]');
 
     if ($this->form_validation->run() == FALSE) {
-      $this->session->set_flashdata('gagal', 'Gagal Masuk !');
-      $this->index();
+      $this->session->set_flashdata('gagal', 'Gagal Mendaftar !');
+      $this->register();
     } else {
       if ($this->auth_model->register()) {
-        $this->session->set_flashdata('sukses', 'Berhasil mendaftarkan akun !');
+        $this->session->set_flashdata('sukses', 'Berhasil mendaftarkan akun, mohon menunggu konfirmasi admin sebelum melakukan login !');
         redirect('auth');
       } else {
         $this->session->set_flashdata('gagal', 'Gagal mendaftarkan akun !');

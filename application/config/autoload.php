@@ -136,6 +136,7 @@ $autoload['model'] = [
     'auth_model',
     'supplier_model',
     'user_model',
+    'tim_inspeksi_model',
     'jenis_produk_model',
     'pengajuan_model',
     'perbaikan_ajuan_model',
