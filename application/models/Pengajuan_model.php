@@ -21,6 +21,18 @@ class Pengajuan_model extends CI_Model
         return $kdpengajuan;
     }
 
+    public function semuaPengajuan()
+    {
+        return $this->db->get('pengajuan')->result_array();
+    }
+
+    public function pengajuan($kd_pengajuan)
+    {
+        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
+        $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = suppliers.kd_jenis_produk', 'left');
+        return $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
+    }
+
     public function tambah()
     {
         $config['upload_path']    = './assets/dokumen';
@@ -40,37 +52,54 @@ class Pengajuan_model extends CI_Model
 
         $kd_pengajuan = $this->input->post('kd_pengajuan');
         $kd_supplier = $this->input->post('kd_supplier');
+        $nama_miniplant = $this->input->post('nama_miniplant');
         $tgl_pengajuan = $this->input->post('tgl_pengajuan');
+
+        foreach ($this->input->post('kd_jenis_produk') as $item) {
+            $jenis_produk = [
+                'kd_pengajuan' => $kd_pengajuan,
+                'kd_supplier' => $kd_supplier,
+                'kd_jenis_produk' => $item,
+            ];
+
+            if (!$this->db->insert('jenis_produk_supplier', $jenis_produk)) return FALSE;
+        };
+
+        $miniplant = [
+            'kd_pengajuan' => $kd_pengajuan,
+            'kd_supplier' => $kd_supplier,
+            'nama_miniplant' => $nama_miniplant,
+        ];
+
+        if (!$this->db->insert('miniplant_supplier', $miniplant)) return FALSE;
 
         $data = [
             'kd_pengajuan' => $kd_pengajuan,
             'kd_supplier' => $kd_supplier,
+            'nama_miniplant' => $nama_miniplant,
             'tgl_pengajuan' => $tgl_pengajuan,
             'status' => 'Tertunda',
             'ktp' => $uploadedFiles[0],
             'npwp' => $uploadedFiles[1],
             'nib' => $uploadedFiles[2],
             'siup' => $uploadedFiles[3],
-            'akta_usaha' => $uploadedFiles[4],
-            'imb' => $uploadedFiles[5],
-            'layout' => $uploadedFiles[6],
-            'panduan_mutu' => $uploadedFiles[7],
+            'akta_usaha' => array_key_exists(4, $uploadedFiles) ? $uploadedFiles[4] : '',
+            'imb' => array_key_exists(5, $uploadedFiles) ? $uploadedFiles[5] : '',
+            'layout' => array_key_exists(6, $uploadedFiles) ? $uploadedFiles[6] : '',
+            'panduan_mutu' => array_key_exists(7, $uploadedFiles) ? $uploadedFiles[7] : '',
         ];
 
         if ($this->db->insert('pengajuan', $data)) return TRUE;
     }
 
-    public function semuaPengajuan()
+    public function hapus($kd_pengajuan)
     {
-        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
-        $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = suppliers.kd_jenis_produk', 'left');
-        return $this->db->get('pengajuan')->result_array();
+        if ($this->db->delete('pengajuan', ['kd_pengajuan' => $kd_pengajuan])) return TRUE;
     }
 
-    public function pengajuan($kd_pengajuan)
+    public function check_team($kd_pengajuan)
     {
-        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
-        $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = suppliers.kd_jenis_produk', 'left');
-        return $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
+        $team = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $kd_pengajuan]);
+        if ($team->num_rows() > 0) return $team;
     }
 }

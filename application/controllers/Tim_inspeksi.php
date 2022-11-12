@@ -27,8 +27,9 @@ class Tim_inspeksi extends CI_Controller
 
     public function index()
     {
-        $data['kd_tim_inspeksi_auto'] = $this->tim_inspeksi_model->kd_tim_inspeksi_auto();
         $data['tim_inspeksi'] = $this->tim_inspeksi_model->tim_inspeksi();
+        $data['kd_tim_inspeksi_auto'] = $this->tim_inspeksi_model->kd_tim_inspeksi_auto();
+        $data['kd_pengajuan'] = $this->db->get_where('pengajuan', ['status' => 'Tertunda']);
         $data['suppliers'] = $this->supplier_model->suppliers();
         $data['admin'] = $this->user_model->users();
 
@@ -39,6 +40,7 @@ class Tim_inspeksi extends CI_Controller
     public function tambah()
     {
         $this->form_validation->set_rules('kd_tim_inspeksi', 'Kode Tim_inspeksi', 'required');
+        $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
         $this->form_validation->set_rules('pimpinan_supplier', 'Pimpinan Supplier', 'required');
         $this->form_validation->set_rules('ketua_inspeksi', 'Ketua Inspeksi', 'required');
         $this->form_validation->set_rules('anggota1', 'Anggota 1', 'required|differs[ketua_inspeksi]');
@@ -85,9 +87,9 @@ class Tim_inspeksi extends CI_Controller
         }
     }
 
-    public function hapus()
+    public function hapus($kd_tim_inspeksi)
     {
-        if ($this->tim_inspeksi_model->hapus()) {
+        if ($this->tim_inspeksi_model->hapus($kd_tim_inspeksi)) {
             $this->session->set_flashdata('sukses', 'Berhasil menghapus !');
             redirect('tim_inspeksi');
         } else {

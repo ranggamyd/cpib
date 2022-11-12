@@ -14,9 +14,7 @@
               <th class="text-center">No.</th>
               <th>Kode Supplier</th>
               <th>Nama Supplier</th>
-              <th>Nama Mini Plant</th>
               <th>Alamat</th>
-              <th>Jenis Produk</th>
               <th>Status</th>
               <th>Opsi</th>
             </tr>
@@ -29,18 +27,7 @@
                 <td align="center"><?= $no++; ?></td>
                 <td class="text-center"><span class="badge badge-white"><?= $spl['kd_supplier']; ?></span></td>
                 <td><?= $spl['nama_supplier'] ?></td>
-                <td><?= $spl['nama_miniplant']; ?></td>
                 <td><?= $spl['alamat']; ?></td>
-                <td class="text-center">
-                  <?php
-                  $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
-                  $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
-                  $jenis_produk_supplier = $this->db->get_where('jenis_produk_supplier', ['kd_supplier' => $spl['kd_supplier']])->result_array();
-                  foreach ($jenis_produk_supplier as $jp) :
-                  ?>
-                    <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
-                  <?php endforeach; ?>
-                </td>
                 <td class="text-center">
                   <?php if ($spl['is_active'] == 1) : ?>
                     <a href="<?= base_url('suppliers/activation/') . $spl['kd_supplier'] ?>" onclick="return(confirm('Apakah anda yakin ingin mengaktifkan Supplier?'))" class="badge badge-sm badge-success" data-toggle="tooltip" title="Nonaktifkan Supplier?">Aktif</a>
@@ -86,26 +73,6 @@
           <div id='nama_supplier' class='invalid-feedback'>
             <?= form_error('nama_supplier') ?>
           </div>
-          <div class="row">
-            <div class="col">
-              <label for="nama_miniplant">Nama Mini Plant :</label>
-              <input type="text" name="nama_miniplant" id="nama_miniplant" value="<?= set_value('nama_miniplant') ?>" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" required>
-              <div id='nama_miniplant' class='invalid-feedback'>
-                <?= form_error('nama_miniplant') ?>
-              </div>
-            </div>
-            <div class="col">
-              <label for="kd_jenis_produk[]">Jenis Produk :</label>
-              <select name="kd_jenis_produk[]" multiple id="kd_jenis_produk[]" class="form-control mb-3 <?= form_error('kd_jenis_produk[]') ? 'is-invalid' : '' ?>" required>
-                <?php foreach ($jenis_produk as $jp) : ?>
-                  <option value="<?= $jp['kd_jenis_produk'] ?>" <?= set_select('kd_jenis_produk[]', $jp['kd_jenis_produk']); ?>><?= $jp['jenis_produk'] ?></option>
-                <?php endforeach ?>
-              </select>
-              <div id='kd_jenis_produk[]' class='invalid-feedback'>
-                <?= form_error('kd_jenis_produk[]') ?>
-              </div>
-            </div>
-          </div>
           <label for="alamat">Alamat :</label>
           <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3"><?= set_value('alamat') ?></textarea>
 
@@ -150,16 +117,6 @@
                 <td><?= $spl['nama_supplier']; ?></td>
               </tr>
               <tr>
-                <th scope="row">Nama Mini Plant</th>
-                <td>:</td>
-                <td><?= $spl['nama_miniplant']; ?></td>
-              </tr>
-              <tr>
-                <th scope="row">Jenis Produk</th>
-                <td>:</td>
-                <td><?= $spl['jenis_produk']; ?></td>
-              </tr>
-              <tr>
                 <th scope="row">Alamat</th>
                 <td>:</td>
                 <td><?= $spl['alamat']; ?></td>
@@ -195,26 +152,6 @@
             <input type="text" name="nama_supplier" id="nama_supplier" class="form-control mb-3 <?= form_error('nama_supplier') ? 'is-invalid' : '' ?>" value="<?= set_value('nama_supplier', $spl['nama_supplier']) ?>" required>
             <div id='nama_supplier' class='invalid-feedback'>
               <?= form_error('nama_supplier') ?>
-            </div>
-            <div class="row">
-              <div class="col">
-                <label for="nama_miniplant">Nama Mini Plant :</label>
-                <input type="text" name="nama_miniplant" id="nama_miniplant" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" value="<?= set_value('nama_miniplant', $spl['nama_miniplant']) ?>" required>
-                <div id='nama_miniplant' class='invalid-feedback'>
-                  <?= form_error('nama_miniplant') ?>
-                </div>
-              </div>
-              <div class="col">
-                <label for="kd_jenis_produk[]">Jenis Produk :</label>
-                <select name="kd_jenis_produk[]" multiple id="kd_jenis_produk[]" class="form-control mb-3 <?= form_error('kd_jenis_produk[]') ? 'is-invalid' : '' ?>" required>
-                  <?php foreach ($jenis_produk as $jp) : ?>
-                    <option value="<?= $jp['kd_jenis_produk'] ?>" <?= set_select('kd_jenis_produk[]', $jp['kd_jenis_produk']); ?>><?= $jp['jenis_produk'] ?></option>
-                  <?php endforeach ?>
-                </select>
-                <div id='kd_jenis_produk[]' class='invalid-feedback'>
-                  <?= form_error('kd_jenis_produk[]') ?>
-                </div>
-              </div>
             </div>
             <label for=" alamat">Alamat :</label>
             <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3"><?= set_value('alamat', $spl['alamat']) ?></textarea>

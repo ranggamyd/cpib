@@ -25,27 +25,36 @@
             <?php
             $no = 1;
             foreach ($pengajuan as $ajuan) { ?>
-              <tr>
+              <tr class="align-middle">
                 <td align="center"><?= $no++; ?></td>
                 <td class="text-center"><?= date('d-M-Y', strtotime($ajuan['tgl_pengajuan'])) ?></td>
                 <td class="text-center"><span class="badge badge-white"><?= $ajuan['kd_pengajuan']; ?></span></td>
-                <td><?= $ajuan['nama_supplier'] ?></td>
-                <td><?= $ajuan['nama_miniplant']; ?></td>
-                <td><?= $ajuan['jenis_produk']; ?></td>
+                <td><?= $this->db->get_where('suppliers', ['kd_supplier' => $ajuan['kd_supplier']])->row('nama_supplier'); ?></td>
+                <td><?= $this->db->get_where('miniplant_supplier', ['kd_pengajuan' => $ajuan['kd_pengajuan'], 'kd_supplier' => $ajuan['kd_supplier']])->row('nama_miniplant'); ?></td>
+                <td class="text-center">
+                  <?php
+                  $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
+                  $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
+                  $jenis_produk_supplier = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $ajuan['kd_pengajuan'], 'kd_supplier' => $ajuan['kd_supplier']])->result_array();
+                  foreach ($jenis_produk_supplier as $jp) :
+                  ?>
+                    <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
+                  <?php endforeach; ?>
+                </td>
                 <td class="text-center">
                   <?php if ($ajuan['status'] == 'Tertunda') : ?>
-                    <div class="badge badge-primary"><?= $ajuan['status']; ?></div>
+                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $ajuan['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $ajuan['status']; ?></a>
                   <?php elseif ($ajuan['status'] == 'Perlu Revisi') : ?>
-                    <div class="badge badge-warning"><?= $ajuan['status']; ?></div>
+                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $ajuan['kd_pengajuan']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $ajuan['status']; ?></a>
                   <?php elseif ($ajuan['status'] == 'Diterima') : ?>
-                    <div class="badge badge-success"><?= $ajuan['status']; ?></div>
+                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $ajuan['kd_pengajuan']) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $ajuan['status']; ?></a>
                   <?php endif; ?>
                 </td>
                 <td align="center">
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="<?= base_url('pengajuan/detail/' . $ajuan['kd_pengajuan']) ?>" class="btn btn-success"><i class="fas fa-info-circle"></i></a>
-                    <a href="<?= base_url('pengajuan/ubah/' . $ajuan['kd_pengajuan']) ?>" class="btn btn-primary"><i class="fa fa-fw fa-edit"></i></a>
-                    <a href="<?= base_url('pengajuan/hapus/' . $ajuan['kd_pengajuan']) ?>" data-toggle="modal" data-target="#hapus_ajuan<?= $ajuan['kd_pengajuan'] ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus"><i class="fas fa-trash-alt"></i></a>
+                    <a href="<?= base_url('pengajuan/detail/' . $ajuan['kd_pengajuan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail"><i class="fas fa-info-circle"></i></a>
+                    <a href="<?= base_url('pengajuan/ubah/' . $ajuan['kd_pengajuan']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Ubah Ajuan"><i class="fa fa-fw fa-edit"></i></a>
+                    <a href="<?= base_url('pengajuan/hapus/' . $ajuan['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Ajuan"><i class="fas fa-trash-alt"></i></a>
                   </div>
                 </td>
               </tr>
@@ -57,30 +66,3 @@
   </div>
 </div>
 </div>
-
-<?php foreach ($pengajuan as $ajuan) { ?>
-  <!-- Modal Hapus ajuan-->
-  <div class="modal fade" id="hapus_ajuan<?= $ajuan['kd_pengajuan'] ?>" tabindex="-1" aria-labelledby="hapus_ajuanLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="hapus_ajuanLabel">Konfirmasi Hapus !!!</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="<?= base_url('pengajuan/hapus') ?>" method="post">
-            <input type="hidden" name="kd_pengajuan" id="kd_pengajuan" value="<?= $ajuan['kd_pengajuan'] ?>" readonly>
-            Apakah Yakin Ingin Menghapus Ajuan Ini :<br>
-            <b><?= $ajuan['kd_pengajuan'] ?> - <?= $ajuan['nama_supplier'] ?></b>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-          <button type="submit" class="btn btn-danger">Hapus</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-<?php } ?>

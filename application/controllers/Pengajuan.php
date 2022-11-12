@@ -42,15 +42,18 @@ class Pengajuan extends CI_Controller
         $data['title'] = 'Tambah Ajuan';
         $this->loadView('tambah_ajuan', $data);
     }
-    public function simpan_ajuan()
+
+    public function tambah()
     {
         $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
-        $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
         $this->form_validation->set_rules('tgl_pengajuan', 'Tanggal Pengajuan', 'required');
-        $this->form_validation->set_rules('ktp', 'KTP', 'trim|xss_clean');
-        $this->form_validation->set_rules('npwp', 'NPWP', 'trim|xss_clean');
-        $this->form_validation->set_rules('nib', 'NIB', 'trim|xss_clean');
-        $this->form_validation->set_rules('siup', 'SIUP', 'trim|xss_clean');
+        $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
+        $this->form_validation->set_rules('nama_miniplant', 'Nama Mini Plant', 'required');
+        $this->form_validation->set_rules('kd_jenis_produk[]', 'Jenis Produk', 'required');
+        if (empty($_FILES['ktp']['name'])) $this->form_validation->set_rules('ktp', 'KTP', 'required|trim|xss_clean');
+        if (empty($_FILES['npwp']['name'])) $this->form_validation->set_rules('npwp', 'NPWP', 'required|trim|xss_clean');
+        if (empty($_FILES['nib']['name'])) $this->form_validation->set_rules('nib', 'NIB', 'required|trim|xss_clean');
+        if (empty($_FILES['siup']['name'])) $this->form_validation->set_rules('siup', 'SIUP', 'required|trim|xss_clean');
         $this->form_validation->set_rules('akta_usaha', 'Akta Usaha', 'trim|xss_clean');
         $this->form_validation->set_rules('imb', 'IMB', 'trim|xss_clean');
         $this->form_validation->set_rules('layout', 'LAYOUT', 'trim|xss_clean');
@@ -58,19 +61,19 @@ class Pengajuan extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
-            $this->index();
+            $this->tambah_ajuan();
         } else {
             if ($this->pengajuan_model->tambah()) {
                 $this->session->set_flashdata('sukses', 'Berhasil mengubah !');
                 redirect('pengajuan');
             } else {
                 $this->session->set_flashdata('gagal', 'Gagal mengubah !');
-                $this->index();
+                $this->tambah_ajuan();
             }
         }
     }
 
-    public function ubah_ajuan($kd_pengajuan)
+    public function ubah($kd_pengajuan)
     {
         $data['pengajuan'] = $this->pengajuan_model->pengajuan($kd_pengajuan);
         $data['suppliers'] = $this->supplier_model->suppliers();
@@ -78,5 +81,74 @@ class Pengajuan extends CI_Controller
 
         $data['title'] = 'Ubah Ajuan';
         $this->loadView('ubah_ajuan', $data);
+    }
+
+    public function hapus($kd_pengajuan)
+    {
+        if ($this->pengajuan_model->hapus($kd_pengajuan)) {
+            $this->session->set_flashdata('sukses', 'Berhasil menghapus !');
+            redirect('pengajuan');
+        } else {
+            $this->session->set_flashdata('gagal', 'Gagal menghapus !');
+            $this->index();
+        }
+    }
+
+    public function create_team($kd_pengajuan)
+    {
+        $data['kd_tim_inspeksi_auto'] = $this->tim_inspeksi_model->kd_tim_inspeksi_auto();
+        $data['kd_pengajuan'] = $kd_pengajuan;
+        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier');
+        $data['supplier'] = $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
+        $data['admin'] = $this->db->get('admin')->result_array();
+
+        $data['title'] = 'Buat Tim Inspeksi';
+        $this->loadView('create_team', $data);
+    }
+
+    public function proses_create_team()
+    {
+        $this->form_validation->set_rules('kd_tim_inspeksi', 'Kode Tim_inspeksi', 'required');
+        $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
+        $this->form_validation->set_rules('pimpinan_supplier', 'Pimpinan Supplier', 'required');
+        $this->form_validation->set_rules('ketua_inspeksi', 'Ketua Inspeksi', 'required');
+        $this->form_validation->set_rules('anggota1', 'Anggota 1', 'required|differs[ketua_inspeksi]');
+        $this->form_validation->set_rules('anggota2', 'Anggota 2', 'required|differs[ketua_inspeksi]|differs[anggota1]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('gagal', 'Gagal membuat tim !');
+            $this->create_team($this->input->post('kd_pengajuan'));
+        } else {
+            if ($this->tim_inspeksi_model->tambah()) {
+                $this->session->set_flashdata('sukses', 'Berhasil membuat tim !');
+                redirect('pengajuan');
+            } else {
+                $this->session->set_flashdata('gagal', 'Gagal membuat tim !');
+                $this->create_team($this->input->post('kd_pengajuan'));
+            }
+        }
+    }
+
+    public function penilaian($kd_pengajuan)
+    {
+        $data['kd_daftar_isian_auto'] = $this->daftar_isian_model->kd_daftar_isian_auto();
+        $data['daftar_isian'] = $this->daftar_isian_model->semuaDaftar_isian();
+        // $data['kd_penilaian_auto'] = $this->penilaian_model->kd_penilaian_auto();
+        $data['kd_pengajuan'] = $kd_pengajuan;
+        $data['supplier'] = $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
+        $data['admin'] = $this->db->get('admin')->result_array();
+
+        $data['title'] = 'Form Penilaian Kelayakan Supplier';
+        $this->loadView('penilaian', $data);
+    }
+
+    public function proses_inspeksi($kd_pengajuan)
+    {
+        $check_team = $this->pengajuan_model->check_team($kd_pengajuan);
+        if (!$check_team) {
+            $this->create_team($kd_pengajuan);
+        } else {
+            $this->penilaian($kd_pengajuan);
+        };
     }
 }

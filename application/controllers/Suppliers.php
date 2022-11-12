@@ -39,8 +39,6 @@ class Suppliers extends CI_Controller
     {
         $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
         $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required');
-        $this->form_validation->set_rules('nama_miniplant', 'Nama Mini Plant', 'required');
-        $this->form_validation->set_rules('kd_jenis_produk[]', 'Jenis Produk', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
@@ -64,8 +62,6 @@ class Suppliers extends CI_Controller
 
         $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
         $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required');
-        $this->form_validation->set_rules('nama_miniplant', 'Nama Mini Plant', 'required');
-        $this->form_validation->set_rules('kd_jenis_produk[]', 'Jenis Produk', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal mengubah !');

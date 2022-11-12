@@ -30,6 +30,7 @@ class Tim_inspeksi_model extends CI_Model
   {
     $data = [
       'kd_tim_inspeksi' => $this->input->post('kd_tim_inspeksi'),
+      'kd_pengajuan' => $this->input->post('kd_pengajuan'),
       'pimpinan_supplier' => $this->input->post('pimpinan_supplier'),
       'ketua_inspeksi' => $this->input->post('ketua_inspeksi'),
       'anggota1' => $this->input->post('anggota1'),
@@ -42,6 +43,7 @@ class Tim_inspeksi_model extends CI_Model
   public function ubah()
   {
     $data = [
+      'kd_pengajuan' => $this->input->post('kd_pengajuan'),
       'pimpinan_supplier' => $this->input->post('pimpinan_supplier'),
       'ketua_inspeksi' => $this->input->post('ketua_inspeksi'),
       'anggota1' => $this->input->post('anggota1'),
@@ -51,9 +53,8 @@ class Tim_inspeksi_model extends CI_Model
     if ($this->db->update('tim_inspeksi', $data, ['kd_tim_inspeksi' => $this->input->post('kd_tim_inspeksi')])) return TRUE;
   }
 
-  public function hapus()
+  public function hapus($kd_tim_inspeksi)
   {
-    $kd_tim_inspeksi = $this->input->post('kd_tim_inspeksi');
     if ($this->db->delete('tim_inspeksi', ['kd_tim_inspeksi' => $kd_tim_inspeksi])) return TRUE;
   }
 }

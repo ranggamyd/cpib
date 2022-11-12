@@ -1,49 +1,55 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Form Permohonan Supplier</h1>
+  <h1 class="h3 mb-2 text-gray-800">Tambah Ajuan Supplier</h1>
   <hr>
 
   <div class="card shadow mb-4">
     <div class="card-body">
-      <form action="<?= base_url('pengajuan/simpan_ajuan') ?>" method="post" enctype="multipart/form-data">
+      <form action="<?= base_url('pengajuan/tambah') ?>" method="post" enctype="multipart/form-data">
         <div class="row">
           <div class="col-md-5">
             <label for="kd_pengajuan">Kode Ajuan :</label>
-            <input type="text" name="kd_pengajuan" class="form-control mb-3" id="kd_pengajuan" value="<?= $kd_pengajuan_auto ?>" required readonly>
+            <input type="text" name="kd_pengajuan" class="form-control mb-3 <?= form_error('kd_pengajuan') ? 'is-invalid' : '' ?>" id="kd_pengajuan" value="<?= set_value('kd_pengajuan', $kd_pengajuan_auto) ?>" required readonly>
+            <div id='kd_pengajuan' class='invalid-feedback'>
+              <?= form_error('kd_pengajuan') ?>
+            </div>
           </div>
           <div class="col-md-3 offset-md-4">
             <label for="tgl_pengajuan">Tanggal Pengajuan :</label>
-            <input type="date" name="tgl_pengajuan" value="<?= date('Y-m-d') ?>" class="form-control mb-3" id="tgl_pengajuan" required>
+            <input type="date" name="tgl_pengajuan" value="<?= set_value('tgl_pengajuan', date('Y-m-d')) ?>" class="form-control mb-3 <?= form_error('tgl_pengajuan') ? 'is-invalid' : '' ?>" id="tgl_pengajuan" required>
+            <div id='tgl_pengajuan' class='invalid-feedback'>
+              <?= form_error('tgl_pengajuan') ?>
+            </div>
           </div>
         </div>
         <div class="container bg-info rounded pt-2 pb-3 text-light">
           <div class="row">
             <div class="col">
               <label for="kd_supplier">Supplier :</label>
-              <select name="kd_supplier" id="kd_supplier" class="form-control mb-3" required>
+              <select name="kd_supplier" id="kd_supplier" class="form-control mb-3 <?= form_error('kd_supplier') ? 'is-invalid' : '' ?>" required>
                 <?php foreach ($suppliers as $spl) : ?>
-                  <option value="<?= $spl['kd_supplier'] ?>"><?= $spl['nama_supplier'] ?></option>
+                  <option value="<?= $spl['kd_supplier'] ?>" <?= set_select('kd_supplier', $spl['kd_supplier'], TRUE); ?>><?= $spl['nama_supplier'] ?></option>
                 <?php endforeach ?>
               </select>
+              <div id='kd_supplier' class='invalid-feedback'>
+                <?= form_error('kd_supplier') ?>
+              </div>
             </div>
             <div class="col">
               <label for="nama_miniplant">Nama Mini Plant :</label>
-              <input type="text" name="nama_miniplant" id="nama_miniplant" class="form-control mb-3" readonly required>
+              <input type="text" name="nama_miniplant" value="<?= set_value('nama_miniplant') ?>" id="nama_miniplant" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" required>
+              <div id='nama_miniplant' class='invalid-feedback'>
+                <?= form_error('nama_miniplant') ?>
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
-              <label for="alamat">Alamat :</label>
-              <textarea name="alamat" id="alamat" rows="4" class="form-control mb-3" readonly required></textarea>
-            </div>
-            <div class="col">
-              <label for="jenis_produk">Jenis Produk :</label><br>
-              <select name="kd_produk" multiple id="kd_produk" class="form-control mb-3" readonly required>
-                <?php foreach ($jenis_produk as $jp) : ?>
-                  <option value="<?= $jp['kd_jenis_produk'] ?>"><?= $jp['jenis_produk'] ?></option>
-                <?php endforeach ?>
-              </select>
-              <a href="<?= base_url('suppliers/') ?>" class="btn btn-sm btn-primary float-right">Perbarui data supplier?</a>
-            </div>
+          <label for="kd_jenis_produk[]">Jenis Produk :</label>
+          <select name="kd_jenis_produk[]" multiple id="kd_jenis_produk[]" class="form-control mb-3 <?= form_error('kd_jenis_produk[]') ? 'is-invalid' : '' ?>" required>
+            <?php foreach ($jenis_produk as $jp) : ?>
+              <option value="<?= $jp['kd_jenis_produk'] ?>" <?= set_select('kd_jenis_produk[]', $jp['kd_jenis_produk']); ?>><?= $jp['jenis_produk'] ?></option>
+            <?php endforeach ?>
+          </select>
+          <div id='kd_jenis_produk[]' class='invalid-feedback'>
+            <?= form_error('kd_jenis_produk[]') ?>
           </div>
         </div>
         <hr>
@@ -53,13 +59,25 @@
         <div class="row mt-0">
           <div class="col-md-6">
             <label for="ktp">KTP <small class="text-danger text-bold">*</small></label>
-            <input type="file" name="ktp" id="ktp" class="form-control-file mb-3">
+            <input type="file" name="ktp" id="ktp" class="form-control-file mb-3 <?= form_error('ktp') ? 'is-invalid' : '' ?>" accept="image/*,.pdf" required>
+            <div id='ktp' class='invalid-feedback'>
+              <?= form_error('ktp') ?>
+            </div>
             <label for="npwp">NPWP <small class="text-danger text-bold">*</small></label>
-            <input type="file" name="npwp" id="npwp" class="form-control-file mb-3">
+            <input type="file" name="npwp" id="npwp" class="form-control-file mb-3 <?= form_error('npwp') ? 'is-invalid' : '' ?>" accept="image/*,.pdf" required>
+            <div id='npwp' class='invalid-feedback'>
+              <?= form_error('npwp') ?>
+            </div>
             <label for="nib">NIB <small class="text-danger text-bold">*</small></label>
-            <input type="file" name="nib" id="nib" class="form-control-file mb-3">
+            <input type="file" name="nib" id="nib" class="form-control-file mb-3 <?= form_error('nib') ? 'is-invalid' : '' ?>" accept="image/*,.pdf" required>
+            <div id='nib' class='invalid-feedback'>
+              <?= form_error('nib') ?>
+            </div>
             <label for="siup">SIUP <small class="text-danger text-bold">*</small></label>
-            <input type="file" name="siup" id="siup" class="form-control-file mb-3">
+            <input type="file" name="siup" id="siup" class="form-control-file mb-3 <?= form_error('siup') ? 'is-invalid' : '' ?>" accept="image/*,.pdf" required>
+            <div id='siup' class='invalid-feedback'>
+              <?= form_error('siup') ?>
+            </div>
           </div>
           <div class="col-md-6">
             <label for="akta_usaha">AKTA USAHA</label>
