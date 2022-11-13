@@ -18,7 +18,7 @@
 
     <!-- Perpage CSS -->
     <?php if (isset($style['css'])) : ?>
-        <link rel="stylesheet" href="<?= base_url('assets') ?>/dist/css/custom/<?= $style['css'] ?>">
+        <link rel="stylesheet" href="<?= base_url('assets') ?>/css/<?= $style['css'] ?>">
     <?php endif ?>
 </head>
 
@@ -47,19 +47,19 @@
 
             <div class="sidebar-heading">Sertifikasi CPIB</div>
             <li class="nav-item <?= ($this->uri->segment(1) == 'pengajuan') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('pengajuan') ?>">
+                <a class="nav-link py-2" href="<?= base_url('pengajuan') ?>">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Ajuan Supplier</span>
                 </a>
             </li>
             <li class="nav-item <?= ($this->uri->segment(1) == 'perbaikan_ajuan') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('perbaikan_ajuan') ?>">
+                <a class="nav-link py-2" href="<?= base_url('perbaikan_ajuan') ?>">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Perbaikan Ajuan</span>
                 </a>
             </li>
             <li class="nav-item <?= ($this->uri->segment(1) == 'sertifikat') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('sertifikat') ?>">
+                <a class="nav-link py-2" href="<?= base_url('sertifikat') ?>">
                     <i class="fas fa-fw fa-list"></i>
                     <span>List Sertifikat</span>
                 </a>
@@ -69,33 +69,33 @@
 
             <div class="sidebar-heading">Master Data</div>
             <li class="nav-item <?= ($this->uri->segment(1) == 'daftar_isian') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('daftar_isian') ?>">
+                <a class="nav-link py-2" href="<?= base_url('daftar_isian') ?>">
                     <i class="far fa-fw fa-file-alt"></i>
                     <span>Daftar Isian</span>
                 </a>
             </li>
 
             <li class="nav-item <?= ($this->uri->segment(1) == 'jenis_produk') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('jenis_produk') ?>">
+                <a class="nav-link py-2" href="<?= base_url('jenis_produk') ?>">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Jenis Produk</span>
                 </a>
             </li>
 
             <li class="nav-item <?= ($this->uri->segment(1) == 'suppliers') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('suppliers') ?>">
+                <a class="nav-link py-2" href="<?= base_url('suppliers') ?>">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Data Supplier</span>
                 </a>
             </li>
             <li class="nav-item <?= ($this->uri->segment(1) == 'tim_inspeksi') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('tim_inspeksi') ?>">
+                <a class="nav-link py-2" href="<?= base_url('tim_inspeksi') ?>">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Tim Inspeksi</span>
                 </a>
             </li>
             <li class="nav-item <?= ($this->uri->segment(1) == 'users') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('users') ?>">
+                <a class="nav-link py-2" href="<?= base_url('users') ?>">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Data Pengguna</span>
                 </a>
@@ -104,13 +104,13 @@
             <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading">Lainnya</div>
             <li class="nav-item <?= ($this->uri->segment(1) == 'user') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('user') ?>">
+                <a class="nav-link py-2" href="<?= base_url('user') ?>">
                     <i class="fas fa-fw fa-user-cog"></i>
                     <span>Profil Saya</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('user/logout') ?>">
+                <a class="nav-link py-2" href="<?= base_url('user/logout') ?>">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
                     <span>Log Out</span>
                 </a>
@@ -154,7 +154,7 @@
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link py-2 dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
                                 <span class="badge badge-danger badge-counter">3+</span>
@@ -203,7 +203,7 @@
 
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link py-2 dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
                                 <!-- Counter - Messages -->
                                 <span class="badge badge-danger badge-counter">7</span>
@@ -265,7 +265,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link py-2 dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $this->session->userdata('username') ?></span>
                                 <img class="img-profile rounded-circle" src="<?= base_url('assets/img/' . $this->session->userdata('avatar')) ?>">
                             </a>

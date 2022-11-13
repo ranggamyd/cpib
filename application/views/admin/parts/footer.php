@@ -52,6 +52,18 @@
                     $('[data-toggle="tooltip"]').tooltip({
                         placement: "bottom"
                     });
+
+                    var i = 1;
+
+                    $('#add').click(function() {
+                        i++;
+                        $('#dynamic_field').append('<tr id="row' + i + '" class="dynamic-added"><td><input type="text" name="notes[][revisi]" placeholder="Hal yang perlu direvisi" class="form-control revision_notes" required></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
+                    });
+
+                    $(document).on('click', '.btn_remove', function() {
+                        var button_id = $(this).attr("id");
+                        $('#row' + button_id + '').remove();
+                    });
                 });
             </script>
             <?php if ($this->session->flashdata('sukses')) : ?>

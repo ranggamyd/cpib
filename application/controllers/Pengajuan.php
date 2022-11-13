@@ -132,10 +132,14 @@ class Pengajuan extends CI_Controller
     public function penilaian($kd_pengajuan)
     {
         $data['kd_daftar_isian_auto'] = $this->daftar_isian_model->kd_daftar_isian_auto();
+        $pengajuan = $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
+        $data['ajuan'] = $pengajuan;
+        $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $pengajuan->kd_supplier])->row();
+        $data['nama_miniplant'] = $this->db->get_where('miniplant_supplier', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row('nama_miniplant');
+        $data['tim_inspeksi'] = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row();
         $data['daftar_isian'] = $this->daftar_isian_model->semuaDaftar_isian();
         // $data['kd_penilaian_auto'] = $this->penilaian_model->kd_penilaian_auto();
         $data['kd_pengajuan'] = $kd_pengajuan;
-        $data['supplier'] = $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
         $data['admin'] = $this->db->get('admin')->result_array();
 
         $data['title'] = 'Form Penilaian Kelayakan Supplier';
@@ -150,5 +154,67 @@ class Pengajuan extends CI_Controller
         } else {
             $this->penilaian($kd_pengajuan);
         };
+    }
+
+    public function proses_penilaian()
+    {
+        $data = [
+            'kd_penilaian' => $this->input->post('kd_penilaian_auto'),
+            'tgl_inspeksi' => $this->input->post('tgl_inspeksi'),
+            'kd_supplier' => $this->input->post('kd_supplier'),
+            'jenis_supplier' => $this->input->post('jenis_supplier'),
+            'kd_tim_inspeksi' => $this->input->post('kd_tim_inspeksi'),
+        ];
+
+        $subisian = $this->db->get('sub_daftar_isian')->result_array();
+
+        $nilai = [];
+        foreach ($subisian as $item) {
+            if ($this->input->post($item['id'])) {
+                $subnilai = [
+                    'kd_penilaian' => $this->input->post('kd_penilaian_auto'),
+                    'id_subisian' => $item['id'],
+                    'is_minor' => 0,
+                    'is_mayor' => 0,
+                    'is_serius' => 0,
+                    'is_kritis' => 0,
+                ];
+
+                switch ($this->input->post($item['id'])) {
+                    case 'is_minor':
+                        $subnilai['is_minor'] = 1;
+                        break;
+                    case 'is_mayor':
+                        $subnilai['is_mayor'] = 1;
+                        break;
+                    case 'is_serius':
+                        $subnilai['is_serius'] = 1;
+                        break;
+                    case 'is_kritis':
+                        $subnilai['is_kritis'] = 1;
+                        break;
+                }
+
+                array_push($nilai, $subnilai);
+            }
+        }
+
+        $data['nilai'] = $nilai;
+
+        $revision_notes = [];
+        foreach ($this->input->post('notes') as $item) {
+            $revisi = [
+                'kd_penilaian' => $this->input->post('kd_penilaian_auto'),
+                'revisi' => $item['revisi'],
+            ];
+
+            array_push($revision_notes, $revisi);
+        }
+
+        $data['revision_notes'] = $revision_notes;
+
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
     }
 }
