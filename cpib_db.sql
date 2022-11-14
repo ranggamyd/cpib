@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2022 at 10:30 AM
+-- Generation Time: Nov 14, 2022 at 09:55 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -126,6 +126,7 @@ INSERT INTO `jenis_produk` (`id`, `kd_jenis_produk`, `jenis_produk`, `deskripsi`
 
 CREATE TABLE `jenis_produk_supplier` (
   `id` int(11) NOT NULL,
+  `kd_pengajuan` varchar(20) NOT NULL,
   `kd_supplier` varchar(20) NOT NULL,
   `kd_jenis_produk` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -134,12 +135,29 @@ CREATE TABLE `jenis_produk_supplier` (
 -- Dumping data for table `jenis_produk_supplier`
 --
 
-INSERT INTO `jenis_produk_supplier` (`id`, `kd_supplier`, `kd_jenis_produk`) VALUES
-(1, 'SPL-001', 'JPK-001'),
-(2, 'SPL-001', 'JPK-002'),
-(3, 'SPL-001', 'JPK-003'),
-(4, 'SPL-002', 'JPK-002'),
-(5, 'SPL-002', 'JPK-003');
+INSERT INTO `jenis_produk_supplier` (`id`, `kd_pengajuan`, `kd_supplier`, `kd_jenis_produk`) VALUES
+(1, 'REG-0001', 'SPL-001', 'JPK-001'),
+(2, 'REG-0001', 'SPL-001', 'JPK-003');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `miniplant_supplier`
+--
+
+CREATE TABLE `miniplant_supplier` (
+  `id` int(11) NOT NULL,
+  `kd_pengajuan` varchar(20) NOT NULL,
+  `kd_supplier` varchar(20) NOT NULL,
+  `nama_miniplant` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `miniplant_supplier`
+--
+
+INSERT INTO `miniplant_supplier` (`id`, `kd_pengajuan`, `kd_supplier`, `nama_miniplant`) VALUES
+(1, 'REG-0001', 'SPL-001', 'mp-1');
 
 -- --------------------------------------------------------
 
@@ -151,8 +169,9 @@ CREATE TABLE `pengajuan` (
   `id` int(11) NOT NULL,
   `kd_pengajuan` varchar(20) NOT NULL,
   `kd_supplier` varchar(20) NOT NULL,
+  `nama_miniplant` varchar(50) NOT NULL,
   `tgl_pengajuan` date NOT NULL,
-  `status` enum('Tertunda','Perlu Revisi','Diterima') NOT NULL,
+  `status` enum('Tertunda','Dalam proses Inspeksi','Perlu Revisi','Diterima') NOT NULL,
   `ktp` text NOT NULL,
   `npwp` text NOT NULL,
   `nib` text NOT NULL,
@@ -162,6 +181,44 @@ CREATE TABLE `pengajuan` (
   `layout` text NOT NULL,
   `panduan_mutu` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pengajuan`
+--
+
+INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `nama_miniplant`, `tgl_pengajuan`, `status`, `ktp`, `npwp`, `nib`, `siup`, `akta_usaha`, `imb`, `layout`, `panduan_mutu`) VALUES
+(2, 'REG-0001', 'SPL-001', 'mp-1', '2022-11-12', 'Tertunda', '0_Kontrak_Kuliah_dan_Silabus4.pdf', '1_Internet_dan_Web4.pdf', '1__Fuzzy_Set_Theory4.pdf', '1__Penelitian_Konsep,_Definisi_dan_Metode4.pdf', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penilaian`
+--
+
+CREATE TABLE `penilaian` (
+  `id` int(11) NOT NULL,
+  `kd_penilaian` varchar(20) NOT NULL,
+  `tgl_inspeksi` date NOT NULL,
+  `kd_supplier` varchar(20) NOT NULL,
+  `jenis_supplier` enum('Baru','Lama') NOT NULL,
+  `kd_tim_inspeksi` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penilaian_hasil_inspeksi`
+--
+
+CREATE TABLE `penilaian_hasil_inspeksi` (
+  `id` int(11) NOT NULL,
+  `kd_penilaian` varchar(20) NOT NULL,
+  `id_subisian` int(11) NOT NULL,
+  `is_minor` tinyint(1) NOT NULL,
+  `is_mayor` tinyint(1) NOT NULL,
+  `is_serius` tinyint(1) NOT NULL,
+  `is_kritis` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -175,7 +232,19 @@ CREATE TABLE `perbaikan_ajuan` (
   `kd_pengajuan` varchar(20) NOT NULL,
   `kd_supplier` varchar(20) NOT NULL,
   `tgl_perbaikan` date NOT NULL,
-  `status` enum('Lolos','Tidak Lolos') NOT NULL
+  `status` enum('Lolos','Perlu Revisi Kembali','Tidak Lolos') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `revision_notes`
+--
+
+CREATE TABLE `revision_notes` (
+  `id` int(11) NOT NULL,
+  `kd_penilaian` varchar(20) NOT NULL,
+  `revisi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -239,16 +308,16 @@ CREATE TABLE `suppliers` (
   `id` int(11) NOT NULL,
   `kd_supplier` varchar(20) NOT NULL,
   `nama_supplier` varchar(100) NOT NULL,
-  `nama_miniplant` varchar(100) NOT NULL,
-  `alamat` varchar(100) NOT NULL,
-  `kd_jenis_produk` varchar(20) NOT NULL
+  `no_telp` varchar(20) NOT NULL,
+  `no_fax` varchar(20) NOT NULL,
+  `alamat` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `suppliers`
 --
 
-INSERT INTO `suppliers` (`id`, `kd_supplier`, `nama_supplier`, `nama_miniplant`, `alamat`, `kd_jenis_produk`) VALUES
+INSERT INTO `suppliers` (`id`, `kd_supplier`, `nama_supplier`, `no_telp`, `no_fax`, `alamat`) VALUES
 (1, 'SPL-001', 'H. Ta\'lim', '', '', '');
 
 -- --------------------------------------------------------
@@ -260,6 +329,7 @@ INSERT INTO `suppliers` (`id`, `kd_supplier`, `nama_supplier`, `nama_miniplant`,
 CREATE TABLE `tim_inspeksi` (
   `id` int(11) NOT NULL,
   `kd_tim_inspeksi` varchar(20) NOT NULL,
+  `kd_pengajuan` varchar(20) NOT NULL,
   `pimpinan_supplier` varchar(20) NOT NULL,
   `ketua_inspeksi` varchar(20) NOT NULL,
   `anggota1` varchar(20) NOT NULL,
@@ -270,8 +340,8 @@ CREATE TABLE `tim_inspeksi` (
 -- Dumping data for table `tim_inspeksi`
 --
 
-INSERT INTO `tim_inspeksi` (`id`, `kd_tim_inspeksi`, `pimpinan_supplier`, `ketua_inspeksi`, `anggota1`, `anggota2`) VALUES
-(1, 'INS-001', 'SPL-001', 'ADM-001', 'ADM-002', 'ADM-003');
+INSERT INTO `tim_inspeksi` (`id`, `kd_tim_inspeksi`, `kd_pengajuan`, `pimpinan_supplier`, `ketua_inspeksi`, `anggota1`, `anggota2`) VALUES
+(3, 'INS-001', 'REG-0001', 'SPL-001', 'ADM-001', 'ADM-002', 'ADM-003');
 
 -- --------------------------------------------------------
 
@@ -337,6 +407,12 @@ ALTER TABLE `jenis_produk_supplier`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `miniplant_supplier`
+--
+ALTER TABLE `miniplant_supplier`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
@@ -345,9 +421,27 @@ ALTER TABLE `pengajuan`
   ADD KEY `kd_supplier` (`kd_supplier`);
 
 --
+-- Indexes for table `penilaian`
+--
+ALTER TABLE `penilaian`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `penilaian_hasil_inspeksi`
+--
+ALTER TABLE `penilaian_hasil_inspeksi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `perbaikan_ajuan`
 --
 ALTER TABLE `perbaikan_ajuan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `revision_notes`
+--
+ALTER TABLE `revision_notes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -407,18 +501,42 @@ ALTER TABLE `jenis_produk`
 -- AUTO_INCREMENT for table `jenis_produk_supplier`
 --
 ALTER TABLE `jenis_produk_supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `miniplant_supplier`
+--
+ALTER TABLE `miniplant_supplier`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `penilaian`
+--
+ALTER TABLE `penilaian`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `penilaian_hasil_inspeksi`
+--
+ALTER TABLE `penilaian_hasil_inspeksi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `perbaikan_ajuan`
 --
 ALTER TABLE `perbaikan_ajuan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `revision_notes`
+--
+ALTER TABLE `revision_notes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -437,7 +555,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `tim_inspeksi`
 --
 ALTER TABLE `tim_inspeksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
