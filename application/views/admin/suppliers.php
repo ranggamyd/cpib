@@ -37,7 +37,7 @@
                 </td>
                 <td align="center">
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#detail_supplier<?= $spl['kd_supplier']; ?>"><i class="fas fa-info-circle"></i></a>
+                    <a href="<?= base_url('suppliers/detail/'.$spl['kd_supplier'])?>" class="btn btn-success"><i class="fas fa-info-circle"></i></a>
                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit_supplier<?= $spl['kd_supplier'] ?>" id="#myBtn" data-dismiss="modal"><i class="fa fa-fw fa-edit"></i></a>
                     <a href="#" data-toggle="modal" data-target="#hapus_supplier<?= $spl['kd_supplier'] ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus"><i class="fas fa-trash-alt"></i></a>
                   </div>

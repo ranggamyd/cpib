@@ -33,10 +33,17 @@ class User extends CI_Controller
     $this->loadView('user', $data);
   }
 
+  public function setting(){
+    $data['user'] = $this->user_model->profil_saya();
+
+    $data['title'] = 'Pengaturan Akun';
+    $this->loadView('setting', $data);
+  }
+
   public function ubah_avatar()
   {
-    $this->form_validation->set_rules('kd_admin', 'Kode Amin', 'required');
-    $this->form_validation->set_rules('avatar', 'Foto Profil', 'required|trim|xss_clean');
+    $this->form_validation->set_rules('kd_admin', 'Kode Admin', 'required');
+    if (empty($_FILES['avatar']['name'])) $this->form_validation->set_rules('avatar', 'Foto Profil', 'required|trim|xss_clean');
 
     if ($this->form_validation->run() == FALSE) {
       $this->session->set_flashdata('gagal', 'Gagal mengubah !');
@@ -67,7 +74,7 @@ class User extends CI_Controller
 
     if ($this->form_validation->run() == FALSE) {
       $this->session->set_flashdata('gagal', 'Gagal mengubah !');
-      $this->session->set_flashdata('hasModalID', 'edit_avatar');
+      $this->session->set_flashdata('hasModalID', 'edit_user');
       $this->index();
     } else {
       if ($this->user_model->ubah_profil()) {

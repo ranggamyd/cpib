@@ -105,7 +105,8 @@ class User_model extends CI_Model
     $data = [
       'avatar' => $avatar,
     ];
-    $this->db->update('users', $data, ['kd_admin' => $kd_admin]);
+    if ($this->db->update('users', $data, ['kd_admin' => $kd_admin])) return TRUE;
+    ;
   }
 
   public function ubah_profil()

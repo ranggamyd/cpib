@@ -26,6 +26,12 @@ class Supplier_model extends CI_Model
         return $this->db->get('suppliers')->result_array();
     }
 
+    public function supplier($kd_supplier)
+    {
+        $this->db->join('users', 'users.kd_supplier = suppliers.kd_supplier', 'left');
+        return $this->db->get_where('suppliers',['suppliers.kd_supplier'=>$kd_supplier])->row();
+    }
+
     public function tambah()
     {
         $kd_supplier = $this->input->post('kd_supplier');

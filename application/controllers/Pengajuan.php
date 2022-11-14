@@ -138,7 +138,7 @@ class Pengajuan extends CI_Controller
         $data['nama_miniplant'] = $this->db->get_where('miniplant_supplier', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row('nama_miniplant');
         $data['tim_inspeksi'] = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row();
         $data['daftar_isian'] = $this->daftar_isian_model->semuaDaftar_isian();
-        // $data['kd_penilaian_auto'] = $this->penilaian_model->kd_penilaian_auto();
+        $data['kd_penilaian_auto'] = $this->penilaian_model->kd_penilaian_auto();
         $data['kd_pengajuan'] = $kd_pengajuan;
         $data['admin'] = $this->db->get('admin')->result_array();
 
