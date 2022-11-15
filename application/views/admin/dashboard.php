@@ -87,9 +87,9 @@
         </div>
         <div class="col">
             <!--Dayspedia.com widget-->
-            <div class="card shadow DPDC" cityid="4251" lang="en" id="dayspedia_widget_3d9f3a6135221e8" host="https://dayspedia.com" ampm="false" nightsign="true" sun="false" style="background-image: url(&quot;https://cdn.dayspedia.com/img/widgets/bg-12.png&quot;); width: 100%; border-width: 1px; background-color: rgb(255, 255, 255); border-color: rgb(222, 222, 222);">
+            <div class="DPDC card shadow" cityid="6582" lang="en" id="dayspedia_widget_35c2ed5bc7d4a1b6" host="https://dayspedia.com" ampm="false" nightsign="true" sun="false" style="background-image: url(&quot;https://cdn.dayspedia.com/img/widgets/bg-12.png&quot;); width: 100%; border-width: 1px; border-color: rgb(207, 207, 207);" auto="false">
 
-                <style media="screen" id="dayspedia_widget_3d9f3a6135221e8_style">
+                <style media="screen" id="dayspedia_widget_35c2ed5bc7d4a1b6_style">
                     /*COMMON*/
                     .DPDC {
                         display: table;
@@ -276,35 +276,29 @@
 
                     /* headline & date font-size */
                 </style>
-
-                <a class="DPl" href="https://dayspedia.com/time/th/Bangkok/" target="_blank" style="display:block!important;text-decoration:none!important;border:none!important;cursor:pointer!important;background:transparent!important;line-height:0!important;text-shadow:none!important;position:absolute;z-index:1;top:0;right:0;bottom:0;left:0">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" style="position:absolute;right:8px;bottom:0;width:16px;height:16px">
-                        <path style="fill:/*defined*/#007DBF" d="M0,0v16h1.7c-0.1-0.2-0.1-0.3-0.1-0.5c0-0.9,0.8-1.6,1.6-1.6c0.9,0,1.6,0.8,1.6,1.6c0,0.2,0,0.3-0.1,0.5h1.8 c-0.1-0.2-0.1-0.3-0.1-0.5c0-0.9,0.8-1.6,1.6-1.6s1.6,0.8,1.6,1.6c0,0.2,0,0.3-0.1,0.5h1.8c-0.1-0.2-0.1-0.3-0.1-0.5 c0-0.9,0.8-1.6,1.6-1.6c0.9,0,1.6,0.8,1.6,1.6c0,0.2,0,0.3-0.1,0.5H16V0H0z M4.2,8H2V2h2.2c2.1,0,3.3,1.3,3.3,3S6.3,8,4.2,8z M11.4,6.3h-0.8V8H9V2h2.5c1.4,0,2.4,0.8,2.4,2.1C13.9,5.6,12.9,6.3,11.4,6.3z M4.4,3.5H3.7v3h0.7C5.4,6.5,6,6,6,5 C6,4.1,5.4,3.5,4.4,3.5z M11.3,3.4h-0.8V5h0.8c0.6,0,0.9-0.3,0.9-0.8C12.2,3.7,11.9,3.4,11.3,3.4z">
-                        </path>
-                    </svg>
-                    <span title="DaysPedia.com" style="position:absolute;right:28px;bottom:6px;height:10px;width:60px;overflow:hidden;text-align:right;font:normal 10px/10px Arial,sans-serif!important;color:/*defined*/#007DBF">Powered&nbsp;by DaysPedia.com</span>
-                </a>
-                <div class="DPDCh" style="text-align: center; margin-left: auto; margin-right: auto; font-weight: normal;">Current Time in Bangkok</div>
-                <div class="DPDCt" style="text-align: center; margin-left: auto; margin-right: auto; color: rgb(0, 0, 0); font-weight: normal;">
-                    <span class="DPDCth">17</span><span class="DPDCtm">18</span><span class="DPDCts" style="display: none;">08</span><span class="DPDCt12" style="display: none;"></span>
+                <div class="DPDCh" style="text-align: center; margin-left: auto; margin-right: auto;">Current Time in Cirebon</div>
+                <div class="DPDCt" style="text-align: center; margin-left: auto; margin-right: auto; font-weight: normal;">
+                    <span class="DPDCth">14</span><span class="DPDCtm">14</span><span class="DPDCts" style="display: none;">03</span><span class="DPDCt12" style="display: none;"></span>
                 </div>
-                <div class="DPDCd" style="text-align: center; margin-left: auto; margin-right: auto; color: rgb(0, 0, 0); font-weight: normal;">
-                    <span class="DPDCdt">Mon, November 14</span><span class="DPDCtn" style="display: none; border-color: rgb(0, 0, 0);"><i style="background-color: rgb(0, 0, 0);"></i></span>
+                <div class="DPDCd" style="text-align: center; margin-left: auto; margin-right: auto; font-weight: normal;">
+                    <span class="DPDCdt">Tue, November 15</span><span class="DPDCtn" style="display: none;"><i></i></span>
                 </div>
 
-                <div class="DPDCs" style="display: none; text-align: center; margin-left: auto; margin-right: auto; color: rgb(0, 0, 0);">
+                <div class="DPDCs" style="display: none; text-align: center; margin-left: auto; margin-right: auto;">
                     <span class="DPDCsr">
                         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
-                            <path d="M12,4L7.8,8.2l1.4,1.4c0,0,0.9-0.9,1.8-1.8V14h2c0,0,0-3.3,0-6.2l1.8,1.8l1.4-1.4L12,4z" style="fill: rgb(0, 0, 0);"></path>
-                            <path d="M6.8,15.3L5,13.5l-1.4,1.4l1.8,1.8L6.8,15.3z M4,21H1v2h3V21z M20.5,14.9L19,13.5l-1.8,1.8l1.4,1.4L20.5,14.9z M20,21v2h3 v-2H20z M6.1,23C6,22.7,6,22.3,6,22c0-3.3,2.7-6,6-6s6,2.7,6,6c0,0.3,0,0.7-0.1,1H6.1z" style="fill: rgb(0, 0, 0);"></path>
-                        </svg>06:17<sup style="display: none;">am</sup>
+                            <path d="M12,4L7.8,8.2l1.4,1.4c0,0,0.9-0.9,1.8-1.8V14h2c0,0,0-3.3,0-6.2l1.8,1.8l1.4-1.4L12,4z"></path>
+                            <path d="M6.8,15.3L5,13.5l-1.4,1.4l1.8,1.8L6.8,15.3z M4,21H1v2h3V21z M20.5,14.9L19,13.5l-1.8,1.8l1.4,1.4L20.5,14.9z M20,21v2h3 v-2H20z M6.1,23C6,22.7,6,22.3,6,22c0-3.3,2.7-6,6-6s6,2.7,6,6c0,0.3,0,0.7-0.1,1H6.1z"></path>
+                        </svg>
+                        6:17 am<sup>am</sup>
                     </span>
                     <span class="DPDCsl">11:30</span>
                     <span class="DPDCss">
                         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
-                            <path d="M12,14L7.8,9.8l1.4-1.4c0,0,0.9,0.9,1.8,1.8V4h2c0,0,0,3.3,0,6.2l1.8-1.8l1.4,1.4L12,14z" style="fill: rgb(0, 0, 0);"></path>
-                            <path d="M6.8,15.3L5,13.5l-1.4,1.4l1.8,1.8L6.8,15.3z M4,21H1v2h3V21z M20.5,14.9L19,13.5l-1.8,1.8l1.4,1.4L20.5,14.9z M20,21v2h3 v-2H20z M6.1,23C6,22.7,6,22.3,6,22c0-3.3,2.7-6,6-6s6,2.7,6,6c0,0.3,0,0.7-0.1,1H6.1z" style="fill: rgb(0, 0, 0);"></path>
-                        </svg>17:47<sup style="display: none;">pm</sup>
+                            <path d="M12,14L7.8,9.8l1.4-1.4c0,0,0.9,0.9,1.8,1.8V4h2c0,0,0,3.3,0,6.2l1.8-1.8l1.4,1.4L12,14z"></path>
+                            <path d="M6.8,15.3L5,13.5l-1.4,1.4l1.8,1.8L6.8,15.3z M4,21H1v2h3V21z M20.5,14.9L19,13.5l-1.8,1.8l1.4,1.4L20.5,14.9z M20,21v2h3 v-2H20z M6.1,23C6,22.7,6,22.3,6,22c0-3.3,2.7-6,6-6s6,2.7,6,6c0,0.3,0,0.7-0.1,1H6.1z"></path>
+                        </svg>
+                        5:47 pm<sup>pm</sup>
                     </span>
                 </div>
                 <script>
@@ -316,7 +310,7 @@
                     t.parentNode.insertBefore(s, t);
                     s.onload = function() {
                         window.dwidget = new window.DigitClock();
-                        window.dwidget.init("dayspedia_widget_3d9f3a6135221e8");
+                        window.dwidget.init("dayspedia_widget_35c2ed5bc7d4a1b6");
                     };
                 </script>
                 <!--/DPDC-->
