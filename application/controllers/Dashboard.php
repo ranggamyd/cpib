@@ -27,6 +27,11 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
+        $data['pengajuan_tertunda'] = $this->db->get_where('pengajuan', ['status' => 'Tertunda'])->num_rows();
+        $data['menunggu_perbaikan'] = $this->db->get_where('pengajuan', ['status' => 'Perlu Revisi'])->num_rows();
+        // $data['total_sertifikat'] = $this->db->get_where('', ['status' => 'Tertunda'])->num_rows();
+        $data['total_supplier'] = $this->db->get('suppliers')->num_rows();
+        $data['pengajuan'] = $this->pengajuan_model->pengajuanTertunda();
         $data['title'] = 'Dashboard';
         $this->loadView('dashboard', $data);
     }

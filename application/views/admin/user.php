@@ -72,7 +72,7 @@
           </div>
           <img src="<?= base_url() . 'assets/img/' . $user->avatar; ?>" class="imgPreview rounded-circle mb-4 justify-content-center" width="200" height="200" alt="" style="object-fit: cover;"><br>
           <label for="avatar" class="text-dark font-weight-bold text-left">PILIH FOTO</label>
-          <input type="file" class="form-control-file <?= form_error('avatar') ? 'is-invalid' : '' ?>" name="avatar" accept="image/*" id="avatar">
+          <input type="file" class="form-control-file <?= form_error('avatar') ? 'is-invalid' : '' ?>" name="avatar" accept="image/*" id="avatar" required>
           <div id='avatar' class='invalid-feedback'>
             <?= form_error('avatar') ?>
           </div>

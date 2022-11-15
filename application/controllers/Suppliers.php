@@ -34,6 +34,12 @@ class Suppliers extends CI_Controller
         $data['title'] = 'Suppliers';
         $this->loadView('suppliers', $data);
     }
+    public function detail($kd_supplier){
+        $data['pengajuan'] = $this->db->get_where('pengajuan',['kd_supplier'=>$kd_supplier])->result_array();
+        $data['supplier'] = $this->supplier_model->supplier($kd_supplier);
+        $data['title'] = 'Suppliers';
+        $this->loadView('detail_supplier', $data);
+    }
 
     public function tambah()
     {

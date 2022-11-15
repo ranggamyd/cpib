@@ -26,6 +26,9 @@ class Pengajuan_model extends CI_Model
         return $this->db->get('pengajuan')->result_array();
     }
 
+    public function pengajuanTertunda(){
+        return $this->db->get_where('pengajuan',['status'=>'Tertunda'])->result_array();
+    }
     public function pengajuan($kd_pengajuan)
     {
         $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');

@@ -139,6 +139,7 @@ $autoload['model'] = [
     'tim_inspeksi_model',
     'jenis_produk_model',
     'pengajuan_model',
+    'penilaian_model',
     'perbaikan_ajuan_model',
     'sertifikat_model',
     'pengajuan_supplier_model',
