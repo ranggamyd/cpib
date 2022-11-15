@@ -83,7 +83,7 @@
 
 
             </div>
-            <a href="#" class="btn btn btn-primary shadow-sm"><i class="mr-2 fas fa-book-reader fa-sm text-white-50"></i> Ajukan Permohonan Baru</a>
+            <a href="<?= base_url('pengajuan/tambah_ajuan') ?>" class="btn btn btn-primary shadow-sm"><i class="mr-2 fas fa-book-reader fa-sm text-white-50"></i> Ajukan Permohonan Baru</a>
         </div>
         <div class="col">
             <!--Dayspedia.com widget-->
@@ -324,7 +324,7 @@
                 <div class="card-header">
                     <h5 class="mb-0">Daftar Permohonan Tertunda</h5>
                 </div>
-                <div class="card shadow mb-4">
+                <div class="card shadow">
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

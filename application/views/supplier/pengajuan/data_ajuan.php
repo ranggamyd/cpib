@@ -10,7 +10,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="<?php echo base_url('pengajuan/tambah_ajuan') ?>" class="btn btn-sm btn-primary" id="#myBtn"><i class="fas fa-plus-circle mr-2"></i>Tambah Ajuan</a>
+            <a href="<?php echo base_url('pengajuan_supplier/tambah_ajuan') ?>" class="btn btn-sm btn-primary" id="#myBtn"><i class="fas fa-plus-circle mr-2"></i>Tambah Ajuan</a>
 
         </div>
         <div class="card-body">
@@ -39,11 +39,13 @@
                                 <td></td>
                                 <td></td>
                                 <td class="text-center">
-                                    <?php if ($item['status'] == 'Tertunda') { ?>
-                                        <div class="badge badge-info">Menunggu Inspeksi</div>
-                                    <?php } else { ?>
-                                        <div class="badge badge-success">Terdafar</div>
-                                    <?php } ?>
+                                    <?php if ($item['status'] == 'Tertunda') : ?>
+                                        <a href="" onclick="return confirm('Apakah anda yakin?')" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $item['status']; ?></a>
+                                    <?php elseif ($item['status'] == 'Perlu Revisi') : ?>
+                                        <a href="" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
+                                    <?php elseif ($item['status'] == 'Diterima') : ?>
+                                        <a href="" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
+                                    <?php endif; ?>
                                 </td>
                                 <td class="text-center">
                                     <a href="" class="btn btn-success"><i class="fas fa-info-circle"></i></a>

@@ -33,8 +33,6 @@ class Auth_model extends CI_Model
 					$this->session->set_userdata(["login_as" => 'supplier']);
 				}
 
-				$this->session->set_userdata(['username' => $user->username]);
-				$this->session->set_userdata(['avatar' => $user->avatar]);
 				$this->session->set_userdata([self::SESSION_KEY => $user->id]);
 
 				return $this->session->has_userdata(self::SESSION_KEY);

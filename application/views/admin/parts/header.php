@@ -110,7 +110,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link py-2" href="<?= base_url('user/logout') ?>">
+                <a class="nav-link py-2" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
                     <span>Log Out</span>
                 </a>
@@ -266,7 +266,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link py-2 dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php $user= $this->db->get_where('users',['id'=>$this->session->userdata('user_id')])->row() ?>
+                                <?php $user = $this->db->get_where('users', ['id' => $this->session->userdata('user_id')])->row() ?>
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user->username ?></span>
                                 <img class="img-profile rounded-circle" src="<?= base_url('assets/img/' . $user->avatar) ?>">
                             </a>
