@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2022 at 09:55 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 7.4.30
+-- Waktu pembuatan: 15 Nov 2022 pada 14.02
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Struktur dari tabel `admin`
 --
 
 CREATE TABLE `admin` (
@@ -37,7 +37,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `admin`
+-- Dumping data untuk tabel `admin`
 --
 
 INSERT INTO `admin` (`id`, `kd_admin`, `nama_admin`, `jenis_kelamin`, `alamat`, `jabatan`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `admin` (`id`, `kd_admin`, `nama_admin`, `jenis_kelamin`, `alamat`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `daftar_isian`
+-- Struktur dari tabel `daftar_isian`
 --
 
 CREATE TABLE `daftar_isian` (
@@ -59,7 +59,7 @@ CREATE TABLE `daftar_isian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `daftar_isian`
+-- Dumping data untuk tabel `daftar_isian`
 --
 
 INSERT INTO `daftar_isian` (`id`, `kd_daftar_isian`, `nama_isian`, `deskripsi`) VALUES
@@ -80,7 +80,7 @@ INSERT INTO `daftar_isian` (`id`, `kd_daftar_isian`, `nama_isian`, `deskripsi`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hasil_inspeksi`
+-- Struktur dari tabel `hasil_inspeksi`
 --
 
 CREATE TABLE `hasil_inspeksi` (
@@ -99,7 +99,7 @@ CREATE TABLE `hasil_inspeksi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jenis_produk`
+-- Struktur dari tabel `jenis_produk`
 --
 
 CREATE TABLE `jenis_produk` (
@@ -110,7 +110,7 @@ CREATE TABLE `jenis_produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `jenis_produk`
+-- Dumping data untuk tabel `jenis_produk`
 --
 
 INSERT INTO `jenis_produk` (`id`, `kd_jenis_produk`, `jenis_produk`, `deskripsi`) VALUES
@@ -121,7 +121,7 @@ INSERT INTO `jenis_produk` (`id`, `kd_jenis_produk`, `jenis_produk`, `deskripsi`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jenis_produk_supplier`
+-- Struktur dari tabel `jenis_produk_supplier`
 --
 
 CREATE TABLE `jenis_produk_supplier` (
@@ -132,7 +132,7 @@ CREATE TABLE `jenis_produk_supplier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `jenis_produk_supplier`
+-- Dumping data untuk tabel `jenis_produk_supplier`
 --
 
 INSERT INTO `jenis_produk_supplier` (`id`, `kd_pengajuan`, `kd_supplier`, `kd_jenis_produk`) VALUES
@@ -142,7 +142,7 @@ INSERT INTO `jenis_produk_supplier` (`id`, `kd_pengajuan`, `kd_supplier`, `kd_je
 -- --------------------------------------------------------
 
 --
--- Table structure for table `miniplant_supplier`
+-- Struktur dari tabel `miniplant_supplier`
 --
 
 CREATE TABLE `miniplant_supplier` (
@@ -153,7 +153,7 @@ CREATE TABLE `miniplant_supplier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `miniplant_supplier`
+-- Dumping data untuk tabel `miniplant_supplier`
 --
 
 INSERT INTO `miniplant_supplier` (`id`, `kd_pengajuan`, `kd_supplier`, `nama_miniplant`) VALUES
@@ -162,7 +162,35 @@ INSERT INTO `miniplant_supplier` (`id`, `kd_pengajuan`, `kd_supplier`, `nama_min
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengajuan`
+-- Struktur dari tabel `penanganan`
+--
+
+CREATE TABLE `penanganan` (
+  `id` int(11) NOT NULL,
+  `kd_penanganan` varchar(20) NOT NULL,
+  `tahap_penanganan` varchar(100) NOT NULL,
+  `deskripsi` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `penanganan`
+--
+
+INSERT INTO `penanganan` (`id`, `kd_penanganan`, `tahap_penanganan`, `deskripsi`) VALUES
+(2, 'PNG-001', 'Penerimaan', '1'),
+(3, 'PNG-002', 'Penampungan', '2'),
+(4, 'PNG-003', 'Pencucian I', '3'),
+(5, 'PNG-004', 'Sortasi', '4'),
+(6, 'PNG-005', 'Pencucian II', '5'),
+(7, 'PNG-006', 'Penimbangan', '6'),
+(8, 'PNG-007', 'Pengepakan', '7'),
+(9, 'PNG-008', 'Pengangkutan', '8'),
+(10, 'PNG-009', 'Pengiriman', '9');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pengajuan`
 --
 
 CREATE TABLE `pengajuan` (
@@ -183,7 +211,7 @@ CREATE TABLE `pengajuan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pengajuan`
+-- Dumping data untuk tabel `pengajuan`
 --
 
 INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `nama_miniplant`, `tgl_pengajuan`, `status`, `ktp`, `npwp`, `nib`, `siup`, `akta_usaha`, `imb`, `layout`, `panduan_mutu`) VALUES
@@ -192,7 +220,7 @@ INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `nama_miniplant`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penilaian`
+-- Struktur dari tabel `penilaian`
 --
 
 CREATE TABLE `penilaian` (
@@ -207,7 +235,7 @@ CREATE TABLE `penilaian` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penilaian_hasil_inspeksi`
+-- Struktur dari tabel `penilaian_hasil_inspeksi`
 --
 
 CREATE TABLE `penilaian_hasil_inspeksi` (
@@ -223,7 +251,7 @@ CREATE TABLE `penilaian_hasil_inspeksi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `perbaikan_ajuan`
+-- Struktur dari tabel `perbaikan_ajuan`
 --
 
 CREATE TABLE `perbaikan_ajuan` (
@@ -238,7 +266,7 @@ CREATE TABLE `perbaikan_ajuan` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `revision_notes`
+-- Struktur dari tabel `revision_notes`
 --
 
 CREATE TABLE `revision_notes` (
@@ -250,7 +278,7 @@ CREATE TABLE `revision_notes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sub_daftar_isian`
+-- Struktur dari tabel `sub_daftar_isian`
 --
 
 CREATE TABLE `sub_daftar_isian` (
@@ -265,7 +293,7 @@ CREATE TABLE `sub_daftar_isian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `sub_daftar_isian`
+-- Dumping data untuk tabel `sub_daftar_isian`
 --
 
 INSERT INTO `sub_daftar_isian` (`id`, `kd_daftar_isian`, `nama_subisian`, `is_mayor`, `is_minor`, `is_serius`, `is_kritis`, `acuan`) VALUES
@@ -301,7 +329,7 @@ INSERT INTO `sub_daftar_isian` (`id`, `kd_daftar_isian`, `nama_subisian`, `is_ma
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suppliers`
+-- Struktur dari tabel `suppliers`
 --
 
 CREATE TABLE `suppliers` (
@@ -314,7 +342,7 @@ CREATE TABLE `suppliers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `suppliers`
+-- Dumping data untuk tabel `suppliers`
 --
 
 INSERT INTO `suppliers` (`id`, `kd_supplier`, `nama_supplier`, `no_telp`, `no_fax`, `alamat`) VALUES
@@ -323,7 +351,7 @@ INSERT INTO `suppliers` (`id`, `kd_supplier`, `nama_supplier`, `no_telp`, `no_fa
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tim_inspeksi`
+-- Struktur dari tabel `tim_inspeksi`
 --
 
 CREATE TABLE `tim_inspeksi` (
@@ -337,7 +365,7 @@ CREATE TABLE `tim_inspeksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tim_inspeksi`
+-- Dumping data untuk tabel `tim_inspeksi`
 --
 
 INSERT INTO `tim_inspeksi` (`id`, `kd_tim_inspeksi`, `kd_pengajuan`, `pimpinan_supplier`, `ketua_inspeksi`, `anggota1`, `anggota2`) VALUES
@@ -346,7 +374,7 @@ INSERT INTO `tim_inspeksi` (`id`, `kd_tim_inspeksi`, `kd_pengajuan`, `pimpinan_s
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -363,13 +391,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `username`, `phone`, `password`, `avatar`, `kd_admin`, `kd_supplier`, `is_active`) VALUES
 (1, 'Rangga', '123@123.com', 'rangga', '123', '863c2a4b6bff5e22294081e376fc1f51', 'PIXL_20220919_175340_83.png', 'ADM-001', '', 1),
 (4, 'H. Ta\'lim', '123@gmail.com', 'paktalim', '123', '202cb962ac59075b964b07152d234b70', '', '', 'SPL-001', 1),
-(5, 'Jeri', '', 'ADM-002_Jeri', '', '5280cd280f75766e827fa6283689467d', '', 'ADM-002', '', 1),
+(5, 'Jeri', 'admin@gmail.com', 'ADM-002_Jeri', '08123', '5280cd280f75766e827fa6283689467d', 'cropped-logo-PDIP1.jpg', 'ADM-002', '', 1),
 (6, 'Wiky', '', 'ADM-003_Wiky', '', 'bf6a4a64c2a8c0a8c2623850d757f981', '', 'ADM-003', '', 1);
 
 --
@@ -377,43 +405,49 @@ INSERT INTO `users` (`id`, `name`, `email`, `username`, `phone`, `password`, `av
 --
 
 --
--- Indexes for table `admin`
+-- Indeks untuk tabel `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `daftar_isian`
+-- Indeks untuk tabel `daftar_isian`
 --
 ALTER TABLE `daftar_isian`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `hasil_inspeksi`
+-- Indeks untuk tabel `hasil_inspeksi`
 --
 ALTER TABLE `hasil_inspeksi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jenis_produk`
+-- Indeks untuk tabel `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jenis_produk_supplier`
+-- Indeks untuk tabel `jenis_produk_supplier`
 --
 ALTER TABLE `jenis_produk_supplier`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `miniplant_supplier`
+-- Indeks untuk tabel `miniplant_supplier`
 --
 ALTER TABLE `miniplant_supplier`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pengajuan`
+-- Indeks untuk tabel `penanganan`
+--
+ALTER TABLE `penanganan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `pengajuan`
 --
 ALTER TABLE `pengajuan`
   ADD PRIMARY KEY (`id`),
@@ -421,144 +455,150 @@ ALTER TABLE `pengajuan`
   ADD KEY `kd_supplier` (`kd_supplier`);
 
 --
--- Indexes for table `penilaian`
+-- Indeks untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `penilaian_hasil_inspeksi`
+-- Indeks untuk tabel `penilaian_hasil_inspeksi`
 --
 ALTER TABLE `penilaian_hasil_inspeksi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `perbaikan_ajuan`
+-- Indeks untuk tabel `perbaikan_ajuan`
 --
 ALTER TABLE `perbaikan_ajuan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `revision_notes`
+-- Indeks untuk tabel `revision_notes`
 --
 ALTER TABLE `revision_notes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sub_daftar_isian`
+-- Indeks untuk tabel `sub_daftar_isian`
 --
 ALTER TABLE `sub_daftar_isian`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `suppliers`
+-- Indeks untuk tabel `suppliers`
 --
 ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `kd_supplier` (`kd_supplier`);
 
 --
--- Indexes for table `tim_inspeksi`
+-- Indeks untuk tabel `tim_inspeksi`
 --
 ALTER TABLE `tim_inspeksi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT untuk tabel `admin`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `daftar_isian`
+-- AUTO_INCREMENT untuk tabel `daftar_isian`
 --
 ALTER TABLE `daftar_isian`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `hasil_inspeksi`
+-- AUTO_INCREMENT untuk tabel `hasil_inspeksi`
 --
 ALTER TABLE `hasil_inspeksi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jenis_produk`
+-- AUTO_INCREMENT untuk tabel `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `jenis_produk_supplier`
+-- AUTO_INCREMENT untuk tabel `jenis_produk_supplier`
 --
 ALTER TABLE `jenis_produk_supplier`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `miniplant_supplier`
+-- AUTO_INCREMENT untuk tabel `miniplant_supplier`
 --
 ALTER TABLE `miniplant_supplier`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `pengajuan`
+-- AUTO_INCREMENT untuk tabel `penanganan`
+--
+ALTER TABLE `penanganan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengajuan`
 --
 ALTER TABLE `pengajuan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `penilaian`
+-- AUTO_INCREMENT untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `penilaian_hasil_inspeksi`
+-- AUTO_INCREMENT untuk tabel `penilaian_hasil_inspeksi`
 --
 ALTER TABLE `penilaian_hasil_inspeksi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `perbaikan_ajuan`
+-- AUTO_INCREMENT untuk tabel `perbaikan_ajuan`
 --
 ALTER TABLE `perbaikan_ajuan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `revision_notes`
+-- AUTO_INCREMENT untuk tabel `revision_notes`
 --
 ALTER TABLE `revision_notes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `sub_daftar_isian`
+-- AUTO_INCREMENT untuk tabel `sub_daftar_isian`
 --
 ALTER TABLE `sub_daftar_isian`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `suppliers`
+-- AUTO_INCREMENT untuk tabel `suppliers`
 --
 ALTER TABLE `suppliers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `tim_inspeksi`
+-- AUTO_INCREMENT untuk tabel `tim_inspeksi`
 --
 ALTER TABLE `tim_inspeksi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;

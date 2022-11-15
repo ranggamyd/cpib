@@ -17,11 +17,11 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Ajuan Tertunda</div>
+                                        Tertunda</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $pengajuan_tertunda ?> </div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-book-reader fa-2x text-primary"></i>
+                                    <i class="fas fa-clock fa-2x text-primary"></i>
                                 </div>
                             </div>
                         </div>
@@ -35,11 +35,11 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Menunggu Perbaikan</div>
+                                        Perbaikan</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $menunggu_perbaikan ?></div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-marker fa-2x text-warning"></i>
+                                    <i class="fas fa-file-signature fa-2x text-warning"></i>
                                 </div>
                             </div>
                         </div>
@@ -52,11 +52,11 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Total Sertifikat</div>
+                                        Sertifikat</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-certificate fa-2x text-info"></i>
+                                    <i class="fas fa-medal fa-2x text-info"></i>
                                 </div>
                             </div>
                         </div>
@@ -69,11 +69,11 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                        Total Supplier</div>
+                                        Supplier</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_supplier ?> </div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-check fa-2x text-success"></i>
+                                    <i class="fas fa-user-friends fa-2x text-success"></i>
                                 </div>
                             </div>
                         </div>

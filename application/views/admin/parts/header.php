@@ -82,9 +82,16 @@
                 </a>
             </li>
 
+            <li class="nav-item <?= ($this->uri->segment(1) == 'penanganan') ? 'active' : ''; ?>">
+                <a class="nav-link py-2" href="<?= base_url('penanganan') ?>">
+                    <i class="fas fa-fw fa-exchange-alt"></i>
+                    <span>Tahap Penanganan</span>
+                </a>
+            </li>
+
             <li class="nav-item <?= ($this->uri->segment(1) == 'suppliers') ? 'active' : ''; ?>">
                 <a class="nav-link py-2" href="<?= base_url('suppliers') ?>">
-                    <i class="fas fa-fw fa-users"></i>
+                    <i class="fas fa-fw fa-user-friends"></i>
                     <span>Data Supplier</span>
                 </a>
             </li>
