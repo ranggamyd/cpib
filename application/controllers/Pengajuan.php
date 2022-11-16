@@ -73,6 +73,13 @@ class Pengajuan extends CI_Controller
         }
     }
 
+    public function detail($kd_pengajuan)
+    {
+        $data['pengajuan'] = $this->pengajuan_model->pengajuanDetail($kd_pengajuan);
+        $data['title'] = 'Detail Ajuan';
+        $this->loadView('detail_ajuan', $data);
+    }
+
     public function ubah($kd_pengajuan)
     {
         $data['pengajuan'] = $this->pengajuan_model->pengajuan($kd_pengajuan);

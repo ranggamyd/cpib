@@ -76,7 +76,7 @@
                                     <td><?= $si['acuan'] ?></td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="#" class="btn btn-flat" data-toggle="modal" data-target="#ubah_isian-<?= $si['id'] ?>" id="#myBtn" data-dismiss="modal"><i class="fa fa-fw fa-pen text-success"></i></a>
+                                            <a href="#" class="btn btn-flat" data-toggle="modal" data-target="#ubah_isian-<?= $si['id'] ?><?= $di['kd_daftar_isian'] ?>" id="#myBtn" data-dismiss="modal"><i class="fa fa-fw fa-pen text-success"></i></a>
                                             <a href="<?= base_url('daftar_isian/hapus_isian/' . $si['id']) ?>" onclick="return confirm('Apakah anda yakin, ingin menghapus isian?')" class="btn btn-flat" data-toggle="tooltip" data-placement="right" title="Hapus"><i class="fas fa-trash-alt text-danger"></i></a>
                                         </div>
                                     </td>
@@ -243,7 +243,7 @@
 
 <!-- Modal ubah Isian -->
 <?php foreach ($this->db->get('sub_daftar_isian')->result_array() as $si) : ?>
-    <div class="modal fade" id="ubah_isian-<?= $si['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ubah_isianLabel" aria-hidden="true">
+    <div class="modal fade" id="ubah_isian-<?= $si['id'] ?><?= $di['kd_daftar_isian'] ?>" tabindex="-1" role="dialog" aria-labelledby="ubah_isianLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -254,9 +254,9 @@
                 </div>
                 <form action="<?= base_url('daftar_isian/ubah_isian') ?>" method="post">
                     <div class="modal-body">
-                        <input type="hidden" name="id" value="<?= set_value('id', $si['id']) ?>">
+                        <input type="text" name="id" value="<?= set_value('id', $si['id']) ?>">
                         <label for="kd_daftar_isian">Kategori :</label>
-                        <input type="hidden" name="kd_daftar_isian" id="kd_daftar_isian" class="form-control mb-3" value="<?= $di['kd_daftar_isian'] ?>" readonly required>
+                        <input type="text" name="kd_daftar_isian" id="kd_daftar_isian" class="form-control mb-3" value="<?= $di['kd_daftar_isian'] ?>" readonly required>
                         <input type="text" class="form-control mb-3" value="<?= $di['nama_isian'] ?>" readonly>
                         <!-- <select name="kd_daftar_isian" id="kd_daftar_isian" class="form-control" required>
                             <?php foreach ($daftar_isian as $di) : ?>

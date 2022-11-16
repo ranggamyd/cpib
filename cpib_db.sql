@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Nov 2022 pada 14.02
+-- Waktu pembuatan: 16 Nov 2022 pada 10.46
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -178,7 +178,7 @@ CREATE TABLE `penanganan` (
 
 INSERT INTO `penanganan` (`id`, `kd_penanganan`, `tahap_penanganan`, `deskripsi`) VALUES
 (2, 'PNG-001', 'Penerimaan', '1'),
-(3, 'PNG-002', 'Penampungan', '2'),
+(3, 'PNG-002', 'Penampungan1', '21'),
 (4, 'PNG-003', 'Pencucian I', '3'),
 (5, 'PNG-004', 'Sortasi', '4'),
 (6, 'PNG-005', 'Pencucian II', '5'),
@@ -297,9 +297,9 @@ CREATE TABLE `sub_daftar_isian` (
 --
 
 INSERT INTO `sub_daftar_isian` (`id`, `kd_daftar_isian`, `nama_subisian`, `is_mayor`, `is_minor`, `is_serius`, `is_kritis`, `acuan`) VALUES
-(1, 'CKS-001', 'Pasokan air tidak memadai dan tidak aman untuk digunakan', 0, 0, 1, 1, 'Persyaratan air dan es untuk penanganan dan pengolahan hasil perikanan'),
-(2, 'CKS-001', 'Memungkinkan terjadinya kontaminasi antara air bersih dan air kotor', 0, 0, 1, 0, 'Persyaratan air dan es untuk penanganan dan pengolahan hasil perikanan'),
-(3, 'CKS-001', 'Es tidak dibuat, ditangani atau digunakan dengan cara yang bersih', 0, 0, 1, 1, 'Persyaratan air dan es untuk penanganan dan pengolahan hasil perikanan'),
+(1, 'CKS-001', 'Pasokan air tidak memadai dan tidak aman untuk digunakan', 1, 1, 1, 1, 'Persyaratan air dan es untuk penanganan dan pengolahan hasil perikanan'),
+(2, 'CKS-001', 'Memungkinkan terjadinya kontaminasi antara air bersih dan air kotor', 1, 0, 0, 1, 'Persyaratan air dan es untuk penanganan dan pengolahan hasil perikanan'),
+(3, 'CKS-001', 'Es tidak dibuat, ditangani atau digunakan dengan cara yang bersih', 1, 1, 0, 0, 'Persyaratan air dan es untuk penanganan dan pengolahan hasil perikanan'),
 (4, 'CKS-002', 'Peralatan, perlengkapan, dan fasilitas yang kontak langsung dengan produk memungkinkan terjadinya kontaminasi.', 0, 0, 1, 1, 'NOMOR 52 A/KEPMEN-KP/2013, Bab II.F. 3'),
 (5, 'CKS-003', 'Cara penanganan tidak mencegah terjadinya kontaminasi silang', 1, 0, 1, 0, 'NOMOR 52 A/KEPMEN-KP/2013,Bab II.F. 2b3'),
 (6, 'CKS-003', 'Limbah tidak ditangani dengan baik dan dapat menyebabkan kontaminasi silang.', 0, 0, 1, 0, 'NOMOR 52 A/KEPMEN-KP/2013, Bab II'),
@@ -396,8 +396,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `username`, `phone`, `password`, `avatar`, `kd_admin`, `kd_supplier`, `is_active`) VALUES
 (1, 'Rangga', '123@123.com', 'rangga', '123', '863c2a4b6bff5e22294081e376fc1f51', 'PIXL_20220919_175340_83.png', 'ADM-001', '', 1),
-(4, 'H. Ta\'lim', '123@gmail.com', 'paktalim', '123', '202cb962ac59075b964b07152d234b70', '', '', 'SPL-001', 1),
-(5, 'Jeri', 'admin@gmail.com', 'ADM-002_Jeri', '08123', '5280cd280f75766e827fa6283689467d', 'cropped-logo-PDIP1.jpg', 'ADM-002', '', 1),
+(4, 'H. Ta\'lim', '123@gmail.com', 'paktalim', '123', '202cb962ac59075b964b07152d234b70', 'logo_bkipm.png', '', 'SPL-001', 1),
+(5, 'Jeri', 'admin@gmail.com', 'jeri', '08123', 'd63e6966c704eec1885b753d5b257b3c', 'cropped-logo-PDIP1.jpg', 'ADM-002', '', 1),
 (6, 'Wiky', '', 'ADM-003_Wiky', '', 'bf6a4a64c2a8c0a8c2623850d757f981', '', 'ADM-003', '', 1);
 
 --

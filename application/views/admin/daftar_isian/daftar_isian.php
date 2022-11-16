@@ -242,6 +242,7 @@
 <?php endforeach ?>
 
 <!-- Modal ubah Isian -->
+
 <?php foreach ($this->db->get('sub_daftar_isian')->result_array() as $si) : ?>
     <div class="modal fade" id="ubah_isian-<?= $si['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ubah_isianLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -256,13 +257,8 @@
                     <div class="modal-body">
                         <input type="hidden" name="id" value="<?= set_value('id', $si['id']) ?>">
                         <label for="kd_daftar_isian">Kategori :</label>
-                        <input type="hidden" name="kd_daftar_isian" id="kd_daftar_isian" class="form-control mb-3" value="<?= $di['kd_daftar_isian'] ?>" readonly required>
-                        <input type="text" class="form-control mb-3" value="<?= $di['nama_isian'] ?>" readonly>
-                        <!-- <select name="kd_daftar_isian" id="kd_daftar_isian" class="form-control" required>
-                            <?php foreach ($daftar_isian as $di) : ?>
-                                <option value="<?= $di['kd_daftar_isian'] ?>" <?= set_select('kd_daftar_isian', $di['kd_daftar_isian']); ?>><?= $di['nama_isian'] ?></option>
-                            <?php endforeach ?>
-                        </select> -->
+                        <input type="hidden" name="kd_daftar_isian" id="kd_daftar_isian" class="form-control mb-3" value="<?= $si['kd_daftar_isian'] ?>" readonly required>
+                        <input type="text" class="form-control mb-3" value="<?= $this->db->get_where('daftar_isian', ['kd_daftar_isian' => $si['kd_daftar_isian']])->row('nama_isian'); ?>" readonly>
                         <div id="kd_daftar_isian" class="invalid-feedback">
                             <?= form_error('kd_daftar_isian') ?>
                         </div>
