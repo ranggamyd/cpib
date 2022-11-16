@@ -21,7 +21,7 @@ class Sertifikat extends CI_Controller
     // ];
 
     $this->load->view('admin/parts/header', $data);
-    $this->load->view('admin/' . $file, $data);
+    $this->load->view('admin/sertifikat/' . $file, $data);
     $this->load->view('admin/parts/footer', $data);
   }
 
@@ -36,5 +36,11 @@ class Sertifikat extends CI_Controller
   public function cetak($sertif_id)
   {
     # HEHE
+  }
+
+  public function edit_template()
+  {
+    $data['title'] = 'Edit Template Sertifikat';
+    $this->loadView('edit_template', $data);
   }
 }
