@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Nov 2022 pada 10.46
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 7.4.29
+-- Waktu pembuatan: 17 Nov 2022 pada 10.28
+-- Versi server: 10.4.25-MariaDB
+-- Versi PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -226,19 +226,26 @@ INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `nama_miniplant`, 
 CREATE TABLE `penilaian` (
   `id` int(11) NOT NULL,
   `kd_penilaian` varchar(20) NOT NULL,
+  `kd_pengajuan` varchar(20) NOT NULL,
   `tgl_inspeksi` date NOT NULL,
   `kd_supplier` varchar(20) NOT NULL,
   `jenis_supplier` enum('Baru','Lama') NOT NULL,
-  `kd_tim_inspeksi` varchar(20) NOT NULL
+  `kd_tim_inspeksi` varchar(20) NOT NULL,
+  `jml_minor` int(11) NOT NULL,
+  `jml_mayor` int(11) NOT NULL,
+  `jml_serius` int(11) NOT NULL,
+  `jml_kritis` int(11) NOT NULL,
+  `klasifikasi` varchar(20) NOT NULL,
+  `is_need_revisi` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penilaian_hasil_inspeksi`
+-- Struktur dari tabel `penilaian_detail`
 --
 
-CREATE TABLE `penilaian_hasil_inspeksi` (
+CREATE TABLE `penilaian_detail` (
   `id` int(11) NOT NULL,
   `kd_penilaian` varchar(20) NOT NULL,
   `id_subisian` int(11) NOT NULL,
@@ -247,6 +254,30 @@ CREATE TABLE `penilaian_hasil_inspeksi` (
   `is_serius` tinyint(1) NOT NULL,
   `is_kritis` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `penilaian_notes`
+--
+
+CREATE TABLE `penilaian_notes` (
+  `id` int(11) NOT NULL,
+  `kd_penilaian` varchar(20) NOT NULL,
+  `revisi` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `penilaian_tahap_penanganan`
+--
+
+CREATE TABLE `penilaian_tahap_penanganan` (
+  `id` int(11) NOT NULL,
+  `kd_penilaian` varchar(20) NOT NULL,
+  `kd_penanganan` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -261,18 +292,6 @@ CREATE TABLE `perbaikan_ajuan` (
   `kd_supplier` varchar(20) NOT NULL,
   `tgl_perbaikan` date NOT NULL,
   `status` enum('Lolos','Perlu Revisi Kembali','Tidak Lolos') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `revision_notes`
---
-
-CREATE TABLE `revision_notes` (
-  `id` int(11) NOT NULL,
-  `kd_penilaian` varchar(20) NOT NULL,
-  `revisi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -461,21 +480,27 @@ ALTER TABLE `penilaian`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `penilaian_hasil_inspeksi`
+-- Indeks untuk tabel `penilaian_detail`
 --
-ALTER TABLE `penilaian_hasil_inspeksi`
+ALTER TABLE `penilaian_detail`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `penilaian_notes`
+--
+ALTER TABLE `penilaian_notes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `penilaian_tahap_penanganan`
+--
+ALTER TABLE `penilaian_tahap_penanganan`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `perbaikan_ajuan`
 --
 ALTER TABLE `perbaikan_ajuan`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `revision_notes`
---
-ALTER TABLE `revision_notes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -562,21 +587,27 @@ ALTER TABLE `penilaian`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `penilaian_hasil_inspeksi`
+-- AUTO_INCREMENT untuk tabel `penilaian_detail`
 --
-ALTER TABLE `penilaian_hasil_inspeksi`
+ALTER TABLE `penilaian_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `penilaian_notes`
+--
+ALTER TABLE `penilaian_notes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `penilaian_tahap_penanganan`
+--
+ALTER TABLE `penilaian_tahap_penanganan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `perbaikan_ajuan`
 --
 ALTER TABLE `perbaikan_ajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `revision_notes`
---
-ALTER TABLE `revision_notes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

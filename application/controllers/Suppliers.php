@@ -55,7 +55,7 @@ class Suppliers extends CI_Controller
                 $this->session->set_flashdata('sukses', 'Berhasil menambahkan !');
                 redirect('suppliers');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal menambahkanas !');
+                $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
                 $this->index();
             }
         }

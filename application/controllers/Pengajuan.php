@@ -165,63 +165,31 @@ class Pengajuan extends CI_Controller
 
     public function proses_penilaian()
     {
-        $data = [
-            'kd_penilaian' => $this->input->post('kd_penilaian_auto'),
-            'tgl_inspeksi' => $this->input->post('tgl_inspeksi'),
-            'kd_supplier' => $this->input->post('kd_supplier'),
-            'jenis_supplier' => $this->input->post('jenis_supplier'),
-            'kd_tim_inspeksi' => $this->input->post('kd_tim_inspeksi'),
-        ];
+        $this->form_validation->set_rules('kd_penilaian', 'Kode Penilaian', 'required|is_unique[penilaian.kd_penilaian]');
+        $this->form_validation->set_rules('tgl_inspeksi', 'Tanggal Inspeksi', 'required');
+        $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
+        $this->form_validation->set_rules('kd_supplier', 'Supplier', 'required');
+        $this->form_validation->set_rules('jenis_supplier', 'Jenis Supplier', 'required');
+        $this->form_validation->set_rules('kd_tim_inspeksi', 'Tim Inspeksi', 'required');
+        $this->form_validation->set_rules('jmlMinor', 'Jumlah Minor', 'required');
+        $this->form_validation->set_rules('jmlMayor', 'Jumlah Mayor', 'required');
+        $this->form_validation->set_rules('jmlSerius', 'Jumlah Serius', 'required');
+        $this->form_validation->set_rules('jmlKritis', 'Jumlah Kritis', 'required');
+        $this->form_validation->set_rules('klasifikasi', 'Klasifikasi', 'required');
+        // $this->form_validation->set_rules('penilaian_detail', 'Checklist', 'callback_penilaianDetail');
+        $this->form_validation->set_rules('tahap_penanganan[]', 'Tahapan Penanganan', 'required');
 
-        $subisian = $this->db->get('sub_daftar_isian')->result_array();
-
-        $nilai = [];
-        foreach ($subisian as $item) {
-            if ($this->input->post($item['id'])) {
-                $subnilai = [
-                    'kd_penilaian' => $this->input->post('kd_penilaian_auto'),
-                    'id_subisian' => $item['id'],
-                    'is_minor' => 0,
-                    'is_mayor' => 0,
-                    'is_serius' => 0,
-                    'is_kritis' => 0,
-                ];
-
-                switch ($this->input->post($item['id'])) {
-                    case 'is_minor':
-                        $subnilai['is_minor'] = 1;
-                        break;
-                    case 'is_mayor':
-                        $subnilai['is_mayor'] = 1;
-                        break;
-                    case 'is_serius':
-                        $subnilai['is_serius'] = 1;
-                        break;
-                    case 'is_kritis':
-                        $subnilai['is_kritis'] = 1;
-                        break;
-                }
-
-                array_push($nilai, $subnilai);
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('gagal', "Mohon isi data dengan lengkap dan teliti !");
+            $this->penilaian($this->input->post('kd_pengajuan'));
+        } else {
+            if ($this->penilaian_model->tambah()) {
+                $this->session->set_flashdata('sukses', 'Berhasil menambahkan !');
+                redirect('pengajuan');
+            } else {
+                $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+                $this->penilaian($this->input->post('kd_pengajuan'));
             }
         }
-
-        $data['nilai'] = $nilai;
-
-        $revision_notes = [];
-        foreach ($this->input->post('notes') as $item) {
-            $revisi = [
-                'kd_penilaian' => $this->input->post('kd_penilaian_auto'),
-                'revisi' => $item['revisi'],
-            ];
-
-            array_push($revision_notes, $revisi);
-        }
-
-        $data['revision_notes'] = $revision_notes;
-
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
     }
 }
