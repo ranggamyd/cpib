@@ -61,7 +61,7 @@
     </div>
     <div class="card shadow mb-4 mt-3">
         <div class="card-header py-3">
-            <h6 class="mb-0">Daftar Pengajuan Supplier</h6>
+            <h6 class="mb-0">Dokumen Pelengkap</h6>
         </div>
         <div class="card-body">
 
