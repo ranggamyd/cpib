@@ -64,10 +64,10 @@ class Pengajuan extends CI_Controller
             $this->tambah_ajuan();
         } else {
             if ($this->pengajuan_model->tambah()) {
-                $this->session->set_flashdata('sukses', 'Berhasil mengubah !');
+                $this->session->set_flashdata('sukses', 'Berhasil menambahkan Ajuan !');
                 redirect('pengajuan');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+                $this->session->set_flashdata('gagal', 'Gagal menambahkan Ajuan !');
                 $this->tambah_ajuan();
             }
         }
@@ -184,7 +184,7 @@ class Pengajuan extends CI_Controller
             $this->penilaian($this->input->post('kd_pengajuan'));
         } else {
             if ($this->penilaian_model->tambah()) {
-                $this->session->set_flashdata('sukses', 'Berhasil menambahkan !');
+                $this->session->set_flashdata('sukses', 'Berhasil menambahkan hasil Inspeksi !');
                 redirect('pengajuan');
             } else {
                 $this->session->set_flashdata('gagal', 'Gagal menambahkan !');

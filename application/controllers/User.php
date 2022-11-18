@@ -42,19 +42,19 @@ class User extends CI_Controller
 
   public function ubah_avatar()
   {
-    $this->form_validation->set_rules('kd_admin', 'Kode Admin', 'required');
-    if (empty($_FILES['avatar']['name'])) $this->form_validation->set_rules('avatar', 'Foto Profil', 'required|trim|xss_clean');
+    $this->form_validation->set_rules('kd_admin', 'Kode Pengguna', 'required');
+    if (empty($_FILES['avatar']['name'])) $this->form_validation->set_rules('avatar', 'Foto Profil', 'required');
 
     if ($this->form_validation->run() == FALSE) {
-      $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+      $this->session->set_flashdata('gagal', 'Gagal Memperbarui Avatar !');
       $this->session->set_flashdata('hasModalID', 'edit_avatar');
       $this->index();
     } else {
       if ($this->user_model->ubah_avatar()) {
-        $this->session->set_flashdata('sukses', 'Berhasil mengubah !');
+        $this->session->set_flashdata('sukses', 'Berhasil Memperbarui Avatar !');
         redirect('user');
       } else {
-        $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+        $this->session->set_flashdata('gagal', 'Gagal Memperbarui Avatar !');
         $this->index();
       }
     }
@@ -65,23 +65,21 @@ class User extends CI_Controller
     $user = $this->db->get_where('users', ['kd_admin' => $this->input->post('kd_admin')])->row();
 
     $this->form_validation->set_rules('nama_admin', 'Nama Lengkap', 'required');
-    $this->form_validation->set_rules('username', 'Username', 'required');
-    if ($this->input->post('username') != $user->username) $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
-    $this->form_validation->set_rules('phone', 'No. Telepon', 'required|numeric');
-    if ($this->input->post('phone') != $user->phone) $this->form_validation->set_rules('phone', 'No. Telepon', 'required|numeric|is_unique[users.phone]');
-    $this->form_validation->set_rules('email', 'email', 'required|valid_email');
-    if ($this->input->post('email') != $user->email) $this->form_validation->set_rules('email', 'email', 'required|valid_email|is_unique[users.email]');
+    $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric');
+    if ($this->input->post('no_telp') != $user->phone) $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric|is_unique[users.phone]');
+    $this->form_validation->set_rules('email', 'Email', 'valid_email');
+    if ($this->input->post('email') != $user->email) $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[users.email]');
 
     if ($this->form_validation->run() == FALSE) {
-      $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+      $this->session->set_flashdata('gagal', 'Gagal Memperbarui Profil !');
       $this->session->set_flashdata('hasModalID', 'edit_user');
       $this->index();
     } else {
       if ($this->user_model->ubah_profil()) {
-        $this->session->set_flashdata('sukses', 'Berhasil mengubah !');
+        $this->session->set_flashdata('sukses', 'Berhasil Memperbarui Profil !');
         redirect('user');
       } else {
-        $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+        $this->session->set_flashdata('gagal', 'Gagal Memperbarui Profil !');
         $this->index();
       }
     }

@@ -37,9 +37,9 @@
           <div class="col">
             <label for="ketua_inspeksi">Ketua Inspeksi :</label>
             <select name="ketua_inspeksi" id="ketua_inspeksi" class="form-control mb-3 <?= form_error('ketua_inspeksi') ? 'is-invalid' : '' ?>" required>
-              <option selected disabled></option>
+              <option></option>
               <?php foreach ($admin as $adm) : ?>
-                <option value="<?= $adm['kd_admin'] ?>" <?= set_select('ketua_inspeksi', $adm['kd_admin'], TRUE); ?>><?= $adm['nama_admin'] ?></option>
+                <option value="<?= $adm['kd_admin'] ?>" <?= set_select('ketua_inspeksi', $adm['kd_admin']); ?>><?= $adm['nama_admin'] ?></option>
               <?php endforeach ?>
             </select>
             <div id='ketua_inspeksi' class='invalid-feedback'>
@@ -49,9 +49,9 @@
           <div class="col">
             <label for="anggota1">Anggota 1 :</label>
             <select name="anggota1" id="anggota1" class="form-control mb-3 <?= form_error('anggota1') ? 'is-invalid' : '' ?>" required>
-              <option selected disabled></option>
+              <option></option>
               <?php foreach ($admin as $adm) : ?>
-                <option value="<?= $adm['kd_admin'] ?>" <?= set_select('ketua_inspeksi', $adm['kd_admin'], TRUE); ?>><?= $adm['nama_admin'] ?></option>
+                <option value="<?= $adm['kd_admin'] ?>" <?= set_select('anggota1', $adm['kd_admin']); ?>><?= $adm['nama_admin'] ?></option>
               <?php endforeach ?>
             </select>
             <div id='anggota1' class='invalid-feedback'>
@@ -59,11 +59,11 @@
             </div>
           </div>
           <div class="col">
-            <label for="anggota2">Ketua Inspeksi :</label>
-            <select name="anggota2" id="anggota2" class="form-control mb-3 <?= form_error('anggota2') ? 'is-invalid' : '' ?>" required>
-              <option selected disabled></option>
+            <label for="anggota2">Anggota 2 :</label>
+            <select name="anggota2" id="anggota2" class="form-control mb-3 <?= form_error('anggota2') ? 'is-invalid' : '' ?>">
+              <option></option>
               <?php foreach ($admin as $adm) : ?>
-                <option value="<?= $adm['kd_admin'] ?>" <?= set_select('ketua_inspeksi', $adm['kd_admin'], TRUE); ?>><?= $adm['nama_admin'] ?></option>
+                <option value="<?= $adm['kd_admin'] ?>" <?= set_select('anggota2', $adm['kd_admin']); ?>><?= $adm['nama_admin'] ?></option>
               <?php endforeach ?>
             </select>
             <div id='anggota2' class='invalid-feedback'>

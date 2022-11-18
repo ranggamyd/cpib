@@ -21,14 +21,14 @@ class Daftar_isian extends CI_Controller
         // ];
 
         $this->load->view('admin/parts/header', $data);
-        $this->load->view('admin/daftar_isian/' . $file, $data);
+        $this->load->view('admin/' . $file, $data);
         $this->load->view('admin/parts/footer', $data);
     }
 
     public function index()
     {
-        $data['kd_daftar_isian_auto'] = $this->daftar_isian_model->kd_daftar_isian_auto();
-        $data['daftar_isian'] = $this->daftar_isian_model->semuaDaftar_isian();
+        $data['kd_kategori_daftar_isian_auto'] = $this->daftar_isian_model->kd_kategori_daftar_isian_auto();
+        $data['kategori_daftar_isian'] = $this->daftar_isian_model->semuaKategori();
 
         $data['title'] = 'Daftar Isian';
         $this->loadView('daftar_isian', $data);
@@ -36,19 +36,19 @@ class Daftar_isian extends CI_Controller
 
     public function tambah_kategori()
     {
-        $this->form_validation->set_rules('kd_daftar_isian', 'Kode Daftar Isian', 'required');
-        $this->form_validation->set_rules('nama_isian', 'Nama Kategori', 'required');
+        $this->form_validation->set_rules('kd_daftar_isian', 'Kode Kategori', 'required');
+        $this->form_validation->set_rules('nama_isian', 'Nama Kategori', 'required|is_unique[kategori_daftar_isian.nama_isian]');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+            $this->session->set_flashdata('gagal', 'Gagal Menambahkan Kategori !');
             $this->session->set_flashdata('hasModalID', 'tambah_kategori');
             $this->index();
         } else {
             if ($this->daftar_isian_model->tambah_kategori()) {
-                $this->session->set_flashdata('sukses', 'Berhasil menambahkan !');
+                $this->session->set_flashdata('sukses', 'Berhasil Menambahkan Kategori !');
                 redirect('daftar_isian');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal menambahkanas !');
+                $this->session->set_flashdata('gagal', 'Gagal Menambahkan Kategori !');
                 $this->index();
             }
         }
@@ -57,20 +57,22 @@ class Daftar_isian extends CI_Controller
     public function ubah_kategori()
     {
         $kd_daftar_isian = $this->input->post('kd_daftar_isian');
+        $daftar_isian = $this->db->get_where('kategori_daftar_isian', ['kd_daftar_isian' => $kd_daftar_isian])->row();
 
-        $this->form_validation->set_rules('kd_daftar_isian', 'Kode Daftar Isian', 'required');
+        $this->form_validation->set_rules('kd_daftar_isian', 'Kode Kategori', 'required');
         $this->form_validation->set_rules('nama_isian', 'Nama Kategori', 'required');
+        if ($this->input->post('nama_isian') != $daftar_isian->nama_isian) $this->form_validation->set_rules('nama_isian', 'Nama Kategori', 'required|is_unique[kategori_daftar_isian.nama_isian]');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+            $this->session->set_flashdata('gagal', 'Gagal Mengubah Kategori !');
             $this->session->set_flashdata('hasModalID', 'ubah_kategori-' . $kd_daftar_isian);
             $this->index();
         } else {
             if ($this->daftar_isian_model->ubah_kategori()) {
-                $this->session->set_flashdata('sukses', 'Berhasil mengubah !');
+                $this->session->set_flashdata('sukses', 'Berhasil Mengubah Kategori !');
                 redirect('daftar_isian');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+                $this->session->set_flashdata('gagal', 'Gagal Mengubah Kategori !');
                 $this->index();
             }
         }
@@ -79,10 +81,10 @@ class Daftar_isian extends CI_Controller
     public function hapus_kategori($kd_daftar_isian)
     {
         if ($this->daftar_isian_model->hapus_kategori($kd_daftar_isian)) {
-            $this->session->set_flashdata('sukses', 'Berhasil menghapus !');
+            $this->session->set_flashdata('sukses', 'Berhasil Menghapus Kategori !');
             redirect('daftar_isian');
         } else {
-            $this->session->set_flashdata('gagal', 'Gagal menghapus !');
+            $this->session->set_flashdata('gagal', 'Gagal Menghapus Kategori !');
             $this->index();
         }
     }
@@ -94,15 +96,15 @@ class Daftar_isian extends CI_Controller
         $this->form_validation->set_rules('acuan', 'Acuan', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+            $this->session->set_flashdata('gagal', 'Gagal Menambahkan Isian !');
             $this->session->set_flashdata('hasModalID', 'tambah_isian');
             $this->index();
         } else {
             if ($this->daftar_isian_model->tambah_isian()) {
-                $this->session->set_flashdata('sukses', 'Berhasil menambahkan !');
+                $this->session->set_flashdata('sukses', 'Berhasil Menambahkan Isian !');
                 redirect('daftar_isian');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+                $this->session->set_flashdata('gagal', 'Gagal Menambahkan Isian !');
                 $this->index();
             }
         }
@@ -117,15 +119,15 @@ class Daftar_isian extends CI_Controller
         $this->form_validation->set_rules('acuan', 'Acuan', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+            $this->session->set_flashdata('gagal', 'Gagal Mengubah Isian !');
             $this->session->set_flashdata('hasModalID', 'ubah_isian-' . $id);
             $this->index();
         } else {
             if ($this->daftar_isian_model->ubah_isian()) {
-                $this->session->set_flashdata('sukses', 'Berhasil mengubah !');
+                $this->session->set_flashdata('sukses', 'Berhasil Mengubah Isian !');
                 redirect('daftar_isian');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+                $this->session->set_flashdata('gagal', 'Gagal Mengubah Isian !');
                 $this->index();
             }
         }
@@ -134,58 +136,11 @@ class Daftar_isian extends CI_Controller
     public function hapus_isian($id)
     {
         if ($this->daftar_isian_model->hapus_isian($id)) {
-            $this->session->set_flashdata('sukses', 'Berhasil menghapus !');
+            $this->session->set_flashdata('sukses', 'Berhasil Menghapus Isian !');
             redirect('daftar_isian');
         } else {
-            $this->session->set_flashdata('gagal', 'Gagal menghapus !');
+            $this->session->set_flashdata('gagal', 'Gagal Menghapus Isian !');
             $this->index();
         }
     }
-
-    // public function tambah_ajuan()
-    // {
-    //     $data['kd_daftar_isian_auto'] = $this->daftar_isian_model->kd_daftar_isian_auto();
-    //     $data['suppliers'] = $this->supplier_model->suppliers();
-    //     $data['jenis_produk'] = $this->jenis_produk_model->semuaJenisProduk();
-
-    //     $data['title'] = 'Tambah Ajuan';
-    //     $this->loadView('tambah_ajuan', $data);
-    // }
-    // public function simpan_ajuan()
-    // {
-    //     $this->form_validation->set_rules('kd_daftar_isian', 'Kode daftar_isian', 'required');
-    //     $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
-    //     $this->form_validation->set_rules('tgl_daftar_isian', 'Tanggal daftar_isian', 'required');
-    //     $this->form_validation->set_rules('ktp', 'KTP', 'trim|xss_clean');
-    //     $this->form_validation->set_rules('npwp', 'NPWP', 'trim|xss_clean');
-    //     $this->form_validation->set_rules('nib', 'NIB', 'trim|xss_clean');
-    //     $this->form_validation->set_rules('siup', 'SIUP', 'trim|xss_clean');
-    //     $this->form_validation->set_rules('akta_usaha', 'Akta Usaha', 'trim|xss_clean');
-    //     $this->form_validation->set_rules('imb', 'IMB', 'trim|xss_clean');
-    //     $this->form_validation->set_rules('layout', 'LAYOUT', 'trim|xss_clean');
-    //     $this->form_validation->set_rules('panduan_mutu', 'Panduan Mutu', 'trim|xss_clean');
-
-    //     if ($this->form_validation->run() == FALSE) {
-    //         $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
-    //         $this->index();
-    //     } else {
-    //         if ($this->daftar_isian_model->tambah()) {
-    //             $this->session->set_flashdata('sukses', 'Berhasil mengubah !');
-    //             redirect('daftar_isian');
-    //         } else {
-    //             $this->session->set_flashdata('gagal', 'Gagal mengubah !');
-    //             $this->index();
-    //         }
-    //     }
-    // }
-
-    // public function ubah_ajuan($kd_daftar_isian)
-    // {
-    //     $data['daftar_isian'] = $this->daftar_isian_model->daftar_isian($kd_daftar_isian);
-    //     $data['suppliers'] = $this->supplier_model->suppliers();
-    //     $data['jenis_produk'] = $this->jenis_produk_model->semuaJenisProduk();
-
-    //     $data['title'] = 'Ubah Ajuan';
-    //     $this->loadView('ubah_ajuan', $data);
-    // }
 }

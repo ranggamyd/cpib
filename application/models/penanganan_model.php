@@ -29,7 +29,7 @@ class Penanganan_model extends CI_Model
     {
         $data = [
             'kd_penanganan' => $this->input->post('kd_penanganan'),
-            'tahap_penanganan' => $this->input->post('tahap_penanganan'),
+            'nama_penanganan' => $this->input->post('nama_penanganan'),
             'deskripsi' => $this->input->post('deskripsi'),
         ];
 
@@ -39,16 +39,15 @@ class Penanganan_model extends CI_Model
     public function ubah()
     {
         $data = [
-            'tahap_penanganan' => $this->input->post('tahap_penanganan'),
+            'nama_penanganan' => $this->input->post('nama_penanganan'),
             'deskripsi' => $this->input->post('deskripsi'),
         ];
 
         if ($this->db->update('penanganan', $data, ['kd_penanganan' => $this->input->post('kd_penanganan')])) return TRUE;
     }
 
-    public function hapus()
+    public function hapus($kd_penanganan)
     {
-        $kd_penanganan = $this->input->post('kd_penanganan');
         if ($this->db->delete('penanganan', ['kd_penanganan' => $kd_penanganan])) return TRUE;
     }
 }

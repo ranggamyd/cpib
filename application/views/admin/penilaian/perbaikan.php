@@ -1,10 +1,10 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Form Isian (Checklist) Penilaian Kelayakan Supplier</h1>
+  <h1 class="h3 mb-2 text-gray-800">Form Perbaikan Ajuan</h1>
   <hr>
 
   <form action="<?= base_url('pengajuan/proses_penilaian') ?>" method="post">
-    <input type="hidden" name="kd_penilaian" value="<?= $kd_penilaian_auto ?>" required>
-    <input type="hidden" name="kd_pengajuan" value="<?= $ajuan->kd_pengajuan ?>" required>
+    <input type="hidden" name="kd_penilaian" value="<?= $kd_perbaikan_auto ?>" required>
+    <input type="hidden" name="kd_pengajuan" value="<?= $penilaian->kd_pengajuan ?>" required>
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="font-weight-bold mb-0"><i class="far fa-file-alt mr-2"></i>Detail Inspeksi</h6>
@@ -15,26 +15,26 @@
             <div class="form-group row">
               <label for="nama_miniplant" class="col-sm-4 col-form-label">Nama Mini Plant</label>
               <div class="col-sm-8">
-                <input type="hidden" name="kd_supplier" value="<?= $supplier->kd_supplier ?>">
-                <input type="text" name="nama_miniplant" class="form-control" id="nama_miniplant" value="<?= $nama_miniplant ?>" readonly>
+                <input type="hidden" name="kd_supplier" value="<?= $penilaian->kd_supplier ?>">
+                <input type="text" name="nama_miniplant" class="form-control" id="nama_miniplant" value="<?= $penilaian->nama_miniplant ?>" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label for="alamat" class="col-sm-4 col-form-label">Alamat</label>
               <div class="col-sm-8">
-                <textarea name="alamat" class="form-control" id="alamat" readonly><?= $supplier->alamat ?></textarea>
+                <textarea name="alamat" class="form-control" id="alamat" readonly><?= $penilaian->alamat ?></textarea>
               </div>
             </div>
             <div class="form-group row">
               <label for="no_telp" class="col-sm-4 col-form-label">No. Telepon</label>
               <div class="col-sm-8">
-                <input type="text" name="no_telp" value="<?= $supplier->no_telp ?>" class="form-control" id="no_telp" readonly>
+                <input type="text" name="no_telp" value="<?= $penilaian->no_telp ?>" class="form-control" id="no_telp" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label for="no_fax" class="col-sm-4 col-form-label">No. Fax</label>
               <div class="col-sm-8">
-                <input type="text" name="no_fax" value="<?= $supplier->no_fax ?>" class="form-control" id="no_fax" readonly>
+                <input type="text" name="no_fax" value="<?= $penilaian->no_fax ?>" class="form-control" id="no_fax" readonly>
               </div>
             </div>
             <hr>

@@ -30,25 +30,25 @@ class Penanganan extends CI_Controller
         $data['kd_penanganan_auto'] = $this->penanganan_model->kd_penanganan_auto();
         $data['penanganan'] = $this->penanganan_model->semuaPenanganan();
 
-        $data['title'] = 'Tahap Penanganan';
+        $data['title'] = 'Tahapan Penanganan';
         $this->loadView('penanganan', $data);
     }
 
     public function tambah()
     {
         $this->form_validation->set_rules('kd_penanganan', 'Kode Penanganan', 'required');
-        $this->form_validation->set_rules('tahap_penanganan', 'Tahap Penanganan', 'required|is_unique[penanganan.tahap_penanganan]');
+        $this->form_validation->set_rules('nama_penanganan', 'Nama Penanganan', 'required|is_unique[penanganan.nama_penanganan]');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+            $this->session->set_flashdata('gagal', 'Gagal Menambahkan Penanganan !');
             $this->session->set_flashdata('hasModalID', 'tambah_penanganan');
             $this->index();
         } else {
             if ($this->penanganan_model->tambah()) {
-                $this->session->set_flashdata('sukses', 'Berhasil menambahkan !');
+                $this->session->set_flashdata('sukses', 'Berhasil Menambahkan Penanganan !');
                 redirect('penanganan');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+                $this->session->set_flashdata('gagal', 'Gagal Menambahkan Penanganan !');
                 $this->index();
             }
         }
@@ -57,34 +57,34 @@ class Penanganan extends CI_Controller
     public function ubah()
     {
         $kd_penanganan = $this->input->post('kd_penanganan');
-        $penanganan = $this->db->get_where('penanganan', ['kd_penanganan' => $kd_penanganan])->row('tahap_penanganan');
+        $penanganan = $this->db->get_where('penanganan', ['kd_penanganan' => $kd_penanganan])->row('nama_penanganan');
 
         $this->form_validation->set_rules('kd_penanganan', 'Kode Penanganan', 'required');
-        $this->form_validation->set_rules('tahap_penanganan', 'Tahap Penanganan', 'required');
-        if ($this->input->post('penanganan') != $penanganan) $this->form_validation->set_rules('tahap_penanganan', 'Tahap Penanganan', 'required|is_unique[penanganan.tahap_penanganan]');
+        $this->form_validation->set_rules('nama_penanganan', 'Nama Penanganan', 'required');
+        if ($this->input->post('penanganan') != $penanganan) $this->form_validation->set_rules('nama_penanganan', 'Nama Penanganan', 'required|is_unique[penanganan.nama_penanganan]');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('gagal', 'Gagal mengubah !');
-            $this->session->set_flashdata('hasModalID', 'edit_penanganan' . $kd_penanganan);
+            $this->session->set_flashdata('gagal', 'Gagal Mengubah Penanganan !');
+            $this->session->set_flashdata('hasModalID', 'edit_penanganan-' . $kd_penanganan);
             $this->index();
         } else {
             if ($this->penanganan_model->ubah()) {
-                $this->session->set_flashdata('sukses', 'Berhasil mengubah !');
+                $this->session->set_flashdata('sukses', 'Berhasil Mengubah Penanganan !');
                 redirect('penanganan');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal mengubah !');
+                $this->session->set_flashdata('gagal', 'Gagal Mengubah Penanganan !');
                 $this->index();
             }
         }
     }
 
-    public function hapus()
+    public function hapus($kd_penanganan)
     {
-        if ($this->penanganan_model->hapus()) {
-            $this->session->set_flashdata('sukses', 'Berhasil menghapus !');
+        if ($this->penanganan_model->hapus($kd_penanganan)) {
+            $this->session->set_flashdata('sukses', 'Berhasil Menghapus Penanganan !');
             redirect('penanganan');
         } else {
-            $this->session->set_flashdata('gagal', 'Gagal menghapus !');
+            $this->session->set_flashdata('gagal', 'Gagal Menghapus Penanganan !');
             $this->index();
         }
     }

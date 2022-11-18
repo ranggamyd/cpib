@@ -44,15 +44,17 @@
                 <td class="text-center">
                   <?php if ($ajuan['status'] == 'Tertunda') : ?>
                     <a href="<?= base_url('pengajuan/proses_inspeksi/' . $ajuan['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $ajuan['status']; ?></a>
+                  <?php elseif ($ajuan['status'] == 'Dalam proses Inspeksi') : ?>
+                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $ajuan['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-info" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $ajuan['status']; ?></a>
                   <?php elseif ($ajuan['status'] == 'Perlu Revisi') : ?>
-                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $ajuan['kd_pengajuan']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $ajuan['status']; ?></a>
-                  <?php elseif ($ajuan['status'] == 'Diterima') : ?>
-                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $ajuan['kd_pengajuan']) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $ajuan['status']; ?></a>
+                    <a href="<?= base_url('penilaian/detail/' . $ajuan['kd_pengajuan']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $ajuan['status']; ?></a>
+                  <?php elseif ($ajuan['status'] == 'Lolos Inspeksi') : ?>
+                    <a href="<?= base_url('penilaian/detail/' . $ajuan['kd_pengajuan']) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $ajuan['status']; ?></a>
                   <?php endif; ?>
                 </td>
                 <td align="center">
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="<?= base_url('pengajuan/detail/' . $ajuan['kd_pengajuan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail"><i class="fas fa-info-circle"></i></a>
+                    <a href="<?= base_url('pengajuan/detail/' . $ajuan['kd_pengajuan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Ajuan"><i class="fas fa-info-circle"></i></a>
                     <a href="<?= base_url('pengajuan/ubah/' . $ajuan['kd_pengajuan']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Ubah Ajuan"><i class="fa fa-fw fa-edit"></i></a>
                     <a href="<?= base_url('pengajuan/hapus/' . $ajuan['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Ajuan"><i class="fas fa-trash-alt"></i></a>
                   </div>

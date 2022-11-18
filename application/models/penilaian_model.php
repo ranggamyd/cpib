@@ -21,6 +21,13 @@ class Penilaian_model extends CI_Model
     return $kdpenilaian;
   }
 
+  public function semuaPenilaian()
+  {
+    $this->db->join('miniplant_supplier', 'miniplant_supplier.kd_pengajuan = penilaian.kd_pengajuan', 'left');
+    $this->db->join('suppliers', 'suppliers.kd_supplier = penilaian.kd_supplier', 'left');
+    return $this->db->get('penilaian')->result_array();
+  }
+
   public function tambah()
   {
     $penilaian = [
@@ -40,8 +47,14 @@ class Penilaian_model extends CI_Model
 
     if (!$this->tambah_tahap_penanganan()) return FALSE;
     if (!$this->tambah_detail()) return FALSE;
-    if ($this->db->insert('penilaian', $penilaian)) return TRUE;
+    if (!$this->db->insert('penilaian', $penilaian)) return FALSE;
     if ($this->input->post('notes')['revisi']) $this->tambah_notes();
+
+    if ($this->input->post('is_needRevisi') == 1) {
+      if ($this->db->update('pengajuan', ['status' => 'Perlu Revisi'], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return TRUE;
+    } else {
+      if ($this->db->update('pengajuan', ['status' => 'Lolos Inspeksi'], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return TRUE;
+    }
   }
 
   private function tambah_detail()
