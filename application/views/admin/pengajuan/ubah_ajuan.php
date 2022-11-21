@@ -92,13 +92,13 @@
           </div>
           <div class="col-md-6">
             <label for="akta_usaha">AKTA USAHA</label>
-            <input type="file" name="akta_usaha" id="akta_usaha" class="form-control-file mb-3">
+            <input type="file" name="akta_usaha" id="akta_usaha" class="form-control-file mb-3" accept="image/*,.pdf">
             <label for="imb">IMB</label>
-            <input type="file" name="imb" id="imb" class="form-control-file mb-3">
+            <input type="file" name="imb" id="imb" class="form-control-file mb-3" accept="image/*,.pdf">
             <label for="layout">LAY-OUT / DENAH LOKASI</label>
-            <input type="file" name="layout" id="layout" class="form-control-file mb-3">
+            <input type="file" name="layout" id="layout" class="form-control-file mb-3" accept="image/*,.pdf">
             <label for="panduan_mutu">PANDUAN MUTU GMP-SSOP</label>
-            <input type="file" name="panduan_mutu" id="panduan_mutu" class="form-control-file mb-3">
+            <input type="file" name="panduan_mutu" id="panduan_mutu" class="form-control-file mb-3" accept="image/*,.pdf">
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ class Sertifikat extends CI_Controller
   function __construct()
   {
     parent::__construct();
-    if (!$this->auth_model->current_user()) {
+    if ($this->session->userdata('login_as') != 'admin') {
       $this->session->set_userdata('referred_from', current_url());
       $this->session->set_flashdata('gagal', 'Gagal mengakses, Silahkan login kembali !');
       redirect('auth');
