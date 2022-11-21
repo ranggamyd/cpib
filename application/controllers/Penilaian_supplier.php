@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Penilaian extends CI_Controller
+class Penilaian_supplier extends CI_Controller
 {
   function __construct()
   {
     parent::__construct();
-    if ($this->session->userdata('login_as') != 'admin') {
+    if ($this->session->userdata('login_as') != 'supplier') {
       $this->session->set_userdata('referred_from', current_url());
       $this->session->set_flashdata('gagal', 'Gagal mengakses, Silahkan login kembali !');
       redirect('auth');
@@ -20,14 +20,16 @@ class Penilaian extends CI_Controller
     //     'js' => 'supplier.js',
     // ];
 
-    $this->load->view('admin/parts/header', $data);
-    $this->load->view('admin/penilaian/' . $file, $data);
-    $this->load->view('admin/parts/footer', $data);
+    $this->load->view('supplier/parts/header', $data);
+    $this->load->view('supplier/penilaian/' . $file, $data);
+    $this->load->view('supplier/parts/footer', $data);
   }
 
   public function index()
   {
-    $data['penilaian'] = $this->penilaian_model->semuaPenilaian();
+    $supplier = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row();
+    $this->db->join('suppliers', 'suppliers.kd_supplier = penilaian.kd_supplier', 'left');
+    $data['penilaian'] = $this->db->get_where('penilaian', ['penilaian.kd_supplier' => $supplier->kd_supplier])->result_array();
 
     $data['title'] = 'List Penilaian Ajuan';
     $this->loadView('penilaian', $data);

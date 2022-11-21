@@ -1,10 +1,10 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Ajuan Supplier</h1>
+  <h1 class="h3 mb-2 text-gray-800">Ajuan Saya</h1>
   <hr>
 
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <a href="<?= base_url('pengajuan/tambah_ajuan') ?>" class="btn btn-sm btn-primary" id="#myBtn"><i class="fas fa-plus-circle mr-2"></i>Tambah Ajuan</a>
+      <a href="<?= base_url('pengajuan_supplier/tambah_ajuan') ?>" class="btn btn-sm btn-primary" id="#myBtn"><i class="fas fa-plus-circle mr-2"></i>Tambah Ajuan</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -43,20 +43,20 @@
                 </td>
                 <td class="text-center">
                   <?php if ($item['status'] == 'Tertunda') : ?>
-                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $item['status']; ?></a>
+                    <span class="badge badge-primary"><?= $item['status']; ?></span>
                   <?php elseif ($item['status'] == 'Dalam proses Inspeksi') : ?>
-                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-info" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $item['status']; ?></a>
+                    <span class="badge badge-info"><?= $item['status']; ?></span>
                   <?php elseif ($item['status'] == 'Perlu Revisi') : ?>
-                    <a href="<?= base_url('penilaian/detail/' . $item['kd_pengajuan']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
+                    <a href="<?= base_url('penilaian_supplier/detail/' . $item['kd_pengajuan']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
                   <?php elseif ($item['status'] == 'Lolos Inspeksi') : ?>
-                    <a href="<?= base_url('penilaian/detail/' . $item['kd_pengajuan']) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
+                    <a href="<?= base_url('penilaian_supplier/detail/' . $item['kd_pengajuan']) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
                   <?php endif; ?>
                 </td>
                 <td align="center">
                   <div class="btn-group" role="group" aria-label="Opsi">
-                    <a href="<?= base_url('pengajuan/detail/' . $item['kd_pengajuan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Ajuan"><i class="fas fa-info-circle"></i></a>
-                    <a href="<?= base_url('pengajuan/ubah/' . $item['kd_pengajuan']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Ubah Ajuan"><i class="fa fa-fw fa-edit"></i></a>
-                    <a href="<?= base_url('pengajuan/hapus/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Ajuan"><i class="fas fa-trash-alt"></i></a>
+                    <a href="<?= base_url('pengajuan_supplier/detail/' . $item['kd_pengajuan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Ajuan"><i class="fas fa-info-circle"></i></a>
+                    <a href="<?= base_url('pengajuan_supplier/ubah/' . $item['kd_pengajuan']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Ubah Ajuan"><i class="fa fa-fw fa-edit"></i></a>
+                    <a href="<?= base_url('pengajuan_supplier/hapus/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Ajuan"><i class="fas fa-trash-alt"></i></a>
                   </div>
                 </td>
               </tr>

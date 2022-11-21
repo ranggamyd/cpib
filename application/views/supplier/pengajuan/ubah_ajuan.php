@@ -1,21 +1,22 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Tambah Ajuan Supplier</h1>
+  <h1 class="h3 mb-2 text-gray-800">Ubah Ajuan Supplier</h1>
   <hr>
 
   <div class="card shadow mb-4">
-    <form action="<?= base_url('pengajuan/tambah') ?>" method="post" enctype="multipart/form-data">
+    <form action="<?= base_url('pengajuan/ubah') ?>" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="kd_supplier" value="<?= $pengajuan->kd_supplier ?>" readonly required>
       <div class="card-body">
         <div class="row">
           <div class="col-md-5">
             <label for="kd_pengajuan">Kode Ajuan :</label>
-            <input type="text" name="kd_pengajuan" class="form-control mb-3 <?= form_error('kd_pengajuan') ? 'is-invalid' : '' ?>" id="kd_pengajuan" value="<?= set_value('kd_pengajuan', $kd_pengajuan_auto) ?>" required readonly>
+            <input type="text" name="kd_pengajuan" class="form-control mb-3 <?= form_error('kd_pengajuan', $pengajuan->kd_pengajuan) ? 'is-invalid' : '' ?>" id="kd_pengajuan" value="<?= set_value('kd_pengajuan', $pengajuan->kd_pengajuan) ?>" required readonly>
             <div id='kd_pengajuan' class='invalid-feedback'>
               <?= form_error('kd_pengajuan') ?>
             </div>
           </div>
           <div class="col-md-3 offset-md-4">
             <label for="tgl_pengajuan">Tanggal Pengajuan :</label>
-            <input type="date" name="tgl_pengajuan" value="<?= set_value('tgl_pengajuan', date('Y-m-d')) ?>" class="form-control mb-3 <?= form_error('tgl_pengajuan') ? 'is-invalid' : '' ?>" id="tgl_pengajuan" required>
+            <input type="date" name="tgl_pengajuan" value="<?= set_value('tgl_pengajuan', $pengajuan->tgl_pengajuan) ?>" class="form-control mb-3 <?= form_error('tgl_pengajuan') ? 'is-invalid' : '' ?>" id="tgl_pengajuan" required>
             <div id='tgl_pengajuan' class='invalid-feedback'>
               <?= form_error('tgl_pengajuan') ?>
             </div>
@@ -24,12 +25,8 @@
         <div class="container bg-info rounded pt-2 pb-3 text-light">
           <div class="row">
             <div class="col">
-              <label for="kd_supplier">Mini Plant :</label>
-              <select name="kd_supplier" id="kd_supplier" class="form-control mb-3 <?= form_error('kd_supplier') ? 'is-invalid' : '' ?>" required>
-                <?php foreach ($suppliers as $spl) : ?>
-                  <option value="<?= $spl['kd_supplier'] ?>" <?= set_select('kd_supplier', $spl['kd_supplier'], TRUE); ?>><?= $spl['nama_miniplant'] ?></option>
-                <?php endforeach ?>
-              </select>
+              <label for="nama_miniplant">Mini Plant :</label>
+              <input type="text" name="nama_miniplant" value="<?= set_value('nama_miniplant', $pengajuan->nama_miniplant) ?>" class="form-control mb-3 <?= form_error('kd_supplier') ? 'is-invalid' : '' ?>" readonly>
               <div id='kd_supplier' class='invalid-feedback'>
                 <?= form_error('kd_supplier') ?>
               </div>
@@ -42,10 +39,21 @@
               </div>
             </div>
           </div>
+          <?php
+          $kjp = [];
+          $kjps = [];
+          foreach ($jenis_produk as $item) {
+            array_push($kjp, ['kd_jenis_produk' => $item['kd_jenis_produk'], 'jenis_produk' => $item['jenis_produk']]);
+          }
+
+          foreach ($this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->result_array() as $item) {
+            array_push($kjps, $item['kd_jenis_produk']);
+          }
+          ?>
           <label for="kd_jenis_produk[]">Jenis Produk :</label>
           <select name="kd_jenis_produk[]" multiple id="kd_jenis_produk[]" class="form-control mb-3 <?= form_error('kd_jenis_produk[]') ? 'is-invalid' : '' ?>" required>
-            <?php foreach ($jenis_produk as $jp) : ?>
-              <option value="<?= $jp['kd_jenis_produk'] ?>" <?= set_select('kd_jenis_produk[]', $jp['kd_jenis_produk']); ?>><?= $jp['jenis_produk'] ?></option>
+            <?php foreach ($kjp as $item) : ?>
+              <option value="<?= $item['kd_jenis_produk'] ?>" <?= set_select('kd_jenis_produk[]', $item['kd_jenis_produk'], (in_array($item['kd_jenis_produk'], $kjps)) ? TRUE : FALSE) ?>><?= $item['jenis_produk'] ?></option>
             <?php endforeach ?>
           </select>
           <div id='kd_jenis_produk[]' class='invalid-feedback'>

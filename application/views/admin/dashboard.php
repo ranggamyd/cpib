@@ -333,8 +333,8 @@
                                         <th class="text-center">No.</th>
                                         <th>Tanggal</th>
                                         <th>Kode Pengajuan</th>
-                                        <th>Nama Supplier</th>
-                                        <th>Nama Mini Plant</th>
+                                        <th>Mini Plant</th>
+                                        <th>Pimpinan Supplier</th>
                                         <th>Jenis Produk</th>
                                         <th>Status</th>
                                     </tr>
@@ -342,30 +342,30 @@
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($pengajuan as $ajuan) { ?>
+                                    foreach ($pengajuan as $item) { ?>
                                         <tr class="align-middle">
                                             <td align="center"><?= $no++; ?></td>
-                                            <td class="text-center"><?= date('d-M-Y', strtotime($ajuan['tgl_pengajuan'])) ?></td>
-                                            <td class="text-center"><span class="badge badge-white"><?= $ajuan['kd_pengajuan']; ?></span></td>
-                                            <td><?= $this->db->get_where('suppliers', ['kd_supplier' => $ajuan['kd_supplier']])->row('nama_supplier'); ?></td>
-                                            <td><?= $this->db->get_where('miniplant_supplier', ['kd_pengajuan' => $ajuan['kd_pengajuan'], 'kd_supplier' => $ajuan['kd_supplier']])->row('nama_miniplant'); ?></td>
+                                            <td class="text-center"><?= date('d-M-Y', strtotime($item['tgl_pengajuan'])) ?></td>
+                                            <td class="text-center"><span class="badge badge-white"><?= $item['kd_pengajuan']; ?></span></td>
+                                            <td><?= $item['nama_miniplant'] ?></td>
+                                            <td><?= $item['nama_pimpinan'] ?></td>
                                             <td class="text-center">
                                                 <?php
                                                 $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
                                                 $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
-                                                $jenis_produk_supplier = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $ajuan['kd_pengajuan'], 'kd_supplier' => $ajuan['kd_supplier']])->result_array();
+                                                $jenis_produk_supplier = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $item['kd_pengajuan'], 'kd_supplier' => $item['kd_supplier']])->result_array();
                                                 foreach ($jenis_produk_supplier as $jp) :
                                                 ?>
                                                     <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
                                                 <?php endforeach; ?>
                                             </td>
                                             <td class="text-center">
-                                                <?php if ($ajuan['status'] == 'Tertunda') : ?>
-                                                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $ajuan['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $ajuan['status']; ?></a>
-                                                <?php elseif ($ajuan['status'] == 'Perlu Revisi') : ?>
-                                                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $ajuan['kd_pengajuan']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $ajuan['status']; ?></a>
-                                                <?php elseif ($ajuan['status'] == 'Diterima') : ?>
-                                                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $ajuan['kd_pengajuan']) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $ajuan['status']; ?></a>
+                                                <?php if ($item['status'] == 'Tertunda') : ?>
+                                                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $item['status']; ?></a>
+                                                <?php elseif ($item['status'] == 'Perlu Revisi') : ?>
+                                                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $item['kd_pengajuan']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
+                                                <?php elseif ($item['status'] == 'Diterima') : ?>
+                                                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $item['kd_pengajuan']) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
