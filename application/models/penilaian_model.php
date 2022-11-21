@@ -23,9 +23,15 @@ class Penilaian_model extends CI_Model
 
   public function semuaPenilaian()
   {
-    $this->db->join('miniplant_supplier', 'miniplant_supplier.kd_pengajuan = penilaian.kd_pengajuan', 'left');
     $this->db->join('suppliers', 'suppliers.kd_supplier = penilaian.kd_supplier', 'left');
     return $this->db->get('penilaian')->result_array();
+  }
+
+  public function penilaian($kd_penilaian)
+  {
+    // $this->db->join('jenis_produk_supplier', 'jenis_produk_supplier.kd_jenis_produk = jenis_produk.kd_jenis_produk', 'left');
+    $this->db->join('suppliers', 'suppliers.kd_supplier = penilaian.kd_supplier', 'left');
+    return $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
   }
 
   public function tambah()
@@ -64,11 +70,11 @@ class Penilaian_model extends CI_Model
     $mayor = 0;
     $serius = 0;
     $kritis = 0;
-    foreach ($this->db->get('sub_daftar_isian')->result_array() as $item) {
+    foreach ($this->db->get('daftar_isian')->result_array() as $item) {
       if ($this->input->post($item['id'])) {
         $nilai = [
           'kd_penilaian' => $this->input->post('kd_penilaian'),
-          'id_subisian' => $item['id'],
+          'id_daftar_isian' => $item['id'],
           'is_minor' => 0,
           'is_mayor' => 0,
           'is_serius' => 0,
@@ -104,17 +110,17 @@ class Penilaian_model extends CI_Model
 
   private function tambah_tahap_penanganan()
   {
-    $penilaian_tahap_penanganan = [];
+    $penilaian_penanganan = [];
     foreach ($this->input->post('tahap_penanganan') as $item) {
       $tahap_penanganan = [
         'kd_penilaian' => $this->input->post('kd_penilaian'),
         'kd_penanganan' => $item['kd_penanganan'],
       ];
 
-      array_push($penilaian_tahap_penanganan, $tahap_penanganan);
+      array_push($penilaian_penanganan, $tahap_penanganan);
     }
 
-    if ($this->db->insert_batch('penilaian_tahap_penanganan', $penilaian_tahap_penanganan)) return TRUE;
+    if ($this->db->insert_batch('penilaian_penanganan', $penilaian_penanganan)) return TRUE;
   }
 
   private function tambah_notes()

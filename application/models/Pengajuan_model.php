@@ -23,19 +23,22 @@ class Pengajuan_model extends CI_Model
 
     public function semuaPengajuan()
     {
+        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
         return $this->db->get('pengajuan')->result_array();
     }
 
     public function pengajuanTertunda()
     {
+        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
         return $this->db->get_where('pengajuan', ['status' => 'Tertunda'])->result_array();
     }
+
     public function pengajuan($kd_pengajuan)
     {
         $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
-        $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = suppliers.kd_jenis_produk', 'left');
         return $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
     }
+
     public function pengajuanDetail($kd_pengajuan)
     {
         $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
@@ -62,7 +65,6 @@ class Pengajuan_model extends CI_Model
 
         $kd_pengajuan = $this->input->post('kd_pengajuan');
         $kd_supplier = $this->input->post('kd_supplier');
-        $nama_miniplant = $this->input->post('nama_miniplant');
         $tgl_pengajuan = $this->input->post('tgl_pengajuan');
 
         foreach ($this->input->post('kd_jenis_produk') as $item) {
@@ -75,18 +77,9 @@ class Pengajuan_model extends CI_Model
             if (!$this->db->insert('jenis_produk_supplier', $jenis_produk)) return FALSE;
         };
 
-        $miniplant = [
-            'kd_pengajuan' => $kd_pengajuan,
-            'kd_supplier' => $kd_supplier,
-            'nama_miniplant' => $nama_miniplant,
-        ];
-
-        if (!$this->db->insert('miniplant_supplier', $miniplant)) return FALSE;
-
         $data = [
             'kd_pengajuan' => $kd_pengajuan,
             'kd_supplier' => $kd_supplier,
-            'nama_miniplant' => $nama_miniplant,
             'tgl_pengajuan' => $tgl_pengajuan,
             'status' => 'Tertunda',
             'ktp' => $uploadedFiles[0],

@@ -48,7 +48,6 @@ class Pengajuan extends CI_Controller
         $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
         $this->form_validation->set_rules('tgl_pengajuan', 'Tanggal Pengajuan', 'required');
         $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
-        $this->form_validation->set_rules('nama_miniplant', 'Nama Mini Plant', 'required');
         $this->form_validation->set_rules('kd_jenis_produk[]', 'Jenis Produk', 'required');
         if (empty($_FILES['ktp']['name'])) $this->form_validation->set_rules('ktp', 'KTP', 'required|trim|xss_clean');
         if (empty($_FILES['npwp']['name'])) $this->form_validation->set_rules('npwp', 'NPWP', 'required|trim|xss_clean');
@@ -60,14 +59,14 @@ class Pengajuan extends CI_Controller
         $this->form_validation->set_rules('panduan_mutu', 'Panduan Mutu', 'trim|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+            $this->session->set_flashdata('gagal', 'Gagal Menambahkan Ajuan !');
             $this->tambah_ajuan();
         } else {
             if ($this->pengajuan_model->tambah()) {
-                $this->session->set_flashdata('sukses', 'Berhasil menambahkan Ajuan !');
+                $this->session->set_flashdata('sukses', 'Berhasil Menambahkan Ajuan !');
                 redirect('pengajuan');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal menambahkan Ajuan !');
+                $this->session->set_flashdata('gagal', 'Gagal Menambahkan Ajuan !');
                 $this->tambah_ajuan();
             }
         }
@@ -76,6 +75,7 @@ class Pengajuan extends CI_Controller
     public function detail($kd_pengajuan)
     {
         $data['pengajuan'] = $this->pengajuan_model->pengajuanDetail($kd_pengajuan);
+
         $data['title'] = 'Detail Ajuan';
         $this->loadView('detail_ajuan', $data);
     }
@@ -83,6 +83,7 @@ class Pengajuan extends CI_Controller
     public function ubah($kd_pengajuan)
     {
         $data['pengajuan'] = $this->pengajuan_model->pengajuan($kd_pengajuan);
+
         $data['suppliers'] = $this->supplier_model->suppliers();
         $data['jenis_produk'] = $this->jenis_produk_model->semuaJenisProduk();
 
@@ -93,12 +94,23 @@ class Pengajuan extends CI_Controller
     public function hapus($kd_pengajuan)
     {
         if ($this->pengajuan_model->hapus($kd_pengajuan)) {
-            $this->session->set_flashdata('sukses', 'Berhasil menghapus !');
+            $this->session->set_flashdata('sukses', 'Berhasil Menghapus Ajuan !');
             redirect('pengajuan');
         } else {
-            $this->session->set_flashdata('gagal', 'Gagal menghapus !');
+            $this->session->set_flashdata('gagal', 'Gagal Menghapus Ajuan !');
             $this->index();
         }
+    }
+
+    public function proses_inspeksi($kd_pengajuan)
+    {
+        $check_team = $this->pengajuan_model->check_team($kd_pengajuan);
+        if (!$check_team) {
+            $this->session->set_flashdata('gagal', 'Mohon membuat Tim terlebih dahulu !');
+            $this->create_team($kd_pengajuan);
+        } else {
+            $this->penilaian($kd_pengajuan);
+        };
     }
 
     public function create_team($kd_pengajuan)
@@ -138,29 +150,20 @@ class Pengajuan extends CI_Controller
 
     public function penilaian($kd_pengajuan)
     {
-        $data['kd_daftar_isian_auto'] = $this->daftar_isian_model->kd_daftar_isian_auto();
         $pengajuan = $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
+        $data['kd_penilaian_auto'] = $this->penilaian_model->kd_penilaian_auto();
         $data['ajuan'] = $pengajuan;
         $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $pengajuan->kd_supplier])->row();
-        $data['nama_miniplant'] = $this->db->get_where('miniplant_supplier', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row('nama_miniplant');
+        $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
+        $data['jenis_produk_supplier'] = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $pengajuan->kd_pengajuan, 'kd_supplier' => $pengajuan->kd_supplier])->result_array();
+        $data['cek_pengajuan'] = $this->db->get_where('pengajuan', ['kd_pengajuan' => $pengajuan->kd_pengajuan, 'kd_supplier' => $pengajuan->kd_supplier])->num_rows();
         $data['tim_inspeksi'] = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row();
-        $data['daftar_isian'] = $this->daftar_isian_model->semuaDaftar_isian();
-        $data['kd_penilaian_auto'] = $this->penilaian_model->kd_penilaian_auto();
-        $data['kd_pengajuan'] = $kd_pengajuan;
+        $data['kategori_daftar_isian'] = $this->daftar_isian_model->semuaKategori();
         $data['admin'] = $this->db->get('admin')->result_array();
+        $data['tahap_penanganan'] = $this->db->get('penanganan')->result_array();
 
-        $data['title'] = 'Form Penilaian Kelayakan Supplier';
+        $data['title'] = 'Form Isian (Checklist) Penilaian Kelayakan Supplier';
         $this->loadView('penilaian', $data);
-    }
-
-    public function proses_inspeksi($kd_pengajuan)
-    {
-        $check_team = $this->pengajuan_model->check_team($kd_pengajuan);
-        if (!$check_team) {
-            $this->create_team($kd_pengajuan);
-        } else {
-            $this->penilaian($kd_pengajuan);
-        };
     }
 
     public function proses_penilaian()

@@ -15,8 +15,8 @@
               <th>Tanggal Inspeksi</th>
               <th>Kode Penilaian</th>
               <th>Kode Pengajuan</th>
-              <th>Supplier</th>
-              <th>Nama Pimpinan</th>
+              <th>Mini Plant</th>
+              <th>Pimpinan Supplier</th>
               <th>Klasifikasi</th>
               <th>Status</th>
               <th style="text-align:center;">Opsi</th>
@@ -36,7 +36,7 @@
                   <a href="<?= base_url('pengajuan/detail/') . $item['kd_pengajuan'] ?>" class="badge badge-light"><?= $item['kd_pengajuan'] ?></a>
                 </td>
                 <td><?= $item['nama_miniplant'] ?></td>
-                <td><?= $item['nama_supplier'] ?></td>
+                <td><?= $item['nama_pimpinan'] ?></td>
                 <td class="text-center">
                   <?php if ($item['klasifikasi'] == 'Sangat Baik') : ?>
                     <span class="badge badge-primary">Sangat Baik</span>

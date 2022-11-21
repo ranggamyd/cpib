@@ -1,10 +1,10 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Form Isian (Checklist) Penilaian Kelayakan Supplier</h1>
+  <h1 class="h3 mb-2 text-gray-800">Detail Isian (Checklist) Penilaian Kelayakan Supplier</h1>
   <hr>
 
   <form action="<?= base_url('pengajuan/proses_penilaian') ?>" method="post">
-    <input type="hidden" name="kd_penilaian" value="<?= $kd_penilaian_auto ?>" required>
-    <input type="hidden" name="kd_pengajuan" value="<?= $ajuan->kd_pengajuan ?>" required>
+    <!-- <input type="hidden" name="kd_penilaian" value="<?= $kd_penilaian_auto ?>" required>
+    <input type="hidden" name="kd_pengajuan" value="<?= $ajuan->kd_pengajuan ?>" required> -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="font-weight-bold mb-0"><i class="far fa-file-alt mr-2"></i>Detail Inspeksi</h6>
@@ -13,28 +13,27 @@
         <div class="row">
           <div class="col">
             <div class="form-group row">
-              <label for="nama_miniplant" class="col-sm-4 col-form-label">Nama Mini Plant</label>
+              <label for="nama_miniplant" class="col-sm-4 col-form-label">Mini Plant</label>
               <div class="col-sm-8">
-                <input type="hidden" name="kd_supplier" value="<?= $supplier->kd_supplier ?>">
-                <input type="text" name="nama_miniplant" class="form-control" id="nama_miniplant" value="<?= $supplier->nama_miniplant ?>" readonly>
+                <input type="text" name="nama_miniplant" class="form-control" id="nama_miniplant" value="<?= $penilaian->nama_miniplant ?>" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label for="alamat" class="col-sm-4 col-form-label">Alamat</label>
               <div class="col-sm-8">
-                <textarea name="alamat" class="form-control" id="alamat" readonly><?= $supplier->alamat ?></textarea>
+                <textarea name="alamat" class="form-control" id="alamat" readonly><?= $penilaian->alamat ?></textarea>
               </div>
             </div>
             <div class="form-group row">
               <label for="no_telp" class="col-sm-4 col-form-label">No. Telepon</label>
               <div class="col-sm-8">
-                <input type="text" name="no_telp" value="<?= $supplier->no_telp ?>" class="form-control" id="no_telp" readonly>
+                <input type="text" name="no_telp" value="<?= $penilaian->no_telp ?>" class="form-control" id="no_telp" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label for="no_fax" class="col-sm-4 col-form-label">No. Fax</label>
               <div class="col-sm-8">
-                <input type="text" name="no_fax" value="<?= $supplier->no_fax ?>" class="form-control" id="no_fax" readonly>
+                <input type="text" name="no_fax" value="<?= $penilaian->no_fax ?>" class="form-control" id="no_fax" readonly>
               </div>
             </div>
             <hr>
@@ -43,7 +42,7 @@
               <div class="col-sm-8 d-flex align-items-center">
                 <?php
                 $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
-                foreach ($jenis_produk_supplier as $jp) :
+                foreach ($jps as $jp) :
                 ?>
                   <div class="badge <?= $colors[array_rand($colors)] ?> mr-2"><?= $jp['jenis_produk'] ?></div>
                 <?php endforeach; ?>
@@ -55,11 +54,11 @@
               <label for="jenis_supplier" class="col-sm-4 col-form-label">Jenis Supplier</label>
               <div class="col-sm-8 d-flex align-items-center">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $cek_pengajuan <= 1 ? 'checked' : '' ?>>
+                  <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $jenis_supplier == 'Baru' ? 'checked' : '' ?>>
                   <label class="form-check-label" for="baru">Baru</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="jenis_supplier" id="lama" value="Lama" <?= $cek_pengajuan > 1 ? 'checked' : '' ?>>
+                  <input class="form-check-input" type="radio" name="jenis_supplier" id="lama" value="Lama" <?= $jenis_supplier == 'Lama' ? 'checked' : '' ?>>
                   <label class="form-check-label" for="lama">Lama</label>
                 </div>
               </div>
@@ -67,7 +66,7 @@
             <div class="form-group row">
               <label for="tgl_inspeksi" class="col-sm-4 col-form-label">Tanggal Inspeksi</label>
               <div class="col-sm-8">
-                <input type="date" name="tgl_inspeksi" value="<?= date('Y-m-d') ?>" class="form-control" id="tgl_inspeksi" required>
+                <input type="text" name="tgl_inspeksi" value="<?= date('d M Y', strtotime($penilaian->tgl_inspeksi)) ?>" class="form-control" id="tgl_inspeksi" required>
               </div>
             </div>
             <hr>
@@ -75,26 +74,25 @@
             <div class="form-group row">
               <label for="pimpinan_supplier" class="col-sm-4 col-form-label">Pimpinan Supplier</label>
               <div class="col-sm-8">
-                <input type="text" name="pimpinan_supplier" value="<?= $supplier->nama_pimpinan ?>" class="form-control" id="pimpinan_supplier" readonly required>
+                <input type="text" name="pimpinan_supplier" value="<?= $penilaian->nama_pimpinan ?>" class="form-control" id="pimpinan_supplier" readonly required>
               </div>
             </div>
-            <input type="hidden" name="kd_tim_inspeksi" value="<?= $tim_inspeksi->kd_tim_inspeksi ?>">
             <div class="form-group row">
               <label for="ketua_inspeksi" class="col-sm-4 col-form-label">Ketua Inspeksi</label>
               <div class="col-sm-8">
-                <input type="text" name="ketua_inspeksi" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->ketua_inspeksi])->row('nama_admin'); ?>" class="form-control" id="ketua_inspeksi" readonly required>
+                <input type="text" name="ketua_inspeksi" value="<?= $ketua_tim ?>" class="form-control" id="ketua_inspeksi" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label for="anggota1" class="col-sm-4 col-form-label">Anggota 1</label>
               <div class="col-sm-8">
-                <input type="text" name="anggota1" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota1])->row('nama_admin'); ?>" class="form-control" id="anggota1" readonly required>
+                <input type="text" name="anggota1" value="<?= $anggota1 ?>" class="form-control" id="anggota1" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label for="anggota2" class="col-sm-4 col-form-label">Anggota 2</label>
               <div class="col-sm-8">
-                <input type="text" name="anggota2" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota2])->row('nama_admin'); ?>" class="form-control" id="anggota2" readonly required>
+                <input type="text" name="anggota2" value="<?= $anggota2 ?>" class="form-control" id="anggota2" readonly required>
               </div>
             </div>
 
@@ -145,25 +143,25 @@
                     <td class="text-center align-middle">
                       <?php
                       if ($si['is_minor']) { ?>
-                        <div class="form-check"><input type="checkbox" name="<?= $si['id'] ?>" class="form-check-input position-static checkbox checkbox_is_minor" value="is_minor" id="<?= $si['id'] ?>"></div>
+                        <?= in_array($si['id'], array_column($penilaian_detail, 'id_daftar_isian')) && in_array(1, array_column($penilaian_detail, 'is_minor')) ? '<i class="fas fa-check-circle fa-lg text-info"></i>' : '<i class="fas fa-circle fa-lg" style="color: #dee2e6;"></i>' ?>
                       <?php } ?>
                     </td>
                     <td class="text-center align-middle">
                       <?php
                       if ($si['is_mayor']) { ?>
-                        <div class="form-check"><input type="checkbox" name="<?= $si['id'] ?>" class="form-check-input position-static checkbox checkbox_is_mayor" value="is_mayor" id="<?= $si['id'] ?>"></div>
+                        <?= in_array($si['id'], array_column($penilaian_detail, 'id_daftar_isian')) && in_array(1, array_column($penilaian_detail, 'is_mayor')) ? '<i class="fas fa-check-circle fa-lg text-info"></i>' : '<i class="fas fa-circle fa-lg" style="color: #dee2e6;"></i>' ?>
                       <?php } ?>
                     </td>
                     <td class="text-center align-middle">
                       <?php
                       if ($si['is_serius']) { ?>
-                        <div class="form-check"><input type="checkbox" name="<?= $si['id'] ?>" class="form-check-input position-static checkbox checkbox_is_serius" value="is_serius" id="<?= $si['id'] ?>"></div>
+                        <?= in_array($si['id'], array_column($penilaian_detail, 'id_daftar_isian')) && in_array(1, array_column($penilaian_detail, 'is_serius')) ? '<i class="fas fa-check-circle fa-lg text-info"></i>' : '<i class="fas fa-circle fa-lg" style="color: #dee2e6;"></i>' ?>
                       <?php } ?>
                     </td>
                     <td class="text-center align-middle">
                       <?php
                       if ($si['is_kritis']) { ?>
-                        <div class="form-check"><input type="checkbox" name="<?= $si['id'] ?>" class="form-check-input position-static checkbox checkbox_is_kritis" value="is_kritis" id="<?= $si['id'] ?>"></div>
+                        <?= in_array($si['id'], array_column($penilaian_detail, 'id_daftar_isian')) && in_array(1, array_column($penilaian_detail, 'is_kritis')) ? '<i class="fas fa-check-circle fa-lg text-info"></i>' : '<i class="fas fa-circle fa-lg" style="color: #dee2e6;"></i>' ?>
                       <?php } ?>
                     </td>
                     <td><?= $si['acuan'] ?></td>
@@ -188,24 +186,9 @@
             <h6 class="font-weight-bold mb-0"><i class="far fa-file-alt mr-2"></i>Tahapan Penanganan</h6>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dynamic_field-proses">
-                <tr>
-                  <td>
-                    <select name="tahap_penanganan[][kd_penanganan]" id="tahap_penanganan[]" class="form-control <?= form_error('tahap_penanganan[]') ? 'is-invalid' : '' ?>" required>
-                      <option selected disabled>== Pilih Proses ==</option>
-                      <?php foreach ($tahap_penanganan as $tp) : ?>
-                        <option value="<?= $tp['kd_penanganan'] ?>"><?= $tp['nama_penanganan'] ?></option>
-                      <?php endforeach ?>
-                    </select>
-                    <div id='tahap_penanganan[]' class='invalid-feedback'>
-                      <?= form_error('tahap_penanganan[]') ?>
-                    </div>
-                  </td>
-                  <td><button type="button" name="add" id="addProses" class="btn btn-success"><i class="fas fa-plus-circle mr-2"></i>Tambah Proses</button></td>
-                </tr>
-              </table>
-            </div>
+            <?php foreach ($penanganan as $item) : ?>
+              <?= $item['nama_penanganan'] ?> -
+            <?php endforeach ?>
           </div>
         </div>
       </div>
@@ -216,17 +199,11 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dynamic_field-revisi">
-                <tr>
-                  <td><input type="text" name="notes[][revisi]" placeholder="Tuliskan Sesuatu .." class="form-control"=></td>
-                  <td><button type="button" name="add" id="addRevisi" class="btn btn-success"><i class="fas fa-plus-circle mr-2"></i>Tambah Notes</button></td>
-                </tr>
-              </table>
-              <small>Notes :
-                <i>Kosongkan field jika tidak ada yg harus supplier perbaiki!
-                  <b>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, libero.</b>
-                </i>
-              </small>
+              <ul class="list-group">
+                <?php foreach ($notes as $item) : ?>
+                  <li class="list-group-item"><?= $item['notes'] ?></li>
+                <?php endforeach ?>
+              </ul>
             </div>
           </div>
         </div>
@@ -248,10 +225,10 @@
             </tr>
             <tr>
               <th class="bg-light" style="width: 200px !important;">Penyimpangan Total</th>
-              <td class="text-center"><input type="number" name="jmlMinor" value="0" class="form-control form-control-sm text-center" id="jmlMinor" readonly required></td>
-              <td class="text-center"><input type="number" name="jmlMayor" value="0" class="form-control form-control-sm text-center" id="jmlMayor" readonly required></td>
-              <td class="text-center"><input type="number" name="jmlSerius" value="0" class="form-control form-control-sm text-center" id="jmlSerius" readonly required></td>
-              <td class="text-center"><input type="number" name="jmlKritis" value="0" class="form-control form-control-sm text-center" id="jmlKritis" readonly required></td>
+              <td class="text-center"><input type="number" name="jmlMinor" value="<?= $penilaian->jml_minor ?>" class="form-control form-control-sm text-center" id="jmlMinor" readonly required></td>
+              <td class="text-center"><input type="number" name="jmlMayor" value="<?= $penilaian->jml_mayor ?>" class="form-control form-control-sm text-center" id="jmlMayor" readonly required></td>
+              <td class="text-center"><input type="number" name="jmlSerius" value="<?= $penilaian->jml_serius ?>" class="form-control form-control-sm text-center" id="jmlSerius" readonly required></td>
+              <td class="text-center"><input type="number" name="jmlKritis" value="<?= $penilaian->jml_kritis ?>" class="form-control form-control-sm text-center" id="jmlKritis" readonly required></td>
             </tr>
           </table>
         </div>
@@ -264,9 +241,6 @@
                   <div class="input-group-text font-weight-bold text-uppercase">Klasifikasi</div>
                 </div>
                 <input type="text" name="klasifikasi" value="<?= set_value('klasifikasi') ?>" class="form-control bg-light <?= form_error('klasifikasi') ? 'is-invalid' : '' ?>" id="klasifikasi" readonly required>
-                <div id='klasifikasi' class='invalid-feedback'>
-                  <?= form_error('klasifikasi') ?>
-                </div>
               </div>
             </div>
             <div class="col d-flex align-items-center">
@@ -332,17 +306,13 @@
     <div class="card shadow mb-4">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-9">
+          <div class="col-md-10">
             <small>Notes :
               <i>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error nulla alias consequuntur corrupti ea porro vero impedit assumenda dicta labore!
                 <b>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, libero.
                 </b>
               </i>
             </small>
-          </div>
-          <div class="col-md-3 text-right d-flex align-items-center justify-content-around border border-dark border-top-0 border-right-0 border-bottom-0">
-            <button type="reset" class="btn btn-secondary"><i class="fas fa-sync-alt mr-2"></i>Reset</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Simpan</button>
           </div>
         </div>
       </div>

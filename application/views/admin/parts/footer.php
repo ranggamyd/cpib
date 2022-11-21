@@ -63,7 +63,7 @@
                                     <select name="tahap_penanganan[][kd_penanganan]" id="tahap_penanganan" class="form-control" required>
                                         <option selected disabled>== Pilih Proses ==</option>
                                         <?php foreach ($this->db->get('penanganan')->result_array() as $tp) : ?>
-                                            <option value="<?= $tp['kd_penanganan'] ?>"><?= $tp['tahap_penanganan'] ?></option>
+                                            <option value="<?= $tp['kd_penanganan'] ?>"><?= $tp['nama_penanganan'] ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </td>
