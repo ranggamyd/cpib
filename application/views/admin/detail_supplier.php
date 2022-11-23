@@ -9,8 +9,8 @@
                     <img src="<?= base_url() . 'assets/img/' . $supplier->avatar; ?>" class="rounded-circle" width="200" height="200" alt="" style="object-fit: cover;">
                 </div>
                 <hr>
-                <h4 class="text-center"><?= $supplier->nama_supplier ?></h4>
-                <p class="text-center"><?= $supplier->no_telp ?></p>
+                <h4 class="text-center"><?= $supplier->nama_miniplant ?></h4>
+                <p class="text-center"><?= $supplier->nama_pimpinan ?></p>
             </div>
         </div>
         <div class="col-md-8">
@@ -24,9 +24,14 @@
                                 <td><?= $supplier->kd_supplier; ?></td>
                             </tr>
                             <tr>
-                                <th scope="row">Nama Lengkap</th>
+                                <th scope="row">Mini Plant</th>
                                 <td>:</td>
-                                <td><?= $supplier->nama_supplier; ?></td>
+                                <td><?= $supplier->nama_miniplant; ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Pimpinan Supplier</th>
+                                <td>:</td>
+                                <td><?= $supplier->nama_pimpinan; ?></td>
                             </tr>
                             <tr>
                                 <th scope="row">No. Telepon</th>
@@ -34,9 +39,14 @@
                                 <td><?= $supplier->no_telp; ?></td>
                             </tr>
                             <tr>
-                                <th scope="row">No. fax</th>
+                                <th scope="row">No. Fax</th>
                                 <td>:</td>
                                 <td><?= $supplier->no_fax; ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td>:</td>
+                                <td><?= $supplier->email; ?></td>
                             </tr>
                             <tr>
                                 <th scope="row">Alamat</th>
@@ -61,8 +71,8 @@
                             <th class="text-center">No.</th>
                             <th>Tanggal</th>
                             <th>Kode Pengajuan</th>
-                            <th>Nama Supplier</th>
-                            <th>Nama Mini Plant</th>
+                            <th>Mini Plant</th>
+                            <th>Pimpinan Supplier</th>
                             <th>Jenis Produk</th>
                             <th>Status</th>
                         </tr>
@@ -75,8 +85,8 @@
                                 <td align="center"><?= $no++; ?></td>
                                 <td class="text-center"><?= date('d-M-Y', strtotime($ajuan['tgl_pengajuan'])) ?></td>
                                 <td class="text-center"><span class="badge badge-white"><?= $ajuan['kd_pengajuan']; ?></span></td>
-                                <td><?= $this->db->get_where('suppliers', ['kd_supplier' => $ajuan['kd_supplier']])->row('nama_supplier'); ?></td>
-                                <td><?= $this->db->get_where('miniplant_supplier', ['kd_pengajuan' => $ajuan['kd_pengajuan'], 'kd_supplier' => $ajuan['kd_supplier']])->row('nama_miniplant'); ?></td>
+                                <td><?= $ajuan['nama_miniplant'] ?></td>
+                                <td><?= $ajuan['nama_pimpinan'] ?></td>
                                 <td class="text-center">
                                     <?php
                                     $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
