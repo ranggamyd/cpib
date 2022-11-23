@@ -27,23 +27,23 @@ class User_supplier extends CI_Controller
 
     public function index()
     {
-        $data['user_supplier'] = $this->user_model->profil_supplier();
+        $data['supplier'] = $this->user_supplier_model->getSupplier();
 
         $data['title'] = 'Profil Saya';
-        $this->loadView('user_supplier', $data);
+        $this->loadView('user', $data);
     }
 
     public function setting()
     {
-        $data['user_supplier'] = $this->user_model->profil_supplier();
+        $data['supplier'] = $this->user_supplier_model->getSupplier();
 
         $data['title'] = 'Pengaturan Akun';
-        $this->loadView('setting_supplier', $data);
+        $this->loadView('setting', $data);
     }
 
-    public function ubah_avatar_supplier()
+    public function ubah_avatar()
     {
-        $this->form_validation->set_rules('kd_supplier', 'Kode Pengguna', 'required');
+        $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
         if (empty($_FILES['avatar']['name'])) $this->form_validation->set_rules('avatar', 'Foto Profil', 'required');
 
         if ($this->form_validation->run() == FALSE) {
@@ -51,7 +51,7 @@ class User_supplier extends CI_Controller
             $this->session->set_flashdata('hasModalID', 'edit_avatar');
             $this->index();
         } else {
-            if ($this->user_model->ubah_avatar()) {
+            if ($this->user_supplier_model->ubah_avatar()) {
                 $this->session->set_flashdata('sukses', 'Berhasil Memperbarui Avatar !');
                 redirect('user_supplier');
             } else {
@@ -61,11 +61,12 @@ class User_supplier extends CI_Controller
         }
     }
 
-    public function ubah_profil_supplier()
+    public function ubah_profil()
     {
         $user = $this->db->get_where('users', ['kd_supplier' => $this->input->post('kd_supplier')])->row();
 
-        $this->form_validation->set_rules('nama_pimpinan', 'Nama Pimpinan', 'required');
+        $this->form_validation->set_rules('nama_miniplant', 'Mini Plant', 'required');
+        $this->form_validation->set_rules('nama_pimpinan', 'Pimpinan Supplier', 'required');
         $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric');
         if ($this->input->post('no_telp') != $user->phone) $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric|is_unique[users.phone]');
         $this->form_validation->set_rules('email', 'Email', 'valid_email');
@@ -76,7 +77,7 @@ class User_supplier extends CI_Controller
             $this->session->set_flashdata('hasModalID', 'edit_user');
             $this->index();
         } else {
-            if ($this->user_model->ubah_profil_supplier()) {
+            if ($this->user_supplier_model->ubah_profil()) {
                 $this->session->set_flashdata('sukses', 'Berhasil Memperbarui Profil !');
                 redirect('user_supplier');
             } else {

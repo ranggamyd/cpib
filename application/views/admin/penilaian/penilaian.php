@@ -50,7 +50,7 @@
                 </td>
                 <td class="text-center">
                   <?php if ($item['is_need_revisi'] == 1) : ?>
-                    <a href="<?= base_url('penilaian/perbaikan/' . $item['kd_penilaian']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Perbaiki Ajuan?">Perlu Revisi</a>
+                    <a href="<?= base_url('penilaian/perbaiki/' . $item['kd_penilaian']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Perbaiki Ajuan?">Perlu Revisi</a>
                   <?php elseif ($item['is_need_revisi'] == 0) : ?>
                     <span class="badge badge-success">Lolos Inspeksi</span>
                   <?php endif ?>

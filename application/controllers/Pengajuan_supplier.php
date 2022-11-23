@@ -37,6 +37,13 @@ class Pengajuan_supplier extends CI_Controller
 
     public function tambah_ajuan()
     {
+        $this->db->join('suppliers', 'suppliers.kd_supplier = users.kd_supplier', 'left');
+        $supplier = $this->db->get_where('users', ['users.id' => $this->session->userdata('id')])->row();
+        if (!$supplier->nama_pimpinan) {
+            $this->session->set_flashdata('gagal', 'Mohon lengkapi profil anda sebelum mengajukan permohonan !');
+            redirect('user_supplier/setting');
+        }
+
         $supplier = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row();
         $data['kd_pengajuan_auto'] = $this->pengajuan_model->kd_pengajuan_auto();
         $data['supplier'] = $this->db->get_where('suppliers',['kd_supplier'=>$supplier->kd_supplier])->row();
@@ -102,100 +109,6 @@ class Pengajuan_supplier extends CI_Controller
         } else {
             $this->session->set_flashdata('gagal', 'Gagal Menghapus Ajuan !');
             $this->index();
-        }
-    }
-
-    public function proses_inspeksi($kd_pengajuan)
-    {
-        $check_team = $this->pengajuan_model->check_team($kd_pengajuan);
-        if (!$check_team) {
-            $this->session->set_flashdata('gagal', 'Mohon membuat Tim terlebih dahulu !');
-            $this->create_team($kd_pengajuan);
-        } else {
-            $this->penilaian($kd_pengajuan);
-        };
-    }
-
-    public function create_team($kd_pengajuan)
-    {
-        $data['kd_tim_inspeksi_auto'] = $this->tim_inspeksi_model->kd_tim_inspeksi_auto();
-        $data['kd_pengajuan'] = $kd_pengajuan;
-        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier');
-        $data['supplier'] = $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
-        $data['supplier'] = $this->db->get('supplier')->result_array();
-
-        $data['title'] = 'Buat Tim Inspeksi';
-        $this->loadView('create_team', $data);
-    }
-
-    public function proses_create_team()
-    {
-        $this->form_validation->set_rules('kd_tim_inspeksi', 'Kode Tim_inspeksi', 'required');
-        $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
-        $this->form_validation->set_rules('pimpinan_supplier', 'Pimpinan Supplier', 'required');
-        $this->form_validation->set_rules('ketua_inspeksi', 'Ketua Inspeksi', 'required');
-        $this->form_validation->set_rules('anggota1', 'Anggota 1', 'required|differs[ketua_inspeksi]');
-        $this->form_validation->set_rules('anggota2', 'Anggota 2', 'required|differs[ketua_inspeksi]|differs[anggota1]');
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('gagal', 'Gagal membuat tim !');
-            $this->create_team($this->input->post('kd_pengajuan'));
-        } else {
-            if ($this->tim_inspeksi_model->tambah()) {
-                $this->session->set_flashdata('sukses', 'Berhasil membuat tim !');
-                redirect('pengajuan_supplier');
-            } else {
-                $this->session->set_flashdata('gagal', 'Gagal membuat tim !');
-                $this->create_team($this->input->post('kd_pengajuan'));
-            }
-        }
-    }
-
-    public function penilaian($kd_pengajuan)
-    {
-        $pengajuan = $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
-        $data['kd_penilaian_auto'] = $this->penilaian_model->kd_penilaian_auto();
-        $data['ajuan'] = $pengajuan;
-        $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $pengajuan->kd_supplier])->row();
-        $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
-        $data['jenis_produk_supplier'] = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $pengajuan->kd_pengajuan, 'kd_supplier' => $pengajuan->kd_supplier])->result_array();
-        $data['cek_pengajuan'] = $this->db->get_where('pengajuan', ['kd_pengajuan' => $pengajuan->kd_pengajuan, 'kd_supplier' => $pengajuan->kd_supplier])->num_rows();
-        $data['tim_inspeksi'] = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row();
-        $data['kategori_daftar_isian'] = $this->daftar_isian_model->semuaKategori();
-        $data['supplier'] = $this->db->get('supplier')->result_array();
-        $data['tahap_penanganan'] = $this->db->get('penanganan')->result_array();
-
-        $data['title'] = 'Form Isian (Checklist) Penilaian Kelayakan Supplier';
-        $this->loadView('penilaian', $data);
-    }
-
-    public function proses_penilaian()
-    {
-        $this->form_validation->set_rules('kd_penilaian', 'Kode Penilaian', 'required|is_unique[penilaian.kd_penilaian]');
-        $this->form_validation->set_rules('tgl_inspeksi', 'Tanggal Inspeksi', 'required');
-        $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
-        $this->form_validation->set_rules('kd_supplier', 'Supplier', 'required');
-        $this->form_validation->set_rules('jenis_supplier', 'Jenis Supplier', 'required');
-        $this->form_validation->set_rules('kd_tim_inspeksi', 'Tim Inspeksi', 'required');
-        $this->form_validation->set_rules('jmlMinor', 'Jumlah Minor', 'required');
-        $this->form_validation->set_rules('jmlMayor', 'Jumlah Mayor', 'required');
-        $this->form_validation->set_rules('jmlSerius', 'Jumlah Serius', 'required');
-        $this->form_validation->set_rules('jmlKritis', 'Jumlah Kritis', 'required');
-        $this->form_validation->set_rules('klasifikasi', 'Klasifikasi', 'required');
-        // $this->form_validation->set_rules('penilaian_detail', 'Checklist', 'callback_penilaianDetail');
-        $this->form_validation->set_rules('tahap_penanganan[]', 'Tahapan Penanganan', 'required');
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('gagal', "Mohon isi data dengan lengkap dan teliti !");
-            $this->penilaian($this->input->post('kd_pengajuan'));
-        } else {
-            if ($this->penilaian_model->tambah()) {
-                $this->session->set_flashdata('sukses', 'Berhasil menambahkan hasil Inspeksi !');
-                redirect('pengajuan_supplier');
-            } else {
-                $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
-                $this->penilaian($this->input->post('kd_pengajuan'));
-            }
         }
     }
 }

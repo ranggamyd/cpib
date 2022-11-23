@@ -54,7 +54,7 @@ class Penilaian_model extends CI_Model
     if (!$this->tambah_tahap_penanganan()) return FALSE;
     if (!$this->tambah_detail()) return FALSE;
     if (!$this->db->insert('penilaian', $penilaian)) return FALSE;
-    if ($this->input->post('notes')['revisi']) $this->tambah_notes();
+    if ($this->input->post('notes')) $this->tambah_notes();
 
     if ($this->input->post('is_needRevisi') == 1) {
       if ($this->db->update('pengajuan', ['status' => 'Perlu Revisi'], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return TRUE;
@@ -129,12 +129,46 @@ class Penilaian_model extends CI_Model
     foreach ($this->input->post('notes') as $item) {
       $notes = [
         'kd_penilaian' => $this->input->post('kd_penilaian'),
-        'revisi' => $item['revisi'],
+        'notes' => $item['revisi'],
       ];
 
       array_push($penilaian_notes, $notes);
     }
 
     if ($this->db->insert_batch('penilaian_notes', $penilaian_notes)) return TRUE;
+  }
+
+  public function perbaiki_ajuan()
+  {
+    $config['upload_path']    = './assets/dokumen';
+    $config['allowed_types']  = 'jpg|png|jpeg|pdf';
+
+    $this->load->library('upload', $config);
+
+    $notes = $this->db->get_where('penilaian_notes', ['kd_penilaian' => $this->input->post('kd_penilaian')])->result_array();
+
+    foreach ($notes as $item) {
+      if ($this->upload->do_upload($item['id'])) {
+        $perbaikan_detail = [
+          'kd_perbaikan' => $this->input->post('kd_perbaikan'),
+          'id_notes' => $item['id'],
+          'file_perbaikan' => $this->upload->data('file_name'),
+        ];
+
+        if (!$this->db->insert('perbaikan_detail', $perbaikan_detail)) return FALSE;
+      } else {
+        return FALSE;
+      }
+    };
+
+    $perbaikan = [
+      'kd_perbaikan' => $this->input->post('kd_perbaikan'),
+      'kd_penilaian' => $this->input->post('kd_penilaian'),
+      'kd_supplier' => $this->input->post('kd_supplier'),
+      'tgl_perbaikan' => $this->input->post('tgl_perbaikan'),
+      'status' => 'Menunggu Validasi Admin',
+    ];
+
+    if ($this->db->insert('perbaikan', $perbaikan)) return TRUE;
   }
 }

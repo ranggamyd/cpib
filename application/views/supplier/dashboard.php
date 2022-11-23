@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <a href="<?= base_url('pengajuan/tambah_ajuan') ?>" class="btn btn btn-primary shadow-sm"><i class="mr-2 fas fa-book-reader fa-sm text-white-50"></i> Ajukan Permohonan Baru</a>
+            <a href="<?= base_url('pengajuan_supplier/tambah_ajuan') ?>" class="btn btn btn-primary shadow-sm"><i class="mr-2 fas fa-book-reader fa-sm text-white-50"></i> Ajukan Permohonan Baru</a>
         </div>
         <div class="col">
             <!--Dayspedia.com widget-->

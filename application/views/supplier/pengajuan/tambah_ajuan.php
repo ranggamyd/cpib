@@ -3,7 +3,7 @@
   <hr>
 
   <div class="card shadow mb-4">
-    <form action="<?= base_url('pengajuan/tambah') ?>" method="post" enctype="multipart/form-data">
+    <form action="<?= base_url('pengajuan_supplier/tambah') ?>" method="post" enctype="multipart/form-data">
     <input type="hidden" name="kd_supplier" value="<?= $supplier->kd_supplier ?>" readonly required>
       <div class="card-body">
         <div class="row">

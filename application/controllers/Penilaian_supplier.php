@@ -56,12 +56,37 @@ class Penilaian_supplier extends CI_Controller
     $this->loadView('detail', $data);
   }
 
-  public function perbaikan($kd_penilaian)
+  public function perbaiki($kd_penilaian)
   {
-    $this->db->join('suppliers', 'suppliers.kd_supplier = penilaian.kd_supplier', 'left');
-    $data['penilaian'] = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
+    $data['kd_perbaikan_auto'] = $this->perbaikan_model->kd_perbaikan_auto();
+
+    $data['penilaian'] = $this->penilaian_model->penilaian($kd_penilaian);
+    $pengajuan = $this->db->get_where('pengajuan', ['kd_pengajuan' => $data['penilaian']->kd_pengajuan])->row();
+    $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
+    $data['jps'] = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->result_array();
+    $data['jenis_supplier'] = $this->db->get_where('pengajuan', ['kd_supplier' => $pengajuan->kd_supplier])->num_rows() > 1 ? 'Lama' : 'Baru';
+    $tim_inspeksi = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row();
+    $data['ketua_tim'] = $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->ketua_inspeksi])->row('nama_admin');
+    $data['anggota1'] = $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota1])->row('nama_admin');
+    $data['anggota2'] = $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota2])->row('nama_admin');
+    $data['kategori_daftar_isian'] = $this->daftar_isian_model->semuaKategori();
+    $data['penilaian_detail'] = $this->db->get_where('penilaian_detail', ['kd_penilaian' => $kd_penilaian])->result_array();
+    $this->db->join('penanganan', 'penanganan.kd_penanganan = penilaian_penanganan.kd_penanganan', 'left');
+    $data['penanganan'] = $this->db->get_where('penilaian_penanganan', ['kd_penilaian' => $kd_penilaian])->result_array();
+    $data['notes'] = $this->db->get_where('penilaian_notes', ['kd_penilaian' => $kd_penilaian])->result_array();
 
     $data['title'] = 'Perbaiki Ajuan';
-    $this->loadView('perbaikan', $data);
+    $this->loadView('perbaiki', $data);
+  }
+
+  public function proses_perbaikan()
+  {
+    if ($this->penilaian_model->perbaiki_ajuan()) {
+      $this->session->set_flashdata('sukses', 'Berhasil Menambahkan Perbaikan !');
+      redirect('penilaian_supplier');
+    } else {
+      $this->session->set_flashdata('gagal', 'Gagal Menambahkan Perbaikan !');
+      $this->perbaiki($this->input->post('kd_penilaian'));
+    }
   }
 }

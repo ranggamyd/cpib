@@ -47,9 +47,9 @@
                   <?php elseif ($item['status'] == 'Dalam proses Inspeksi') : ?>
                     <span class="badge badge-info"><?= $item['status']; ?></span>
                   <?php elseif ($item['status'] == 'Perlu Revisi') : ?>
-                    <a href="<?= base_url('penilaian_supplier/detail/' . $item['kd_pengajuan']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
+                    <a href="<?= base_url('penilaian_supplier/detail/' . $this->db->get_where('penilaian', ['kd_pengajuan' => $item['kd_pengajuan']])->row('kd_penilaian')) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
                   <?php elseif ($item['status'] == 'Lolos Inspeksi') : ?>
-                    <a href="<?= base_url('penilaian_supplier/detail/' . $item['kd_pengajuan']) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
+                    <a href="<?= base_url('penilaian_supplier/detail/' . $this->db->get_where('penilaian', ['kd_pengajuan' => $item['kd_pengajuan']])->row('kd_penilaian')) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
                   <?php endif; ?>
                 </td>
                 <td align="center">

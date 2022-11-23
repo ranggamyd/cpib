@@ -129,7 +129,7 @@ class Pengajuan extends CI_Controller
     {
         $this->form_validation->set_rules('kd_tim_inspeksi', 'Kode Tim_inspeksi', 'required');
         $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
-        $this->form_validation->set_rules('pimpinan_supplier', 'Pimpinan Supplier', 'required');
+        // $this->form_validation->set_rules('pimpinan_supplier', 'Pimpinan Supplier', 'required');
         $this->form_validation->set_rules('ketua_inspeksi', 'Ketua Inspeksi', 'required');
         $this->form_validation->set_rules('anggota1', 'Anggota 1', 'required|differs[ketua_inspeksi]');
         $this->form_validation->set_rules('anggota2', 'Anggota 2', 'required|differs[ketua_inspeksi]|differs[anggota1]');
