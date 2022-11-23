@@ -3,8 +3,8 @@
   <hr>
 
   <div class="card shadow mb-4">
-    <div class="card-body">
-      <form action="<?= base_url('pengajuan/tambah') ?>" method="post" enctype="multipart/form-data">
+    <form action="<?= base_url('pengajuan/tambah') ?>" method="post" enctype="multipart/form-data">
+      <div class="card-body">
         <div class="row">
           <div class="col-md-5">
             <label for="kd_pengajuan">Kode Ajuan :</label>
@@ -24,10 +24,10 @@
         <div class="container bg-info rounded pt-2 pb-3 text-light">
           <div class="row">
             <div class="col">
-              <label for="kd_supplier">Supplier :</label>
+              <label for="kd_supplier">Mini Plant :</label>
               <select name="kd_supplier" id="kd_supplier" class="form-control mb-3 <?= form_error('kd_supplier') ? 'is-invalid' : '' ?>" required>
                 <?php foreach ($suppliers as $spl) : ?>
-                  <option value="<?= $spl['kd_supplier'] ?>" <?= set_select('kd_supplier', $spl['kd_supplier'], TRUE); ?>><?= $spl['nama_supplier'] ?></option>
+                  <option value="<?= $spl['kd_supplier'] ?>" <?= set_select('kd_supplier', $spl['kd_supplier'], TRUE); ?>><?= $spl['nama_miniplant'] ?></option>
                 <?php endforeach ?>
               </select>
               <div id='kd_supplier' class='invalid-feedback'>
@@ -35,10 +35,10 @@
               </div>
             </div>
             <div class="col">
-              <label for="nama_miniplant">Nama Mini Plant :</label>
-              <input type="text" name="nama_miniplant" value="<?= set_value('nama_miniplant') ?>" id="nama_miniplant" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" required>
-              <div id='nama_miniplant' class='invalid-feedback'>
-                <?= form_error('nama_miniplant') ?>
+              <label for="nama_pimpinan">Pimpinan Supplier :</label>
+              <input type="text" name="nama_pimpinan" value="<?= set_value('nama_pimpinan') ?>" id="nama_pimpinan" class="form-control mb-3 <?= form_error('nama_pimpinan') ? 'is-invalid' : '' ?>" readonly>
+              <div id='nama_pimpinan' class='invalid-feedback'>
+                <?= form_error('nama_pimpinan') ?>
               </div>
             </div>
           </div>
@@ -81,31 +81,21 @@
           </div>
           <div class="col-md-6">
             <label for="akta_usaha">AKTA USAHA</label>
-            <input type="file" name="akta_usaha" id="akta_usaha" class="form-control-file mb-3">
+            <input type="file" name="akta_usaha" id="akta_usaha" class="form-control-file mb-3" accept="image/*,.pdf">
             <label for="imb">IMB</label>
-            <input type="file" name="imb" id="imb" class="form-control-file mb-3">
+            <input type="file" name="imb" id="imb" class="form-control-file mb-3" accept="image/*,.pdf">
             <label for="layout">LAY-OUT / DENAH LOKASI</label>
-            <input type="file" name="layout" id="layout" class="form-control-file mb-3">
+            <input type="file" name="layout" id="layout" class="form-control-file mb-3" accept="image/*,.pdf">
             <label for="panduan_mutu">PANDUAN MUTU GMP-SSOP</label>
-            <input type="file" name="panduan_mutu" id="panduan_mutu" class="form-control-file mb-3">
+            <input type="file" name="panduan_mutu" id="panduan_mutu" class="form-control-file mb-3" accept="image/*,.pdf">
           </div>
         </div>
-        <br>
-
-        <small>Info :
-          <i>Data yang sudah di tambahkan akan segera muncul di dalam daftar nama supplier.
-            <b>mohon di cek kembali data supplier yang ada demi menghindari duplikasi data / data
-              ganda
-            </b>
-          </i>
-        </small>
-        <hr>
-        <div class="text-right">
-          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-success">Simpan</button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="card-footer text-right">
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-success">Simpan</button>
+      </div>
+    </form>
   </div>
 </div>
 </div>

@@ -6,7 +6,7 @@ class Tim_inspeksi extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if (!$this->auth_model->current_user()) {
+        if ($this->session->userdata('login_as') != 'admin') {
             $this->session->set_userdata('referred_from', current_url());
             $this->session->set_flashdata('gagal', 'Gagal mengakses, Silahkan login kembali !');
             redirect('auth');
@@ -44,7 +44,7 @@ class Tim_inspeksi extends CI_Controller
         $this->form_validation->set_rules('pimpinan_supplier', 'Pimpinan Supplier', 'required');
         $this->form_validation->set_rules('ketua_inspeksi', 'Ketua Inspeksi', 'required');
         $this->form_validation->set_rules('anggota1', 'Anggota 1', 'required|differs[ketua_inspeksi]');
-        $this->form_validation->set_rules('anggota2', 'Anggota 2', 'required|differs[ketua_inspeksi]|differs[anggota1]');
+        $this->form_validation->set_rules('anggota2', 'Anggota 2', 'differs[ketua_inspeksi]|differs[anggota1]');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal menambahkan !');

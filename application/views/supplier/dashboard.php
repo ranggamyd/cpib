@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <a href="<?= base_url('pengajuan/tambah_ajuan') ?>" class="btn btn btn-primary shadow-sm"><i class="mr-2 fas fa-book-reader fa-sm text-white-50"></i> Ajukan Permohonan Baru</a>
+            <a href="<?= base_url('pengajuan_supplier/tambah_ajuan') ?>" class="btn btn btn-primary shadow-sm"><i class="mr-2 fas fa-book-reader fa-sm text-white-50"></i> Ajukan Permohonan Baru</a>
         </div>
         <div class="col">
             <!--Dayspedia.com widget-->
@@ -330,8 +330,8 @@
                                         <th class="text-center">No.</th>
                                         <th>Tanggal</th>
                                         <th>Kode Pengajuan</th>
-                                        <th>Nama Supplier</th>
-                                        <th>Nama Mini Plant</th>
+                                        <th>Mini Plant</th>
+                                        <th>Pimpinan Supplier</th>
                                         <th>Jenis Produk</th>
                                         <th>Status</th>
                                     </tr>
@@ -344,8 +344,8 @@
                                             <td align="center"><?= $no++; ?></td>
                                             <td class="text-center"><?= date('d-M-Y', strtotime($ajuan['tgl_pengajuan'])) ?></td>
                                             <td class="text-center"><span class="badge badge-white"><?= $ajuan['kd_pengajuan']; ?></span></td>
-                                            <td><?= $this->db->get_where('suppliers', ['kd_supplier' => $ajuan['kd_supplier']])->row('nama_supplier'); ?></td>
-                                            <td><?= $this->db->get_where('miniplant_supplier', ['kd_pengajuan' => $ajuan['kd_pengajuan'], 'kd_supplier' => $ajuan['kd_supplier']])->row('nama_miniplant'); ?></td>
+                                            <td><?= $ajuan['nama_miniplant'] ?></td>
+                                            <td><?= $ajuan['nama_pimpinan'] ?></td>
                                             <td class="text-center">
                                                 <?php
                                                 $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
