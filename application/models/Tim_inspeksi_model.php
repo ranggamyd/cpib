@@ -22,7 +22,8 @@ class Tim_inspeksi_model extends CI_Model
 
   public function tim_inspeksi()
   {
-    $this->db->join('suppliers', 'suppliers.kd_supplier = tim_inspeksi.pimpinan_supplier', 'left');
+    $this->db->join('pengajuan', 'pengajuan.kd_pengajuan = tim_inspeksi.kd_pengajuan', 'left');
+    $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
     return $this->db->get('tim_inspeksi')->result_array();
   }
 
