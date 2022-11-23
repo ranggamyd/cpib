@@ -123,7 +123,7 @@
 
             <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading">Lainnya</div>
-            <li class="nav-item <?= ($this->uri->segment(1) == 'user') ? 'active' : ''; ?>">
+            <li class="nav-item <?= ($this->uri->segment(1) == 'user' && $this->uri->segment(2) == '') ? 'active' : ''; ?>">
                 <a class="nav-link py-2" href="<?= base_url('user') ?>">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Profil Saya</span>

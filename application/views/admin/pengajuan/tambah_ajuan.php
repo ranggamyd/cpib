@@ -34,13 +34,13 @@
                 <?= form_error('kd_supplier') ?>
               </div>
             </div>
-            <div class="col">
+            <!-- <div class="col">
               <label for="nama_pimpinan">Pimpinan Supplier :</label>
-              <input type="text" name="nama_pimpinan" value="<?= set_value('nama_pimpinan') ?>" id="nama_pimpinan" class="form-control mb-3 <?= form_error('nama_pimpinan') ? 'is-invalid' : '' ?>" readonly>
+              <input type="text" name="nama_pimpinan" value="<?= set_value('nama_pimpinan', $spl['nama_pimpinan']) ?>" id="nama_pimpinan" class="form-control mb-3 <?= form_error('nama_pimpinan') ? 'is-invalid' : '' ?>" readonly>
               <div id='nama_pimpinan' class='invalid-feedback'>
                 <?= form_error('nama_pimpinan') ?>
               </div>
-            </div>
+            </div> -->
           </div>
           <label for="kd_jenis_produk[]">Jenis Produk :</label>
           <select name="kd_jenis_produk[]" multiple id="kd_jenis_produk[]" class="form-control mb-3 <?= form_error('kd_jenis_produk[]') ? 'is-invalid' : '' ?>" required>
