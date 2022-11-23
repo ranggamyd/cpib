@@ -20,7 +20,7 @@
                             <?= $item['deskripsi'] ?>
                             <div class="text-right">
                                 <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#edit_penanganan-<?= $item['kd_penanganan'] ?>" data-toggle="tooltip" data-placement="right" title="Perbarui Penanganan"><i class="fa fa-fw fa-edit"></i></a>
-                                <a href="<?= base_url('penanganan/hapus/') . $item['kd_penanganan'] ?>" class="badge badge-danger" data-toggle="tooltip" data-placement="right" title="Hapus Penanganan"><i class="fas fa-trash-alt"></i></a>
+                                <a href="<?= base_url('penanganan/hapus/') . $item['kd_penanganan'] ?>" class="badge badge-danger" data-toggle="tooltip" onclick="return confirm('Apakah Anda Yakin ?')" data-placement="right" title="Hapus Penanganan"><i class="fas fa-trash-alt"></i></a>
                             </div>
                         </div>
                     </div>

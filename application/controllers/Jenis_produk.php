@@ -78,9 +78,9 @@ class Jenis_produk extends CI_Controller
     }
   }
 
-  public function hapus()
+  public function hapus($kd_jenis_produk)
   {
-    if ($this->jenis_produk_model->hapus()) {
+    if ($this->jenis_produk_model->hapus($kd_jenis_produk)) {
       $this->session->set_flashdata('sukses', 'Berhasil menghapus !');
       redirect('jenis_produk');
     } else {
