@@ -15,10 +15,10 @@ class Pengajuan extends CI_Controller
 
     private function loadView($file, $data)
     {
-        // $data['style'] = [
-        //     'css' => 'supplier.css',
-        //     'js' => 'supplier.js',
-        // ];
+        $data['style'] = [
+            // 'css' => 'supplier.css',
+            'js' => 'pengajuan.js',
+        ];
 
         $this->load->view('admin/parts/header', $data);
         $this->load->view('admin/pengajuan/' . $file, $data);
@@ -37,9 +37,8 @@ class Pengajuan extends CI_Controller
     {
         $data['kd_pengajuan_auto'] = $this->pengajuan_model->kd_pengajuan_auto();
         $data['suppliers'] = $this->supplier_model->suppliers();
-        $data['jenis_produk'] = $this->jenis_produk_model->semuaJenisProduk();
 
-        $data['title'] = 'Tambah Ajuan';
+        $data['title'] = 'Form Permohonan Sertifikasi CPIB Supplier';
         $this->loadView('tambah_ajuan', $data);
     }
 
@@ -48,25 +47,17 @@ class Pengajuan extends CI_Controller
         $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
         $this->form_validation->set_rules('tgl_pengajuan', 'Tanggal Pengajuan', 'required');
         $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
-        $this->form_validation->set_rules('kd_jenis_produk[]', 'Jenis Produk', 'required');
-        if (empty($_FILES['ktp']['name'])) $this->form_validation->set_rules('ktp', 'KTP', 'required|trim|xss_clean');
-        if (empty($_FILES['npwp']['name'])) $this->form_validation->set_rules('npwp', 'NPWP', 'required|trim|xss_clean');
-        if (empty($_FILES['layout']['name'])) $this->form_validation->set_rules('layout', 'Layout', 'required|trim|xss_clean');
-        if (empty($_FILES['panduan_mutu']['name'])) $this->form_validation->set_rules('panduan_mutu', 'Panduan Mutu', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('akta_usaha', 'Akta Usaha', 'trim|xss_clean');
-        $this->form_validation->set_rules('imb', 'IMB', 'trim|xss_clean');
-        $this->form_validation->set_rules('nib', 'NIB', 'trim|xss_clean');
-        $this->form_validation->set_rules('siup', 'SIUP', 'trim|xss_clean');
+        $this->form_validation->set_rules('jenis_produk[]', 'Jenis Produk', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('gagal', 'Gagal Menambahkan Ajuan !');
+            $this->session->set_flashdata('gagal', 'Gagal Mengajukan Permohonan !');
             $this->tambah_ajuan();
         } else {
             if ($this->pengajuan_model->tambah()) {
-                $this->session->set_flashdata('sukses', 'Berhasil Menambahkan Ajuan !');
+                $this->session->set_flashdata('sukses', 'Berhasil Mengajukan Permohonan !');
                 redirect('pengajuan');
             } else {
-                $this->session->set_flashdata('gagal', 'Gagal Menambahkan Ajuan !');
+                $this->session->set_flashdata('gagal', 'Gagal Mengajukan Permohonan !');
                 $this->tambah_ajuan();
             }
         }
@@ -74,30 +65,28 @@ class Pengajuan extends CI_Controller
 
     public function detail($kd_pengajuan)
     {
-        $data['pengajuan'] = $this->pengajuan_model->pengajuanDetail($kd_pengajuan);
+        $data['pengajuan'] = $this->pengajuan_model->pengajuan($kd_pengajuan);
 
-        $data['title'] = 'Detail Ajuan';
+        $data['title'] = 'Detail Permohonan Supplier';
         $this->loadView('detail_ajuan', $data);
     }
 
     public function ubah($kd_pengajuan)
     {
         $data['pengajuan'] = $this->pengajuan_model->pengajuan($kd_pengajuan);
-
         $data['suppliers'] = $this->supplier_model->suppliers();
-        $data['jenis_produk'] = $this->jenis_produk_model->semuaJenisProduk();
 
-        $data['title'] = 'Ubah Ajuan';
+        $data['title'] = 'Form Permohonan Sertifikasi CPIB Supplier';
         $this->loadView('ubah_ajuan', $data);
     }
 
     public function hapus($kd_pengajuan)
     {
         if ($this->pengajuan_model->hapus($kd_pengajuan)) {
-            $this->session->set_flashdata('sukses', 'Berhasil Menghapus Ajuan !');
+            $this->session->set_flashdata('sukses', 'Berhasil Menghapus Permohonan !');
             redirect('pengajuan');
         } else {
-            $this->session->set_flashdata('gagal', 'Gagal Menghapus Ajuan !');
+            $this->session->set_flashdata('gagal', 'Gagal Menghapus Permohonan !');
             $this->index();
         }
     }
@@ -151,15 +140,14 @@ class Pengajuan extends CI_Controller
     public function penilaian($kd_pengajuan)
     {
         $pengajuan = $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
+
         $data['kd_penilaian_auto'] = $this->penilaian_model->kd_penilaian_auto();
-        $data['ajuan'] = $pengajuan;
+        $data['pengajuan'] = $pengajuan;
         $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $pengajuan->kd_supplier])->row();
-        $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
-        $data['jenis_produk_supplier'] = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $pengajuan->kd_pengajuan, 'kd_supplier' => $pengajuan->kd_supplier])->result_array();
+        $data['jenis_produk'] = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $pengajuan->kd_pengajuan, 'kd_supplier' => $pengajuan->kd_supplier])->result_array();
         $data['cek_pengajuan'] = $this->db->get_where('pengajuan', ['kd_pengajuan' => $pengajuan->kd_pengajuan, 'kd_supplier' => $pengajuan->kd_supplier])->num_rows();
         $data['tim_inspeksi'] = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row();
         $data['kategori_daftar_isian'] = $this->daftar_isian_model->semuaKategori();
-        $data['admin'] = $this->db->get('admin')->result_array();
         $data['tahap_penanganan'] = $this->db->get('penanganan')->result_array();
 
         $data['title'] = 'Form Isian (Checklist) Penilaian Kelayakan Supplier';

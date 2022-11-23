@@ -1,10 +1,10 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Ajuan Supplier</h1>
+  <h1 class="h3 mb-2 text-gray-800">Daftar Permohonan Sertifikasi CPIB</h1>
   <hr>
 
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <a href="<?= base_url('pengajuan/tambah_ajuan') ?>" class="btn btn-sm btn-primary" id="#myBtn"><i class="fas fa-plus-circle mr-2"></i>Tambah Ajuan</a>
+      <a href="<?= base_url('pengajuan/tambah_ajuan') ?>" class="btn btn-sm btn-primary" id="#myBtn"><i class="fas fa-plus-circle mr-2"></i>Ajukan Permohonan Baru</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -34,18 +34,17 @@
                 <td class="text-center">
                   <?php
                   $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
-                  $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
-                  $jenis_produk_supplier = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $item['kd_pengajuan'], 'kd_supplier' => $item['kd_supplier']])->result_array();
-                  foreach ($jenis_produk_supplier as $jp) :
+                  $jenis_produk = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $item['kd_pengajuan'], 'kd_supplier' => $item['kd_supplier']])->result_array();
+                  foreach ($jenis_produk as $jp) :
                   ?>
                     <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
                   <?php endforeach; ?>
                 </td>
                 <td class="text-center">
                   <?php if ($item['status'] == 'Tertunda') : ?>
-                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $item['status']; ?></a>
+                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Lanjutkan Proses Inspeksi?"><?= $item['status']; ?></a>
                   <?php elseif ($item['status'] == 'Dalam proses Inspeksi') : ?>
-                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-info" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $item['status']; ?></a>
+                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-info" data-toggle="tooltip" data-placement="right" title="Lanjutkan Proses Inspeksi?"><?= $item['status']; ?></a>
                   <?php elseif ($item['status'] == 'Perlu Revisi') : ?>
                     <a href="<?= base_url('penilaian/detail/'  . $this->db->get_where('penilaian', ['kd_pengajuan' => $item['kd_pengajuan']])->row('kd_penilaian')) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
                   <?php elseif ($item['status'] == 'Lolos Inspeksi') : ?>

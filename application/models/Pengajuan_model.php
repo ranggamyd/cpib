@@ -39,13 +39,6 @@ class Pengajuan_model extends CI_Model
         return $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
     }
 
-    public function pengajuanDetail($kd_pengajuan)
-    {
-        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
-        $this->db->join('users', 'users.kd_supplier = suppliers.kd_supplier', 'left');
-        return $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
-    }
-
     public function tambah()
     {
         $config['upload_path']    = './assets/dokumen';
@@ -67,22 +60,11 @@ class Pengajuan_model extends CI_Model
 
         $kd_pengajuan = $this->input->post('kd_pengajuan');
         $kd_supplier = $this->input->post('kd_supplier');
-        $tgl_pengajuan = $this->input->post('tgl_pengajuan');
-
-        foreach ($this->input->post('kd_jenis_produk') as $item) {
-            $jenis_produk = [
-                'kd_pengajuan' => $kd_pengajuan,
-                'kd_supplier' => $kd_supplier,
-                'kd_jenis_produk' => $item,
-            ];
-
-            if (!$this->db->insert('jenis_produk_supplier', $jenis_produk)) return FALSE;
-        };
 
         $data = [
             'kd_pengajuan' => $kd_pengajuan,
             'kd_supplier' => $kd_supplier,
-            'tgl_pengajuan' => $tgl_pengajuan,
+            'tgl_pengajuan' => $this->input->post('tgl_pengajuan'),
             'status' => 'Tertunda',
             'ktp' => $uploadedFiles[0],
             'npwp' => $uploadedFiles[1],
@@ -94,7 +76,24 @@ class Pengajuan_model extends CI_Model
             'panduan_mutu' => $uploadedFiles[7],
         ];
 
+        if ($this->input->post('jenis_produk')) $this->tambah_jenis_produk();
         if ($this->db->insert('pengajuan', $data)) return TRUE;
+    }
+
+    private function tambah_jenis_produk()
+    {
+        $jenis_produk = [];
+        foreach ($this->input->post('jenis_produk') as $item) {
+            $produk = [
+                'kd_pengajuan' => $this->input->post('kd_pengajuan'),
+                'kd_supplier' => $this->input->post('kd_supplier'),
+                'jenis_produk' => $item['produk'],
+            ];
+
+            array_push($jenis_produk, $produk);
+        }
+
+        if ($this->db->insert_batch('jenis_produk', $jenis_produk)) return TRUE;
     }
 
     public function hapus($kd_pengajuan)
