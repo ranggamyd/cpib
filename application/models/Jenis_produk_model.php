@@ -46,9 +46,8 @@ class Jenis_produk_model extends CI_Model
         if ($this->db->update('jenis_produk', $data, ['kd_jenis_produk' => $this->input->post('kd_jenis_produk')])) return TRUE;
     }
 
-    public function hapus()
+    public function hapus($kd_jenis_produk)
     {
-        $kd_jenis_produk = $this->input->post('kd_jenis_produk');
         if ($this->db->delete('jenis_produk', ['kd_jenis_produk' => $kd_jenis_produk])) return TRUE;
     }
 }

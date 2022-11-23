@@ -6,7 +6,7 @@
   <div class="row">
     <?php
     $no = 1;
-    $colors = ["bg-primary","bg-success","bg-danger","bg-warning", "badge-info"];
+    $colors = ["bg-primary", "bg-success", "bg-danger", "bg-warning", "badge-info"];
     foreach ($jenis_produk as $jp) {
     ?>
       <div class="col-4">
@@ -20,7 +20,7 @@
               <?= $jp['deskripsi'] ?>
               <div class="text-right">
                 <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#edit_jenis_produk<?= $jp['kd_jenis_produk'] ?>" id="#myBtn" data-dismiss="modal"><i class="fa fa-fw fa-edit"></i></a>
-                <a href="#" data-toggle="modal" data-target="#hapus_jenis_produk<?= $jp['kd_jenis_produk'] ?>" class="badge badge-danger" data-toggle="tooltip" data-placement="right" title="Hapus"><i class="fas fa-trash-alt"></i></a>
+                <a href="<?= base_url('jenis_produk/hapus/').$jp['kd_jenis_produk'] ?>" class="badge badge-danger" data-toggle="tooltip" data-placement="right" title="Hapus" onclick="return confirm('Apakah Anda Yakin ?')"><i class="fas fa-trash-alt"></i></a>
               </div>
             </div>
           </div>
