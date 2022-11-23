@@ -51,12 +51,12 @@ class Pengajuan extends CI_Controller
         $this->form_validation->set_rules('kd_jenis_produk[]', 'Jenis Produk', 'required');
         if (empty($_FILES['ktp']['name'])) $this->form_validation->set_rules('ktp', 'KTP', 'required|trim|xss_clean');
         if (empty($_FILES['npwp']['name'])) $this->form_validation->set_rules('npwp', 'NPWP', 'required|trim|xss_clean');
-        if (empty($_FILES['nib']['name'])) $this->form_validation->set_rules('nib', 'NIB', 'required|trim|xss_clean');
-        if (empty($_FILES['siup']['name'])) $this->form_validation->set_rules('siup', 'SIUP', 'required|trim|xss_clean');
+        if (empty($_FILES['layout']['name'])) $this->form_validation->set_rules('layout', 'Layout', 'required|trim|xss_clean');
+        if (empty($_FILES['panduan_mutu']['name'])) $this->form_validation->set_rules('panduan_mutu', 'Panduan Mutu', 'required|trim|xss_clean');
         $this->form_validation->set_rules('akta_usaha', 'Akta Usaha', 'trim|xss_clean');
         $this->form_validation->set_rules('imb', 'IMB', 'trim|xss_clean');
-        $this->form_validation->set_rules('layout', 'LAYOUT', 'trim|xss_clean');
-        $this->form_validation->set_rules('panduan_mutu', 'Panduan Mutu', 'trim|xss_clean');
+        $this->form_validation->set_rules('nib', 'NIB', 'trim|xss_clean');
+        $this->form_validation->set_rules('siup', 'SIUP', 'trim|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal Menambahkan Ajuan !');

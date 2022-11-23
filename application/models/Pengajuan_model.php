@@ -60,6 +60,8 @@ class Pengajuan_model extends CI_Model
             if ($this->upload->do_upload($item)) {
                 $fileName = $this->upload->data('file_name');
                 array_push($uploadedFiles, $fileName);
+            } else {
+                array_push($uploadedFiles, null);
             }
         };
 
@@ -84,12 +86,12 @@ class Pengajuan_model extends CI_Model
             'status' => 'Tertunda',
             'ktp' => $uploadedFiles[0],
             'npwp' => $uploadedFiles[1],
-            'nib' => $uploadedFiles[2],
-            'siup' => $uploadedFiles[3],
+            'nib' => array_key_exists(2, $uploadedFiles) ? $uploadedFiles[2] : '',
+            'siup' => array_key_exists(3, $uploadedFiles) ? $uploadedFiles[3] : '',
             'akta_usaha' => array_key_exists(4, $uploadedFiles) ? $uploadedFiles[4] : '',
             'imb' => array_key_exists(5, $uploadedFiles) ? $uploadedFiles[5] : '',
-            'layout' => array_key_exists(6, $uploadedFiles) ? $uploadedFiles[6] : '',
-            'panduan_mutu' => array_key_exists(7, $uploadedFiles) ? $uploadedFiles[7] : '',
+            'layout' => $uploadedFiles[6],
+            'panduan_mutu' => $uploadedFiles[7],
         ];
 
         if ($this->db->insert('pengajuan', $data)) return TRUE;

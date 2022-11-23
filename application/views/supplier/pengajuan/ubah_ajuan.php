@@ -4,7 +4,7 @@
 
   <div class="card shadow mb-4">
     <form action="<?= base_url('pengajuan/ubah') ?>" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="kd_supplier" value="<?= $pengajuan->kd_supplier ?>" readonly required>
+      <input type="hidden" name="kd_supplier" value="<?= $pengajuan->kd_supplier ?>" readonly required>
       <div class="card-body">
         <div class="row">
           <div class="col-md-5">
@@ -76,26 +76,26 @@
             <div id='npwp' class='invalid-feedback'>
               <?= form_error('npwp') ?>
             </div>
-            <label for="nib">NIB <small class="text-danger text-bold">*</small></label>
-            <input type="file" name="nib" id="nib" class="form-control-file mb-3 <?= form_error('nib') ? 'is-invalid' : '' ?>" accept="image/*,.pdf" required>
-            <div id='nib' class='invalid-feedback'>
-              <?= form_error('nib') ?>
-            </div>
-            <label for="siup">SIUP <small class="text-danger text-bold">*</small></label>
-            <input type="file" name="siup" id="siup" class="form-control-file mb-3 <?= form_error('siup') ? 'is-invalid' : '' ?>" accept="image/*,.pdf" required>
-            <div id='siup' class='invalid-feedback'>
-              <?= form_error('siup') ?>
-            </div>
+            <label for="nib">NIB</label>
+            <input type="file" name="nib" id="nib" class="form-control-file mb-3" accept="image/*,.pdf">
+            <label for="siup">SIUP</label>
+            <input type="file" name="siup" id="siup" class="form-control-file mb-3" accept="image/*,.pdf">
           </div>
           <div class="col-md-6">
             <label for="akta_usaha">AKTA USAHA</label>
             <input type="file" name="akta_usaha" id="akta_usaha" class="form-control-file mb-3" accept="image/*,.pdf">
             <label for="imb">IMB</label>
             <input type="file" name="imb" id="imb" class="form-control-file mb-3" accept="image/*,.pdf">
-            <label for="layout">LAY-OUT / DENAH LOKASI</label>
-            <input type="file" name="layout" id="layout" class="form-control-file mb-3" accept="image/*,.pdf">
-            <label for="panduan_mutu">PANDUAN MUTU GMP-SSOP</label>
-            <input type="file" name="panduan_mutu" id="panduan_mutu" class="form-control-file mb-3" accept="image/*,.pdf">
+            <label for="layout">LAY-OUT / DENAH LOKASI <small class="text-danger text-bold">*</small></label>
+            <input type="file" name="layout" id="layout" class="form-control-file mb-3 <?= form_error('layout') ? 'is-invalid' : '' ?>" accept="image/*,.pdf" required>
+            <div id='layout' class='invalid-feedback'>
+              <?= form_error('layout') ?>
+            </div>
+            <label for="panduan_mutu">PANDUAN MUTU GMP-SSOP <small class="text-danger text-bold">*</small></label>
+            <input type="file" name="panduan_mutu" id="panduan_mutu" class="form-control-file mb-3 <?= form_error('panduan_mutu') ? 'is-invalid' : '' ?>" accept="image/*,.pdf" required>
+            <div id='panduan_mutu' class='invalid-feedback'>
+              <?= form_error('panduan_mutu') ?>
+            </div>
           </div>
         </div>
       </div>

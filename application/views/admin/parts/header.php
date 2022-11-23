@@ -95,6 +95,13 @@
                 </a>
             </li>
 
+            <li class="nav-item <?= ($this->uri->segment(1) == 'sertifikat') ? 'active' : ''; ?>">
+                <a class="nav-link py-2" href="<?= base_url('sertifikat') ?>">
+                    <i class="fas fa-fw fa-medal"></i>
+                    <span>Template Sertifikat</span>
+                </a>
+            </li>
+
             <li class="nav-item <?= ($this->uri->segment(1) == 'suppliers') ? 'active' : ''; ?>">
                 <a class="nav-link py-2" href="<?= base_url('suppliers') ?>">
                     <i class="fas fa-fw fa-user-friends"></i>

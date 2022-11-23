@@ -27,20 +27,38 @@ class Sertifikat extends CI_Controller
 
   public function index()
   {
+    $data['kd_sertifikat_auto'] = $this->sertifikat_model->kd_sertifikat_auto();
     $data['sertifikat'] = $this->sertifikat_model->semuaSertifikat();
 
     $data['title'] = 'sertifikat';
     $this->loadView('sertifikat', $data);
   }
 
-  public function cetak($sertif_id)
+  public function tambah()
   {
-    # HEHE
+    $this->form_validation->set_rules('kd_sertifikat', 'Kode Sertifikat', 'required');
+    $this->form_validation->set_rules('nama_sertifikat', 'Nama Sertifikat', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+      $this->session->set_flashdata('hasModalID', 'tambah_sertifikat');
+      $this->index();
+    } else {
+      if ($this->sertifikat_model->tambah()) {
+        $this->session->set_flashdata('sukses', 'Berhasil menambahkan !');
+        redirect('sertifikat');
+      } else {
+        $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
+        $this->index();
+      }
+    }
   }
 
-  public function edit_template()
+  public function edit($kd_sertifikat)
   {
+    $data['sertifikat'] = $this->sertifikat_model->sertifikat($kd_sertifikat);
+
     $data['title'] = 'Edit Template Sertifikat';
-    $this->loadView('edit_template', $data);
+    $this->loadView('edit', $data);
   }
 }
