@@ -29,28 +29,38 @@ class Supplier_model extends CI_Model
     public function supplier($kd_supplier)
     {
         $this->db->join('users', 'users.kd_supplier = suppliers.kd_supplier', 'left');
-        return $this->db->get_where('suppliers',['suppliers.kd_supplier'=>$kd_supplier])->row();
+        return $this->db->get_where('suppliers', ['suppliers.kd_supplier' => $kd_supplier])->row();
     }
 
     public function tambah()
     {
         $kd_supplier = $this->input->post('kd_supplier');
+        $nama_miniplant = $this->input->post('nama_miniplant');
+        $nama_pimpinan = $this->input->post('nama_pimpinan');
+        $no_telp = $this->input->post('no_telp');
+        $email = $this->input->post('email');
+        $no_fax = $this->input->post('no_fax');
+        $alamat = $this->input->post('alamat');
+
         $data = [
             'kd_supplier' => $kd_supplier,
-            'nama_supplier' => $this->input->post('nama_supplier'),
-            'alamat' => $this->input->post('alamat'),
+            'nama_miniplant' => $nama_miniplant,
+            'nama_pimpinan' => $nama_pimpinan,
+            'no_telp' => $no_telp,
+            'email' => $email,
+            'no_fax' => $no_fax,
+            'alamat' => $alamat,
         ];
 
         if (!$this->db->insert('suppliers', $data)) return FALSE;
 
-        $kd_supplier = $this->input->post('kd_supplier');
-        $name = $this->input->post('nama_supplier');
-        $username = $this->input->post('kd_supplier') . '_' . strtok($name, ' ');
         $user = [
-            'name' => $name,
-            'username' => $username,
-            'password' => md5($username),
+            'name' => $nama_miniplant,
+            'phone' => $no_telp,
+            'email' => $email,
+            'password' => md5($no_telp),
             'kd_supplier' => $kd_supplier,
+            'is_active' => 0
         ];
 
         if ($this->db->insert('users', $user)) return TRUE;
@@ -59,17 +69,39 @@ class Supplier_model extends CI_Model
     public function ubah()
     {
         $kd_supplier = $this->input->post('kd_supplier');
+        $nama_miniplant = $this->input->post('nama_miniplant');
+        $nama_pimpinan = $this->input->post('nama_pimpinan');
+        $no_telp = $this->input->post('no_telp');
+        $email = $this->input->post('email');
+        $no_fax = $this->input->post('no_fax');
+        $alamat = $this->input->post('alamat');
+
         $data = [
-            'nama_supplier' => $this->input->post('nama_supplier'),
-            'alamat' => $this->input->post('alamat'),
+            // 'kd_supplier' => $kd_supplier,
+            'nama_miniplant' => $nama_miniplant,
+            'nama_pimpinan' => $nama_pimpinan,
+            'no_telp' => $no_telp,
+            'email' => $email,
+            'no_fax' => $no_fax,
+            'alamat' => $alamat,
         ];
 
-        if ($this->db->update('suppliers', $data, ['kd_supplier' => $kd_supplier])) return TRUE;
+        if (!$this->db->update('suppliers', $data, ['kd_supplier' => $kd_supplier])) return FALSE;
+
+        $user = [
+            'name' => $nama_miniplant,
+            'phone' => $no_telp,
+            'email' => $email,
+            // 'password' => md5($no_telp),
+            // 'kd_supplier' => $kd_supplier,
+            // 'is_active' => 0
+        ];
+
+        if ($this->db->update('users', $user, ['kd_supplier' => $kd_supplier])) return TRUE;
     }
 
-    public function hapus()
+    public function hapus($kd_supplier)
     {
-        $kd_supplier = $this->input->post('kd_supplier');
         if (!$this->db->delete('suppliers', ['kd_supplier' => $kd_supplier])) return FALSE;
         if ($this->db->delete('users', ['kd_supplier' => $kd_supplier])) return TRUE;
     }

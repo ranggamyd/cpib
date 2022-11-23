@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Nov 2022 pada 07.41
+-- Waktu pembuatan: 23 Nov 2022 pada 13.13
 -- Versi server: 10.4.25-MariaDB
 -- Versi PHP: 7.4.30
 
@@ -131,14 +131,6 @@ CREATE TABLE `jenis_produk_supplier` (
   `kd_jenis_produk` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `jenis_produk_supplier`
---
-
-INSERT INTO `jenis_produk_supplier` (`id`, `kd_pengajuan`, `kd_supplier`, `kd_jenis_produk`) VALUES
-(1, 'REG-0001', 'SPL-002', 'JPK-001'),
-(2, 'REG-0001', 'SPL-002', 'JPK-002');
-
 -- --------------------------------------------------------
 
 --
@@ -221,13 +213,6 @@ CREATE TABLE `pengajuan` (
   `panduan_mutu` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `pengajuan`
---
-
-INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `tgl_pengajuan`, `status`, `ktp`, `npwp`, `nib`, `siup`, `akta_usaha`, `imb`, `layout`, `panduan_mutu`) VALUES
-(1, 'REG-0001', 'SPL-002', '2022-11-20', 'Lolos Inspeksi', '0_Kontrak_Kuliah_dan_Silabus3.pdf', '0_Kontrak_Kuliah_dan_Silabus4.pdf', '0_Kontrak_Kuliah_dan_Silabus5.pdf', '0_Kontrak_Kuliah_dan_Silabus6.pdf', '', '', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -250,13 +235,6 @@ CREATE TABLE `penilaian` (
   `is_need_revisi` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `penilaian`
---
-
-INSERT INTO `penilaian` (`id`, `kd_penilaian`, `kd_pengajuan`, `tgl_inspeksi`, `kd_supplier`, `jenis_supplier`, `kd_tim_inspeksi`, `jml_minor`, `jml_mayor`, `jml_serius`, `jml_kritis`, `klasifikasi`, `is_need_revisi`) VALUES
-(1, 'PKS-0001', 'REG-0001', '2022-11-20', 'SPL-002', 'Baru', 'INS-001', 0, 4, 0, 0, 'Sangat Baik', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -272,16 +250,6 @@ CREATE TABLE `penilaian_detail` (
   `is_serius` tinyint(1) NOT NULL,
   `is_kritis` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `penilaian_detail`
---
-
-INSERT INTO `penilaian_detail` (`id`, `kd_penilaian`, `id_daftar_isian`, `is_minor`, `is_mayor`, `is_serius`, `is_kritis`) VALUES
-(1, 'PKS-0001', 1, 0, 1, 0, 0),
-(2, 'PKS-0001', 2, 0, 1, 0, 0),
-(3, 'PKS-0001', 3, 0, 1, 0, 0),
-(4, 'PKS-0001', 5, 0, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -307,24 +275,6 @@ CREATE TABLE `penilaian_penanganan` (
   `kd_penanganan` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `penilaian_penanganan`
---
-
-INSERT INTO `penilaian_penanganan` (`id`, `kd_penilaian`, `kd_penanganan`) VALUES
-(1, 'PKS-0001', 'PNG-001'),
-(2, 'PKS-0001', 'PNG-002'),
-(3, 'PKS-0001', 'PNG-003'),
-(4, 'PKS-0001', 'PNG-004'),
-(5, 'PKS-0001', 'PNG-001'),
-(6, 'PKS-0001', 'PNG-002'),
-(7, 'PKS-0001', 'PNG-003'),
-(8, 'PKS-0001', 'PNG-004'),
-(9, 'PKS-0001', 'PNG-001'),
-(10, 'PKS-0001', 'PNG-002'),
-(11, 'PKS-0001', 'PNG-003'),
-(12, 'PKS-0001', 'PNG-004');
-
 -- --------------------------------------------------------
 
 --
@@ -335,8 +285,9 @@ CREATE TABLE `perbaikan` (
   `id` int(11) NOT NULL,
   `kd_perbaikan` varchar(20) NOT NULL,
   `kd_penilaian` varchar(20) NOT NULL,
+  `kd_supplier` varchar(20) NOT NULL,
   `tgl_perbaikan` date NOT NULL,
-  `status` enum('Lolos','Perlu Revisi Kembali','Tidak Lolos') NOT NULL
+  `status` enum('Menunggu Validasi Admin','Lolos','Perlu Revisi Kembali','Tidak Lolos') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -375,7 +326,7 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `kd_supplier`, `nama_miniplant`, `nama_pimpinan`, `no_telp`, `email`, `no_fax`, `alamat`, `avatar`) VALUES
-(1, 'SPL-001', 'H. Ta\'lim', 'H. Ta\'lim', '', '', '', '', '0');
+(1, 'SPL-001', 'MPH Test1', 'Pemimpin MPH', '12345', '12345@123.com', '', '', 'UMC-1.png');
 
 -- --------------------------------------------------------
 
@@ -392,13 +343,6 @@ CREATE TABLE `tim_inspeksi` (
   `anggota1` varchar(20) NOT NULL,
   `anggota2` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tim_inspeksi`
---
-
-INSERT INTO `tim_inspeksi` (`id`, `kd_tim_inspeksi`, `kd_pengajuan`, `pimpinan_supplier`, `ketua_inspeksi`, `anggota1`, `anggota2`) VALUES
-(1, 'INS-001', 'REG-0001', 'Supplier1', 'ADM-001', 'ADM-003', 'ADM-002');
 
 -- --------------------------------------------------------
 
@@ -422,8 +366,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `email`, `password`, `kd_admin`, `kd_supplier`, `is_active`) VALUES
-(1, 'Rangga', '123', '123@123.com', '863c2a4b6bff5e22294081e376fc1f51', 'ADM-001', '', 1),
-(4, 'H. Ta\'lim', '', '123@gmail.com', '202cb962ac59075b964b07152d234b70', '', 'SPL-001', 1);
+(1, 'Rangga', '123', '123@123.com', '863c2a4b6bff5e22294081e376fc1f51', 'ADM-001', '', 1);
 
 --
 -- Indexes for dumped tables
@@ -536,7 +479,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `daftar_isian`
@@ -578,37 +521,37 @@ ALTER TABLE `pengajuan`
 -- AUTO_INCREMENT untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_detail`
 --
 ALTER TABLE `penilaian_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_notes`
 --
 ALTER TABLE `penilaian_notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_penanganan`
 --
 ALTER TABLE `penilaian_penanganan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `perbaikan`
 --
 ALTER TABLE `perbaikan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `perbaikan_detail`
 --
 ALTER TABLE `perbaikan_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `suppliers`
@@ -626,7 +569,7 @@ ALTER TABLE `tim_inspeksi`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

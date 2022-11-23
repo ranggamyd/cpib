@@ -60,8 +60,10 @@ class Suppliers extends CI_Controller
 
     public function detail($kd_supplier)
     {
-        $data['supplier'] = $this->supplier_model->supplier($kd_supplier);
-        $data['pengajuan'] = $this->db->get_where('pengajuan', ['kd_supplier' => $kd_supplier])->result_array();
+        $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $kd_supplier])->row();
+
+        $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
+        $data['pengajuan'] = $this->db->get_where('pengajuan', ['pengajuan.kd_supplier' => $kd_supplier])->result_array();
 
         $data['title'] = 'Detail Supplier';
         $this->loadView('detail_supplier', $data);
@@ -83,7 +85,7 @@ class Suppliers extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal Mengubah Supplier !');
-            $this->session->set_flashdata('hasModalID', 'edit_supplier-' . $supplier);
+            $this->session->set_flashdata('hasModalID', 'edit_supplier-' . $supplier->kd_supplier);
             $this->index();
         } else {
             if ($this->supplier_model->ubah()) {
