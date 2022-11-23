@@ -13,10 +13,11 @@
             <tr>
               <th class="text-center">No.</th>
               <th>Kode Supplier</th>
-              <th>Nama Miniplant</th>
-              <th>Nama Pimpinan</th>
+              <th>Mini Plant</th>
+              <th>Pimpinan Supplier</th>
               <th>No. Telepon</th>
               <th>Email</th>
+              <th>No. Faximile</th>
               <th>Status</th>
               <th>Opsi</th>
             </tr>
@@ -32,6 +33,7 @@
                 <td><?= $item['nama_pimpinan'] ?></td>
                 <td><?= $item['no_telp'] ?></td>
                 <td><?= $item['email'] ?></td>
+                <td><?= $item['no_fax'] ?></td>
                 <td class="text-center">
                   <?php if ($item['is_active'] == 1) : ?>
                     <a href="<?= base_url('suppliers/activation/') . $item['kd_supplier'] ?>" onclick="return confirm('Apakah anda yakin ingin mengaktifkan Supplier ?')" class="badge badge-sm badge-success" data-toggle="tooltip" data-placement="right" title="Nonaktifkan Supplier?">Aktif</a>
@@ -72,12 +74,12 @@
           <div id='kd_supplier' class='invalid-feedback'>
             <?= form_error('kd_supplier') ?>
           </div>
-          <label for="nama_miniplant">Nama Miniplant :</label>
+          <label for="nama_miniplant">Mini Plant :</label>
           <input type="text" name="nama_miniplant" value="<?= set_value('nama_miniplant') ?>" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" id="nama_miniplant" required>
           <div id='nama_miniplant' class='invalid-feedback'>
             <?= form_error('nama_miniplant') ?>
           </div>
-          <label for="nama_pimpinan">Nama Pimpinan :</label>
+          <label for="nama_pimpinan">Pimpinan Supplier :</label>
           <input type="text" name="nama_pimpinan" value="<?= set_value('nama_pimpinan') ?>" class="form-control mb-3 <?= form_error('nama_pimpinan') ? 'is-invalid' : '' ?>" id="nama_pimpinan" required>
           <div id='nama_pimpinan' class='invalid-feedback'>
             <?= form_error('nama_pimpinan') ?>
@@ -93,10 +95,16 @@
             <div class="col">
               <label for="no_fax">No. Faximile :</label>
               <input type="text" name="no_fax" value="<?= set_value('no_fax') ?>" class="form-control mb-3 <?= form_error('no_fax') ? 'is-invalid' : '' ?>" id="no_fax">
+              <div id='no_fax' class='invalid-feedback'>
+                <?= form_error('no_fax') ?>
+              </div>
             </div>
             <div class="col">
               <label for="email">Email :</label>
               <input type="email" name="email" value="<?= set_value('email') ?>" class="form-control mb-3 <?= form_error('email') ? 'is-invalid' : '' ?>" id="email">
+              <div id='email' class='invalid-feedback'>
+                <?= form_error('email') ?>
+              </div>
             </div>
           </div>
           <label for="alamat">Alamat :</label>
@@ -129,12 +137,12 @@
             <div id='kd_supplier' class='invalid-feedback'>
               <?= form_error('kd_supplier') ?>
             </div>
-            <label for="nama_miniplant">Nama Miniplant :</label>
+            <label for="nama_miniplant">Mini Plant :</label>
             <input type="text" name="nama_miniplant" value="<?= set_value('nama_miniplant', $item['nama_miniplant']) ?>" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" id="nama_miniplant" required>
             <div id='nama_miniplant' class='invalid-feedback'>
               <?= form_error('nama_miniplant') ?>
             </div>
-            <label for="nama_pimpinan">Nama Pimpinan :</label>
+            <label for="nama_pimpinan">Pimpinan Supplier :</label>
             <input type="text" name="nama_pimpinan" value="<?= set_value('nama_pimpinan', $item['nama_pimpinan']) ?>" class="form-control mb-3 <?= form_error('nama_pimpinan') ? 'is-invalid' : '' ?>" id="nama_pimpinan" required>
             <div id='nama_pimpinan' class='invalid-feedback'>
               <?= form_error('nama_pimpinan') ?>
@@ -150,10 +158,16 @@
               <div class="col">
                 <label for="no_fax">No. Faximile :</label>
                 <input type="text" name="no_fax" value="<?= set_value('no_fax', $item['no_fax']) ?>" class="form-control mb-3 <?= form_error('no_fax') ? 'is-invalid' : '' ?>" id="no_fax">
+                <div id='no_fax' class='invalid-feedback'>
+                  <?= form_error('no_fax') ?>
+                </div>
               </div>
               <div class="col">
                 <label for="email">Email :</label>
                 <input type="email" name="email" value="<?= set_value('email', $item['email']) ?>" class="form-control mb-3 <?= form_error('email') ? 'is-invalid' : '' ?>" id="email">
+                <div id='email' class='invalid-feedback'>
+                  <?= form_error('email') ?>
+                </div>
               </div>
             </div>
             <label for="alamat">Alamat :</label>
