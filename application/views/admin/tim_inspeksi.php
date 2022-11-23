@@ -29,7 +29,7 @@
                 <td align="center"><?= $no++; ?></td>
                 <td class="text-center"><span class="badge badge-white"><?= $ti['kd_tim_inspeksi']; ?></span></td>
                 <td class="text-center"><span class="badge badge-white"><?= $ti['kd_pengajuan']; ?></span></td>
-                <td><?= $ti['nama_supplier'] ?></td>
+                <td><?= $ti['pimpinan_supplier'] ?></td>
                 <td><?= $this->db->get_where('admin', ['kd_admin' => $ti['ketua_inspeksi']])->row('nama_admin'); ?></td>
                 <td><?= $this->db->get_where('admin', ['kd_admin' => $ti['anggota1']])->row('nama_admin'); ?></td>
                 <td><?= $this->db->get_where('admin', ['kd_admin' => $ti['anggota2']])->row('nama_admin'); ?></td>
@@ -37,7 +37,7 @@
                   <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="#" class="btn btn-success" data-toggle="modal" data-target="#detail_tim_inspeksi<?= $ti['kd_tim_inspeksi']; ?>"><i class="fas fa-info-circle"></i></a>
                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit_tim_inspeksi<?= $ti['kd_tim_inspeksi'] ?>" id="#myBtn" data-dismiss="modal"><i class="fa fa-fw fa-edit"></i></a>
-                    <a href="<?= base_url('tim_inspeksi/hapus/'.$ti['kd_tim_inspeksi']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Tim"><i class="fas fa-trash-alt"></i></a>
+                    <a href="<?= base_url('tim_inspeksi/hapus/' . $ti['kd_tim_inspeksi']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Tim"><i class="fas fa-trash-alt"></i></a>
                   </div>
                 </td>
               </tr>
@@ -157,6 +157,11 @@
                 <td><?= $ti['kd_pengajuan']; ?></td>
               </tr>
               <tr>
+                <th scope="row">Nama Mini Plant</th>
+                <td>:</td>
+                <td><?= $ti['nama_miniplant']; ?></td>
+              </tr>
+              <tr>
                 <th scope="row">Pimpinan Supplier</th>
                 <td>:</td>
                 <td><?= $ti['pimpinan_supplier']; ?></td>
@@ -167,15 +172,13 @@
                 <td><?= $ti['ketua_inspeksi']; ?></td>
               </tr>
               <tr>
-                <th scope="row">Jenis Produk</th>
-                <td>:</td>
-                <td><?= $ti['jenis_produk']; ?></td>
-              </tr>
-              <tr>
                 <th scope="row">anggota1</th>
-                <th scope="row">anggota2</th>
                 <td>:</td>
                 <td><?= $ti['anggota1']; ?></td>
+              </tr>
+              <tr>
+                <th scope="row">anggota2</th>
+                <td>:</td>
                 <td><?= $ti['anggota2']; ?></td>
               </tr>
             </table>
