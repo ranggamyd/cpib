@@ -176,7 +176,7 @@ class Pengajuan extends CI_Controller
         } else {
             if ($this->penilaian_model->tambah()) {
                 $this->session->set_flashdata('sukses', 'Berhasil menambahkan hasil Inspeksi !');
-                redirect('pengajuan');
+                redirect('penilaian');
             } else {
                 $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
                 $this->penilaian($this->input->post('kd_pengajuan'));
