@@ -54,7 +54,7 @@ class Penilaian_model extends CI_Model
     if (!$this->tambah_tahap_penanganan()) return FALSE;
     if (!$this->tambah_detail()) return FALSE;
     if (!$this->db->insert('penilaian', $penilaian)) return FALSE;
-    if ($this->input->post('notes')) $this->tambah_notes();
+    if ($this->input->post('notes')[0]['revisi']) $this->tambah_notes();
 
     if ($this->input->post('is_needRevisi') == 1) {
       if ($this->db->update('pengajuan', ['status' => 'Perlu Revisi'], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return TRUE;

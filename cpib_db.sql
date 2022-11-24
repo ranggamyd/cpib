@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Nov 2022 pada 23.02
+-- Waktu pembuatan: 24 Nov 2022 pada 07.36
 -- Versi server: 10.4.25-MariaDB
 -- Versi PHP: 7.4.30
 
@@ -111,6 +111,13 @@ CREATE TABLE `jenis_produk` (
   `jenis_produk` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `jenis_produk`
+--
+
+INSERT INTO `jenis_produk` (`id`, `kd_pengajuan`, `kd_supplier`, `jenis_produk`) VALUES
+(1, 'REG-0001', 'SPL-001', 'DAGING RAJUNGAN');
+
 -- --------------------------------------------------------
 
 --
@@ -193,6 +200,13 @@ CREATE TABLE `pengajuan` (
   `panduan_mutu` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `pengajuan`
+--
+
+INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `tgl_pengajuan`, `status`, `ktp`, `npwp`, `nib`, `siup`, `akta_usaha`, `imb`, `layout`, `panduan_mutu`) VALUES
+(1, 'REG-0001', 'SPL-001', '2022-11-24', 'Lolos Inspeksi', '0_Kontrak_Kuliah_dan_Silabus.pdf', '0_Kontrak_Kuliah_dan_Silabus1.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus2.pdf', '0_Kontrak_Kuliah_dan_Silabus3.pdf');
+
 -- --------------------------------------------------------
 
 --
@@ -215,6 +229,13 @@ CREATE TABLE `penilaian` (
   `is_need_revisi` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `penilaian`
+--
+
+INSERT INTO `penilaian` (`id`, `kd_penilaian`, `kd_pengajuan`, `tgl_inspeksi`, `kd_supplier`, `jenis_supplier`, `kd_tim_inspeksi`, `jml_minor`, `jml_mayor`, `jml_serius`, `jml_kritis`, `klasifikasi`, `is_need_revisi`) VALUES
+(4, 'PKS-0001', 'REG-0001', '2022-11-24', 'SPL-001', 'Baru', 'INS-001', 0, 4, 0, 0, 'Sangat Baik', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -230,6 +251,16 @@ CREATE TABLE `penilaian_detail` (
   `is_serius` tinyint(1) NOT NULL,
   `is_kritis` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `penilaian_detail`
+--
+
+INSERT INTO `penilaian_detail` (`id`, `kd_penilaian`, `id_daftar_isian`, `is_minor`, `is_mayor`, `is_serius`, `is_kritis`) VALUES
+(16, 'PKS-0001', 1, 0, 1, 0, 0),
+(17, 'PKS-0001', 2, 0, 1, 0, 0),
+(18, 'PKS-0001', 3, 0, 1, 0, 0),
+(19, 'PKS-0001', 5, 0, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -254,6 +285,20 @@ CREATE TABLE `penilaian_penanganan` (
   `kd_penilaian` varchar(20) NOT NULL,
   `kd_penanganan` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `penilaian_penanganan`
+--
+
+INSERT INTO `penilaian_penanganan` (`id`, `kd_penilaian`, `kd_penanganan`) VALUES
+(8, 'PKS-0001', 'PNG-001'),
+(9, 'PKS-0001', 'PNG-001'),
+(10, 'PKS-0001', 'PNG-001'),
+(11, 'PKS-0001', 'PNG-001'),
+(12, 'PKS-0001', 'PNG-001'),
+(13, 'PKS-0001', 'PNG-002'),
+(14, 'PKS-0001', 'PNG-003'),
+(15, 'PKS-0001', 'PNG-004');
 
 -- --------------------------------------------------------
 
@@ -293,7 +338,48 @@ CREATE TABLE `sertifikat` (
   `id` int(11) NOT NULL,
   `kd_sertifikat` varchar(20) NOT NULL,
   `nama_sertifikat` varchar(50) NOT NULL,
-  `file_template` text NOT NULL
+  `file_template` text NOT NULL,
+  `x_no_surat` int(11) DEFAULT NULL,
+  `y_no_surat` int(11) DEFAULT NULL,
+  `x_supplier` int(11) DEFAULT NULL,
+  `y_supplier` int(11) DEFAULT NULL,
+  `x_alamat` int(11) DEFAULT NULL,
+  `y_alamat` int(11) DEFAULT NULL,
+  `x_jenis_produk` int(11) DEFAULT NULL,
+  `y_jenis_produk` int(11) DEFAULT NULL,
+  `x_penanganan` int(11) DEFAULT NULL,
+  `y_penanganan` int(11) DEFAULT NULL,
+  `x_klasifikasi` int(11) DEFAULT NULL,
+  `y_klasifikasi` int(11) DEFAULT NULL,
+  `x_tgl_inspeksi` int(11) DEFAULT NULL,
+  `y_tgl_inspeksi` int(11) DEFAULT NULL,
+  `x_berlaku_sampai` int(11) DEFAULT NULL,
+  `y_berlaku_sampai` int(11) DEFAULT NULL,
+  `x_dikeluarkan_di` int(11) DEFAULT NULL,
+  `y_dikeluarkan_di` int(11) DEFAULT NULL,
+  `x_tgl` int(11) DEFAULT NULL,
+  `y_tgl` int(11) DEFAULT NULL,
+  `x_kepala_upt` int(11) DEFAULT NULL,
+  `y_kepala_upt` int(11) DEFAULT NULL,
+  `x_head_of` int(11) DEFAULT NULL,
+  `y_head_of` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `sertifikat_supplier`
+--
+
+CREATE TABLE `sertifikat_supplier` (
+  `id` int(11) NOT NULL,
+  `kd_supplier` varchar(20) NOT NULL,
+  `kd_sertifikat` varchar(20) NOT NULL,
+  `no_surat` varchar(50) NOT NULL,
+  `tgl` date NOT NULL,
+  `berlaku_sampai` date NOT NULL,
+  `kepala_upt` varchar(50) NOT NULL,
+  `file_sertifikat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -456,6 +542,12 @@ ALTER TABLE `sertifikat`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `sertifikat_supplier`
+--
+ALTER TABLE `sertifikat_supplier`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -494,7 +586,7 @@ ALTER TABLE `daftar_isian`
 -- AUTO_INCREMENT untuk tabel `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_daftar_isian`
@@ -512,31 +604,31 @@ ALTER TABLE `penanganan`
 -- AUTO_INCREMENT untuk tabel `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_detail`
 --
 ALTER TABLE `penilaian_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_notes`
 --
 ALTER TABLE `penilaian_notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_penanganan`
 --
 ALTER TABLE `penilaian_penanganan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `perbaikan`
@@ -554,6 +646,12 @@ ALTER TABLE `perbaikan_detail`
 -- AUTO_INCREMENT untuk tabel `sertifikat`
 --
 ALTER TABLE `sertifikat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `sertifikat_supplier`
+--
+ALTER TABLE `sertifikat_supplier`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

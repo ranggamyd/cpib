@@ -15,25 +15,25 @@
             <div class="form-group row">
               <label for="nama_miniplant" class="col-sm-4 col-form-label">Mini Plant</label>
               <div class="col-sm-8">
-                <input type="text" name="nama_miniplant" class="form-control" id="nama_miniplant" value="<?= $penilaian->nama_miniplant ?>" readonly>
+                <input type="text" name="nama_miniplant" class="form-control" id="nama_miniplant" value="<?= $supplier->nama_miniplant ?>" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label for="alamat" class="col-sm-4 col-form-label">Alamat</label>
               <div class="col-sm-8">
-                <textarea name="alamat" class="form-control" id="alamat" readonly><?= $penilaian->alamat ?></textarea>
+                <textarea name="alamat" class="form-control" id="alamat" readonly><?= $supplier->alamat ?></textarea>
               </div>
             </div>
             <div class="form-group row">
               <label for="no_telp" class="col-sm-4 col-form-label">No. Telepon</label>
               <div class="col-sm-8">
-                <input type="text" name="no_telp" value="<?= $penilaian->no_telp ?>" class="form-control" id="no_telp" readonly>
+                <input type="text" name="no_telp" value="<?= $supplier->no_telp ?>" class="form-control" id="no_telp" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label for="no_fax" class="col-sm-4 col-form-label">No. Fax</label>
               <div class="col-sm-8">
-                <input type="text" name="no_fax" value="<?= $penilaian->no_fax ?>" class="form-control" id="no_fax" readonly>
+                <input type="text" name="no_fax" value="<?= $supplier->no_fax ?>" class="form-control" id="no_fax" readonly>
               </div>
             </div>
             <hr>
@@ -42,7 +42,7 @@
               <div class="col-sm-8 d-flex align-items-center">
                 <?php
                 $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
-                foreach ($jps as $jp) :
+                foreach ($jenis_produk as $jp) :
                 ?>
                   <div class="badge <?= $colors[array_rand($colors)] ?> mr-2"><?= $jp['jenis_produk'] ?></div>
                 <?php endforeach; ?>
@@ -54,11 +54,11 @@
               <label for="jenis_supplier" class="col-sm-4 col-form-label">Jenis Supplier</label>
               <div class="col-sm-8 d-flex align-items-center">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $jenis_supplier == 'Baru' ? 'checked' : '' ?>>
+                  <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $cek_pengajuan <= 1 ? 'checked' : '' ?>>
                   <label class="form-check-label" for="baru">Baru</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="jenis_supplier" id="lama" value="Lama" <?= $jenis_supplier == 'Lama' ? 'checked' : '' ?>>
+                  <input class="form-check-input" type="radio" name="jenis_supplier" id="lama" value="Lama" <?= $cek_pengajuan > 1 ? 'checked' : '' ?>>
                   <label class="form-check-label" for="lama">Lama</label>
                 </div>
               </div>
@@ -74,25 +74,25 @@
             <div class="form-group row">
               <label for="pimpinan_supplier" class="col-sm-4 col-form-label">Pimpinan Supplier</label>
               <div class="col-sm-8">
-                <input type="text" name="pimpinan_supplier" value="<?= $penilaian->nama_pimpinan ?>" class="form-control" id="pimpinan_supplier" readonly required>
+                <input type="text" name="pimpinan_supplier" value="<?= $supplier->nama_pimpinan ?>" class="form-control" id="pimpinan_supplier" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label for="ketua_inspeksi" class="col-sm-4 col-form-label">Ketua Inspeksi</label>
               <div class="col-sm-8">
-                <input type="text" name="ketua_inspeksi" value="<?= $ketua_tim ?>" class="form-control" id="ketua_inspeksi" readonly required>
+                <input type="text" name="ketua_inspeksi" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->ketua_inspeksi])->row('nama_admin'); ?>" class="form-control" id="ketua_inspeksi" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label for="anggota1" class="col-sm-4 col-form-label">Anggota 1</label>
               <div class="col-sm-8">
-                <input type="text" name="anggota1" value="<?= $anggota1 ?>" class="form-control" id="anggota1" readonly required>
+                <input type="text" name="anggota1" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota1])->row('nama_admin'); ?>" class="form-control" id="anggota1" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label for="anggota2" class="col-sm-4 col-form-label">Anggota 2</label>
               <div class="col-sm-8">
-                <input type="text" name="anggota2" value="<?= $anggota2 ?>" class="form-control" id="anggota2" readonly required>
+                <input type="text" name="anggota2" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota2])->row('nama_admin'); ?>" class="form-control" id="anggota2" readonly required>
               </div>
             </div>
 
@@ -192,22 +192,24 @@
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="font-weight-bold mb-0"><i class="far fa-file-alt mr-2"></i>Revision Notes</h6>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <ul class="list-group">
-                <?php foreach ($notes as $item) : ?>
-                  <li class="list-group-item"><?= $item['notes'] ?></li>
-                <?php endforeach ?>
-              </ul>
+      <?php if ($notes) : ?>
+        <div class="col">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="font-weight-bold mb-0"><i class="far fa-file-alt mr-2"></i>Revision Notes</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <ul class="list-group">
+                  <?php foreach ($notes as $item) : ?>
+                    <li class="list-group-item"><?= $item['notes'] ?></li>
+                  <?php endforeach ?>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <?php endif ?>
     </div>
     <div class="card shadow mb-4">
       <div class="card-header py-3">
