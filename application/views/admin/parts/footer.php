@@ -116,6 +116,7 @@
                             klasifikasi = 'Sangat Baik';
                         } else if (minor >= 7 && (mayor >= 6 && mayor <= 10) && (serius >= 1 && serius <= 2) && kritis == 0) {
                             klasifikasi = 'BAIK';
+                            if (mayor + serius > 10) klasifikasi = 'Cukup';
                         } else if (mayor >= 11 && (serius >= 3 && serius <= 4) && kritis == 0) {
                             klasifikasi = 'Cukup';
                         } else if (serius >= 5 && kritis >= 1) {

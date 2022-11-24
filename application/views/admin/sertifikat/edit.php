@@ -7,7 +7,7 @@
       <form action="<?= base_url('sertifikat/saveChanges') ?>" method="post" enctype="multipart/form-data">
         <div class="row">
           <div class="col-md-5">
-            <img src="<?= base_url('assets/sertifikat/template.jpg') ?>" alt="Gambar Template Sertifikat" class="imgPreview img-thumbnail mb-4"><br>
+            <img src="<?= base_url('assets/sertifikat/template/') . $sertifikat->file_template ?>" alt="Gambar Template Sertifikat" class="imgPreview img-thumbnail mb-4"><br>
             <div class="bg-secondary p-3 rounded text-light">
               <label for="template" class="">Perbarui Template</label>
               <input type="file" class="form-control-sm form-control-file <?= form_error('template') ? 'is-invalid' : '' ?>" name="template" accept="image/*" id="template" required>

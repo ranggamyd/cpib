@@ -49,7 +49,7 @@
             <li class="nav-item <?= ($this->uri->segment(1) == 'pengajuan') ? 'active' : ''; ?>">
                 <a class="nav-link py-2" href="<?= base_url('pengajuan') ?>">
                     <i class="fas fa-fw fa-list"></i>
-                    <span>Pengajuan Supplier</span>
+                    <span>Permohonan Sertifikasi</span>
                 </a>
             </li>
             <li class="nav-item <?= ($this->uri->segment(1) == 'penilaian') ? 'active' : ''; ?>">
@@ -81,17 +81,24 @@
                 </a>
             </li>
 
-            <li class="nav-item <?= ($this->uri->segment(1) == 'jenis_produk') ? 'active' : ''; ?>">
+            <!-- <li class="nav-item <?= ($this->uri->segment(1) == 'jenis_produk') ? 'active' : ''; ?>">
                 <a class="nav-link py-2" href="<?= base_url('jenis_produk') ?>">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Jenis Produk</span>
                 </a>
-            </li>
+            </li> -->
 
             <li class="nav-item <?= ($this->uri->segment(1) == 'penanganan') ? 'active' : ''; ?>">
                 <a class="nav-link py-2" href="<?= base_url('penanganan') ?>">
                     <i class="fas fa-fw fa-exchange-alt"></i>
                     <span>Tahapan Penanganan</span>
+                </a>
+            </li>
+
+            <li class="nav-item <?= ($this->uri->segment(1) == 'sertifikat') ? 'active' : ''; ?>">
+                <a class="nav-link py-2" href="<?= base_url('sertifikat') ?>">
+                    <i class="fas fa-fw fa-medal"></i>
+                    <span>Template Sertifikat</span>
                 </a>
             </li>
 

@@ -4,7 +4,7 @@
 
   <form action="<?= base_url('pengajuan/proses_penilaian') ?>" method="post">
     <input type="hidden" name="kd_penilaian" value="<?= $kd_penilaian_auto ?>" required>
-    <input type="hidden" name="kd_pengajuan" value="<?= $ajuan->kd_pengajuan ?>" required>
+    <input type="hidden" name="kd_pengajuan" value="<?= $pengajuan->kd_pengajuan ?>" required>
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="font-weight-bold mb-0"><i class="far fa-file-alt mr-2"></i>Detail Inspeksi</h6>
@@ -43,17 +43,17 @@
               <div class="col-sm-8 d-flex align-items-center">
                 <?php
                 $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
-                foreach ($jenis_produk_supplier as $jp) :
+                foreach ($jenis_produk as $jp) :
                 ?>
                   <div class="badge <?= $colors[array_rand($colors)] ?> mr-2"><?= $jp['jenis_produk'] ?></div>
                 <?php endforeach; ?>
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-md-7">
             <div class="form-group row">
-              <label for="jenis_supplier" class="col-sm-4 col-form-label">Jenis Supplier</label>
-              <div class="col-sm-8 d-flex align-items-center">
+              <label for="jenis_supplier" class="col-sm-3 col-form-label">Jenis Supplier</label>
+              <div class="col-sm-9 d-flex align-items-center">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $cek_pengajuan <= 1 ? 'checked' : '' ?>>
                   <label class="form-check-label" for="baru">Baru</label>
@@ -65,36 +65,48 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="tgl_inspeksi" class="col-sm-4 col-form-label">Tanggal Inspeksi</label>
-              <div class="col-sm-8">
+              <label for="tgl_inspeksi" class="col-sm-3 col-form-label">Tanggal Inspeksi</label>
+              <div class="col-sm-9">
                 <input type="date" name="tgl_inspeksi" value="<?= date('Y-m-d') ?>" class="form-control" id="tgl_inspeksi" required>
               </div>
             </div>
             <hr>
             <h6 class="font-weight-bold">* Tim Inspeksi</h6>
             <div class="form-group row">
-              <label for="pimpinan_supplier" class="col-sm-4 col-form-label">Pimpinan Supplier</label>
-              <div class="col-sm-8">
+              <label for="pimpinan_supplier" class="col-sm-3 col-form-label">Pimpinan Supplier</label>
+              <div class="col-sm-9">
                 <input type="text" name="pimpinan_supplier" value="<?= $supplier->nama_pimpinan ?>" class="form-control" id="pimpinan_supplier" readonly required>
               </div>
             </div>
             <input type="hidden" name="kd_tim_inspeksi" value="<?= $tim_inspeksi->kd_tim_inspeksi ?>">
             <div class="form-group row">
-              <label for="ketua_inspeksi" class="col-sm-4 col-form-label">Ketua Inspeksi</label>
-              <div class="col-sm-8">
+              <label for="ketua_inspeksi" class="col-sm-3 col-form-label">Ketua Inspeksi</label>
+              <div class="col-sm-4">
                 <input type="text" name="ketua_inspeksi" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->ketua_inspeksi])->row('nama_admin'); ?>" class="form-control" id="ketua_inspeksi" readonly required>
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="anggota1" class="col-sm-4 col-form-label">Anggota 1</label>
-              <div class="col-sm-8">
-                <input type="text" name="anggota1" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota1])->row('nama_admin'); ?>" class="form-control" id="anggota1" readonly required>
+              <label for="no_reg" class="col-sm-2 col-form-label">No. Reg</label>
+              <div class="col-sm-3">
+                <input type="text" name="no_reg" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->ketua_inspeksi])->row('no_reg'); ?>" class="form-control" id="no_reg" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label for="anggota2" class="col-sm-4 col-form-label">Anggota 2</label>
-              <div class="col-sm-8">
+              <label for="anggota1" class="col-sm-3 col-form-label">Anggota 1</label>
+              <div class="col-sm-4">
+                <input type="text" name="anggota1" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota1])->row('nama_admin'); ?>" class="form-control" id="anggota1" readonly required>
+              </div>
+              <label for="no_reg" class="col-sm-2 col-form-label">No. Reg</label>
+              <div class="col-sm-3">
+                <input type="text" name="no_reg" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota1])->row('no_reg'); ?>" class="form-control" id="no_reg" readonly>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="anggota2" class="col-sm-3 col-form-label">Anggota 2</label>
+              <div class="col-sm-4">
                 <input type="text" name="anggota2" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota2])->row('nama_admin'); ?>" class="form-control" id="anggota2" readonly required>
+              </div>
+              <label for="no_reg" class="col-sm-2 col-form-label">No. Reg</label>
+              <div class="col-sm-3">
+                <input type="text" name="no_reg" value="<?= $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota2])->row('no_reg'); ?>" class="form-control" id="no_reg" readonly>
               </div>
             </div>
 

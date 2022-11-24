@@ -24,4 +24,29 @@ class Sertifikat_model extends CI_Model
     {
         return $this->db->get('sertifikat')->result_array();
     }
+
+    public function sertifikat($kd_sertifikat)
+    {
+        return $this->db->get_where('sertifikat', ['kd_sertifikat' => $kd_sertifikat])->row();
+    }
+
+    public function tambah()
+    {
+        $config['upload_path']    = './assets/sertifikat/template';
+        $config['allowed_types']  = 'jpg|png|jpeg';
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('file_template')) {
+            $sertifikat = [
+                'kd_sertifikat' => $this->input->post('kd_sertifikat'),
+                'nama_sertifikat' => $this->input->post('nama_sertifikat'),
+                'file_template' => $this->upload->data('file_name'),
+            ];
+
+            if (!$this->db->insert('sertifikat', $sertifikat)) return FALSE;
+        } else {
+            return FALSE;
+        }
+    }
 }
