@@ -57,7 +57,7 @@
                 </td>
                 <td class="text-center">
                   <div class="btn-group">
-                    <?php if ($item['is_need_revisi'] == 0) : ?>
+                    <?php if ($item['is_need_revisi'] == 0 && !$this->db->get_where('sertifikat', ['kd_penilaian' => $item['kd_penilaian']])->row()) : ?>
                       <a href="<?= base_url('sertifikat/generate/') . $item['kd_penilaian'] ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Generate Certificate"><i class="fas fa-print"></i></a>
                     <?php endif ?>
                     <a href="<?= base_url('penilaian/detail/') . $item['kd_penilaian'] ?>" class="btn btn-info" data-toggle="tooltip" data-placement="right" title="Detail Penilaian"><i class="fas fa-info-circle"></i></a>

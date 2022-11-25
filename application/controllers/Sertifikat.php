@@ -27,7 +27,9 @@ class Sertifikat extends CI_Controller
 
   public function index()
   {
-    $data['sertifikat'] = $this->db->get('sertifikat_supplier')->result_array();
+    $this->db->join('penilaian', 'penilaian.kd_penilaian = sertifikat.kd_penilaian', 'left');
+    $this->db->join('suppliers', 'suppliers.kd_supplier = sertifikat.kd_supplier', 'left');
+    $data['sertifikat'] = $this->db->get('sertifikat')->result_array();
 
     $data['title'] = 'Sertifikat Supplier';
     $this->loadView('sertifikat', $data);
@@ -36,7 +38,7 @@ class Sertifikat extends CI_Controller
   public function generate($kd_penilaian)
   {
     $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
-    $data['sertifikat'] = $this->db->get('sertifikat')->result_array();
+    $data['sertifikat_template'] = $this->db->get('sertifikat_template')->result_array();
     $data['penilaian'] = $penilaian;
     $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $penilaian->kd_supplier])->row();
     $data['jenis_produk'] = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $penilaian->kd_pengajuan, 'kd_supplier' => $penilaian->kd_supplier])->result_array();
@@ -63,16 +65,16 @@ class Sertifikat extends CI_Controller
     $this->form_validation->set_rules('head_of', 'Head of TIU', 'required');
 
     if ($this->form_validation->run() == FALSE) {
-        $this->session->set_flashdata('gagal', "Mohon isi data dengan lengkap !");
-        $this->generate($this->input->post('kd_penilaian'));
+      $this->session->set_flashdata('gagal', "Mohon isi data dengan lengkap !");
+      $this->generate($this->input->post('kd_penilaian'));
     } else {
-        if ($this->sertifikat_model->generate()) {
-            $this->session->set_flashdata('sukses', 'Berhasil Membuat Sertifikat !');
-            redirect('sertifikat');
-        } else {
-            $this->session->set_flashdata('gagal', 'Gagal Membuat Sertifikat !');
-            $this->generate($this->input->post('kd_penilaian'));
-        }
+      if ($this->sertifikat_model->generate()) {
+        $this->session->set_flashdata('sukses', 'Berhasil Membuat Sertifikat !');
+        redirect('sertifikat');
+      } else {
+        $this->session->set_flashdata('gagal', 'Gagal Membuat Sertifikat !');
+        $this->generate($this->input->post('kd_penilaian'));
+      }
     }
   }
 }

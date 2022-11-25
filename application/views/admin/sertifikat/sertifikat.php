@@ -10,6 +10,7 @@
             <tr>
               <th class="text-center">No.</th>
               <th>Tanggal</th>
+              <th>No. Sertifikat</th>
               <th>Mini Plant</th>
               <th>Pimpinan Supplier</th>
               <th>Jenis Produk</th>
@@ -24,11 +25,24 @@
               <tr>
                 <td class="text-center"><?= $no++ ?></td>
                 <td class="text-center"><?= date('d M Y', strtotime($item['tgl'])) ?></td>
+                <td class="text-center">
+                  <span class="badge badge-light"><?= $item['no_surat'] ?></span>
+                </td>
                 <td><?= $item['nama_miniplant'] ?></td>
                 <td><?= $item['nama_pimpinan'] ?></td>
+                <td class="text-center">
+                  <?php
+                  $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
+                  $jenis_produk = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $item['kd_pengajuan'], 'kd_supplier' => $item['kd_supplier']])->result_array();
+                  foreach ($jenis_produk as $jp) :
+                  ?>
+                    <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
+                  <?php endforeach; ?>
+                </td>
                 <td class="text-center"><?= date('d M Y', strtotime($item['berlaku_sampai'])) ?></td>
                 <td class="text-center">
-                  <a href="<?= base_url('assets/sertifikat/') . $item['file_sertifikat'] ?>" class="badge badge-light"><?= $item['kd_penilaian'] ?></a>
+                  <a href="<?= base_url('assets/sertifikat/') . $item['file_sertifikat'] . '.jpg' ?>" target="__blank" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="right" title="Click to download image"><i class="fas fa-file-image"></i></a>
+                  <a href="<?= base_url('assets/sertifikat/') . $item['file_sertifikat'] . '.pdf' ?>" target="__blank" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="right" title="Click to download PDF"><i class="fas fa-file-pdf"></i></a>
                 </td>
               </tr>
             <?php } ?>

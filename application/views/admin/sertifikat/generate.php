@@ -13,7 +13,7 @@
               <label for="kd_sertifikat">Sertifikat</label>
               <select name="kd_sertifikat" class="form-control <?= form_error('kd_sertifikat') ? 'is-invalid' : '' ?>" id="kd_sertifikat" required>
                 <option selected disabled>== Pilih Sertifikat ==</option>
-                <?php foreach ($sertifikat as $item) : ?>
+                <?php foreach ($sertifikat_template as $item) : ?>
                   <option value="<?= $item['kd_sertifikat'] ?>"><?= $item['nama_sertifikat'] ?></option>
                 <?php endforeach ?>
               </select>
