@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Nov 2022 pada 07.36
+-- Waktu pembuatan: 25 Nov 2022 pada 04.43
 -- Versi server: 10.4.25-MariaDB
 -- Versi PHP: 7.4.30
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
   `kd_admin` varchar(20) NOT NULL,
+  `no_reg` varchar(20) NOT NULL,
   `nama_admin` varchar(50) NOT NULL,
   `no_telp` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -42,10 +43,10 @@ CREATE TABLE `admin` (
 -- Dumping data untuk tabel `admin`
 --
 
-INSERT INTO `admin` (`id`, `kd_admin`, `nama_admin`, `no_telp`, `email`, `jenis_kelamin`, `alamat`, `avatar`) VALUES
-(1, 'ADM-001', 'Rangga', '123', '123@123.com', 'Laki-laki', 'rangga', ''),
-(7, 'ADM-002', 'Jeri', '1234', '', 'Laki-laki', '', ''),
-(8, 'ADM-003', 'Wiky', '12345', '', 'Laki-laki', '', '');
+INSERT INTO `admin` (`id`, `kd_admin`, `no_reg`, `nama_admin`, `no_telp`, `email`, `jenis_kelamin`, `alamat`, `avatar`) VALUES
+(1, 'ADM-001', '', 'Rangga', '123', '123@123.com', 'Laki-laki', 'rangga', ''),
+(7, 'ADM-002', '', 'Jeri', '1234', '', 'Laki-laki', '', ''),
+(8, 'ADM-003', '', 'Wiky', '12345', '', 'Laki-laki', '', '');
 
 -- --------------------------------------------------------
 
@@ -234,7 +235,7 @@ CREATE TABLE `penilaian` (
 --
 
 INSERT INTO `penilaian` (`id`, `kd_penilaian`, `kd_pengajuan`, `tgl_inspeksi`, `kd_supplier`, `jenis_supplier`, `kd_tim_inspeksi`, `jml_minor`, `jml_mayor`, `jml_serius`, `jml_kritis`, `klasifikasi`, `is_need_revisi`) VALUES
-(4, 'PKS-0001', 'REG-0001', '2022-11-24', 'SPL-001', 'Baru', 'INS-001', 0, 4, 0, 0, 'Sangat Baik', 0);
+(4, 'PKS-0001', 'REG-0001', '2022-11-23', 'SPL-001', 'Baru', 'INS-001', 0, 4, 0, 0, 'Sangat Baik', 0);
 
 -- --------------------------------------------------------
 
@@ -336,6 +337,23 @@ CREATE TABLE `perbaikan_detail` (
 
 CREATE TABLE `sertifikat` (
   `id` int(11) NOT NULL,
+  `kd_supplier` varchar(20) NOT NULL,
+  `kd_sertifikat` varchar(20) NOT NULL,
+  `no_surat` varchar(50) NOT NULL,
+  `tgl` date NOT NULL,
+  `berlaku_sampai` date NOT NULL,
+  `kepala_upt` varchar(50) NOT NULL,
+  `file_sertifikat` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `sertifikat_template`
+--
+
+CREATE TABLE `sertifikat_template` (
+  `id` int(11) NOT NULL,
   `kd_sertifikat` varchar(20) NOT NULL,
   `nama_sertifikat` varchar(50) NOT NULL,
   `file_template` text NOT NULL,
@@ -365,22 +383,12 @@ CREATE TABLE `sertifikat` (
   `y_head_of` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Struktur dari tabel `sertifikat_supplier`
+-- Dumping data untuk tabel `sertifikat_template`
 --
 
-CREATE TABLE `sertifikat_supplier` (
-  `id` int(11) NOT NULL,
-  `kd_supplier` varchar(20) NOT NULL,
-  `kd_sertifikat` varchar(20) NOT NULL,
-  `no_surat` varchar(50) NOT NULL,
-  `tgl` date NOT NULL,
-  `berlaku_sampai` date NOT NULL,
-  `kepala_upt` varchar(50) NOT NULL,
-  `file_sertifikat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `sertifikat_template` (`id`, `kd_sertifikat`, `nama_sertifikat`, `file_template`, `x_no_surat`, `y_no_surat`, `x_supplier`, `y_supplier`, `x_alamat`, `y_alamat`, `x_jenis_produk`, `y_jenis_produk`, `x_penanganan`, `y_penanganan`, `x_klasifikasi`, `y_klasifikasi`, `x_tgl_inspeksi`, `y_tgl_inspeksi`, `x_berlaku_sampai`, `y_berlaku_sampai`, `x_dikeluarkan_di`, `y_dikeluarkan_di`, `x_tgl`, `y_tgl`, `x_kepala_upt`, `y_kepala_upt`, `x_head_of`, `y_head_of`) VALUES
+(1, 'CPIB-001', 'CPIB 1', 'template5.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -542,9 +550,9 @@ ALTER TABLE `sertifikat`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `sertifikat_supplier`
+-- Indeks untuk tabel `sertifikat_template`
 --
-ALTER TABLE `sertifikat_supplier`
+ALTER TABLE `sertifikat_template`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -649,10 +657,10 @@ ALTER TABLE `sertifikat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `sertifikat_supplier`
+-- AUTO_INCREMENT untuk tabel `sertifikat_template`
 --
-ALTER TABLE `sertifikat_supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `sertifikat_template`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `suppliers`
