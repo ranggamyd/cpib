@@ -54,7 +54,11 @@
                 <td align="center">
                   <div class="btn-group" role="group" aria-label="Opsi">
                     <a href="<?= base_url('pengajuan/detail/' . $item['kd_pengajuan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Ajuan"><i class="fas fa-info-circle"></i></a>
-                    <a href="<?= base_url('pengajuan/ubah/' . $item['kd_pengajuan']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Ubah Ajuan"><i class="fa fa-fw fa-edit"></i></a>
+                    <?php if ($item['status'] == 'Lolos Inspeksi') : ?>
+                      <a href="" class="btn btn-secondary disabled" data-toggle="tooltip" data-placement="right" title="Tidak bisa Di Ubah"><i class="fa fa-fw fa-edit"></i></a>
+                    <?php else : ?>
+                      <a href="<?= base_url('pengajuan/ubah/' . $item['kd_pengajuan']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Ubah Ajuan"><i class="fa fa-fw fa-edit"></i></a>
+                    <?php endif; ?>
                     <a href="<?= base_url('pengajuan/hapus/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Ajuan"><i class="fas fa-trash-alt"></i></a>
                   </div>
                 </td>

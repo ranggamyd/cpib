@@ -29,6 +29,7 @@ class User_model extends CI_Model
   public function tambah()
   {
     $kd_admin = $this->input->post('kd_admin');
+    $no_reg = $this->input->post('no_reg');
     $nama_admin = $this->input->post('nama_admin');
     $no_telp = $this->input->post('no_telp');
     $email = $this->input->post('email');
@@ -37,6 +38,7 @@ class User_model extends CI_Model
 
     $admin = [
       'kd_admin' => $kd_admin,
+      'no_reg' => $no_reg,
       'nama_admin' => $nama_admin,
       'no_telp' => $no_telp,
       'email' => $email,
@@ -61,6 +63,7 @@ class User_model extends CI_Model
   public function ubah()
   {
     $kd_admin = $this->input->post('kd_admin');
+    $no_reg = $this->input->post('no_reg');
     $nama_admin = $this->input->post('nama_admin');
     $no_telp = $this->input->post('no_telp');
     $email = $this->input->post('email');
@@ -68,6 +71,7 @@ class User_model extends CI_Model
     $alamat = $this->input->post('alamat');
 
     $admin = [
+      'no_reg' => $no_reg,
       'nama_admin' => $nama_admin,
       'no_telp' => $no_telp,
       'email' => $email,

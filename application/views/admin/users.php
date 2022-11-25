@@ -13,6 +13,7 @@
             <tr>
               <th class="text-center">No.</th>
               <th>Kode Pengguna</th>
+              <th>No Reg</th>
               <th>Nama Lengkap</th>
               <th>No. Telepon</th>
               <th>Email</th>
@@ -27,6 +28,7 @@
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td class="text-center"><span class="badge badge-white"><?= $item['kd_admin']; ?></span></td>
+                <td class="text-center"><span class="badge badge-white"><?= $item['no_reg']; ?></span></td>
                 <td><?= $item['nama_admin'] ?></td>
                 <td><?= $item['no_telp']; ?></td>
                 <td><?= $item['email']; ?></td>
@@ -58,10 +60,21 @@
       </div>
       <form action="<?= base_url('users/tambah') ?>" method="post">
         <div class="modal-body">
-          <label for="kd_admin">Kode Pengguna :</label>
-          <input type="text" name="kd_admin" value="<?= set_value('kd_admin', $kd_admin_auto) ?>" class="form-control mb-3 <?= form_error('kd_admin') ? 'is-invalid' : '' ?>" id="kd_admin" readonly required>
-          <div id='kd_admin' class='invalid-feedback'>
-            <?= form_error('kd_admin') ?>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="kd_admin">Kode Pengguna :</label>
+              <input type="text" name="kd_admin" value="<?= set_value('kd_admin', $kd_admin_auto) ?>" class="form-control mb-3 <?= form_error('kd_admin') ? 'is-invalid' : '' ?>" id="kd_admin" readonly required>
+              <div id='kd_admin' class='invalid-feedback'>
+                <?= form_error('kd_admin') ?>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="no_reg">No Reg :</label>
+              <input type="text" name="no_reg" value="<?= set_value('no_reg') ?>" class="form-control mb-3 <?= form_error('no_reg') ? 'is-invalid' : '' ?>" id="no_reg" required>
+              <div id='no_reg' class='invalid-feedback'>
+                <?= form_error('no_reg') ?>
+              </div>
+            </div>
           </div>
           <label for="nama_admin">Nama Lengkap :</label>
           <input type="text" name="nama_admin" value="<?= set_value('nama_admin') ?>" class="form-control mb-3 <?= form_error('nama_admin') ? 'is-invalid' : '' ?>" id="nama_admin" required>
@@ -121,6 +134,11 @@
                 <td><?= $item['kd_admin']; ?></td>
               </tr>
               <tr>
+                <th scope="row">No Reg</th>
+                <td>:</td>
+                <td><?= $item['no_reg']; ?></td>
+              </tr>
+              <tr>
                 <th scope="row">Nama Lengkap</th>
                 <td>:</td>
                 <td><?= $item['nama_admin']; ?></td>
@@ -167,10 +185,21 @@
         </div>
         <form action="<?= base_url('users/ubah') ?>" method="post">
           <div class="modal-body">
-            <label for="kd_admin">Kode Pengguna :</label>
-            <input type="text" name="kd_admin" value="<?= set_value('kd_admin', $item['kd_admin']) ?>" class="form-control mb-3 <?= form_error('kd_admin') ? 'is-invalid' : '' ?>" id="kd_admin" readonly required>
-            <div id='kd_admin' class='invalid-feedback'>
-              <?= form_error('kd_admin') ?>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="kd_admin">Kode Pengguna :</label>
+                <input type="text" name="kd_admin" value="<?= set_value('kd_admin', $item['kd_admin']) ?>" class="form-control mb-3 <?= form_error('kd_admin') ? 'is-invalid' : '' ?>" id="kd_admin" readonly required>
+                <div id='kd_admin' class='invalid-feedback'>
+                  <?= form_error('kd_admin') ?>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="no_reg">No Reg :</label>
+                <input type="text" name="no_reg" value="<?= set_value('no_reg', $item['no_reg']) ?>" class="form-control mb-3 <?= form_error('no_reg') ? 'is-invalid' : '' ?>" id="no_reg" required>
+                <div id='no_reg' class='invalid-feedback'>
+                  <?= form_error('no_reg') ?>
+                </div>
+              </div>
             </div>
             <label for="nama_admin">Nama Lengkap :</label>
             <input type="text" name="nama_admin" value="<?= set_value('nama_admin', $item['nama_admin']) ?>" class="form-control mb-3 <?= form_error('nama_admin', $item['nama_admin']) ? 'is-invalid' : '' ?>" id="nama_admin" required>

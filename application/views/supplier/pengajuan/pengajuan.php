@@ -34,9 +34,8 @@
                 <td class="text-center">
                   <?php
                   $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
-                  $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
-                  $jenis_produk_supplier = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $item['kd_pengajuan'], 'kd_supplier' => $item['kd_supplier']])->result_array();
-                  foreach ($jenis_produk_supplier as $jp) :
+                  $jenis_produk = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $item['kd_pengajuan'], 'kd_supplier' => $item['kd_supplier']])->result_array();
+                  foreach ($jenis_produk as $jp) :
                   ?>
                     <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
                   <?php endforeach; ?>
