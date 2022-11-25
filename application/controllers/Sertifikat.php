@@ -27,38 +27,52 @@ class Sertifikat extends CI_Controller
 
   public function index()
   {
-    $data['kd_sertifikat_auto'] = $this->sertifikat_model->kd_sertifikat_auto();
-    $data['sertifikat'] = $this->sertifikat_model->semuaSertifikat();
+    $data['sertifikat'] = $this->db->get('sertifikat_supplier')->result_array();
 
-    $data['title'] = 'sertifikat';
+    $data['title'] = 'Sertifikat Supplier';
     $this->loadView('sertifikat', $data);
   }
 
-  public function tambah()
+  public function generate($kd_penilaian)
   {
-    $this->form_validation->set_rules('kd_sertifikat', 'Kode Sertifikat', 'required');
-    $this->form_validation->set_rules('nama_sertifikat', 'Nama Sertifikat', 'required');
+    $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
+    $data['sertifikat'] = $this->db->get('sertifikat')->result_array();
+    $data['penilaian'] = $penilaian;
+    $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $penilaian->kd_supplier])->row();
+    $data['jenis_produk'] = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $penilaian->kd_pengajuan, 'kd_supplier' => $penilaian->kd_supplier])->result_array();
+    $this->db->join('penanganan', 'penanganan.kd_penanganan = penilaian_penanganan.kd_penanganan', 'left');
+    $data['tahapan_penanganan'] = $this->db->get_where('penilaian_penanganan', ['kd_penilaian' => $penilaian->kd_penilaian])->result_array();
 
-    if ($this->form_validation->run() == FALSE) {
-      $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
-      $this->session->set_flashdata('hasModalID', 'tambah_sertifikat');
-      $this->index();
-    } else {
-      if ($this->sertifikat_model->tambah()) {
-        $this->session->set_flashdata('sukses', 'Berhasil menambahkan !');
-        redirect('sertifikat');
-      } else {
-        $this->session->set_flashdata('gagal', 'Gagal menambahkan !');
-        $this->index();
-      }
-    }
+    $data['title'] = 'Generate Certificate';
+    $this->loadView('generate', $data);
   }
 
-  public function edit($kd_sertifikat)
+  public function generate_certificate()
   {
-    $data['sertifikat'] = $this->sertifikat_model->sertifikat($kd_sertifikat);
+    $this->form_validation->set_rules('kd_sertifikat', 'Jenis Sertifikat', 'required');
+    $this->form_validation->set_rules('no_surat', 'No. Sertifikat', 'required');
+    $this->form_validation->set_rules('tgl_inspeksi', 'Tanggal Inspeksi', 'required');
+    $this->form_validation->set_rules('nama_miniplant', 'Mini Plant', 'required');
+    $this->form_validation->set_rules('nama_pimpinan', 'Pimpinan Supplier', 'required');
+    $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+    $this->form_validation->set_rules('klasifikasi', 'Klasifikasi', 'required');
+    $this->form_validation->set_rules('tgl', 'Tanggal Validasi', 'required');
+    $this->form_validation->set_rules('berlaku_sampai', 'Berlaku Sampai', 'required');
+    $this->form_validation->set_rules('dikeluarkan_di', 'Dikeluarkan di', 'required');
+    $this->form_validation->set_rules('kepala_upt', 'Kepala UPT BKIPM', 'required');
+    $this->form_validation->set_rules('head_of', 'Head of TIU', 'required');
 
-    $data['title'] = 'Edit Template Sertifikat';
-    $this->loadView('edit', $data);
+    if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('gagal', "Mohon isi data dengan lengkap !");
+        $this->generate($this->input->post('kd_penilaian'));
+    } else {
+        if ($this->sertifikat_model->generate()) {
+            $this->session->set_flashdata('sukses', 'Berhasil Membuat Sertifikat !');
+            redirect('sertifikat');
+        } else {
+            $this->session->set_flashdata('gagal', 'Gagal Membuat Sertifikat !');
+            $this->generate($this->input->post('kd_penilaian'));
+        }
+    }
   }
 }

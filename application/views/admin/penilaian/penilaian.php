@@ -56,7 +56,12 @@
                   <?php endif ?>
                 </td>
                 <td class="text-center">
-                  <a href="<?= base_url('penilaian/detail/').$item['kd_penilaian'] ?>" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
+                  <div class="btn-group">
+                    <?php if ($item['is_need_revisi'] == 0) : ?>
+                      <a href="<?= base_url('sertifikat/generate/') . $item['kd_penilaian'] ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Generate Certificate"><i class="fas fa-print"></i></a>
+                    <?php endif ?>
+                    <a href="<?= base_url('penilaian/detail/') . $item['kd_penilaian'] ?>" class="btn btn-info" data-toggle="tooltip" data-placement="right" title="Detail Penilaian"><i class="fas fa-info-circle"></i></a>
+                  </div>
                 </td>
               </tr>
             <?php } ?>
