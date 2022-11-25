@@ -3,23 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Sertifikat_model extends CI_Model
 {
-    public function kd_sertifikat_auto()
-    {
-        $this->db->select('RIGHT(sertifikat.kd_sertifikat,3) as kd_sertifikat', FALSE);
-        $this->db->order_by('kd_sertifikat', 'DESC');
-        $this->db->limit(1);
-        $query = $this->db->get('sertifikat');
-        if ($query->num_rows() <> 0) {
-            $data = $query->row();
-            $kd = intval($data->kd_sertifikat) + 1;
-        } else {
-            $kd = 1;
-        }
-        $batas = str_pad($kd, 3, "0", STR_PAD_LEFT);
-        $kdsertifikat = "CPIB-" . $batas;
-        return $kdsertifikat;
-    }
-
     public function semuaSertifikat()
     {
         return $this->db->get('sertifikat')->result_array();
@@ -30,23 +13,18 @@ class Sertifikat_model extends CI_Model
         return $this->db->get_where('sertifikat', ['kd_sertifikat' => $kd_sertifikat])->row();
     }
 
-    public function tambah()
+    public function generate()
     {
-        $config['upload_path']    = './assets/sertifikat/template';
-        $config['allowed_types']  = 'jpg|png|jpeg';
+        $sertifikat = [
+            'kd_supplier' => $this->input->post('kd_supplier'),
+            'kd_penilaian' => $this->input->post('kd_penilaian'),
+            'no_surat' => $this->input->post('no_surat'),
+            'tgl' => $this->input->post('tgl'),
+            'berlaku_sampai' => $this->input->post('berlaku_sampai'),
+            'kepala_upt' => $this->input->post('kepala_upt'),
+            'file_sertifikat' => $this->input->post('file_sertifikat'),
+        ];
 
-        $this->load->library('upload', $config);
-
-        if ($this->upload->do_upload('file_template')) {
-            $sertifikat = [
-                'kd_sertifikat' => $this->input->post('kd_sertifikat'),
-                'nama_sertifikat' => $this->input->post('nama_sertifikat'),
-                'file_template' => $this->upload->data('file_name'),
-            ];
-
-            if (!$this->db->insert('sertifikat', $sertifikat)) return FALSE;
-        } else {
-            return FALSE;
-        }
+        if ($this->db->insert('sertifikat', $sertifikat)) return TRUE;
     }
 }

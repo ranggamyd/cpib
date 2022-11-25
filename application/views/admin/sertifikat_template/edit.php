@@ -19,8 +19,8 @@
           <div class="col-md-7 mt-3 mt-md-0">
             <div class="form-group row">
               <div class="col-6">
-                <label for="no_surat">No. Surat :</label>
-                <input type="text" name="no_surat" value="<?= set_value('no_surat') ?>" class="form-control form-control-sm form-control-inline <?= form_error('no_surat') ? 'is-invalid' : '' ?>" id="no_surat" required>
+                <label for="no_surat">No. Sertifikat :</label>
+                <input type="text" name="no_surat" value="<?= set_value('no_surat') ?>" class="form-control form-control-sm form-control-inline <?= form_error('no_surat') ? 'is-invalid' : '' ?>" id="no_surat" readonly required>
                 <div id='no_surat' class='invalid-feedback'>
                   <?= form_error('no_surat') ?>
                 </div>
@@ -177,7 +177,7 @@
             <div class="form-group row">
               <div class="col-6">
                 <label for="klasifikasi">Klasifikasi :</label>
-                <input type="text" name="klasifikasi" value="<?= set_value('klasifikasi') ?>" class="form-control form-control-sm form-control-inline <?= form_error('klasifikasi') ? 'is-invalid' : '' ?>" id="klasifikasi" readonly required>
+                <input type="text" name="klasifikasi" value="<?= set_value('klasifikasi') ?>" class="form-control form-control-sm form-control-inline <?= form_error('klasifikasi') ? 'is-invalid' : '' ?>" readonly required>
                 <div id='klasifikasi' class='invalid-feedback'>
                   <?= form_error('klasifikasi') ?>
                 </div>
@@ -206,7 +206,7 @@
             </div>
             <div class="form-group row">
               <div class="col-6">
-                <label for="tgl_verifikasi">Tgl Verifikasi :</label>
+                <label for="tgl_verifikasi">Tanggal Inspeksi :</label>
                 <input type="text" name="tgl_verifikasi" value="<?= set_value('tgl_verifikasi') ?>" class="form-control form-control-sm form-control-inline <?= form_error('tgl_verifikasi') ? 'is-invalid' : '' ?>" id="tgl_verifikasi" readonly required>
                 <div id='tgl_verifikasi' class='invalid-feedback'>
                   <?= form_error('tgl_verifikasi') ?>
@@ -266,7 +266,37 @@
             </div>
             <div class="form-group row">
               <div class="col-6">
-                <label for="tanggal">Tanggal :</label>
+                <label for="dikeluarkan_di">Dikeluarkan di :</label>
+                <input type="text" name="dikeluarkan_di" value="<?= set_value('dikeluarkan_di') ?>" class="form-control form-control-sm form-control-inline <?= form_error('dikeluarkan_di') ? 'is-invalid' : '' ?>" id="dikeluarkan_di" readonly required>
+                <div id='dikeluarkan_di' class='invalid-feedback'>
+                  <?= form_error('dikeluarkan_di') ?>
+                </div>
+              </div>
+              <div class="col-2">
+                <label for="font_size_dikeluarkan_di">Size :</label>
+                <input type="number" name="font_size_dikeluarkan_di" value="<?= set_value('font_size_dikeluarkan_di') ?>" class="form-control form-control-sm <?= form_error('font_size_dikeluarkan_di') ? 'is-invalid' : '' ?>" id="font_size_dikeluarkan_di" required>
+                <div id='font_size_dikeluarkan_di' class='invalid-feedback'>
+                  <?= form_error('font_size_dikeluarkan_di') ?>
+                </div>
+              </div>
+              <div class="col-2">
+                <label for="x_dikeluarkan_di">X :</label>
+                <input type="number" name="x_dikeluarkan_di" value="<?= set_value('x_dikeluarkan_di') ?>" class="form-control form-control-sm <?= form_error('x_dikeluarkan_di') ? 'is-invalid' : '' ?>" id="x_dikeluarkan_di" required>
+                <div id='x_dikeluarkan_di' class='invalid-feedback'>
+                  <?= form_error('x_dikeluarkan_di') ?>
+                </div>
+              </div>
+              <div class="col-2">
+                <label for="y_dikeluarkan_di">Y :</label>
+                <input type="number" name="y_dikeluarkan_di" value="<?= set_value('y_dikeluarkan_di') ?>" class="form-control form-control-sm <?= form_error('y_dikeluarkan_di') ? 'is-invalid' : '' ?>" id="y_dikeluarkan_di" required>
+                <div id='y_dikeluarkan_di' class='invalid-feedback'>
+                  <?= form_error('y_dikeluarkan_di') ?>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-6">
+                <label for="tanggal">Tanggal Validasi :</label>
                 <input type="text" name="tanggal" value="<?= set_value('tanggal') ?>" class="form-control form-control-sm form-control-inline <?= form_error('tanggal') ? 'is-invalid' : '' ?>" id="tanggal" readonly required>
                 <div id='tanggal' class='invalid-feedback'>
                   <?= form_error('tanggal') ?>
