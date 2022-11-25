@@ -15,10 +15,10 @@ class Pengajuan_supplier extends CI_Controller
 
     private function loadView($file, $data)
     {
-        // $data['style'] = [
-        //     'css' => 'supplier.css',
-        //     'js' => 'supplier.js',
-        // ];
+        $data['style'] = [
+            // 'css' => 'supplier.css',
+            'js' => 'pengajuan.js',
+        ];
 
         $this->load->view('supplier/parts/header', $data);
         $this->load->view('supplier/pengajuan/' . $file, $data);
@@ -46,7 +46,7 @@ class Pengajuan_supplier extends CI_Controller
 
         $supplier = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row();
         $data['kd_pengajuan_auto'] = $this->pengajuan_model->kd_pengajuan_auto();
-        $data['supplier'] = $this->db->get_where('suppliers',['kd_supplier'=>$supplier->kd_supplier])->row();
+        $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $supplier->kd_supplier])->row();
         $data['jenis_produk'] = $this->jenis_produk_model->semuaJenisProduk();
 
         $data['title'] = 'Tambah Ajuan';
