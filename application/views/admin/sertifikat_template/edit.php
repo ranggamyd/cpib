@@ -4,22 +4,17 @@
 
   <div class="card shadow mb-4">
     <div class="card-body">
-      <form action="<?= base_url('sertifikat/saveChanges') ?>" method="post" enctype="multipart/form-data">
+      <form action="<?= base_url('sertifikat_template/saveChanges') ?>" method="post" enctype="multipart/form-data">
         <div class="row">
           <div class="col-md-5">
             <img src="<?= base_url('assets/sertifikat/template/') . $sertifikat->file_template ?>" alt="Gambar Template Sertifikat" class="imgPreview img-thumbnail mb-4"><br>
-            <div class="bg-secondary p-3 rounded text-light">
-              <label for="template" class="">Perbarui Template</label>
-              <input type="file" class="form-control-sm form-control-file <?= form_error('template') ? 'is-invalid' : '' ?>" name="template" accept="image/*" id="template" required>
-              <div id='template' class='invalid-feedback'>
-                <?= form_error('template') ?>
-              </div>
-            </div>
+
           </div>
           <div class="col-md-7 mt-3 mt-md-0">
             <div class="form-group row">
               <div class="col-6">
                 <label for="no_surat">No. Sertifikat :</label>
+                <input type="hidden" name="kd_sertifikat" value="<?= set_value('kd_sertifikat', $sertifikat->kd_sertifikat) ?>" class="form-control form-control-sm form-control-inline <?= form_error('kd_sertifikat') ? 'is-invalid' : '' ?>" id="kd_sertifikat" readonly required>
                 <input type="text" name="no_surat" value="<?= set_value('no_surat') ?>" class="form-control form-control-sm form-control-inline <?= form_error('no_surat') ? 'is-invalid' : '' ?>" id="no_surat" readonly required>
                 <div id='no_surat' class='invalid-feedback'>
                   <?= form_error('no_surat') ?>
@@ -78,11 +73,18 @@
               </div>
             </div>
             <div class="form-group row">
-              <div class="col-6">
+              <div class="col-4">
                 <label for="alamat">Alamat :</label>
                 <input type="text" name="alamat" value="<?= set_value('alamat') ?>" class="form-control form-control-sm form-control-inline <?= form_error('alamat') ? 'is-invalid' : '' ?>" id="alamat" readonly required>
                 <div id='alamat' class='invalid-feedback'>
                   <?= form_error('alamat') ?>
+                </div>
+              </div>
+              <div class="col-2">
+                <label for="w_alamat">Width :</label>
+                <input type="number" name="w_alamat" value="<?= set_value('w_alamat', $sertifikat->w_alamat) ?>" class="form-control form-control-sm <?= form_error('w_alamat') ? 'is-invalid' : '' ?>" id="w_alamat" required>
+                <div id='w_alamat' class='invalid-feedback'>
+                  <?= form_error('w_alamat') ?>
                 </div>
               </div>
               <div class="col-2">
@@ -146,10 +148,10 @@
                 </div>
               </div>
               <div class="col-2">
-                <label for="width_penanganan">Width</label>
-                <input type="number" name="width_penanganan" value="<?= set_value('width_penanganan', $sertifikat->w_penanganan) ?>" class="form-control form-control-sm <?= form_error('width_penanganan') ? 'is-invalid' : '' ?>" id="width_penanganan" required>
-                <div id='width_penanganan' class='invalid-feedback'>
-                  <?= form_error('width_penanganan') ?>
+                <label for="w_penanganan">Width :</label>
+                <input type="number" name="w_penanganan" value="<?= set_value('w_penanganan', $sertifikat->w_penanganan) ?>" class="form-control form-control-sm <?= form_error('w_penanganan') ? 'is-invalid' : '' ?>" id="w_penanganan" required>
+                <div id='w_penanganan' class='invalid-feedback'>
+                  <?= form_error('w_penanganan') ?>
                 </div>
               </div>
               <div class="col-2">

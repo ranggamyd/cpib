@@ -52,7 +52,7 @@ class Sertifikat_model extends CI_Model
 
         imagettftext($image, $template->s_no_surat, 0, $template->x_no_surat, $template->y_no_surat, $color, $font, $this->input->post('no_surat'));
         imagettftext($image, $template->s_supplier, 0, $template->x_supplier, $template->y_supplier, $color, $font, $supplier->nama_miniplant);
-        imagettftext($image, $template->s_alamat, 0, $template->x_alamat, $template->y_alamat, $color, $font, $supplier->alamat);
+        imagettftext($image, $template->s_alamat, 0, $template->x_alamat, $template->y_alamat, $color, $font, wordwrap($supplier->alamat, $template->w_alamat));
         imagettftext($image, $template->s_jenis_produk, 0, $template->x_jenis_produk, $template->y_jenis_produk, $color, $font, implode(", ", array_column($jenis_produk, "jenis_produk")));
         imagettftext($image, $template->s_penanganan, 0, $template->x_penanganan, $template->y_penanganan, $color, $font, wordwrap(implode(" - ", array_column($tahap_penanganan, "nama_penanganan")), $template->w_penanganan));
         imagettftext($image, $template->s_klasifikasi, 0, $template->x_klasifikasi, $template->y_klasifikasi, $color, $font, $penilaian->klasifikasi);
