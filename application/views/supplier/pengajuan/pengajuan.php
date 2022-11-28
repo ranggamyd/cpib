@@ -1,18 +1,18 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Ajuan Saya</h1>
+  <h1 class="h3 mb-2 text-gray-800">Daftar Permohonan Sertifikasi CPIB</h1>
   <hr>
 
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <a href="<?= base_url('pengajuan_supplier/tambah_ajuan') ?>" class="btn btn-sm btn-primary" id="#myBtn"><i class="fas fa-plus-circle mr-2"></i>Tambah Ajuan</a>
+      <a href="<?= base_url('pengajuan_supplier/tambah_ajuan') ?>" class="btn btn-sm btn-primary" id="#myBtn"><i class="fas fa-plus-circle mr-2"></i>Ajukan Permohonan Baru</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead class="text-center">
-            <tr>
-              <th class="text-center">No.</th>
-              <th>Tanggal</th>
+          <thead>
+            <tr class="text-center">
+              <th>No.</th>
+              <th>Tanggal Pengajuan</th>
               <th>Kode Pengajuan</th>
               <th>Mini Plant</th>
               <th>Pimpinan Supplier</th>
@@ -25,10 +25,10 @@
             <?php
             $no = 1;
             foreach ($pengajuan as $item) { ?>
-              <tr class="align-middle">
-                <td align="center"><?= $no++; ?></td>
-                <td class="text-center"><?= date('d-M-Y', strtotime($item['tgl_pengajuan'])) ?></td>
-                <td class="text-center"><span class="badge badge-white"><?= $item['kd_pengajuan']; ?></span></td>
+              <tr>
+                <th class="text-center"><?= $no++; ?></th>
+                <td class="text-center" style="width: 125px;"><?= date('d M Y', strtotime($item['tgl_pengajuan'])) ?></td>
+                <td class="text-center"><a href="<?= base_url('pengajuan_supplier/detail/') . $item['kd_pengajuan'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_pengajuan']; ?></a></td>
                 <td><?= $item['nama_miniplant'] ?></td>
                 <td><?= $item['nama_pimpinan'] ?></td>
                 <td class="text-center">
@@ -41,21 +41,24 @@
                   <?php endforeach; ?>
                 </td>
                 <td class="text-center">
-                  <?php if ($item['status'] == 'Tertunda') : ?>
-                    <span class="badge badge-primary"><?= $item['status']; ?></span>
-                  <?php elseif ($item['status'] == 'Dalam proses Inspeksi') : ?>
-                    <span class="badge badge-info"><?= $item['status']; ?></span>
-                  <?php elseif ($item['status'] == 'Perlu Revisi') : ?>
-                    <a href="<?= base_url('penilaian_supplier/detail/' . $this->db->get_where('penilaian', ['kd_pengajuan' => $item['kd_pengajuan']])->row('kd_penilaian')) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
-                  <?php elseif ($item['status'] == 'Lolos Inspeksi') : ?>
-                    <a href="<?= base_url('penilaian_supplier/detail/' . $this->db->get_where('penilaian', ['kd_pengajuan' => $item['kd_pengajuan']])->row('kd_penilaian')) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
-                  <?php endif; ?>
+                  <?php if ($item['status'] == 'Tertunda') { ?>
+                    <span class="badge badge-light"><?= $item['status'] ?></span>
+                    <a href="<?= base_url('pengajuan/tambah_ajuan') ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Ajukan ulang?"><?= $item['status'] ?></a>
+                    <span class="badge badge-warning"><?= $item['status'] ?></span>
+                  <?php } elseif ($item['status'] == 'Dalam proses Inspeksi') { ?>
+                    <span class="badge badge-info"><?= $item['status'] ?></span>
+                  <?php } elseif ($item['status'] == 'Lolos') { ?>
+                    <span class="badge badge-success"><?= $item['status'] ?></span>
+                  <?php } elseif ($item['status'] == 'Tidak Lolos') { ?>
+                    <span class="badge badge-danger"><?= $item['status'] ?></span>
+                  <?php } ?>
                 </td>
-                <td align="center">
+                <td class="text-center">
                   <div class="btn-group" role="group" aria-label="Opsi">
-                    <a href="<?= base_url('pengajuan_supplier/detail/' . $item['kd_pengajuan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Ajuan"><i class="fas fa-info-circle"></i></a>
-                    <a href="<?= base_url('pengajuan_supplier/ubah/' . $item['kd_pengajuan']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Ubah Ajuan"><i class="fa fa-fw fa-edit"></i></a>
-                    <a href="<?= base_url('pengajuan_supplier/hapus/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Ajuan"><i class="fas fa-trash-alt"></i></a>
+                    <?php $penilaian = $this->db->get_where('penilaian', ['kd_pengajuan' => $item['kd_pengajuan']])->row(); ?>
+                    <a href="<?= base_url('pengajuan_supplier/detail/' . $item['kd_pengajuan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Detail"><i class="fas fa-info-circle"></i></a>
+                    <a href="<?= base_url('pengajuan_supplier/ubah/' . $item['kd_pengajuan']) ?>" class="btn btn-primary <?= $penilaian ? 'disabled' : '' ?>" data-toggle="tooltip" data-placement="right" title="Ubah"><i class="fa fa-fw fa-edit"></i></a>
+                    <a href="<?= base_url('pengajuan_supplier/hapus/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger <?= $penilaian ? 'disabled' : '' ?>" data-toggle="tooltip" data-placement="right" title="Hapus"><i class="fas fa-trash-alt"></i></a>
                   </div>
                 </td>
               </tr>

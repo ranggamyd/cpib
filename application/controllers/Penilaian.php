@@ -15,10 +15,10 @@ class Penilaian extends CI_Controller
 
   private function loadView($file, $data)
   {
-    // $data['style'] = [
-    //     'css' => 'supplier.css',
-    //     'js' => 'supplier.js',
-    // ];
+    $data['style'] = [
+      // 'css' => 'penilaian.css',
+      'js' => 'penilaian.js',
+    ];
 
     $this->load->view('admin/parts/header', $data);
     $this->load->view('admin/penilaian/' . $file, $data);
@@ -29,13 +29,14 @@ class Penilaian extends CI_Controller
   {
     $data['penilaian'] = $this->penilaian_model->semuaPenilaian();
 
-    $data['title'] = 'List Penilaian Ajuan';
+    $data['title'] = 'Penilaian Ajuan';
     $this->loadView('penilaian', $data);
   }
 
   public function detail($kd_penilaian)
   {
     $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
+
     $data['penilaian'] = $penilaian;
     $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $penilaian->kd_supplier])->row();
     $data['jenis_produk'] = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $penilaian->kd_pengajuan, 'kd_supplier' => $penilaian->kd_supplier])->result_array();
@@ -47,20 +48,31 @@ class Penilaian extends CI_Controller
     $data['penanganan'] = $this->db->get_where('penilaian_penanganan', ['kd_penilaian' => $kd_penilaian])->result_array();
     $data['notes'] = $this->db->get_where('penilaian_notes', ['kd_penilaian' => $kd_penilaian])->result_array();
 
-    $data['title'] = 'Detail Penilaian';
+    $data['title'] = 'Detail Isian (Checklist) Penilaian Kelayakan Supplier';
     $this->loadView('detail', $data);
+  }
+
+  public function ubah($kd_penilaian)
+  {
+    # code...
+  }
+
+  public function ubah_penilaian($kd_penilaian)
+  {
+    # code...
   }
 
   public function perbaiki($kd_penilaian)
   {
+    $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
     $data['kd_perbaikan_auto'] = $this->perbaikan_model->kd_perbaikan_auto();
 
-    $data['penilaian'] = $this->penilaian_model->penilaian($kd_penilaian);
-    $pengajuan = $this->db->get_where('pengajuan', ['kd_pengajuan' => $data['penilaian']->kd_pengajuan])->row();
-    $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
-    $data['jps'] = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->result_array();
-    $data['jenis_supplier'] = $this->db->get_where('pengajuan', ['kd_supplier' => $pengajuan->kd_supplier])->num_rows() > 1 ? 'Lama' : 'Baru';
-    $tim_inspeksi = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row();
+    $data['penilaian'] = $penilaian;
+    $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $penilaian->kd_supplier])->row();
+    $data['cek_pengajuan'] = $this->db->get_where('pengajuan', ['kd_supplier' => $penilaian->kd_supplier])->num_rows();
+    $data['jenis_produk'] = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $penilaian->kd_pengajuan, 'kd_supplier' => $penilaian->kd_supplier])->result_array();
+    $tim_inspeksi = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $penilaian->kd_pengajuan])->row();
+    $data['tim_inspeksi'] = $tim_inspeksi;
     $data['ketua_tim'] = $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->ketua_inspeksi])->row('nama_admin');
     $data['anggota1'] = $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota1])->row('nama_admin');
     $data['anggota2'] = $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota2])->row('nama_admin');
@@ -78,7 +90,7 @@ class Penilaian extends CI_Controller
   {
     if ($this->penilaian_model->perbaiki_ajuan()) {
       $this->session->set_flashdata('sukses', 'Berhasil Menambahkan Perbaikan !');
-      redirect('penilaian');
+      redirect('perbaikan');
     } else {
       $this->session->set_flashdata('gagal', 'Gagal Menambahkan Perbaikan !');
       $this->perbaiki($this->input->post('kd_penilaian'));

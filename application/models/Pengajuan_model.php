@@ -24,6 +24,8 @@ class Pengajuan_model extends CI_Model
     public function semuaPengajuan()
     {
         $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
+        $this->db->order_by('tgl_pengajuan', 'desc');
+        $this->db->order_by('kd_pengajuan', 'desc');
         return $this->db->get('pengajuan')->result_array();
     }
 
@@ -99,6 +101,11 @@ class Pengajuan_model extends CI_Model
     public function hapus($kd_pengajuan)
     {
         if ($this->db->delete('pengajuan', ['kd_pengajuan' => $kd_pengajuan])) return TRUE;
+    }
+
+    public function tolak_ajuan()
+    {
+        if ($this->db->update('pengajuan', ['status' => 'Tidak Lolos', 'keterangan' => $this->input->post('keterangan')], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return TRUE;
     }
 
     public function check_team($kd_pengajuan)

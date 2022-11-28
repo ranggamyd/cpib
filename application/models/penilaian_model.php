@@ -24,12 +24,13 @@ class Penilaian_model extends CI_Model
   public function semuaPenilaian()
   {
     $this->db->join('suppliers', 'suppliers.kd_supplier = penilaian.kd_supplier', 'left');
+    $this->db->order_by('tgl_inspeksi', 'desc');
+    $this->db->order_by('kd_penilaian', 'desc');
     return $this->db->get('penilaian')->result_array();
   }
 
   public function penilaian($kd_penilaian)
   {
-    // $this->db->join('jenis_produk_supplier', 'jenis_produk_supplier.kd_jenis_produk = jenis_produk.kd_jenis_produk', 'left');
     $this->db->join('suppliers', 'suppliers.kd_supplier = penilaian.kd_supplier', 'left');
     return $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
   }
@@ -43,24 +44,20 @@ class Penilaian_model extends CI_Model
       'kd_supplier' => $this->input->post('kd_supplier'),
       'jenis_supplier' => $this->input->post('jenis_supplier'),
       'kd_tim_inspeksi' => $this->input->post('kd_tim_inspeksi'),
+      'catatan' => $this->input->post('catatan'),
       'jml_minor' => $this->input->post('jmlMinor'),
       'jml_mayor' => $this->input->post('jmlMayor'),
       'jml_serius' => $this->input->post('jmlSerius'),
       'jml_kritis' => $this->input->post('jmlKritis'),
       'klasifikasi' => $this->input->post('klasifikasi'),
       'is_need_revisi' => $this->input->post('is_needRevisi') ? 1 : 0,
+      'status' => $this->input->post('is_needRevisi') ? 'Perlu Revisi' : 'Menunggu Sertifikat'
     ];
 
     if (!$this->tambah_tahap_penanganan()) return FALSE;
     if (!$this->tambah_detail()) return FALSE;
-    if (!$this->db->insert('penilaian', $penilaian)) return FALSE;
     if ($this->input->post('notes')[0]['revisi']) $this->tambah_notes();
-
-    if ($this->input->post('is_needRevisi') == 1) {
-      if ($this->db->update('pengajuan', ['status' => 'Perlu Revisi'], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return TRUE;
-    } else {
-      if ($this->db->update('pengajuan', ['status' => 'Lolos Inspeksi'], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return TRUE;
-    }
+    if ($this->db->insert('penilaian', $penilaian)) return TRUE;
   }
 
   private function tambah_detail()
@@ -166,9 +163,10 @@ class Penilaian_model extends CI_Model
       'kd_penilaian' => $this->input->post('kd_penilaian'),
       'kd_supplier' => $this->input->post('kd_supplier'),
       'tgl_perbaikan' => $this->input->post('tgl_perbaikan'),
-      'status' => 'Menunggu Validasi Admin',
+      'status' => 'Menunggu Validasi',
     ];
 
+    if (!$this->db->update('penilaian', ['status' => 'Menunggu validasi perbaikan'], ['kd_penilaian' => $this->input->post('kd_penilaian')])) return FALSE;
     if ($this->db->insert('perbaikan', $perbaikan)) return TRUE;
   }
 }

@@ -54,11 +54,11 @@
               <label for="jenis_supplier" class="col-sm-4 col-form-label">Jenis Supplier</label>
               <div class="col-sm-8 d-flex align-items-center">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $cek_pengajuan <= 1 ? 'checked' : '' ?>>
+                  <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $penilaian->jenis_supplier == 'Baru' ? 'checked' : '' ?> disabled>
                   <label class="form-check-label" for="baru">Baru</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="jenis_supplier" id="lama" value="Lama" <?= $cek_pengajuan > 1 ? 'checked' : '' ?>>
+                  <input class="form-check-input" type="radio" name="jenis_supplier" id="lama" value="Lama" <?= $penilaian->jenis_supplier == 'Lama' ? 'checked' : '' ?> disabled>
                   <label class="form-check-label" for="lama">Lama</label>
                 </div>
               </div>
@@ -66,7 +66,7 @@
             <div class="form-group row">
               <label for="tgl_inspeksi" class="col-sm-4 col-form-label">Tanggal Inspeksi</label>
               <div class="col-sm-8">
-                <input type="text" name="tgl_inspeksi" value="<?= date('d M Y', strtotime($penilaian->tgl_inspeksi)) ?>" class="form-control" id="tgl_inspeksi" required>
+                <input type="text" name="tgl_inspeksi" value="<?= date('d M Y', strtotime($penilaian->tgl_inspeksi)) ?>" class="form-control" id="tgl_inspeksi" readonly required>
               </div>
             </div>
             <hr>
@@ -101,10 +101,10 @@
       </div>
     </div>
     <div class="card shadow mb-4">
-      <div class="card-header py-3">
+      <div class="card-header py-3" data-toggle="collapse" data-target="#penilaian" aria-expanded="false" aria-controls="penilaian">
         <h6 class="font-weight-bold mb-0"><i class="far fa-file-alt mr-2"></i>Penilaian Hasil Inspeksi</h6>
       </div>
-      <div class="card-body">
+      <div class="card-body collapse" id="penilaian">
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead class="text-center">
@@ -211,6 +211,17 @@
         </div>
       <?php endif ?>
     </div>
+    <div class="mb-3" id="catatanTambahan">
+      <div class="card card-body">
+        <div class="form-group">
+          <label for="catatan">Catatan Tambahan :</label>
+          <textarea name="catatan" class="form-control <?= form_error('catatan') ? 'is-invalid' : '' ?>" id="catatan" cols="30" rows="10" readonly><?= set_value('catatan', $penilaian->catatan) ?></textarea>
+          <div id='catatan' class='invalid-feedback'>
+            <?= form_error('catatan') ?>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="font-weight-bold mb-0">Jumlah Penyimpangan</h6>
@@ -256,10 +267,10 @@
       </div>
     </div>
     <div class="card shadow mb-4">
-      <div class="card-header py-3">
+      <div class="card-header py-3" data-toggle="collapse" data-target="#detailKlasifikasi" aria-expanded="false" aria-controls="detailKlasifikasi">
         <h6 class="font-weight-bold mb-0">DETAIL KLASIFIKASI</h6>
       </div>
-      <div class="card-body">
+      <div class="card-body collapse" id="detailKlasifikasi">
         <div class="table-responsive">
           <table class="table table-sm table-bordered mb-0">
             <tr class="bg-light text-center">
@@ -308,7 +319,7 @@
     <div class="card shadow mb-4">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-10">
+          <div class="col-md-9">
             <small>Notes :
               <i>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error nulla alias consequuntur corrupti ea porro vero impedit assumenda dicta labore!
                 <b>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, libero.
@@ -316,6 +327,19 @@
               </i>
             </small>
           </div>
+          <?php if ($penilaian->status == 'Lolos') : ?>
+            <?php if (!$this->db->get_where('sertifikat', ['kd_penilaian' => $penilaian->kd_penilaian])->row()) : ?>
+              <div class="col-md-3 text-right d-flex align-items-center justify-content-around border border-dark border-top-0 border-right-0 border-bottom-0">
+                <a href="<?= base_url('sertifikat/generate/') . $penilaian->kd_penilaian ?>" class="btn btn-primary"><i class="fas fa-print mr-2"></i>Generate Certificate</a>
+              </div>
+            <?php endif; ?>
+          <?php elseif ($penilaian->status == 'Perlu Revisi') : ?>
+            <?php if (!$this->db->get_where('perbaikan', ['kd_penilaian' => $penilaian->kd_penilaian])->row()) : ?>
+              <div class="col-md-3 text-right d-flex align-items-center justify-content-around border border-dark border-top-0 border-right-0 border-bottom-0">
+                <a href="<?= base_url('penilaian/perbaiki/') . $penilaian->kd_penilaian ?>" class="btn btn-primary">Perbaiki Ajuan <i class="fas fa-arrow-right ml-2"></i></a>
+              </div>
+            <?php endif; ?>
+          <?php endif; ?>
         </div>
       </div>
     </div>

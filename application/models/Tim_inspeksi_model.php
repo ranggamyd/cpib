@@ -38,8 +38,8 @@ class Tim_inspeksi_model extends CI_Model
       'anggota2' => $this->input->post('anggota2'),
     ];
 
-    if (!$this->db->insert('tim_inspeksi', $data)) return FALSE;
-    if ($this->db->update('pengajuan', ['status' => 'Dalam Proses Inspeksi'], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return TRUE;
+    if (!$this->db->update('pengajuan', ['status' => 'Dalam proses Inspeksi'], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return FALSE;
+    if ($this->db->insert('tim_inspeksi', $data)) return TRUE;
   }
 
   public function ubah()

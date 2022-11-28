@@ -49,7 +49,7 @@
             <li class="nav-item <?= ($this->uri->segment(1) == 'pengajuan_supplier') ? 'active' : ''; ?>">
                 <a class="nav-link py-2" href="<?= base_url('pengajuan_supplier') ?>">
                     <i class="fas fa-fw fa-list"></i>
-                    <span>Ajuan Saya</span>
+                    <span>Permohonan Sertifikasi</span>
                 </a>
             </li>
             <li class="nav-item <?= ($this->uri->segment(1) == 'penilaian_supplier') ? 'active' : ''; ?>">

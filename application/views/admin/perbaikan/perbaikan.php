@@ -26,26 +26,26 @@
             $no = 1;
             foreach ($perbaikan_ajuan as $item) { ?>
               <tr>
-                <td align="center"><?= $no++; ?></td>
-                <td class="text-center"><?= date('d M Y', strtotime($item['tgl_perbaikan'])) ?></td>
-                <td class="text-center"><span class="badge badge-white"><?= $item['kd_perbaikan']; ?></span></td>
-                <td class="text-center"><span class="badge badge-white"><?= $item['kd_penilaian']; ?></span></td>
+                <th class="text-center"><?= $no++; ?></th>
+                <td class="text-center" style="width: 125px;"><?= date('d M Y', strtotime($item['tgl_perbaikan'])) ?></td>
+                <td class="text-center"><a href="<?= base_url('perbaikan/detail/') . $item['kd_perbaikan'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_perbaikan']; ?></a></td>
+                <td class="text-center"><a href="<?= base_url('penilaian/detail/') . $item['kd_penilaian'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_penilaian']; ?></a></td>
                 <td><?= $item['nama_miniplant']; ?></td>
                 <td><?= $item['nama_pimpinan'] ?></td>
                 <td class="text-center">
-                  <?php if ($item['status'] == 'Menunggu Validasi Admin') : ?>
-                    <a href="<?= base_url('perbaikan/validasi/') . $item['kd_perbaikan'] ?>" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Validasi Perbaikan?">Menunggu Validasi</a>
-                  <?php elseif ($item['status'] == 'Lolos') : ?>
-                    <div class="badge badge-success"><?= $item['status']; ?></div>
-                  <?php elseif ($item['status'] == 'Perlu Revisi Kembali') : ?>
-                    <div class="badge badge-warning"><?= $item['status']; ?></div>
-                  <?php elseif ($item['status'] == 'Tidak Lolos') : ?>
-                    <div class="badge badge-danger"><?= $item['status']; ?></div>
-                  <?php endif; ?>
+                  <?php if ($item['status'] == 'Perlu revisi kembali') { ?>
+                    <span class="badge badge-warning"><?= $item['status'] ?></span>
+                  <?php } elseif ($item['status'] == 'Menunggu Validasi') { ?>
+                    <a href="<?= base_url('perbaikan/detail/') . $item['kd_perbaikan'] ?>" class="badge badge-info" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                  <?php } elseif ($item['status'] == 'Lolos') { ?>
+                    <a href="<?= base_url('perbaikan/detail/') . $item['kd_perbaikan'] ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                  <?php } elseif ($item['status'] == 'Tidak Lolos') { ?>
+                    <a href="<?= base_url('perbaikan/detail/') . $item['kd_perbaikan'] ?>" class="badge badge-danger" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                  <?php } ?>
                 </td>
-                <td align="center">
+                <td class="text-center">
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="<?= base_url('perbaikan/detail/' . $item['kd_perbaikan']) ?>" class="btn btn-success"><i class="fas fa-info-circle"></i></a>
+                    <a href="<?= base_url('perbaikan/detail/' . $item['kd_perbaikan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Detail"><i class="fas fa-info-circle"></i></a>
                   </div>
                 </td>
               </tr>

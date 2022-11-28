@@ -77,8 +77,8 @@
         </div>
       </div>
       <div class="card-footer text-right">
-        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Batal</button>
-        <input type="submit" value="Buat Tim" class="btn btn-success">
+        <button type="reset" class="btn btn-danger">Reset</button>
+        <button type="submit" class="btn btn-primary">Buat Tim</button>
       </div>
     </form>
   </div>

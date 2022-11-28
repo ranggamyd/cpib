@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Form Permohonan Sertifikasi CPIB Supplier</h1>
+  <h1 class="h3 mb-2 text-gray-800">Form Permohonan Sertifikasi CPIB</h1>
   <hr>
 
   <div class="row">
@@ -57,7 +57,7 @@
             </div>
 
             <hr>
-            <label for="surat_permohonan">Surat Permohonan :</label>
+            <label for="surat_permohonan">Surat Permohonan <span class="text-danger font-weight-bold">*</span></label>
             <input type="file" name="surat_permohonan" class="form-control-file mb-3 <?= form_error('surat_permohonan') ? 'is-invalid' : '' ?>" id="surat_permohonan" required>
             <div id='surat_permohonan' class='invalid-feedback'>
               <?= form_error('surat_permohonan') ?>

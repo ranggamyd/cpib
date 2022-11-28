@@ -148,7 +148,7 @@
         </div>
       </div>
       <div class="card-footer text-right">
-        <button type="reset" class="btn btn-outline-danger">Reset</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
         <button type="submit" class="btn btn-success">Generate</button>
       </div>
   </div>

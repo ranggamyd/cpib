@@ -244,6 +244,22 @@
         </div>
       </div>
     </div>
+
+    <button class="btn btn-info shadow mb-3 btn-block" type="button" data-toggle="collapse" data-target="#catatanTambahan" aria-expanded="false" aria-controls="catatanTambahan">
+      Tambahkan Catatan Tambahan
+    </button>
+    <div class="collapse mb-3" id="catatanTambahan">
+      <div class="card card-body">
+        <div class="form-group">
+          <label for="catatan">Catatan Tambahan :</label>
+          <textarea name="catatan" class="form-control <?= form_error('catatan') ? 'is-invalid' : '' ?>" id="catatan" cols="30" rows="10"><?= set_value('catatan') ?></textarea>
+          <div id='catatan' class='invalid-feedback'>
+            <?= form_error('catatan') ?>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="font-weight-bold mb-0">Jumlah Penyimpangan</h6>
@@ -291,6 +307,7 @@
         </div>
       </div>
     </div>
+
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="font-weight-bold mb-0">DETAIL KLASIFIKASI</h6>

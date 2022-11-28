@@ -55,7 +55,9 @@
 
                     var no = 1;
 
-                    $('#addProses').click(function() {
+                    $('#addProses').click(function(e) {
+                        e.preventDefault();
+
                         no++;
                         const input = `
                             <tr id="rowProses-${no}" class="dynamic-added">
@@ -69,32 +71,42 @@
                                 </td>
                                 <td><button type="button" name="remove" id="${no}" class="btn btn-danger btn_remove-proses">X</button></td>
                             </tr>`
-                        console.log(input);
+
                         $('#dynamic_field-proses').append(input);
                     });
 
 
-                    $(document).on('click', '.btn_remove-proses', function() {
-                        var button_id = $(this).attr("id");
-                        $('#rowProses-' + button_id + '').remove();
+                    $(document).on('click', '.btn_remove-proses', function(e) {
+                        e.preventDefault();
+
+                        if (confirm("Apakah Anda Yakin?")) {
+                            var button_id = $(this).attr("id");
+                            $('#rowProses-' + button_id + '').remove();
+                        }
                     });
 
                     var i = 1;
 
-                    $('#addRevisi').click(function() {
+                    $('#addRevisi').click(function(e) {
+                        e.preventDefault();
+
                         i++;
                         const input = `
                             <tr id="rowRevisi-${i}" class="dynamic-added">
                                 <td><input type="text" name="notes[][revisi]" placeholder="Tuliskan sesuatu .." class="form-control" required></td>
                                 <td><button type="button" name="remove" id="${i}" class="btn btn-danger btn_remove-revisi">X</button></td>
-                            </tr>
-                        `
+                            </tr>`;
+
                         $('#dynamic_field-revisi').append(input);
                     });
 
-                    $(document).on('click', '.btn_remove-revisi', function() {
-                        var button_id = $(this).attr("id");
-                        $('#rowRevisi-' + button_id + '').remove();
+                    $(document).on('click', '.btn_remove-revisi', function(e) {
+                        e.preventDefault();
+
+                        if (confirm("Apakah Anda Yakin?")) {
+                            var button_id = $(this).attr("id");
+                            $('#rowRevisi-' + button_id + '').remove();
+                        }
                     });
 
                     // ============================================================

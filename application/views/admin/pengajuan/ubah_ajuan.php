@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Form Permohonan Sertifikasi CPIB Supplier</h1>
+  <h1 class="h3 mb-2 text-gray-800">Form Permohonan Sertifikasi CPIB</h1>
   <hr>
 
   <div class="row">
@@ -47,17 +47,24 @@
                 <div class="col">
                   <label for="kd_jenis_produk[]">Jenis Produk :</label>
                   <div id="dynamic-product">
-                    <div class="row mb-2">
-                      <div class="col"><input type="text" name="jenis_produk[][produk]" placeholder="Nama Produk .." class="form-control" required></div>
-                      <div class="col-2"><button type="button" class="btn btn-outline-light btn-block ml-2" id="addProduct" data-toggle="tooltip" data-placement="right" title="Tambah Produk"><i class="fas fa-plus-circle"></i></button></div>
-                    </div>
+                    <?php
+                    $jenis_produk = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $pengajuan->kd_pengajuan, 'kd_supplier' => $pengajuan->kd_supplier])->result_array();
+                    $i = 1;
+                    foreach ($jenis_produk as $jp) :
+                      $i++;
+                    ?>
+                      <div class="row mb-2" id="productRow-<?= $i ?>">
+                        <div class="col"><input type="text" name="jenis_produk[][produk]" value="<?= $jp['jenis_produk'] ?>" placeholder="Nama Produk .." class="form-control" required></div>
+                        <div class="col-2"><button type="button" class="btn btn-danger btn-block ml-2 removeProduct" id="<?= $i ?>" data-toggle="tooltip" data-placement="right" title="Hapus Produk"><i class="fas fa-backspace"></i></button></div>
+                      </div>
+                    <?php endforeach; ?>
                   </div>
                 </div>
               </div>
             </div>
 
             <hr>
-            <label for="surat_permohonan">Surat Permohonan :</label>
+            <label for="surat_permohonan">Surat Permohonan <span class="text-danger font-weight-bold">*</span></label>
             <input type="file" name="surat_permohonan" class="form-control-file mb-3 <?= form_error('surat_permohonan') ? 'is-invalid' : '' ?>" id="surat_permohonan" required>
             <div id='surat_permohonan' class='invalid-feedback'>
               <?= form_error('surat_permohonan') ?>

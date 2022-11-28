@@ -51,11 +51,11 @@
             <label for="jenis_supplier" class="col-sm-4 col-form-label">Jenis Supplier</label>
             <div class="col-sm-8 d-flex align-items-center">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $cek_pengajuan <= 1 ? 'checked' : '' ?>>
+                <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $penilaian->jenis_supplier == 'Baru' ? 'checked' : '' ?> disabled>
                 <label class="form-check-label" for="baru">Baru</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="jenis_supplier" id="lama" value="Lama" <?= $cek_pengajuan > 1 ? 'checked' : '' ?>>
+                <input class="form-check-input" type="radio" name="jenis_supplier" id="lama" value="Lama" <?= $penilaian->jenis_supplier == 'Lama' ? 'checked' : '' ?> disabled>
                 <label class="form-check-label" for="lama">Lama</label>
               </div>
             </div>
@@ -63,7 +63,7 @@
           <div class="form-group row">
             <label for="tgl_inspeksi" class="col-sm-4 col-form-label">Tanggal Inspeksi</label>
             <div class="col-sm-8">
-              <input type="text" name="tgl_inspeksi" value="<?= date('d M Y', strtotime($penilaian->tgl_inspeksi)) ?>" class="form-control" id="tgl_inspeksi" required>
+              <input type="text" name="tgl_inspeksi" value="<?= date('d M Y', strtotime($penilaian->tgl_inspeksi)) ?>" class="form-control" id="tgl_inspeksi" readonly required>
             </div>
           </div>
           <hr>
@@ -77,19 +77,19 @@
           <div class="form-group row">
             <label for="ketua_inspeksi" class="col-sm-4 col-form-label">Ketua Inspeksi</label>
             <div class="col-sm-8">
-              <input type="text" name="ketua_inspeksi" value="<?= $ketua_tim ?>" class="form-control" id="ketua_inspeksi" readonly required>
+              <input type="text" name="ketua_inspeksi" value="<?= $ketua_tim->nama_admin ?>" class="form-control" id="ketua_inspeksi" readonly required>
             </div>
           </div>
           <div class="form-group row">
             <label for="anggota1" class="col-sm-4 col-form-label">Anggota 1</label>
             <div class="col-sm-8">
-              <input type="text" name="anggota1" value="<?= $anggota1 ?>" class="form-control" id="anggota1" readonly required>
+              <input type="text" name="anggota1" value="<?= $anggota1->nama_admin ?>" class="form-control" id="anggota1" readonly required>
             </div>
           </div>
           <div class="form-group row">
             <label for="anggota2" class="col-sm-4 col-form-label">Anggota 2</label>
             <div class="col-sm-8">
-              <input type="text" name="anggota2" value="<?= $anggota2 ?>" class="form-control" id="anggota2" readonly required>
+              <input type="text" name="anggota2" value="<?= $anggota2->nama_admin ?>" class="form-control" id="anggota2" readonly required>
             </div>
           </div>
 
@@ -97,37 +97,35 @@
       </div>
     </div>
   </div>
-
-  <div class="card shadow mb-4">
+  <div class="card shadow mb-4 mt-3">
     <div class="card-header py-3">
-      <h6 class="font-weight-bold mb-0"><i class="far fa-file-alt mr-2"></i>Revision Notes</h6>
+      <h6 class="font-weight-bold mb-0">Kelengkapan Dokumen Perbaikan</h6>
     </div>
-    <form action="<?= base_url('penilaian/proses_perbaikan') ?>" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="kd_supplier" value="<?= $penilaian->kd_supplier ?>" required>
+    <form action="<?= base_url('perbaikan/validasi') ?>" method="post" enctype="multipart/form-data">
       <div class="card-body">
         <div class="row">
           <div class="col-md-3">
             <div class="form-group">
               <label for="kd_perbaikan">Kode Perbaikan</label>
-              <input type="text" name="kd_perbaikan" value="<?= $kd_perbaikan_auto ?>" class="form-control" id="kd_perbaikan" readonly required>
+              <input type="text" name="kd_perbaikan" value="<?= $perbaikan->kd_perbaikan ?>" class="form-control" id="kd_perbaikan" readonly required>
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label for="kd_penilaian">Kode Penilaian</label>
-              <input type="text" name="kd_penilaian" value="<?= $penilaian->kd_penilaian ?>" class="form-control" id="kd_penilaian" readonly required>
+              <input type="text" name="kd_penilaian" value="<?= $perbaikan->kd_penilaian ?>" class="form-control" id="kd_penilaian" readonly required>
             </div>
           </div>
           <div class="col-md-4 offset-md-2">
             <div class="form-group">
-              <label for="tgl_perbaikan">Tanggal Perbaikan</label>
+              <label for="tgl_perbaikan">Tanggal Validasi</label>
               <input type="date" name="tgl_perbaikan" value="<?= date('Y-m-d') ?>" class="form-control" id="tgl_perbaikan" required>
             </div>
           </div>
         </div>
         <div class="table-responsive">
           <table class="table table-hover table-bordered">
-            <thead>
+            <thead class="bg-light">
               <tr>
                 <th width="50" class="text-center">No.</th>
                 <th>Revisi</th>
@@ -137,25 +135,28 @@
             <tbody>
               <?php
               $i = 1;
-              foreach ($notes as $item) :
+              foreach ($perbaikan_detail as $item) :
               ?>
                 <tr>
                   <th class="text-center"><?= $i++ ?></th>
                   <td><?= $item['notes'] ?></td>
-                  <td><input type="file" name="<?= $item['id'] ?>" accept="image/*,.pdf" class="form-control-file"></td>
+                  <td><a href="<?= base_url('assets/dokumen/') . $item['file_perbaikan'] ?>" target="__blank" class="btn btn-outline-secondary btn-sm"><i class="fas fa-download mr-2"></i>Click to download</a></td>
                 </tr>
               <?php endforeach ?>
             </tbody>
           </table>
         </div>
+        <small class="text-muted">* Click to download Uploaded PDF/Image</small>
       </div>
       <div class="card-footer d-flex justify-content-between">
         <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#detailPenilaian" aria-expanded="false" aria-controls="detailPenilaian">
           <i class="fas fa-eye mr-2"></i>Lihat Detail Penilaian
         </button>
         <div>
-          <button type="reset" class="btn btn-secondary"><i class="fas fa-sync-alt mr-2"></i>Reset</button>
-          <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Perbaiki Ajuan</button>
+          <?php if ($perbaikan->status == 'Menunggu Validasi') : ?>
+            <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#perluRevisiKembali">Revisi Ulang</button>
+            <a href="<?= base_url('perbaikan/validasi/') . $perbaikan->kd_perbaikan ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-primary">Terima Perbaikan <i class="fas fa-save ml-2"></i></a>
+          <?php endif; ?>
         </div>
       </div>
     </form>

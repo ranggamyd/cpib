@@ -36,12 +36,12 @@ class Suppliers extends CI_Controller
 
     public function tambah()
     {
-        $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required|is_unique[users.kd_supplier]');
+        $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required|is_unique[suppliers.kd_supplier]');
         $this->form_validation->set_rules('nama_miniplant', 'Nama Miniplant', 'required|is_unique[suppliers.nama_miniplant]');
         $this->form_validation->set_rules('nama_pimpinan', 'Nama Pimpinan', 'required');
-        $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric|is_unique[users.phone]');
+        $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric|is_unique[suppliers.no_telp]');
         $this->form_validation->set_rules('no_fax', 'No. Faximile', 'is_unique[suppliers.no_fax]');
-        $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[users.email]');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[suppliers.email]');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal Menambahkan Supplier !');
@@ -78,10 +78,10 @@ class Suppliers extends CI_Controller
         if ($this->input->post('nama_miniplant') != $supplier->nama_miniplant) $this->form_validation->set_rules('nama_miniplant', 'Nama Miniplant', 'required|is_unique[suppliers.nama_miniplant]');
         $this->form_validation->set_rules('nama_pimpinan', 'Nama Pimpinan', 'required');
         $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric');
-        if ($this->input->post('no_telp') != $supplier->no_telp) $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric|is_unique[users.phone]');
+        if ($this->input->post('no_telp') != $supplier->no_telp) $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric|is_unique[suppliers.no_telp]');
         if ($this->input->post('no_fax') != $supplier->no_fax) $this->form_validation->set_rules('no_fax', 'No. Faximile', 'is_unique[suppliers.no_fax]');
         $this->form_validation->set_rules('email', 'Email', 'valid_email');
-        if ($this->input->post('email') != $supplier->email) $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[users.email]');
+        if ($this->input->post('email') != $supplier->email) $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[suppliers.email]');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal Mengubah Supplier !');

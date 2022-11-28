@@ -23,7 +23,6 @@ class Perbaikan_model extends CI_Model
 
   public function semuaPerbaikanAjuan()
   {
-    $this->db->join('penilaian', 'penilaian.kd_penilaian = perbaikan.kd_penilaian', 'left');
     $this->db->join('suppliers', 'suppliers.kd_supplier = perbaikan.kd_supplier', 'left');
     return $this->db->get('perbaikan')->result_array();
   }
@@ -33,5 +32,14 @@ class Perbaikan_model extends CI_Model
     $this->db->join('penilaian', 'penilaian.kd_penilaian = perbaikan.kd_penilaian', 'left');
     $this->db->join('suppliers', 'suppliers.kd_supplier = perbaikan.kd_supplier', 'left');
     return $this->db->get_where('perbaikan', ['kd_perbaikan' => $kd_perbaikan])->row();
+  }
+
+  public function validasi($kd_perbaikan)
+  {
+    $perbaikan = $this->db->get_where('perbaikan', ['kd_perbaikan' => $kd_perbaikan])->row();
+    $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $perbaikan->kd_penilaian])->row();
+
+    if (!$this->db->update('penilaian', ['status' => 'Lolos'], ['kd_penilaian' => $penilaian->kd_penilaian])) return FALSE;
+    if ($this->db->update('perbaikan', ['status' => 'Lolos'], ['kd_perbaikan' => $kd_perbaikan])) return TRUE;
   }
 }

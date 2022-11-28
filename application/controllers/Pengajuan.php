@@ -16,7 +16,7 @@ class Pengajuan extends CI_Controller
     private function loadView($file, $data)
     {
         $data['style'] = [
-            // 'css' => 'supplier.css',
+            // 'css' => 'pengajuan.css',
             'js' => 'pengajuan.js',
         ];
 
@@ -29,7 +29,7 @@ class Pengajuan extends CI_Controller
     {
         $data['pengajuan'] = $this->pengajuan_model->semuaPengajuan();
 
-        $data['title'] = 'Ajuan Supplier';
+        $data['title'] = 'Daftar Permohonan Sertifikasi CPIB';
         $this->loadView('pengajuan', $data);
     }
 
@@ -38,7 +38,7 @@ class Pengajuan extends CI_Controller
         $data['kd_pengajuan_auto'] = $this->pengajuan_model->kd_pengajuan_auto();
         $data['suppliers'] = $this->supplier_model->suppliers();
 
-        $data['title'] = 'Form Permohonan Sertifikasi CPIB Supplier';
+        $data['title'] = 'Form Permohonan Sertifikasi CPIB';
         $this->loadView('tambah_ajuan', $data);
     }
 
@@ -67,17 +67,38 @@ class Pengajuan extends CI_Controller
     {
         $data['pengajuan'] = $this->pengajuan_model->pengajuan($kd_pengajuan);
 
-        $data['title'] = 'Detail Permohonan Supplier';
+        $data['title'] = 'Detail Permohonan Sertifikasi';
         $this->loadView('detail_ajuan', $data);
     }
 
     public function ubah($kd_pengajuan)
     {
-        $data['pengajuan'] = $this->pengajuan_model->pengajuan($kd_pengajuan);
-        $data['suppliers'] = $this->supplier_model->suppliers();
+        // $data['pengajuan'] = $this->pengajuan_model->pengajuan($kd_pengajuan);
+        // $data['suppliers'] = $this->supplier_model->suppliers();
 
-        $data['title'] = 'Form Permohonan Sertifikasi CPIB Supplier';
-        $this->loadView('ubah_ajuan', $data);
+        // $data['title'] = 'Form Permohonan Sertifikasi CPIB';
+        // $this->loadView('ubah_ajuan', $data);
+    }
+
+    public function ubah_ajuan()
+    {
+        // $this->form_validation->set_rules('kd_pengajuan', 'Kode Pengajuan', 'required');
+        // $this->form_validation->set_rules('tgl_pengajuan', 'Tanggal Pengajuan', 'required');
+        // $this->form_validation->set_rules('kd_supplier', 'Kode Supplier', 'required');
+        // $this->form_validation->set_rules('jenis_produk[]', 'Jenis Produk', 'required');
+
+        // if ($this->form_validation->run() == FALSE) {
+        //     $this->session->set_flashdata('gagal', 'Gagal Mengajukan Permohonan !');
+        //     $this->tambah_ajuan();
+        // } else {
+        //     if ($this->pengajuan_model->ubah()) {
+        //         $this->session->set_flashdata('sukses', 'Berhasil Mengajukan Permohonan !');
+        //         redirect('pengajuan');
+        //     } else {
+        //         $this->session->set_flashdata('gagal', 'Gagal Mengajukan Permohonan !');
+        //         $this->tambah_ajuan();
+        //     }
+        // }
     }
 
     public function hapus($kd_pengajuan)
@@ -88,6 +109,17 @@ class Pengajuan extends CI_Controller
         } else {
             $this->session->set_flashdata('gagal', 'Gagal Menghapus Permohonan !');
             $this->index();
+        }
+    }
+
+    public function tolak_ajuan()
+    {
+        if ($this->pengajuan_model->tolak_ajuan()) {
+            $this->session->set_flashdata('sukses', 'Berhasil Menolak Ajuan !');
+            redirect('pengajuan');
+        } else {
+            $this->session->set_flashdata('gagal', 'Gagal Menolak Ajuan !');
+            $this->detail($this->input->post('kd_pengajuan'));
         }
     }
 
@@ -121,7 +153,7 @@ class Pengajuan extends CI_Controller
         // $this->form_validation->set_rules('pimpinan_supplier', 'Pimpinan Supplier', 'required');
         $this->form_validation->set_rules('ketua_inspeksi', 'Ketua Inspeksi', 'required');
         $this->form_validation->set_rules('anggota1', 'Anggota 1', 'required|differs[ketua_inspeksi]');
-        $this->form_validation->set_rules('anggota2', 'Anggota 2', 'required|differs[ketua_inspeksi]|differs[anggota1]');
+        $this->form_validation->set_rules('anggota2', 'Anggota 2', 'differs[ketua_inspeksi]|differs[anggota1]');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('gagal', 'Gagal membuat tim !');
@@ -129,7 +161,7 @@ class Pengajuan extends CI_Controller
         } else {
             if ($this->tim_inspeksi_model->tambah()) {
                 $this->session->set_flashdata('sukses', 'Berhasil membuat tim !');
-                redirect('pengajuan');
+                redirect('pengajuan/proses_inspeksi/' . $this->input->post('kd_pengajuan'));
             } else {
                 $this->session->set_flashdata('gagal', 'Gagal membuat tim !');
                 $this->create_team($this->input->post('kd_pengajuan'));
@@ -145,7 +177,7 @@ class Pengajuan extends CI_Controller
         $data['pengajuan'] = $pengajuan;
         $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $pengajuan->kd_supplier])->row();
         $data['jenis_produk'] = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $pengajuan->kd_pengajuan, 'kd_supplier' => $pengajuan->kd_supplier])->result_array();
-        $data['cek_pengajuan'] = $this->db->get_where('pengajuan', ['kd_pengajuan' => $pengajuan->kd_pengajuan, 'kd_supplier' => $pengajuan->kd_supplier])->num_rows();
+        $data['cek_pengajuan'] = $this->db->get_where('pengajuan', ['kd_supplier' => $pengajuan->kd_supplier])->num_rows();
         $data['tim_inspeksi'] = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row();
         $data['kategori_daftar_isian'] = $this->daftar_isian_model->semuaKategori();
         $data['tahap_penanganan'] = $this->db->get('penanganan')->result_array();

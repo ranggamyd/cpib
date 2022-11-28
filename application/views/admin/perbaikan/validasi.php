@@ -36,16 +36,6 @@
                             <tr>
                                 <th scope="row">Jenis Produk</th>
                                 <td>:</td>
-                                <td>
-                                    <?php
-                                    $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
-                                    $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
-                                    $jenis_produk_supplier = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $perbaikan->kd_pengajuan, 'kd_supplier' => $perbaikan->kd_supplier])->result_array();
-                                    foreach ($jenis_produk_supplier as $jp) :
-                                    ?>
-                                        <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
-                                    <?php endforeach; ?>
-                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">No. Telepon</th>

@@ -68,8 +68,8 @@ class Auth extends CI_Controller
   public function register_account()
   {
     $this->form_validation->set_rules('name', 'Nama Lengkap', 'required');
-    $this->form_validation->set_rules('phone', 'No. Telepon', 'required|is_numeric|is_unique[users.phone]');
-    $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[users.email]');
+    $this->form_validation->set_rules('phone', 'No. Telepon', 'required|is_numeric|is_unique[suppliers.no_telp]');
+    $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[suppliers.email]');
     $this->form_validation->set_rules('password1', 'Password', 'required');
     $this->form_validation->set_rules('password2', 'Konfirmasi Password', 'required|matches[password1]');
 

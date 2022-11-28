@@ -36,11 +36,11 @@ class Users extends CI_Controller
 
   public function tambah()
   {
-    $this->form_validation->set_rules('kd_admin', 'Kode Admin', 'required|is_unique[users.kd_admin]');
-    $this->form_validation->set_rules('no_reg', 'No Reg', 'required');
+    $this->form_validation->set_rules('kd_admin', 'Kode Admin', 'required|is_unique[admin.kd_admin]');
+    $this->form_validation->set_rules('no_reg', 'No Reg', 'required|is_unique[admin.no_reg]');
     $this->form_validation->set_rules('nama_admin', 'Nama Admin', 'required');
-    $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric|is_unique[users.phone]');
-    $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[users.phone]');
+    $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric|is_unique[admin.no_telp]');
+    $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[admin.no_telp]');
 
     if ($this->form_validation->run() == FALSE) {
       $this->session->set_flashdata('gagal', 'Gagal Menambahkan Pengguna !');
@@ -60,13 +60,15 @@ class Users extends CI_Controller
   public function ubah()
   {
     $admin = $this->db->get_where('admin', ['kd_admin' => $this->input->post('kd_admin')])->row();
+
     $this->form_validation->set_rules('kd_admin', 'Kode Admin', 'required');
     $this->form_validation->set_rules('no_reg', 'No Reg', 'required');
+    if ($this->input->post('no_reg') != $admin->no_reg) $this->form_validation->set_rules('no_reg', 'No. Registrasi', 'required|is_unique[admin.no_reg]');
     $this->form_validation->set_rules('nama_admin', 'Nama Admin', 'required');
     $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric');
-    if ($this->input->post('no_telp') != $admin->no_telp) $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric|is_unique[users.phone]');
+    if ($this->input->post('no_telp') != $admin->no_telp) $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required|is_numeric|is_unique[admin.no_telp]');
     $this->form_validation->set_rules('email', 'Email', 'valid_email');
-    if ($this->input->post('email') != $admin->email) $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[users.phone]');
+    if ($this->input->post('email') != $admin->email) $this->form_validation->set_rules('email', 'Email', 'valid_email|is_unique[admin.no_telp]');
 
     if ($this->form_validation->run() == FALSE) {
       $this->session->set_flashdata('gagal', 'Gagal Mengubah Pengguna !');

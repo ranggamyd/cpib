@@ -1,11 +1,12 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Form Permohonan Sertifikasi CPIB Supplier</h1>
+  <h1 class="h3 mb-2 text-gray-800">Form Permohonan Sertifikasi CPIB</h1>
   <hr>
 
   <div class="row">
     <div class="col-md-10">
       <div class="card shadow mb-4">
-        <form action="<?= base_url('pengajuan/tambah') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('pengajuan_supplier/tambah') ?>" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="kd_supplier" value="<?= set_value('kd_supplier', $supplier->kd_supplier) ?>" required>
           <div class="card-body">
             <div class="row">
               <div class="col-md-5">
@@ -29,14 +30,11 @@
                   <label for="kd_supplier">Supplier :</label>
                   <div class="row">
                     <div class="col">
-                      <input type="hidden" name="kd_supplier" value="<?= set_value('kd_supplier', $supplier->kd_supplier) ?>" class="form-control mb-3 <?= form_error('kd_supplier') ? 'is-invalid' : '' ?>" id="kd_supplier" required>
-                      <input type="text" name="nama_miniplant" value="<?= set_value('nama_miniplant', $supplier->nama_miniplant) ?>" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" id="nama_miniplant" required>
-
-
+                      <input type="text" name="nama_miniplant" value="<?= set_value('nama_miniplant', $supplier->nama_miniplant) ?>" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" id="nama_miniplant" readonly required>
                     </div>
-                    <!-- <div class="col-2">
-                    c:\Users\Jeri Maulana\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\code\electron-sandbox\workbench\workbench.html  <a href="<?= base_url('suppliers') ?>" class="btn btn-outline-light btn-block" data-toggle="tooltip" data-placement="right" title="Tambah Supplier"><i class="fas fa-plus-circle mt-1"></i></a>
-                    </div> -->
+                    <div class="col-2">
+                      <a href="<?= base_url('suppliers') ?>" class="btn btn-outline-light btn-block" data-toggle="tooltip" data-placement="right" title="Tambah Supplier"><i class="fas fa-plus-circle mt-1"></i></a>
+                    </div>
                     <div id='kd_supplier' class='invalid-feedback'>
                       <?= form_error('kd_supplier') ?>
                     </div>
@@ -55,7 +53,7 @@
             </div>
 
             <hr>
-            <label for="surat_permohonan">Surat Permohonan :</label>
+            <label for="surat_permohonan">Surat Permohonan <span class="text-danger font-weight-bold">*</span></label>
             <input type="file" name="surat_permohonan" class="form-control-file mb-3 <?= form_error('surat_permohonan') ? 'is-invalid' : '' ?>" id="surat_permohonan" required>
             <div id='surat_permohonan' class='invalid-feedback'>
               <?= form_error('surat_permohonan') ?>

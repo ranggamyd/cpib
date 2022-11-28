@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Detail Permohonan Supplier</h1>
+    <h1 class="h3 mb-2 text-gray-800">Detail Permohonan Sertifikasi</h1>
     <hr>
 
     <div class="row">
@@ -64,7 +64,7 @@
     </div>
     <div class="card shadow mb-4 mt-3">
         <div class="card-header py-3">
-            <h6 class="mb-0">Daftar Pengajuan Supplier</h6>
+            <h6 class="font-weight-bold mb-0">Kelengkapan Dokumen</h6>
         </div>
         <div class="card-body">
             <div class="row">
@@ -86,7 +86,55 @@
                 </div>
             </div>
             <small class="text-muted">* Click to download Uploaded PDF/Image</small>
+
+            <?php if ($pengajuan->status == 'Tidak Lolos') : ?>
+                <div class="alert alert-danger mt-4">
+                    <h6 class="font-weight-bold">Pengajuan ditolak!</h6>
+                    <?= nl2br($pengajuan->keterangan) ?>
+                </div>
+            <?php endif; ?>
         </div>
+        <?php if ($pengajuan->status != 'Tidak Lolos') : ?>
+            <?php if (!$this->db->get_where('penilaian', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row()) : ?>
+                <div class="card-footer text-right">
+                    <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#tolakAjuan">Tolak Ajuan</button>
+                    <a href="<?= base_url('pengajuan/proses_inspeksi/') . $pengajuan->kd_pengajuan ?>" class="btn btn-primary">Lanjutkan Proses <i class="fas fa-arrow-right ml-2"></i></a>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
     </div>
 </div>
+</div>
+
+<div class="modal" id="tolakAjuan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Tolak Ajuan</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form action="<?= base_url('pengajuan/tolak_ajuan') ?>" method="POST">
+                <input type="hidden" name="kd_pengajuan" value="<?= $pengajuan->kd_pengajuan ?>">
+                <div class="modal-body">
+                    <p class="mb-0">Permohonan Sertifikasi CPIB akan <strong>ditolak</strong>, apakah anda yakin?</p>
+                    <p>Tuliskan alasan penolakan pada form berikut :</p>
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan :</label>
+                        <textarea name="keterangan" class="form-control" id="keterangan" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Tolak Ajuan</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
 </div>
