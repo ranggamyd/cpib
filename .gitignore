@@ -1,5 +1,8 @@
 .DS_Store
 
+assets/dokumen/*
+assets/sertifikat/*
+!assets/sertifikat/template/
 application/cache/*
 !application/cache/index.html
 

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Nov 2022 pada 15.58
--- Versi server: 10.4.25-MariaDB
--- Versi PHP: 7.4.30
+-- Waktu pembuatan: 29 Nov 2022 pada 07.34
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -119,7 +119,9 @@ CREATE TABLE `jenis_produk` (
 INSERT INTO `jenis_produk` (`id`, `kd_pengajuan`, `kd_supplier`, `jenis_produk`) VALUES
 (1, 'REG-0001', 'SPL-001', 'jp1'),
 (2, 'REG-0002', 'SPL-002', 'jp2'),
-(3, 'REG-0003', 'SPL-002', 'jp2');
+(3, 'REG-0003', 'SPL-002', 'jp2'),
+(4, 'REG-0004', 'SPL-001', 'Udang Segar'),
+(5, 'REG-0005', 'SPL-004', 'Ikan Tuna');
 
 -- --------------------------------------------------------
 
@@ -205,7 +207,9 @@ CREATE TABLE `pengajuan` (
 INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `tgl_pengajuan`, `status`, `ktp`, `npwp`, `nib`, `siup`, `akta_usaha`, `imb`, `layout`, `panduan_mutu`, `keterangan`) VALUES
 (1, 'REG-0001', 'SPL-001', '2022-11-26', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus.pdf', '0_Kontrak_Kuliah_dan_Silabus1.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus2.pdf', '0_Kontrak_Kuliah_dan_Silabus3.pdf', NULL),
 (2, 'REG-0002', 'SPL-002', '2022-11-28', 'Tidak Lolos', '0_Kontrak_Kuliah_dan_Silabus4.pdf', '0_Kontrak_Kuliah_dan_Silabus5.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus6.pdf', '0_Kontrak_Kuliah_dan_Silabus7.pdf', 'dokumen tidak lengkap'),
-(3, 'REG-0003', 'SPL-002', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus8.pdf', '0_Kontrak_Kuliah_dan_Silabus9.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus10.pdf', '0_Kontrak_Kuliah_dan_Silabus11.pdf', NULL);
+(3, 'REG-0003', 'SPL-002', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus8.pdf', '0_Kontrak_Kuliah_dan_Silabus9.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus10.pdf', '0_Kontrak_Kuliah_dan_Silabus11.pdf', NULL),
+(4, 'REG-0004', 'SPL-001', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus18.pdf', '0_Kontrak_Kuliah_dan_Silabus21.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus31.pdf', '0_Kontrak_Kuliah_dan_Silabus41.pdf', NULL),
+(5, 'REG-0005', 'SPL-004', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus22.pdf', '0_Kontrak_Kuliah_dan_Silabus19.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus42.pdf', '0_Kontrak_Kuliah_dan_Silabus71.pdf', NULL);
 
 -- --------------------------------------------------------
 
@@ -237,7 +241,9 @@ CREATE TABLE `penilaian` (
 
 INSERT INTO `penilaian` (`id`, `kd_penilaian`, `kd_pengajuan`, `tgl_inspeksi`, `kd_supplier`, `jenis_supplier`, `kd_tim_inspeksi`, `catatan`, `jml_minor`, `jml_mayor`, `jml_serius`, `jml_kritis`, `klasifikasi`, `is_need_revisi`, `status`) VALUES
 (1, 'PKS-0001', 'REG-0001', '2022-11-26', 'SPL-001', 'Baru', 'INS-001', 'sadsadasd\r\nsadas\r\nsadasd\r\naaa\r\n\r\n\r\nasdas', 0, 5, 0, 0, 'Sangat Baik', 0, 'Lolos'),
-(2, 'PKS-0002', 'REG-0003', '2022-11-28', 'SPL-002', 'Lama', 'INS-002', '1. c1\r\n2. c2\r\n3. c3', 0, 0, 5, 1, 'Kurang', 1, 'Lolos');
+(2, 'PKS-0002', 'REG-0003', '2022-11-28', 'SPL-002', 'Lama', 'INS-002', '1. c1\r\n2. c2\r\n3. c3', 0, 0, 5, 1, 'Kurang', 1, 'Lolos'),
+(3, 'PKS-0003', 'REG-0004', '2022-11-28', 'SPL-001', 'Lama', 'INS-003', '', 0, 5, 0, 0, 'Sangat Baik', 0, 'Lolos'),
+(4, 'PKS-0004', 'REG-0005', '2022-11-28', 'SPL-004', 'Baru', 'INS-004', '', 0, 4, 0, 0, 'Sangat Baik', 0, 'Lolos');
 
 -- --------------------------------------------------------
 
@@ -269,7 +275,16 @@ INSERT INTO `penilaian_detail` (`id`, `kd_penilaian`, `id_daftar_isian`, `is_min
 (7, 'PKS-0002', 4, 0, 0, 1, 0),
 (8, 'PKS-0002', 5, 0, 0, 1, 0),
 (9, 'PKS-0002', 6, 0, 0, 1, 0),
-(10, 'PKS-0002', 7, 0, 0, 1, 0);
+(10, 'PKS-0002', 7, 0, 0, 1, 0),
+(11, 'PKS-0003', 1, 0, 1, 0, 0),
+(12, 'PKS-0003', 7, 0, 1, 0, 0),
+(13, 'PKS-0003', 16, 0, 1, 0, 0),
+(14, 'PKS-0003', 24, 0, 1, 0, 0),
+(15, 'PKS-0003', 28, 0, 1, 0, 0),
+(16, 'PKS-0004', 1, 0, 1, 0, 0),
+(17, 'PKS-0004', 5, 0, 1, 0, 0),
+(18, 'PKS-0004', 13, 0, 1, 0, 0),
+(19, 'PKS-0004', 18, 0, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -314,7 +329,13 @@ INSERT INTO `penilaian_penanganan` (`id`, `kd_penilaian`, `kd_penanganan`) VALUE
 (3, 'PKS-0001', 'PNG-003'),
 (4, 'PKS-0002', 'PNG-001'),
 (5, 'PKS-0002', 'PNG-002'),
-(6, 'PKS-0002', 'PNG-003');
+(6, 'PKS-0002', 'PNG-003'),
+(7, 'PKS-0003', 'PNG-001'),
+(8, 'PKS-0003', 'PNG-002'),
+(9, 'PKS-0003', 'PNG-003'),
+(10, 'PKS-0004', 'PNG-001'),
+(11, 'PKS-0004', 'PNG-002'),
+(12, 'PKS-0004', 'PNG-003');
 
 -- --------------------------------------------------------
 
@@ -384,7 +405,9 @@ CREATE TABLE `sertifikat` (
 
 INSERT INTO `sertifikat` (`id`, `kd_supplier`, `kd_penilaian`, `kd_sertifikat`, `no_surat`, `tgl`, `berlaku_sampai`, `kepala_upt`, `file_sertifikat`) VALUES
 (1, 'SPL-001', 'PKS-0001', 'CPIB-001', 'asdasd', '2022-11-26', '2026-11-26', 'R. RUDI BARMARA', 'CPIB-001-SPL-001-20221126224816'),
-(2, 'SPL-002', 'PKS-0002', 'CPIB-001', '1001/cpib 32/XI/2022', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-002-20221128154919');
+(2, 'SPL-002', 'PKS-0002', 'CPIB-001', '1001/cpib 32/XI/2022', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-002-20221128154919'),
+(3, 'SPL-001', 'PKS-0003', 'CPIB-001', '38291293928', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-001-20221128160910'),
+(8, 'SPL-004', 'PKS-0004', 'CPIB-001', '1009/cpib 32/XI/2022', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-004-20221128174356');
 
 -- --------------------------------------------------------
 
@@ -403,6 +426,7 @@ CREATE TABLE `sertifikat_template` (
   `s_supplier` int(11) DEFAULT NULL,
   `x_supplier` int(11) DEFAULT NULL,
   `y_supplier` int(11) DEFAULT NULL,
+  `w_alamat` int(11) DEFAULT NULL,
   `s_alamat` int(11) DEFAULT NULL,
   `x_alamat` int(11) DEFAULT NULL,
   `y_alamat` int(11) DEFAULT NULL,
@@ -440,8 +464,9 @@ CREATE TABLE `sertifikat_template` (
 -- Dumping data untuk tabel `sertifikat_template`
 --
 
-INSERT INTO `sertifikat_template` (`id`, `kd_sertifikat`, `nama_sertifikat`, `file_template`, `s_no_surat`, `x_no_surat`, `y_no_surat`, `s_supplier`, `x_supplier`, `y_supplier`, `s_alamat`, `x_alamat`, `y_alamat`, `s_jenis_produk`, `x_jenis_produk`, `y_jenis_produk`, `w_penanganan`, `s_penanganan`, `x_penanganan`, `y_penanganan`, `s_klasifikasi`, `x_klasifikasi`, `y_klasifikasi`, `s_tgl_inspeksi`, `x_tgl_inspeksi`, `y_tgl_inspeksi`, `s_berlaku_sampai`, `x_berlaku_sampai`, `y_berlaku_sampai`, `s_dikeluarkan_di`, `x_dikeluarkan_di`, `y_dikeluarkan_di`, `s_tgl`, `x_tgl`, `y_tgl`, `s_kepala_upt`, `x_kepala_upt`, `y_kepala_upt`, `s_head_of`, `x_head_of`, `y_head_of`) VALUES
-(1, 'CPIB-001', 'CPIB 1', 'template.jpg', 14, 600, 475, 14, 600, 743, 14, 600, 840, 14, 600, 937, 75, 14, 600, 1033, 14, 600, 1128, 14, 600, 1224, 14, 420, 1612, 14, 910, 1612, 14, 910, 1674, 16, 890, 1823, 14, 1145, 1854);
+INSERT INTO `sertifikat_template` (`id`, `kd_sertifikat`, `nama_sertifikat`, `file_template`, `s_no_surat`, `x_no_surat`, `y_no_surat`, `s_supplier`, `x_supplier`, `y_supplier`, `w_alamat`, `s_alamat`, `x_alamat`, `y_alamat`, `s_jenis_produk`, `x_jenis_produk`, `y_jenis_produk`, `w_penanganan`, `s_penanganan`, `x_penanganan`, `y_penanganan`, `s_klasifikasi`, `x_klasifikasi`, `y_klasifikasi`, `s_tgl_inspeksi`, `x_tgl_inspeksi`, `y_tgl_inspeksi`, `s_berlaku_sampai`, `x_berlaku_sampai`, `y_berlaku_sampai`, `s_dikeluarkan_di`, `x_dikeluarkan_di`, `y_dikeluarkan_di`, `s_tgl`, `x_tgl`, `y_tgl`, `s_kepala_upt`, `x_kepala_upt`, `y_kepala_upt`, `s_head_of`, `x_head_of`, `y_head_of`) VALUES
+(1, 'CPIB-001', 'CPIB 1', 'template.jpg', 14, 600, 475, 14, 600, 743, 60, 14, 600, 840, 14, 600, 937, 75, 14, 600, 1033, 14, 600, 1128, 14, 600, 1224, 14, 420, 1612, 14, 910, 1612, 14, 910, 1674, 16, 890, 1823, 14, 1145, 1854),
+(2, 'CPIB-002', 'CPIB 2', 'template1.jpg', 18, 580, 475, 18, 560, 743, 60, 18, 560, 840, 18, 560, 937, 60, 18, 560, 1033, 18, 560, 1128, 18, 560, 1224, 18, 389, 1580, 18, 910, 1580, 18, 910, 1674, 18, 890, 1823, 18, 1145, 1854);
 
 -- --------------------------------------------------------
 
@@ -467,7 +492,9 @@ CREATE TABLE `suppliers` (
 
 INSERT INTO `suppliers` (`id`, `kd_supplier`, `nama_miniplant`, `nama_pimpinan`, `no_telp`, `email`, `no_fax`, `alamat`, `avatar`) VALUES
 (1, 'SPL-001', 'MP. H. Ta\'lim', 'H. Ta\'lim', '123456', '', '', 'Blok Lawang Gede RT 002 RW 002, Mertasinga, Gunungjati, Cirebon', ''),
-(4, 'SPL-002', 'MP. Abdul Fattah', 'Abdul Fattah', '111', '', '', 'jalan jalan', '');
+(4, 'SPL-002', 'MP. Abdul Fattah', 'Abdul Fattah', '111', '', '', 'jalan jalan', ''),
+(5, 'SPL-003', 'MP. MULIA JAYA', 'Babang Ganteng', '1234567', '', '', 'jl. jalan kemana saja', ''),
+(6, 'SPL-004', 'MP. Alfalah', 'H. Apud', '0812', '', '', 'JL. Bandung No 57 JL. Bandung No 57 JL. Bandung No 57 MAJALAYA INDONESIA SUMATRA INDIA', '');
 
 -- --------------------------------------------------------
 
@@ -491,7 +518,9 @@ CREATE TABLE `tim_inspeksi` (
 
 INSERT INTO `tim_inspeksi` (`id`, `kd_tim_inspeksi`, `kd_pengajuan`, `pimpinan_supplier`, `ketua_inspeksi`, `anggota1`, `anggota2`) VALUES
 (1, 'INS-001', 'REG-0001', 'H. Ta\'lim', 'ADM-001', 'ADM-002', NULL),
-(2, 'INS-002', 'REG-0003', 'Abdul Fattah', 'ADM-001', 'ADM-002', 'ADM-003');
+(2, 'INS-002', 'REG-0003', 'Abdul Fattah', 'ADM-001', 'ADM-002', 'ADM-003'),
+(3, 'INS-003', 'REG-0004', 'H. Ta\'lim', 'ADM-001', 'ADM-002', 'ADM-003'),
+(4, 'INS-004', 'REG-0005', 'H. Apud', 'ADM-001', 'ADM-002', 'ADM-003');
 
 -- --------------------------------------------------------
 
@@ -519,7 +548,9 @@ INSERT INTO `users` (`id`, `name`, `phone`, `email`, `password`, `kd_admin`, `kd
 (17, 'MP. H. Ta\'lim', '123456', '', 'e10adc3949ba59abbe56e057f20f883e', '', 'SPL-001', 1),
 (18, 'Jeri', '1234', '', '81dc9bdb52d04dc20036dbd8313ed055', 'ADM-002', '', 1),
 (19, 'Wiky', '12345', '', '827ccb0eea8a706c4c34a16891f84e7b', 'ADM-003', '', 1),
-(23, 'MP. Abdul Fattah', '111', '', '698d51a19d8a121ce581499d7b701668', '', 'SPL-002', 1);
+(23, 'MP. Abdul Fattah', '111', '', '698d51a19d8a121ce581499d7b701668', '', 'SPL-002', 1),
+(24, 'MP. MULIA JAYA', '1234567', '', 'fcea920f7412b5da7be0cf42b8c93759', '', 'SPL-003', 0),
+(25, 'MP. Alfalah', '0812', '', '669e40b854e5ed89bc374e62800f507d', '', 'SPL-004', 0);
 
 --
 -- Indexes for dumped tables
@@ -650,7 +681,7 @@ ALTER TABLE `daftar_isian`
 -- AUTO_INCREMENT untuk tabel `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_daftar_isian`
@@ -668,19 +699,19 @@ ALTER TABLE `penanganan`
 -- AUTO_INCREMENT untuk tabel `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_detail`
 --
 ALTER TABLE `penilaian_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_notes`
@@ -692,7 +723,7 @@ ALTER TABLE `penilaian_notes`
 -- AUTO_INCREMENT untuk tabel `penilaian_penanganan`
 --
 ALTER TABLE `penilaian_penanganan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `perbaikan`
@@ -710,31 +741,31 @@ ALTER TABLE `perbaikan_detail`
 -- AUTO_INCREMENT untuk tabel `sertifikat`
 --
 ALTER TABLE `sertifikat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `sertifikat_template`
 --
 ALTER TABLE `sertifikat_template`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tim_inspeksi`
 --
 ALTER TABLE `tim_inspeksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
