@@ -17,7 +17,7 @@
           <!-- Card Content - Collapse -->
           <div class="collapse" id="<?= $item['kd_sertifikat'] ?>">
             <div class="card-body bg-light">
-              <img src="<?= base_url('assets/sertifikat/template/') . $item['file_template'] ?>" class="img-thumbnail w-100" alt="Template Sertifikat">
+              <a href="<?= base_url('assets/sertifikat/template/') . $item['file_template'] ?>" class="imgPopup"><img src="<?= base_url('assets/sertifikat/template/') . $item['file_template'] ?>" class="imgPopup img-thumbnail w-100" alt="Template Sertifikat"></a>
               <div class="d-flex justify-content-between align-items-center mt-3">
                 <a href="<?= base_url('assets/sertifikat/template/') . $item['file_template'] ?>" target="__blank" class="btn btn-flat btn-sm text-primary"><i class="fas fa-download mr-2"></i>Download Template</a>
                 <div class="">

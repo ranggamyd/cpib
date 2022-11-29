@@ -140,7 +140,7 @@
                 <tr>
                   <th class="text-center"><?= $i++ ?></th>
                   <td><?= $item['notes'] ?></td>
-                  <td><a href="<?= base_url('assets/dokumen/') . $item['file_perbaikan'] ?>" target="__blank" class="btn btn-outline-secondary btn-sm"><i class="fas fa-download mr-2"></i>Click to download</a></td>
+                  <td><a href="<?= base_url('assets/dokumen/') . $item['file_perbaikan'] ?>" target="__blank" class="pdfPopup btn btn-outline-secondary  btn-sm"><i class="fas fa-download mr-2"></i>Click to open File</a></td>
                 </tr>
               <?php endforeach ?>
             </tbody>

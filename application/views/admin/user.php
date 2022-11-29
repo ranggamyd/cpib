@@ -6,7 +6,9 @@
     <div class="col-md-4">
       <div class="card shadow">
         <div class="card-body text-center">
-          <img src="<?= base_url() . 'assets/img/' . $user->avatar; ?>" class="rounded-circle" width="200" height="200" alt="Avatar" style="object-fit: cover;">
+          <a class="imgPopup" href="<?= base_url() . 'assets/img/' . $user->avatar; ?>">
+            <img src="<?= base_url() . 'assets/img/' . $user->avatar; ?>" class="rounded-circle" width="200" height="200" alt="Avatar" style="object-fit: cover;">
+          </a>
         </div>
         <button type="button" class="btn btn-primary mx-5" data-toggle="modal" data-target="#edit_avatar"><i class="fas fa-camera fa-fw"></i> Perbarui Avatar</button>
         <hr>
