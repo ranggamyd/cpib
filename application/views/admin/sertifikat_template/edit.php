@@ -7,7 +7,7 @@
       <form action="<?= base_url('sertifikat_template/saveChanges') ?>" method="post" enctype="multipart/form-data">
         <div class="row">
           <div class="col-md-5">
-            <img src="<?= base_url('assets/sertifikat/template/') . $sertifikat->file_template ?>" alt="Gambar Template Sertifikat" class="imgPreview img-thumbnail mb-4"><br>
+            <a href="<?= base_url('assets/sertifikat/template/') . $sertifikat->file_template ?>" class="imgPopup"><img src="<?= base_url('assets/sertifikat/template/') . $sertifikat->file_template ?>" alt="Gambar Template Sertifikat" class="imgPreview img-thumbnail mb-4"><br></a>
 
           </div>
           <div class="col-md-7 mt-3 mt-md-0">

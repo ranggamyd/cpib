@@ -44,10 +44,19 @@
             <script src="<?= base_url('assets') ?>/vendor/toastr/toastr.min.js"></script>
             <script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
             <script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+            <!-- Magnific Popup core JS file -->
+            <script src="<?= base_url('assets') ?>/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
             <!-- Custom scripts for all pages-->
             <script>
                 $(document).ready(function() {
+                    $('.imgPopup').magnificPopup({
+                        type: 'image'
+                        // other options
+                    });
+                    $('.pdfPopup').magnificPopup({
+                        type: 'iframe'
+                    });
                     $('#dataTable').dataTable();
                     $('[data-toggle="tooltip"]').tooltip({
                         placement: "bottom"
