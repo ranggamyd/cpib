@@ -19,6 +19,7 @@
               <th>Jenis Produk</th>
               <th>Berlaku Sampai</th>
               <th>Sertifikat</th>
+              <th>Opsi</th>
             </tr>
           </thead>
           <tbody>
@@ -27,7 +28,7 @@
             foreach ($sertifikat as $item) { ?>
               <tr>
                 <td class="text-center"><?= $no++ ?></td>
-                <td class="text-center"><?= date('d M Y', strtotime($item['tgl'])) ?></td>
+                <td class="text-center" style="width:125px ;"><?= date('d M Y', strtotime($item['tgl'])) ?></td>
                 <td class="text-center">
                   <span class="badge badge-light"><?= $item['no_surat'] ?></span>
                 </td>
@@ -42,10 +43,16 @@
                     <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
                   <?php endforeach; ?>
                 </td>
-                <td class="text-center"><?= date('d M Y', strtotime($item['berlaku_sampai'])) ?></td>
-                <td class="text-center">
+                <td class="text-center" style="width:125px ;"><?= date('d M Y', strtotime($item['berlaku_sampai'])) ?></td>
+                <td class="text-center align-middle">
                   <a href="<?= base_url('assets/sertifikat/') . $item['file_sertifikat'] . '.jpg' ?>" target="__blank" class="imgPopup btn btn-outline-primary" data-toggle="tooltip" data-placement="right" title="Click to preview image"><i class="fas fa-file-image"></i></a>
                   <a href="<?= base_url('assets/sertifikat/') . $item['file_sertifikat'] . '.pdf' ?>" target="__blank" class="pdfPopup btn btn-outline-danger" data-toggle="tooltip" data-placement="right" title="Click to preview PDF"><i class="fas fa-file-pdf"></i></a>
+                </td>
+                <td class="text-center">
+                  <div class="btn btn-group">
+                    <a href="<?= base_url('sertifikat/detail/') . $item['id'] ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Detail Sertifikat"><i class="fas fa-info-circle"></i></a>
+                    <a href="<?= base_url('sertifikat/hapus/') . $item['id'] ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Sertifikat" onclick="return confirm('Apakah anda yakin ingin menghapus ini?')"><i class="fas fa-trash-alt"></i></a>
+                  </div>
                 </td>
               </tr>
             <?php } ?>

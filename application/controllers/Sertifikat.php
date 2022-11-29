@@ -77,4 +77,15 @@ class Sertifikat extends CI_Controller
       }
     }
   }
+
+  public function hapus($id)
+  {
+    if ($this->sertifikat_model->hapus($id)) {
+      $this->session->set_flashdata('sukses', 'Berhasil Menghapus sertifikat !');
+      redirect('sertifikat');
+    } else {
+      $this->session->set_flashdata('gagal', 'Gagal Menghapus sertifikat !');
+      $this->index();
+    }
+  }
 }

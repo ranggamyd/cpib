@@ -78,4 +78,9 @@ class Sertifikat_model extends CI_Model
 
         return $fileName;
     }
+
+    public function hapus($id)
+    {
+        if ($this->db->delete('sertifikat', ['id' => $id])) return TRUE;
+    }
 }
