@@ -46,7 +46,7 @@ class Sertifikat_model extends CI_Model
         $this->db->join('penanganan', 'penanganan.kd_penanganan = penilaian_penanganan.kd_penanganan', 'left');
         $tahap_penanganan = $this->db->get_where('penilaian_penanganan', ['kd_penilaian' => $penilaian->kd_penilaian])->result_array();
 
-        $font = APPPATH . '..\assets\fonts\TNR.TTF';
+        $font = APPPATH . '..\assets\fonts\HELVETICA.TTF';
         $image = imagecreatefromjpeg(base_url('assets/sertifikat/template/' . $template->file_template));
         $color = imagecolorallocate($image, 0, 0, 0);
 

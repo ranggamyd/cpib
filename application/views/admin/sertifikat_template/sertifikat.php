@@ -56,7 +56,7 @@
             <?= form_error('nama_sertifikat') ?>
           </div>
           <label for="file_template">Upload Template :</label>
-          <input type="file" name="file_template" class="form-control-file <?= form_error('file_template') ? 'is-invalid' : '' ?>" accept="image/*" id="file-Template" required>
+          <input type="file" name="file_template" class="form-control-file <?= form_error('file_template') ? 'is-invalid' : '' ?>" accept=".jpg" id="file-Template" required>
           <div id='file_template' class='invalid-feedback'>
             <?= form_error('file_template') ?>
           </div>

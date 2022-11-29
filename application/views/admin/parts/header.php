@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="<?= base_url('assets') ?>/vendor/toastr/toastr.min.css">
     <link rel="stylesheet" href="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= base_url('assets') ?>/vendor/magnific-popup/magnific-popup.css">
+    <link rel="shortcut icon" href="<?= base_url('assets') ?>/img/logo_bkipm2.png">
 
     <!-- Perpage CSS -->
     <?php if (isset($style['css'])) : ?>
