@@ -4,8 +4,8 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-body text-center">
+            <div class="card shadow h-100">
+                <div class="card-body d-flex align-items-center justify-content-center">
                     <a href="<?= base_url() . 'assets/img/' . $pengajuan->avatar; ?>" class="imgPopup"><img src="<?= base_url() . 'assets/img/' . $pengajuan->avatar; ?>" class="rounded-circle" width="200" height="200" alt="" style="object-fit: cover;"></a>
                 </div>
                 <hr>

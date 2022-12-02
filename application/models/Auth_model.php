@@ -8,8 +8,8 @@ class Auth_model extends CI_Model
 		$credential = $this->input->post('credential');
 		$password = $this->input->post('password');
 
-		$this->db->where('users.phone', $credential)->or_where('users.email', $credential);
 		$this->db->where('is_active', 1);
+		$this->db->where('users.phone', $credential)->or_where('users.email', $credential);
 		$user = $this->db->get('users')->row();
 
 		if (!$user) return FALSE;

@@ -81,6 +81,24 @@ class Sertifikat extends CI_Controller
     }
   }
 
+  public function detail($id)
+  {
+
+    $this->db->join('penilaian', 'penilaian.kd_penilaian=sertifikat.kd_penilaian');
+    $sertifikat = $this->db->get_where('sertifikat', ['sertifikat.id' => $id])->row();
+    $this->db->join('suppliers', 'suppliers.kd_supplier=pengajuan.kd_supplier');
+    $pengajuan = $this->db->get_where('pengajuan', ['kd_pengajuan' => $sertifikat->kd_pengajuan])->row();
+    $this->db->join('penanganan', 'penanganan.kd_penanganan=penilaian_penanganan.kd_penanganan');
+    $tahapan_penanganan = $this->db->get_where('penilaian_penanganan', ['kd_penilaian' => $sertifikat->kd_penilaian])->result_array();
+
+    $data['pengajuan'] = $pengajuan;
+    $data['sertifikat'] = $sertifikat;
+    $data['tahapan_penanganan'] = $tahapan_penanganan;
+
+    $data['title'] = 'Detail Sertifikat';
+    $this->loadView('detail', $data);
+  }
+
   public function hapus($id)
   {
     if ($this->sertifikat_model->hapus($id)) {

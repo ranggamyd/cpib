@@ -148,8 +148,8 @@
         </div>
       </div>
       <div class="card-footer text-right">
-        <button type="reset" class="btn btn-danger">Reset</button>
-        <button type="submit" class="btn btn-success">Generate</button>
+        <button type="reset" class="btn btn-danger"><i class="fas fa-sync mr-2"></i>Reset</button>
+        <button type="submit" class="btn btn-success"><i class="far fa-check-circle mr-2"></i>Generate</button>
       </div>
   </div>
   </form>
