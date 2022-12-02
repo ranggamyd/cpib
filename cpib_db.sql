@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Des 2022 pada 04.53
+-- Waktu pembuatan: 02 Des 2022 pada 07.24
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -446,41 +446,54 @@ CREATE TABLE `sertifikat_template` (
   `kd_sertifikat` varchar(20) NOT NULL,
   `nama_sertifikat` varchar(50) NOT NULL,
   `file_template` text NOT NULL,
+  `preview_template` text DEFAULT NULL,
+  `no_surat` text DEFAULT NULL,
   `s_no_surat` int(11) DEFAULT NULL,
   `x_no_surat` int(11) DEFAULT NULL,
   `y_no_surat` int(11) DEFAULT NULL,
+  `supplier` text DEFAULT NULL,
   `s_supplier` int(11) DEFAULT NULL,
   `x_supplier` int(11) DEFAULT NULL,
   `y_supplier` int(11) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
   `w_alamat` int(11) DEFAULT NULL,
   `s_alamat` int(11) DEFAULT NULL,
   `x_alamat` int(11) DEFAULT NULL,
   `y_alamat` int(11) DEFAULT NULL,
+  `jenis_produk` text DEFAULT NULL,
   `s_jenis_produk` int(11) DEFAULT NULL,
   `x_jenis_produk` int(11) DEFAULT NULL,
   `y_jenis_produk` int(11) DEFAULT NULL,
+  `penanganan` text DEFAULT NULL,
   `w_penanganan` int(11) DEFAULT NULL,
   `s_penanganan` int(11) DEFAULT NULL,
   `x_penanganan` int(11) DEFAULT NULL,
   `y_penanganan` int(11) DEFAULT NULL,
+  `klasifikasi` text DEFAULT NULL,
   `s_klasifikasi` int(11) DEFAULT NULL,
   `x_klasifikasi` int(11) DEFAULT NULL,
   `y_klasifikasi` int(11) DEFAULT NULL,
+  `tgl_inspeksi` text DEFAULT NULL,
   `s_tgl_inspeksi` int(11) DEFAULT NULL,
   `x_tgl_inspeksi` int(11) DEFAULT NULL,
   `y_tgl_inspeksi` int(11) DEFAULT NULL,
+  `berlaku_sampai` text DEFAULT NULL,
   `s_berlaku_sampai` int(11) DEFAULT NULL,
   `x_berlaku_sampai` int(11) DEFAULT NULL,
   `y_berlaku_sampai` int(11) DEFAULT NULL,
+  `dikeluarkan_di` text DEFAULT NULL,
   `s_dikeluarkan_di` int(11) DEFAULT NULL,
   `x_dikeluarkan_di` int(11) DEFAULT NULL,
   `y_dikeluarkan_di` int(11) DEFAULT NULL,
+  `tgl` text DEFAULT NULL,
   `s_tgl` int(11) DEFAULT NULL,
   `x_tgl` int(11) DEFAULT NULL,
   `y_tgl` int(11) DEFAULT NULL,
+  `kepala_upt` text DEFAULT NULL,
   `s_kepala_upt` int(11) DEFAULT NULL,
   `x_kepala_upt` int(11) DEFAULT NULL,
   `y_kepala_upt` int(11) DEFAULT NULL,
+  `head_of` text DEFAULT NULL,
   `s_head_of` int(11) DEFAULT NULL,
   `x_head_of` int(11) DEFAULT NULL,
   `y_head_of` int(11) DEFAULT NULL
@@ -490,9 +503,10 @@ CREATE TABLE `sertifikat_template` (
 -- Dumping data untuk tabel `sertifikat_template`
 --
 
-INSERT INTO `sertifikat_template` (`id`, `kd_sertifikat`, `nama_sertifikat`, `file_template`, `s_no_surat`, `x_no_surat`, `y_no_surat`, `s_supplier`, `x_supplier`, `y_supplier`, `w_alamat`, `s_alamat`, `x_alamat`, `y_alamat`, `s_jenis_produk`, `x_jenis_produk`, `y_jenis_produk`, `w_penanganan`, `s_penanganan`, `x_penanganan`, `y_penanganan`, `s_klasifikasi`, `x_klasifikasi`, `y_klasifikasi`, `s_tgl_inspeksi`, `x_tgl_inspeksi`, `y_tgl_inspeksi`, `s_berlaku_sampai`, `x_berlaku_sampai`, `y_berlaku_sampai`, `s_dikeluarkan_di`, `x_dikeluarkan_di`, `y_dikeluarkan_di`, `s_tgl`, `x_tgl`, `y_tgl`, `s_kepala_upt`, `x_kepala_upt`, `y_kepala_upt`, `s_head_of`, `x_head_of`, `y_head_of`) VALUES
-(1, 'CPIB-001', 'CPIB 1', 'template.jpg', 14, 600, 475, 14, 600, 743, 60, 14, 600, 840, 14, 600, 937, 75, 14, 600, 1033, 14, 600, 1128, 14, 600, 1224, 14, 420, 1612, 14, 910, 1612, 14, 910, 1674, 16, 890, 1823, 14, 1145, 1854),
-(2, 'CPIB-002', 'CPIB 2', 'template1.jpg', 18, 580, 475, 18, 560, 743, 60, 18, 560, 840, 18, 560, 937, 60, 18, 560, 1033, 18, 560, 1128, 18, 560, 1224, 18, 389, 1580, 18, 910, 1580, 18, 910, 1674, 18, 890, 1823, 18, 1145, 1854);
+INSERT INTO `sertifikat_template` (`id`, `kd_sertifikat`, `nama_sertifikat`, `file_template`, `preview_template`, `no_surat`, `s_no_surat`, `x_no_surat`, `y_no_surat`, `supplier`, `s_supplier`, `x_supplier`, `y_supplier`, `alamat`, `w_alamat`, `s_alamat`, `x_alamat`, `y_alamat`, `jenis_produk`, `s_jenis_produk`, `x_jenis_produk`, `y_jenis_produk`, `penanganan`, `w_penanganan`, `s_penanganan`, `x_penanganan`, `y_penanganan`, `klasifikasi`, `s_klasifikasi`, `x_klasifikasi`, `y_klasifikasi`, `tgl_inspeksi`, `s_tgl_inspeksi`, `x_tgl_inspeksi`, `y_tgl_inspeksi`, `berlaku_sampai`, `s_berlaku_sampai`, `x_berlaku_sampai`, `y_berlaku_sampai`, `dikeluarkan_di`, `s_dikeluarkan_di`, `x_dikeluarkan_di`, `y_dikeluarkan_di`, `tgl`, `s_tgl`, `x_tgl`, `y_tgl`, `kepala_upt`, `s_kepala_upt`, `x_kepala_upt`, `y_kepala_upt`, `head_of`, `s_head_of`, `x_head_of`, `y_head_of`) VALUES
+(1, 'CPIB-001', 'CPIB 1', 'template.jpg', NULL, '1001/cpib 32/XI/2022', 14, 600, 475, 'Tb. Sinmatupang', 14, 600, 743, 'kjahds', 60, 14, 600, 840, 'Udang Asin', 14, 600, 937, 'alksdl', 75, 14, 600, 1033, 'aksjdh', 14, 600, 1128, '1 september 2022', 14, 600, 1224, '1 september 2023', 14, 420, 1612, 'cirebon', 14, 910, 1612, '1 september 2022', 14, 910, 1674, 'Rudy barmara', 16, 890, 1823, 'kuningan', 14, 1145, 1854),
+(2, 'CPIB-002', 'CPIB 2', 'template1.jpg', NULL, '', 18, 580, 475, NULL, 18, 560, 743, NULL, 60, 18, 560, 840, NULL, 18, 560, 937, NULL, 60, 18, 560, 1033, NULL, 18, 560, 1128, NULL, 18, 560, 1224, NULL, 18, 389, 1580, NULL, 18, 910, 1580, NULL, 18, 910, 1674, NULL, 18, 890, 1823, NULL, 18, 1145, 1854),
+(9, 'CPIB-004', 'CPIB-004', 'template111.jpg', 'preview-template111.jpg', '1001/cpib 32/XI/2022', 20, 580, 475, 'MP. AMBARITA', 20, 560, 745, 'JL. JENDRAL SUDIRMAN NO, 54 BANDUNG JAKARTA YOGYAKARTA SURABAYA KUNINGAN MAJALENGKA CIREBON', 45, 20, 560, 844, 'IKAN ASIN', 20, 560, 940, 'PENGECEKAN - SORTASI - PENYIMPANAN - PEMINJAMAN - JUDI ONLINE - BANGKAR - ANJAY - COBAIN', 45, 20, 560, 1035, 'SANGAT BAIK', 20, 560, 1130, '02 DESEMBER 2022', 20, 560, 1225, '02 DESEMBER 2026', 18, 390, 1580, 'CIREBON', 18, 900, 1580, '02 DESEMBER 2022', 18, 900, 1675, 'R. RUDI BARMARA', 20, 900, 1820, 'CIREBON', 18, 1150, 1855);
 
 -- --------------------------------------------------------
 
@@ -664,12 +678,6 @@ ALTER TABLE `sertifikat`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `sertifikat_template`
---
-ALTER TABLE `sertifikat_template`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indeks untuk tabel `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -769,12 +777,6 @@ ALTER TABLE `perbaikan_detail`
 --
 ALTER TABLE `sertifikat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT untuk tabel `sertifikat_template`
---
-ALTER TABLE `sertifikat_template`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `suppliers`
