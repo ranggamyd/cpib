@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Des 2022 pada 07.24
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 7.4.29
+-- Waktu pembuatan: 02 Des 2022 pada 07.28
+-- Versi server: 10.4.25-MariaDB
+-- Versi PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,7 +44,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `kd_admin`, `no_reg`, `nama_admin`, `no_telp`, `email`, `jenis_kelamin`, `alamat`, `avatar`) VALUES
-(1, 'ADM-001', 'REG-0021', 'Rangga', '123', '123@123.com', 'Laki-laki', 'rangga', ''),
+(1, 'ADM-001', 'REG-0021', 'Rangga', '123', '123@123.com', 'Laki-laki', 'rangga', '5f8ac77c52c298a335791ed2ca59cf751.jpg'),
 (7, 'ADM-002', 'REG-0023', 'Jeri', '1234', '', 'Laki-laki', '', ''),
 (8, 'ADM-003', '', 'Wiky', '12345', '', 'Laki-laki', '', '');
 
@@ -121,8 +121,7 @@ INSERT INTO `jenis_produk` (`id`, `kd_pengajuan`, `kd_supplier`, `jenis_produk`)
 (2, 'REG-0002', 'SPL-002', 'jp2'),
 (3, 'REG-0003', 'SPL-002', 'jp2'),
 (4, 'REG-0004', 'SPL-001', 'Udang Segar'),
-(5, 'REG-0005', 'SPL-004', 'Ikan Tuna'),
-(6, 'REG-0006', 'SPL-004', 'kerang dara');
+(5, 'REG-0005', 'SPL-004', 'Ikan Tuna');
 
 -- --------------------------------------------------------
 
@@ -201,18 +200,6 @@ CREATE TABLE `pengajuan` (
   `keterangan` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `pengajuan`
---
-
-INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `tgl_pengajuan`, `status`, `ktp`, `npwp`, `nib`, `siup`, `akta_usaha`, `imb`, `layout`, `panduan_mutu`, `keterangan`) VALUES
-(1, 'REG-0001', 'SPL-001', '2022-11-26', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus.pdf', '0_Kontrak_Kuliah_dan_Silabus1.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus2.pdf', '0_Kontrak_Kuliah_dan_Silabus3.pdf', NULL),
-(2, 'REG-0002', 'SPL-002', '2022-11-28', 'Tidak Lolos', '0_Kontrak_Kuliah_dan_Silabus4.pdf', '0_Kontrak_Kuliah_dan_Silabus5.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus6.pdf', '0_Kontrak_Kuliah_dan_Silabus7.pdf', 'dokumen tidak lengkap'),
-(3, 'REG-0003', 'SPL-002', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus8.pdf', '0_Kontrak_Kuliah_dan_Silabus9.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus10.pdf', '0_Kontrak_Kuliah_dan_Silabus11.pdf', NULL),
-(4, 'REG-0004', 'SPL-001', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus18.pdf', '0_Kontrak_Kuliah_dan_Silabus21.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus31.pdf', '0_Kontrak_Kuliah_dan_Silabus41.pdf', NULL),
-(5, 'REG-0005', 'SPL-004', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus22.pdf', '0_Kontrak_Kuliah_dan_Silabus19.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus42.pdf', '0_Kontrak_Kuliah_dan_Silabus71.pdf', NULL),
-(6, 'REG-0006', 'SPL-004', '2022-12-01', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus110.pdf', '0_Kontrak_Kuliah_dan_Silabus23.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus32.pdf', '0_Kontrak_Kuliah_dan_Silabus43.pdf', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -237,17 +224,6 @@ CREATE TABLE `penilaian` (
   `status` enum('Perlu Revisi','Menunggu validasi perbaikan','Menunggu Sertifikat','Lolos','Tidak Lolos') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `penilaian`
---
-
-INSERT INTO `penilaian` (`id`, `kd_penilaian`, `kd_pengajuan`, `tgl_inspeksi`, `kd_supplier`, `jenis_supplier`, `kd_tim_inspeksi`, `catatan`, `jml_minor`, `jml_mayor`, `jml_serius`, `jml_kritis`, `klasifikasi`, `is_need_revisi`, `status`) VALUES
-(1, 'PKS-0001', 'REG-0001', '2022-11-26', 'SPL-001', 'Baru', 'INS-001', 'sadsadasd\r\nsadas\r\nsadasd\r\naaa\r\n\r\n\r\nasdas', 0, 5, 0, 0, 'Sangat Baik', 0, 'Lolos'),
-(2, 'PKS-0002', 'REG-0003', '2022-11-28', 'SPL-002', 'Lama', 'INS-002', '1. c1\r\n2. c2\r\n3. c3', 0, 0, 5, 1, 'Kurang', 1, 'Lolos'),
-(3, 'PKS-0003', 'REG-0004', '2022-11-28', 'SPL-001', 'Lama', 'INS-003', '', 0, 5, 0, 0, 'Sangat Baik', 0, 'Lolos'),
-(4, 'PKS-0004', 'REG-0005', '2022-11-28', 'SPL-004', 'Baru', 'INS-004', '', 0, 4, 0, 0, 'Sangat Baik', 0, 'Lolos'),
-(5, 'PKS-0005', 'REG-0006', '2022-12-01', 'SPL-004', 'Lama', 'INS-005', '', 0, 0, 5, 1, 'Baik', 1, 'Lolos');
-
 -- --------------------------------------------------------
 
 --
@@ -264,37 +240,6 @@ CREATE TABLE `penilaian_detail` (
   `is_kritis` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `penilaian_detail`
---
-
-INSERT INTO `penilaian_detail` (`id`, `kd_penilaian`, `id_daftar_isian`, `is_minor`, `is_mayor`, `is_serius`, `is_kritis`) VALUES
-(1, 'PKS-0001', 1, 0, 1, 0, 0),
-(2, 'PKS-0001', 2, 0, 1, 0, 0),
-(3, 'PKS-0001', 3, 0, 1, 0, 0),
-(4, 'PKS-0001', 5, 0, 1, 0, 0),
-(5, 'PKS-0001', 7, 0, 1, 0, 0),
-(6, 'PKS-0002', 1, 0, 0, 0, 1),
-(7, 'PKS-0002', 4, 0, 0, 1, 0),
-(8, 'PKS-0002', 5, 0, 0, 1, 0),
-(9, 'PKS-0002', 6, 0, 0, 1, 0),
-(10, 'PKS-0002', 7, 0, 0, 1, 0),
-(11, 'PKS-0003', 1, 0, 1, 0, 0),
-(12, 'PKS-0003', 7, 0, 1, 0, 0),
-(13, 'PKS-0003', 16, 0, 1, 0, 0),
-(14, 'PKS-0003', 24, 0, 1, 0, 0),
-(15, 'PKS-0003', 28, 0, 1, 0, 0),
-(16, 'PKS-0004', 1, 0, 1, 0, 0),
-(17, 'PKS-0004', 5, 0, 1, 0, 0),
-(18, 'PKS-0004', 13, 0, 1, 0, 0),
-(19, 'PKS-0004', 18, 0, 1, 0, 0),
-(20, 'PKS-0005', 1, 0, 0, 1, 0),
-(21, 'PKS-0005', 2, 0, 0, 0, 1),
-(22, 'PKS-0005', 4, 0, 0, 1, 0),
-(23, 'PKS-0005', 5, 0, 0, 1, 0),
-(24, 'PKS-0005', 6, 0, 0, 1, 0),
-(25, 'PKS-0005', 7, 0, 0, 1, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -304,23 +249,8 @@ INSERT INTO `penilaian_detail` (`id`, `kd_penilaian`, `id_daftar_isian`, `is_min
 CREATE TABLE `penilaian_notes` (
   `id` int(11) NOT NULL,
   `kd_penilaian` varchar(20) NOT NULL,
-  `notes` text NOT NULL,
-  `is_submit` tinyint(1) NOT NULL DEFAULT 0
+  `notes` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `penilaian_notes`
---
-
-INSERT INTO `penilaian_notes` (`id`, `kd_penilaian`, `notes`, `is_submit`) VALUES
-(1, 'PKS-0002', 'r1', 1),
-(2, 'PKS-0002', 'r2', 1),
-(3, 'PKS-0002', 'r3', 1),
-(4, 'PKS-0005', 'upload ulang KTP', 1),
-(5, 'PKS-0005', 'Upload NPWP', 1),
-(6, 'PKS-0005', 'Upload KTP', 1),
-(7, 'PKS-0005', 'Upload Layout', 1),
-(8, 'PKS-0005', 'Bukti', 1);
 
 -- --------------------------------------------------------
 
@@ -333,27 +263,6 @@ CREATE TABLE `penilaian_penanganan` (
   `kd_penilaian` varchar(20) NOT NULL,
   `kd_penanganan` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `penilaian_penanganan`
---
-
-INSERT INTO `penilaian_penanganan` (`id`, `kd_penilaian`, `kd_penanganan`) VALUES
-(1, 'PKS-0001', 'PNG-001'),
-(2, 'PKS-0001', 'PNG-002'),
-(3, 'PKS-0001', 'PNG-003'),
-(4, 'PKS-0002', 'PNG-001'),
-(5, 'PKS-0002', 'PNG-002'),
-(6, 'PKS-0002', 'PNG-003'),
-(7, 'PKS-0003', 'PNG-001'),
-(8, 'PKS-0003', 'PNG-002'),
-(9, 'PKS-0003', 'PNG-003'),
-(10, 'PKS-0004', 'PNG-001'),
-(11, 'PKS-0004', 'PNG-002'),
-(12, 'PKS-0004', 'PNG-003'),
-(13, 'PKS-0005', 'PNG-001'),
-(14, 'PKS-0005', 'PNG-002'),
-(15, 'PKS-0005', 'PNG-003');
 
 -- --------------------------------------------------------
 
@@ -370,15 +279,6 @@ CREATE TABLE `perbaikan` (
   `status` enum('Menunggu Validasi','Perlu revisi kembali','Lolos','Tidak Lolos') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `perbaikan`
---
-
-INSERT INTO `perbaikan` (`id`, `kd_perbaikan`, `kd_penilaian`, `kd_supplier`, `tgl_perbaikan`, `status`) VALUES
-(1, 'PAJ-0001', 'PKS-0002', 'SPL-002', '2022-11-28', 'Lolos'),
-(2, 'PAJ-0002', 'PKS-0005', 'SPL-004', '2022-12-01', 'Perlu revisi kembali'),
-(3, 'PAJ-0003', 'PKS-0005', 'SPL-004', '2022-12-01', 'Lolos');
-
 -- --------------------------------------------------------
 
 --
@@ -391,20 +291,6 @@ CREATE TABLE `perbaikan_detail` (
   `id_notes` int(11) NOT NULL,
   `file_perbaikan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `perbaikan_detail`
---
-
-INSERT INTO `perbaikan_detail` (`id`, `kd_perbaikan`, `id_notes`, `file_perbaikan`) VALUES
-(1, 'PAJ-0001', 1, '0_Kontrak_Kuliah_dan_Silabus15.pdf'),
-(2, 'PAJ-0001', 2, '0_Kontrak_Kuliah_dan_Silabus16.pdf'),
-(3, 'PAJ-0001', 3, '0_Kontrak_Kuliah_dan_Silabus17.pdf'),
-(4, 'PAJ-0002', 4, '0_Kontrak_Kuliah_dan_Silabus24.pdf'),
-(5, 'PAJ-0003', 5, '0_Kontrak_Kuliah_dan_Silabus81.pdf'),
-(6, 'PAJ-0003', 6, '0_Kontrak_Kuliah_dan_Silabus82.pdf'),
-(7, 'PAJ-0003', 7, '0_Kontrak_Kuliah_dan_Silabus83.pdf'),
-(8, 'PAJ-0003', 8, '0_Kontrak_Kuliah_dan_Silabus84.pdf');
 
 -- --------------------------------------------------------
 
@@ -423,17 +309,6 @@ CREATE TABLE `sertifikat` (
   `kepala_upt` varchar(50) NOT NULL,
   `file_sertifikat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `sertifikat`
---
-
-INSERT INTO `sertifikat` (`id`, `kd_supplier`, `kd_penilaian`, `kd_sertifikat`, `no_surat`, `tgl`, `berlaku_sampai`, `kepala_upt`, `file_sertifikat`) VALUES
-(1, 'SPL-001', 'PKS-0001', 'CPIB-001', 'asdasd', '2022-11-26', '2026-11-26', 'R. RUDI BARMARA', 'CPIB-001-SPL-001-20221126224816'),
-(2, 'SPL-002', 'PKS-0002', 'CPIB-001', '1001/cpib 32/XI/2022', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-002-20221128154919'),
-(3, 'SPL-001', 'PKS-0003', 'CPIB-001', '38291293928', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-001-20221128160910'),
-(8, 'SPL-004', 'PKS-0004', 'CPIB-001', '1009/cpib 32/XI/2022', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-004-20221128174356'),
-(9, 'SPL-004', 'PKS-0005', 'CPIB-002', '123', '2022-12-01', '2026-12-01', 'R. RUDI BARMARA', 'CPIB-002-SPL-004-20221201193625');
 
 -- --------------------------------------------------------
 
@@ -506,7 +381,7 @@ CREATE TABLE `sertifikat_template` (
 INSERT INTO `sertifikat_template` (`id`, `kd_sertifikat`, `nama_sertifikat`, `file_template`, `preview_template`, `no_surat`, `s_no_surat`, `x_no_surat`, `y_no_surat`, `supplier`, `s_supplier`, `x_supplier`, `y_supplier`, `alamat`, `w_alamat`, `s_alamat`, `x_alamat`, `y_alamat`, `jenis_produk`, `s_jenis_produk`, `x_jenis_produk`, `y_jenis_produk`, `penanganan`, `w_penanganan`, `s_penanganan`, `x_penanganan`, `y_penanganan`, `klasifikasi`, `s_klasifikasi`, `x_klasifikasi`, `y_klasifikasi`, `tgl_inspeksi`, `s_tgl_inspeksi`, `x_tgl_inspeksi`, `y_tgl_inspeksi`, `berlaku_sampai`, `s_berlaku_sampai`, `x_berlaku_sampai`, `y_berlaku_sampai`, `dikeluarkan_di`, `s_dikeluarkan_di`, `x_dikeluarkan_di`, `y_dikeluarkan_di`, `tgl`, `s_tgl`, `x_tgl`, `y_tgl`, `kepala_upt`, `s_kepala_upt`, `x_kepala_upt`, `y_kepala_upt`, `head_of`, `s_head_of`, `x_head_of`, `y_head_of`) VALUES
 (1, 'CPIB-001', 'CPIB 1', 'template.jpg', NULL, '1001/cpib 32/XI/2022', 14, 600, 475, 'Tb. Sinmatupang', 14, 600, 743, 'kjahds', 60, 14, 600, 840, 'Udang Asin', 14, 600, 937, 'alksdl', 75, 14, 600, 1033, 'aksjdh', 14, 600, 1128, '1 september 2022', 14, 600, 1224, '1 september 2023', 14, 420, 1612, 'cirebon', 14, 910, 1612, '1 september 2022', 14, 910, 1674, 'Rudy barmara', 16, 890, 1823, 'kuningan', 14, 1145, 1854),
 (2, 'CPIB-002', 'CPIB 2', 'template1.jpg', NULL, '', 18, 580, 475, NULL, 18, 560, 743, NULL, 60, 18, 560, 840, NULL, 18, 560, 937, NULL, 60, 18, 560, 1033, NULL, 18, 560, 1128, NULL, 18, 560, 1224, NULL, 18, 389, 1580, NULL, 18, 910, 1580, NULL, 18, 910, 1674, NULL, 18, 890, 1823, NULL, 18, 1145, 1854),
-(9, 'CPIB-004', 'CPIB-004', 'template111.jpg', 'preview-template111.jpg', '1001/cpib 32/XI/2022', 20, 580, 475, 'MP. AMBARITA', 20, 560, 745, 'JL. JENDRAL SUDIRMAN NO, 54 BANDUNG JAKARTA YOGYAKARTA SURABAYA KUNINGAN MAJALENGKA CIREBON', 45, 20, 560, 844, 'IKAN ASIN', 20, 560, 940, 'PENGECEKAN - SORTASI - PENYIMPANAN - PEMINJAMAN - JUDI ONLINE - BANGKAR - ANJAY - COBAIN', 45, 20, 560, 1035, 'SANGAT BAIK', 20, 560, 1130, '02 DESEMBER 2022', 20, 560, 1225, '02 DESEMBER 2026', 18, 390, 1580, 'CIREBON', 18, 900, 1580, '02 DESEMBER 2022', 18, 900, 1675, 'R. RUDI BARMARA', 20, 900, 1820, 'CIREBON', 18, 1150, 1855);
+(9, 'CPIB-004', 'CPIB-004', 'template111.jpg', 'preview-template111.jpg', '1001/cpib 32/XI/2022', 20, 580, 475, 'MP. AMBARITA', 20, 560, 745, 'JL. JENDRAL SUDIRMAN NO, 54 BANDUNG JAKARTA YOGYAKARTA SURABAYA KUNINGAN MAJALENGKA CIREBON', 45, 20, 560, 844, 'IKAN ASIN', 20, 560, 940, 'PENGECEKAN - SORTASI - PENYIMPANAN - PEMINJAMAN - JUDI ONLINE - BANGKAR - ANJAY - COBAIN', 45, 20, 560, 1035, 'SANGAT BAIK', 20, 560, 1130, '02 DESEMBER 2022', 20, 560, 1225, '02 DESEMBER 2026', 18, 390, 1580, 'CIREBON', 18, 900, 1580, '02 DESEMBER 2022', 18, 900, 1675, 'R. RUDI BARBARIAN', 20, 900, 1820, 'CIREBON', 18, 1150, 1855);
 
 -- --------------------------------------------------------
 
@@ -551,17 +426,6 @@ CREATE TABLE `tim_inspeksi` (
   `anggota1` varchar(20) NOT NULL,
   `anggota2` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tim_inspeksi`
---
-
-INSERT INTO `tim_inspeksi` (`id`, `kd_tim_inspeksi`, `kd_pengajuan`, `pimpinan_supplier`, `ketua_inspeksi`, `anggota1`, `anggota2`) VALUES
-(1, 'INS-001', 'REG-0001', 'H. Ta\'lim', 'ADM-001', 'ADM-002', NULL),
-(2, 'INS-002', 'REG-0003', 'Abdul Fattah', 'ADM-001', 'ADM-002', 'ADM-003'),
-(3, 'INS-003', 'REG-0004', 'H. Ta\'lim', 'ADM-001', 'ADM-002', 'ADM-003'),
-(4, 'INS-004', 'REG-0005', 'H. Apud', 'ADM-001', 'ADM-002', 'ADM-003'),
-(5, 'INS-005', 'REG-0006', 'H. Apud', 'ADM-001', 'ADM-002', 'ADM-003');
 
 -- --------------------------------------------------------
 
@@ -678,6 +542,12 @@ ALTER TABLE `sertifikat`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `sertifikat_template`
+--
+ALTER TABLE `sertifikat_template`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -716,7 +586,7 @@ ALTER TABLE `daftar_isian`
 -- AUTO_INCREMENT untuk tabel `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_daftar_isian`
@@ -734,48 +604,54 @@ ALTER TABLE `penanganan`
 -- AUTO_INCREMENT untuk tabel `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_detail`
 --
 ALTER TABLE `penilaian_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_notes`
 --
 ALTER TABLE `penilaian_notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_penanganan`
 --
 ALTER TABLE `penilaian_penanganan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `perbaikan`
 --
 ALTER TABLE `perbaikan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `perbaikan_detail`
 --
 ALTER TABLE `perbaikan_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `sertifikat`
 --
 ALTER TABLE `sertifikat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `sertifikat_template`
+--
+ALTER TABLE `sertifikat_template`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
@@ -788,7 +664,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT untuk tabel `tim_inspeksi`
 --
 ALTER TABLE `tim_inspeksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
