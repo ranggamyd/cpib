@@ -5,6 +5,8 @@ class Sertifikat_model extends CI_Model
 {
     public function semuaSertifikat()
     {
+        $this->db->order_by('tgl', 'desc');
+        $this->db->order_by('id', 'desc');
         return $this->db->get('sertifikat')->result_array();
     }
 

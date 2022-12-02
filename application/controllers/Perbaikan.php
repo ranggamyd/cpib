@@ -67,13 +67,34 @@ class Perbaikan extends CI_Controller
         $this->loadView('detail', $data);
     }
 
-    public function validasi($kd_perbaikan)
+    public function validasi()
     {
-        if ($this->perbaikan_model->validasi($kd_perbaikan)) {
-            $this->session->set_flashdata('sukses', 'Berhasil Memvalidasi Perbaikan !');
-            redirect('penilaian');
+        $this->form_validation->set_rules('kd_perbaikan', 'Kode Perbaikan', 'required');
+        $this->form_validation->set_rules('kd_penilaian', 'Kode Penilaian', 'required');
+        $this->form_validation->set_rules('klasifikasi', 'Klasifikasi', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('gagal', "Mohon isi data dengan lengkap !");
+            $this->session->set_flashdata('hasModalID', 'terimaPerbaikan');
+            $this->detail($this->input->post('kd_perbaikan'));
         } else {
-            $this->session->set_flashdata('gagal', 'Gagal Memvalidasi Perbaikan !');
+            if ($this->perbaikan_model->validasi()) {
+                $this->session->set_flashdata('sukses', 'Berhasil Terima Perbaikan !');
+                redirect('perbaikan');
+            } else {
+                $this->session->set_flashdata('gagal', 'Gagal Terima Perbaikan !');
+                $this->detail($this->input->post('kd_perbaikan'));
+            }
+        }
+    }
+
+    public function revisiKembali()
+    {
+        if ($this->perbaikan_model->revisiKembali()) {
+            $this->session->set_flashdata('sukses', 'Berhasil Menambah Catatan Perbaikan !');
+            redirect('perbaikan');
+        } else {
+            $this->session->set_flashdata('gagal', 'Gagal Menambah Catatan Perbaikan !');
             $this->index();
         }
     }

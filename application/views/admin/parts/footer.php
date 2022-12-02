@@ -78,7 +78,7 @@
                                         <?php endforeach ?>
                                     </select>
                                 </td>
-                                <td><button type="button" name="remove" id="${no}" class="btn btn-danger btn_remove-proses">X</button></td>
+                                <td><button type="button" name="remove" id="${no}" class="btn btn-danger btn_remove-proses"><i class="fas fa-times"></i></button></td>
                             </tr>`
 
                         $('#dynamic_field-proses').append(input);
@@ -103,7 +103,7 @@
                         const input = `
                             <tr id="rowRevisi-${i}" class="dynamic-added">
                                 <td><input type="text" name="notes[][revisi]" placeholder="Tuliskan sesuatu .." class="form-control" required></td>
-                                <td><button type="button" name="remove" id="${i}" class="btn btn-danger btn_remove-revisi">X</button></td>
+                                <td><button type="button" name="remove" id="${i}" class="btn btn-danger btn_remove-revisi"><i class="fas fa-times"></i></button></td>
                             </tr>`;
 
                         $('#dynamic_field-revisi').append(input);

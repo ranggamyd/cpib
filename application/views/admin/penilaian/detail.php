@@ -334,11 +334,11 @@
               </div>
             <?php endif; ?>
           <?php elseif ($penilaian->status == 'Perlu Revisi') : ?>
-            <?php if (!$this->db->get_where('perbaikan', ['kd_penilaian' => $penilaian->kd_penilaian])->row()) : ?>
-              <div class="col-md-3 text-right d-flex align-items-center justify-content-around border border-dark border-top-0 border-right-0 border-bottom-0">
-                <a href="<?= base_url('penilaian/perbaiki/') . $penilaian->kd_penilaian ?>" class="btn btn-primary">Perbaiki Ajuan <i class="fas fa-arrow-right ml-2"></i></a>
-              </div>
-            <?php endif; ?>
+            <div class="col-md-3 text-right d-flex align-items-center justify-content-around border border-dark border-top-0 border-right-0 border-bottom-0">
+              <a href="<?= base_url('penilaian/perbaiki/') . $penilaian->kd_penilaian ?>" class="btn btn-primary">Perbaiki Ajuan <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+            <!-- <?php if (!$this->db->get_where('perbaikan', ['kd_penilaian' => $penilaian->kd_penilaian])->row()) : ?> -->
+            <!-- <?php endif; ?> -->
           <?php endif; ?>
         </div>
       </div>

@@ -142,7 +142,7 @@ class Penilaian_model extends CI_Model
 
     $this->load->library('upload', $config);
 
-    $notes = $this->db->get_where('penilaian_notes', ['kd_penilaian' => $this->input->post('kd_penilaian')])->result_array();
+    $notes = $this->db->get_where('penilaian_notes', ['kd_penilaian' => $this->input->post('kd_penilaian'), 'is_submit' => 0])->result_array();
 
     foreach ($notes as $item) {
       if ($this->upload->do_upload($item['id'])) {
@@ -151,6 +151,8 @@ class Penilaian_model extends CI_Model
           'id_notes' => $item['id'],
           'file_perbaikan' => $this->upload->data('file_name'),
         ];
+
+        if (!$this->db->update('penilaian_notes', ['is_submit' => 1], ['kd_penilaian' => $this->input->post('kd_penilaian')])) return FALSE;
 
         if (!$this->db->insert('perbaikan_detail', $perbaikan_detail)) return FALSE;
       } else {

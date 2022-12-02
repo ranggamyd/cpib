@@ -40,7 +40,7 @@
                 <td class="text-center">
                   <?php if ($item['klasifikasi'] == 'Sangat Baik') : ?>
                     <span class="badge badge-primary"><?= $item['klasifikasi'] ?></span>
-                  <?php elseif ($item['klasifikasi'] == 'BAIK') : ?>
+                  <?php elseif ($item['klasifikasi'] == 'Baik') : ?>
                     <span class="badge badge-success"><?= $item['klasifikasi'] ?></span>
                   <?php elseif ($item['klasifikasi'] == 'Cukup') : ?>
                     <span class="badge badge-warning"><?= $item['klasifikasi'] ?></span>

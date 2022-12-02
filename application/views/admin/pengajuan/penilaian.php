@@ -228,7 +228,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dynamic_field-revisi">
+              <table class="table table-border" id="dynamic_field-revisi">
                 <tr>
                   <td><input type="text" name="notes[][revisi]" placeholder="Tuliskan Sesuatu .." class="form-control"=></td>
                   <td><button type="button" name="add" id="addRevisi" class="btn btn-success"><i class="fas fa-plus-circle mr-2"></i>Tambah Notes</button></td>
@@ -236,7 +236,7 @@
               </table>
               <small>Notes :
                 <i>Kosongkan field jika tidak ada yg harus supplier perbaiki!
-                  <b>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, libero.</b>
+                  <b>Satu baris catatan merepresentasikan file yang harus Supplier upload</b>
                 </i>
               </small>
             </div>

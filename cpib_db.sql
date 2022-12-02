@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Nov 2022 pada 07.34
+-- Waktu pembuatan: 02 Des 2022 pada 04.53
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -121,7 +121,8 @@ INSERT INTO `jenis_produk` (`id`, `kd_pengajuan`, `kd_supplier`, `jenis_produk`)
 (2, 'REG-0002', 'SPL-002', 'jp2'),
 (3, 'REG-0003', 'SPL-002', 'jp2'),
 (4, 'REG-0004', 'SPL-001', 'Udang Segar'),
-(5, 'REG-0005', 'SPL-004', 'Ikan Tuna');
+(5, 'REG-0005', 'SPL-004', 'Ikan Tuna'),
+(6, 'REG-0006', 'SPL-004', 'kerang dara');
 
 -- --------------------------------------------------------
 
@@ -209,7 +210,8 @@ INSERT INTO `pengajuan` (`id`, `kd_pengajuan`, `kd_supplier`, `tgl_pengajuan`, `
 (2, 'REG-0002', 'SPL-002', '2022-11-28', 'Tidak Lolos', '0_Kontrak_Kuliah_dan_Silabus4.pdf', '0_Kontrak_Kuliah_dan_Silabus5.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus6.pdf', '0_Kontrak_Kuliah_dan_Silabus7.pdf', 'dokumen tidak lengkap'),
 (3, 'REG-0003', 'SPL-002', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus8.pdf', '0_Kontrak_Kuliah_dan_Silabus9.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus10.pdf', '0_Kontrak_Kuliah_dan_Silabus11.pdf', NULL),
 (4, 'REG-0004', 'SPL-001', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus18.pdf', '0_Kontrak_Kuliah_dan_Silabus21.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus31.pdf', '0_Kontrak_Kuliah_dan_Silabus41.pdf', NULL),
-(5, 'REG-0005', 'SPL-004', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus22.pdf', '0_Kontrak_Kuliah_dan_Silabus19.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus42.pdf', '0_Kontrak_Kuliah_dan_Silabus71.pdf', NULL);
+(5, 'REG-0005', 'SPL-004', '2022-11-28', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus22.pdf', '0_Kontrak_Kuliah_dan_Silabus19.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus42.pdf', '0_Kontrak_Kuliah_dan_Silabus71.pdf', NULL),
+(6, 'REG-0006', 'SPL-004', '2022-12-01', 'Lolos', '0_Kontrak_Kuliah_dan_Silabus110.pdf', '0_Kontrak_Kuliah_dan_Silabus23.pdf', NULL, NULL, NULL, NULL, '0_Kontrak_Kuliah_dan_Silabus32.pdf', '0_Kontrak_Kuliah_dan_Silabus43.pdf', NULL);
 
 -- --------------------------------------------------------
 
@@ -243,7 +245,8 @@ INSERT INTO `penilaian` (`id`, `kd_penilaian`, `kd_pengajuan`, `tgl_inspeksi`, `
 (1, 'PKS-0001', 'REG-0001', '2022-11-26', 'SPL-001', 'Baru', 'INS-001', 'sadsadasd\r\nsadas\r\nsadasd\r\naaa\r\n\r\n\r\nasdas', 0, 5, 0, 0, 'Sangat Baik', 0, 'Lolos'),
 (2, 'PKS-0002', 'REG-0003', '2022-11-28', 'SPL-002', 'Lama', 'INS-002', '1. c1\r\n2. c2\r\n3. c3', 0, 0, 5, 1, 'Kurang', 1, 'Lolos'),
 (3, 'PKS-0003', 'REG-0004', '2022-11-28', 'SPL-001', 'Lama', 'INS-003', '', 0, 5, 0, 0, 'Sangat Baik', 0, 'Lolos'),
-(4, 'PKS-0004', 'REG-0005', '2022-11-28', 'SPL-004', 'Baru', 'INS-004', '', 0, 4, 0, 0, 'Sangat Baik', 0, 'Lolos');
+(4, 'PKS-0004', 'REG-0005', '2022-11-28', 'SPL-004', 'Baru', 'INS-004', '', 0, 4, 0, 0, 'Sangat Baik', 0, 'Lolos'),
+(5, 'PKS-0005', 'REG-0006', '2022-12-01', 'SPL-004', 'Lama', 'INS-005', '', 0, 0, 5, 1, 'Baik', 1, 'Lolos');
 
 -- --------------------------------------------------------
 
@@ -284,7 +287,13 @@ INSERT INTO `penilaian_detail` (`id`, `kd_penilaian`, `id_daftar_isian`, `is_min
 (16, 'PKS-0004', 1, 0, 1, 0, 0),
 (17, 'PKS-0004', 5, 0, 1, 0, 0),
 (18, 'PKS-0004', 13, 0, 1, 0, 0),
-(19, 'PKS-0004', 18, 0, 1, 0, 0);
+(19, 'PKS-0004', 18, 0, 1, 0, 0),
+(20, 'PKS-0005', 1, 0, 0, 1, 0),
+(21, 'PKS-0005', 2, 0, 0, 0, 1),
+(22, 'PKS-0005', 4, 0, 0, 1, 0),
+(23, 'PKS-0005', 5, 0, 0, 1, 0),
+(24, 'PKS-0005', 6, 0, 0, 1, 0),
+(25, 'PKS-0005', 7, 0, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -295,17 +304,23 @@ INSERT INTO `penilaian_detail` (`id`, `kd_penilaian`, `id_daftar_isian`, `is_min
 CREATE TABLE `penilaian_notes` (
   `id` int(11) NOT NULL,
   `kd_penilaian` varchar(20) NOT NULL,
-  `notes` text NOT NULL
+  `notes` text NOT NULL,
+  `is_submit` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `penilaian_notes`
 --
 
-INSERT INTO `penilaian_notes` (`id`, `kd_penilaian`, `notes`) VALUES
-(1, 'PKS-0002', 'r1'),
-(2, 'PKS-0002', 'r2'),
-(3, 'PKS-0002', 'r3');
+INSERT INTO `penilaian_notes` (`id`, `kd_penilaian`, `notes`, `is_submit`) VALUES
+(1, 'PKS-0002', 'r1', 1),
+(2, 'PKS-0002', 'r2', 1),
+(3, 'PKS-0002', 'r3', 1),
+(4, 'PKS-0005', 'upload ulang KTP', 1),
+(5, 'PKS-0005', 'Upload NPWP', 1),
+(6, 'PKS-0005', 'Upload KTP', 1),
+(7, 'PKS-0005', 'Upload Layout', 1),
+(8, 'PKS-0005', 'Bukti', 1);
 
 -- --------------------------------------------------------
 
@@ -335,7 +350,10 @@ INSERT INTO `penilaian_penanganan` (`id`, `kd_penilaian`, `kd_penanganan`) VALUE
 (9, 'PKS-0003', 'PNG-003'),
 (10, 'PKS-0004', 'PNG-001'),
 (11, 'PKS-0004', 'PNG-002'),
-(12, 'PKS-0004', 'PNG-003');
+(12, 'PKS-0004', 'PNG-003'),
+(13, 'PKS-0005', 'PNG-001'),
+(14, 'PKS-0005', 'PNG-002'),
+(15, 'PKS-0005', 'PNG-003');
 
 -- --------------------------------------------------------
 
@@ -357,7 +375,9 @@ CREATE TABLE `perbaikan` (
 --
 
 INSERT INTO `perbaikan` (`id`, `kd_perbaikan`, `kd_penilaian`, `kd_supplier`, `tgl_perbaikan`, `status`) VALUES
-(1, 'PAJ-0001', 'PKS-0002', 'SPL-002', '2022-11-28', 'Lolos');
+(1, 'PAJ-0001', 'PKS-0002', 'SPL-002', '2022-11-28', 'Lolos'),
+(2, 'PAJ-0002', 'PKS-0005', 'SPL-004', '2022-12-01', 'Perlu revisi kembali'),
+(3, 'PAJ-0003', 'PKS-0005', 'SPL-004', '2022-12-01', 'Lolos');
 
 -- --------------------------------------------------------
 
@@ -379,7 +399,12 @@ CREATE TABLE `perbaikan_detail` (
 INSERT INTO `perbaikan_detail` (`id`, `kd_perbaikan`, `id_notes`, `file_perbaikan`) VALUES
 (1, 'PAJ-0001', 1, '0_Kontrak_Kuliah_dan_Silabus15.pdf'),
 (2, 'PAJ-0001', 2, '0_Kontrak_Kuliah_dan_Silabus16.pdf'),
-(3, 'PAJ-0001', 3, '0_Kontrak_Kuliah_dan_Silabus17.pdf');
+(3, 'PAJ-0001', 3, '0_Kontrak_Kuliah_dan_Silabus17.pdf'),
+(4, 'PAJ-0002', 4, '0_Kontrak_Kuliah_dan_Silabus24.pdf'),
+(5, 'PAJ-0003', 5, '0_Kontrak_Kuliah_dan_Silabus81.pdf'),
+(6, 'PAJ-0003', 6, '0_Kontrak_Kuliah_dan_Silabus82.pdf'),
+(7, 'PAJ-0003', 7, '0_Kontrak_Kuliah_dan_Silabus83.pdf'),
+(8, 'PAJ-0003', 8, '0_Kontrak_Kuliah_dan_Silabus84.pdf');
 
 -- --------------------------------------------------------
 
@@ -407,7 +432,8 @@ INSERT INTO `sertifikat` (`id`, `kd_supplier`, `kd_penilaian`, `kd_sertifikat`, 
 (1, 'SPL-001', 'PKS-0001', 'CPIB-001', 'asdasd', '2022-11-26', '2026-11-26', 'R. RUDI BARMARA', 'CPIB-001-SPL-001-20221126224816'),
 (2, 'SPL-002', 'PKS-0002', 'CPIB-001', '1001/cpib 32/XI/2022', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-002-20221128154919'),
 (3, 'SPL-001', 'PKS-0003', 'CPIB-001', '38291293928', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-001-20221128160910'),
-(8, 'SPL-004', 'PKS-0004', 'CPIB-001', '1009/cpib 32/XI/2022', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-004-20221128174356');
+(8, 'SPL-004', 'PKS-0004', 'CPIB-001', '1009/cpib 32/XI/2022', '2022-11-28', '2026-11-28', 'R. RUDI BARMARA', 'CPIB-001-SPL-004-20221128174356'),
+(9, 'SPL-004', 'PKS-0005', 'CPIB-002', '123', '2022-12-01', '2026-12-01', 'R. RUDI BARMARA', 'CPIB-002-SPL-004-20221201193625');
 
 -- --------------------------------------------------------
 
@@ -520,7 +546,8 @@ INSERT INTO `tim_inspeksi` (`id`, `kd_tim_inspeksi`, `kd_pengajuan`, `pimpinan_s
 (1, 'INS-001', 'REG-0001', 'H. Ta\'lim', 'ADM-001', 'ADM-002', NULL),
 (2, 'INS-002', 'REG-0003', 'Abdul Fattah', 'ADM-001', 'ADM-002', 'ADM-003'),
 (3, 'INS-003', 'REG-0004', 'H. Ta\'lim', 'ADM-001', 'ADM-002', 'ADM-003'),
-(4, 'INS-004', 'REG-0005', 'H. Apud', 'ADM-001', 'ADM-002', 'ADM-003');
+(4, 'INS-004', 'REG-0005', 'H. Apud', 'ADM-001', 'ADM-002', 'ADM-003'),
+(5, 'INS-005', 'REG-0006', 'H. Apud', 'ADM-001', 'ADM-002', 'ADM-003');
 
 -- --------------------------------------------------------
 
@@ -681,7 +708,7 @@ ALTER TABLE `daftar_isian`
 -- AUTO_INCREMENT untuk tabel `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_daftar_isian`
@@ -699,49 +726,49 @@ ALTER TABLE `penanganan`
 -- AUTO_INCREMENT untuk tabel `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_detail`
 --
 ALTER TABLE `penilaian_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_notes`
 --
 ALTER TABLE `penilaian_notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian_penanganan`
 --
 ALTER TABLE `penilaian_penanganan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `perbaikan`
 --
 ALTER TABLE `perbaikan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `perbaikan_detail`
 --
 ALTER TABLE `perbaikan_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `sertifikat`
 --
 ALTER TABLE `sertifikat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `sertifikat_template`
@@ -759,7 +786,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT untuk tabel `tim_inspeksi`
 --
 ALTER TABLE `tim_inspeksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

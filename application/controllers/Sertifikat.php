@@ -30,6 +30,8 @@ class Sertifikat extends CI_Controller
     $this->db->select('suppliers.nama_miniplant, suppliers.nama_pimpinan, sertifikat.*, penilaian.kd_pengajuan');
     $this->db->join('penilaian', 'penilaian.kd_penilaian = sertifikat.kd_penilaian', 'left');
     $this->db->join('suppliers', 'suppliers.kd_supplier = sertifikat.kd_supplier', 'left');
+    $this->db->order_by('tgl', 'desc');
+    $this->db->order_by('id', 'desc');
     $data['sertifikat'] = $this->db->get('sertifikat')->result_array();
 
     $data['title'] = 'Sertifikat Supplier';
