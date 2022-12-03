@@ -58,6 +58,9 @@
                         type: 'iframe'
                     });
                     $('#dataTable').dataTable();
+                    $('#dataTable2').dataTable();
+                    $('#dataTable3').dataTable();
+                    $('#dataTable4').dataTable();
                     $('[data-toggle="tooltip"]').tooltip({
                         placement: "bottom"
                     });
