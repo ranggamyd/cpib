@@ -34,6 +34,14 @@ class Sertifikat_model extends CI_Model
 
         if (!$this->db->update('pengajuan', ['status' => 'Lolos'], ['kd_pengajuan' => $this->db->get_where('penilaian', ['kd_penilaian' => $this->input->post('kd_penilaian')])->row('kd_pengajuan')])) return FALSE;
         if (!$this->db->update('penilaian', ['status' => 'Lolos'], ['kd_penilaian' => $this->input->post('kd_penilaian')])) return FALSE;
+
+        $perbaikan = $this->db->get_where('perbaikan', ['kd_penilaian' => $this->input->post('kd_penilaian')])->result_array();
+        if ($perbaikan) {
+            foreach ($perbaikan as $item) {
+                if (!$this->db->update('perbaikan', ['status' => 'Lolos'], ['kd_perbaikan' => $item['kd_perbaikan']])) return FALSE;
+            }
+        }
+
         if ($this->db->insert('sertifikat', $sertifikat)) return TRUE;
     }
 

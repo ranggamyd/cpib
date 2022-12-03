@@ -42,15 +42,19 @@
                 </td>
                 <td class="text-center">
                   <?php if ($item['status'] == 'Tertunda') { ?>
-                    <a href="<?= base_url('pengajuan/detail/') . $item['kd_pengajuan'] ?>" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
-                  <?php } elseif ($item['status'] == 'Dokumen tidak lengkap') { ?>
-                    <a href="<?= base_url('pengajuan/tambah_ajuan') ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Ajukan ulang?"><?= $item['status'] ?></a>
+                    <span class="badge badge-primary"><?= $item['status'] ?></span>
                   <?php } elseif ($item['status'] == 'Dalam proses Inspeksi') { ?>
                     <span class="badge badge-info"><?= $item['status'] ?></span>
+                  <?php } elseif ($item['status'] == 'Menunggu Sertifikat') { ?>
+                    <span class="badge badge-primary"><?= $item['status'] ?></span>
                   <?php } elseif ($item['status'] == 'Lolos') { ?>
                     <span class="badge badge-success"><?= $item['status'] ?></span>
+                  <?php } elseif ($item['status'] == 'Perlu Revisi') { ?>
+                    <span class="badge badge-warning"><?= $item['status'] ?></span>
+                  <?php } elseif ($item['status'] == 'Menunggu validasi perbaikan') { ?>
+                    <span class="badge badge-primary"><?= $item['status'] ?></span>
                   <?php } elseif ($item['status'] == 'Tidak Lolos') { ?>
-                    <a href="<?= base_url('pengajuan/detail/') . $item['kd_pengajuan'] ?>" class="badge badge-danger" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                    <span class="badge badge-danger"><?= $item['status'] ?></span>
                   <?php } ?>
                 </td>
                 <td class="text-center">

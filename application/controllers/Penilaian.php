@@ -52,16 +52,6 @@ class Penilaian extends CI_Controller
     $this->loadView('detail', $data);
   }
 
-  public function ubah($kd_penilaian)
-  {
-    # code...
-  }
-
-  public function ubah_penilaian($kd_penilaian)
-  {
-    # code...
-  }
-
   public function perbaiki($kd_penilaian)
   {
     $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
@@ -69,7 +59,6 @@ class Penilaian extends CI_Controller
 
     $data['penilaian'] = $penilaian;
     $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $penilaian->kd_supplier])->row();
-    $data['cek_pengajuan'] = $this->db->get_where('pengajuan', ['kd_supplier' => $penilaian->kd_supplier])->num_rows();
     $data['jenis_produk'] = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $penilaian->kd_pengajuan, 'kd_supplier' => $penilaian->kd_supplier])->result_array();
     $tim_inspeksi = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $penilaian->kd_pengajuan])->row();
     $data['tim_inspeksi'] = $tim_inspeksi;

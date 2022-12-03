@@ -54,6 +54,11 @@ class Penilaian_model extends CI_Model
       'status' => $this->input->post('is_needRevisi') ? 'Perlu Revisi' : 'Menunggu Sertifikat'
     ];
 
+    // update status pengajuan
+    $status = $this->input->post('is_needRevisi') ? 'Perlu Revisi' : 'Menunggu Sertifikat';
+    if (!$this->db->update('pengajuan', ['status' => $status], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return FALSE;
+
+    // insert penilaian
     if (!$this->tambah_tahap_penanganan()) return FALSE;
     if (!$this->tambah_detail()) return FALSE;
     if ($this->input->post('notes')[0]['revisi']) $this->tambah_notes();
@@ -165,10 +170,12 @@ class Penilaian_model extends CI_Model
       'kd_penilaian' => $this->input->post('kd_penilaian'),
       'kd_supplier' => $this->input->post('kd_supplier'),
       'tgl_perbaikan' => $this->input->post('tgl_perbaikan'),
-      'status' => 'Menunggu Validasi',
+      'status' => 'Menunggu validasi perbaikan',
     ];
 
-    if (!$this->db->update('penilaian', ['status' => 'Menunggu validasi perbaikan'], ['kd_penilaian' => $this->input->post('kd_penilaian')])) return FALSE;
+    $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $this->input->post('kd_penilaian')])->row();
+    if (!$this->db->update('pengajuan', ['status' => 'Menunggu validasi perbaikan'], ['kd_pengajuan' => $penilaian->kd_pengajuan])) return FALSE;
+    if (!$this->db->update('penilaian', ['status' => 'Menunggu validasi perbaikan'], ['kd_penilaian' => $penilaian->kd_penilaian])) return FALSE;
     if ($this->db->insert('perbaikan', $perbaikan)) return TRUE;
   }
 }

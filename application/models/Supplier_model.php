@@ -23,6 +23,14 @@ class Supplier_model extends CI_Model
     public function suppliers()
     {
         $this->db->join('users', 'users.kd_supplier = suppliers.kd_supplier', 'left');
+        $this->db->order_by('suppliers.kd_supplier', 'desc');
+        return $this->db->get('suppliers')->result_array();
+    }
+    public function suppliersBaru()
+    {
+        $this->db->join('users', 'users.kd_supplier = suppliers.kd_supplier', 'left');
+        $this->db->order_by('is_active');
+        $this->db->order_by('suppliers.kd_supplier', 'desc');
         return $this->db->get('suppliers')->result_array();
     }
 

@@ -60,14 +60,14 @@ class Penilaian_supplier extends CI_Controller
 
   public function perbaiki($kd_penilaian)
   {
+    $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
     $data['kd_perbaikan_auto'] = $this->perbaikan_model->kd_perbaikan_auto();
 
-    $data['penilaian'] = $this->penilaian_model->penilaian($kd_penilaian);
-    $pengajuan = $this->db->get_where('pengajuan', ['kd_pengajuan' => $data['penilaian']->kd_pengajuan])->row();
-    $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
-    $data['jps'] = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->result_array();
-    $data['jenis_supplier'] = $this->db->get_where('pengajuan', ['kd_supplier' => $pengajuan->kd_supplier])->num_rows() > 1 ? 'Lama' : 'Baru';
-    $tim_inspeksi = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row();
+    $data['penilaian'] = $penilaian;
+    $data['supplier'] = $this->db->get_where('suppliers', ['kd_supplier' => $penilaian->kd_supplier])->row();
+    $data['jenis_produk'] = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $penilaian->kd_pengajuan, 'kd_supplier' => $penilaian->kd_supplier])->result_array();
+    $tim_inspeksi = $this->db->get_where('tim_inspeksi', ['kd_pengajuan' => $penilaian->kd_pengajuan])->row();
+    $data['tim_inspeksi'] = $tim_inspeksi;
     $data['ketua_tim'] = $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->ketua_inspeksi])->row('nama_admin');
     $data['anggota1'] = $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota1])->row('nama_admin');
     $data['anggota2'] = $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota2])->row('nama_admin');
@@ -75,7 +75,7 @@ class Penilaian_supplier extends CI_Controller
     $data['penilaian_detail'] = $this->db->get_where('penilaian_detail', ['kd_penilaian' => $kd_penilaian])->result_array();
     $this->db->join('penanganan', 'penanganan.kd_penanganan = penilaian_penanganan.kd_penanganan', 'left');
     $data['penanganan'] = $this->db->get_where('penilaian_penanganan', ['kd_penilaian' => $kd_penilaian])->result_array();
-    $data['notes'] = $this->db->get_where('penilaian_notes', ['kd_penilaian' => $kd_penilaian])->result_array();
+    $data['notes'] = $this->db->get_where('penilaian_notes', ['kd_penilaian' => $kd_penilaian, 'is_submit' => 0])->result_array();
 
     $data['title'] = 'Perbaiki Ajuan';
     $this->loadView('perbaiki', $data);

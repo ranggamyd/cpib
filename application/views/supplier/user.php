@@ -6,7 +6,9 @@
         <div class="col-md-4">
             <div class="card shadow">
                 <div class="card-body text-center">
+                    <a href="<?= base_url() . 'assets/img/' . $supplier->avatar; ?>" class="imgPopup">
                     <img src="<?= base_url() . 'assets/img/' . $supplier->avatar; ?>" class="rounded-circle" width="200" height="200" alt="" style="object-fit: cover;">
+                    </a>
                 </div>
                 <button type="button" class="btn btn-primary mx-5" data-toggle="modal" data-target="#edit_avatar" id="#myBtn" data-dismiss="modal"><i class="fas fa-camera fa-fw"></i> Perbarui foto</button>
                 <hr>

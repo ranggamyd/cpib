@@ -31,12 +31,9 @@
                   <div class="row">
                     <div class="col">
                       <input type="text" name="nama_miniplant" value="<?= set_value('nama_miniplant', $supplier->nama_miniplant) ?>" class="form-control mb-3 <?= form_error('nama_miniplant') ? 'is-invalid' : '' ?>" id="nama_miniplant" readonly required>
-                    </div>
-                    <div class="col-2">
-                      <a href="<?= base_url('suppliers') ?>" class="btn btn-outline-light btn-block" data-toggle="tooltip" data-placement="right" title="Tambah Supplier"><i class="fas fa-plus-circle mt-1"></i></a>
-                    </div>
-                    <div id='kd_supplier' class='invalid-feedback'>
-                      <?= form_error('kd_supplier') ?>
+                      <div id='kd_supplier' class='invalid-feedback'>
+                        <?= form_error('kd_supplier') ?>
+                      </div>
                     </div>
                   </div>
                 </div>

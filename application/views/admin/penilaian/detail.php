@@ -327,18 +327,14 @@
               </i>
             </small>
           </div>
-          <?php if ($penilaian->status == 'Lolos') : ?>
-            <?php if (!$this->db->get_where('sertifikat', ['kd_penilaian' => $penilaian->kd_penilaian])->row()) : ?>
-              <div class="col-md-3 text-right d-flex align-items-center justify-content-around border border-dark border-top-0 border-right-0 border-bottom-0">
-                <a href="<?= base_url('sertifikat/generate/') . $penilaian->kd_penilaian ?>" class="btn btn-primary"><i class="fas fa-print mr-2"></i>Generate Certificate</a>
-              </div>
-            <?php endif; ?>
-          <?php elseif ($penilaian->status == 'Perlu Revisi') : ?>
+          <?php if ($penilaian->status == 'Perlu Revisi') : ?>
             <div class="col-md-3 text-right d-flex align-items-center justify-content-around border border-dark border-top-0 border-right-0 border-bottom-0">
               <a href="<?= base_url('penilaian/perbaiki/') . $penilaian->kd_penilaian ?>" class="btn btn-primary">Perbaiki Ajuan <i class="fas fa-arrow-right ml-2"></i></a>
             </div>
-            <!-- <?php if (!$this->db->get_where('perbaikan', ['kd_penilaian' => $penilaian->kd_penilaian])->row()) : ?> -->
-            <!-- <?php endif; ?> -->
+          <?php elseif ($penilaian->status == 'Menunggu Sertifikat') : ?>
+            <div class="col-md-3 text-right d-flex align-items-center justify-content-around border border-dark border-top-0 border-right-0 border-bottom-0">
+              <a href="<?= base_url('sertifikat/generate/') . $penilaian->kd_penilaian ?>" class="btn btn-primary"><i class="fas fa-print mr-2"></i>Generate Certificate</a>
+            </div>
           <?php endif; ?>
         </div>
       </div>

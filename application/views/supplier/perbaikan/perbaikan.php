@@ -28,8 +28,8 @@
               <tr>
                 <th class="text-center"><?= $no++; ?></th>
                 <td class="text-center" style="width: 125px;"><?= date('d M Y', strtotime($item['tgl_perbaikan'])) ?></td>
-                <td class="text-center"><a href="<?= base_url('perbaikan/detail/') . $item['kd_perbaikan'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_perbaikan']; ?></a></td>
-                <td class="text-center"><a href="<?= base_url('penilaian/detail/') . $item['kd_penilaian'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_penilaian']; ?></a></td>
+                <td class="text-center"><a href="<?= base_url('perbaikan_supplier/detail/') . $item['kd_perbaikan'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_perbaikan']; ?></a></td>
+                <td class="text-center"><a href="<?= base_url('penilaian_supplier/detail/') . $item['kd_penilaian'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_penilaian']; ?></a></td>
                 <td><?= $item['nama_miniplant']; ?></td>
                 <td><?= $item['nama_pimpinan'] ?></td>
                 <td class="text-center">
@@ -47,7 +47,7 @@
                 </td>
                 <td class="text-center">
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="<?= base_url('perbaikan/detail/' . $item['kd_perbaikan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Detail"><i class="fas fa-info-circle"></i></a>
+                    <a href="<?= base_url('perbaikan_supplier/detail/' . $item['kd_perbaikan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Detail"><i class="fas fa-info-circle"></i></a>
                   </div>
                 </td>
               </tr>

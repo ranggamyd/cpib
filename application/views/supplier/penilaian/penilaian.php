@@ -33,14 +33,14 @@
                   <a href="<?= base_url('penilaian_supplier/detail/') . $item['kd_penilaian'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_penilaian'] ?></a>
                 </td>
                 <td class="text-center">
-                  <a href="<?= base_url('pengajuan/detail/') . $item['kd_pengajuan'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_pengajuan'] ?></a>
+                  <a href="<?= base_url('pengajuan_supplier/detail/') . $item['kd_pengajuan'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_pengajuan'] ?></a>
                 </td>
                 <td><?= $item['nama_miniplant'] ?></td>
                 <td><?= $item['nama_pimpinan'] ?></td>
                 <td class="text-center">
                   <?php if ($item['klasifikasi'] == 'Sangat Baik') : ?>
                     <span class="badge badge-primary"><?= $item['klasifikasi'] ?></span>
-                  <?php elseif ($item['klasifikasi'] == 'BAIK') : ?>
+                  <?php elseif ($item['klasifikasi'] == 'Baik') : ?>
                     <span class="badge badge-success"><?= $item['klasifikasi'] ?></span>
                   <?php elseif ($item['klasifikasi'] == 'Cukup') : ?>
                     <span class="badge badge-warning"><?= $item['klasifikasi'] ?></span>
@@ -49,17 +49,17 @@
                   <?php endif ?>
                 </td>
                 <td class="text-center">
-                  <?php if ($item['status'] == 'Perlu Revisi') { ?>
-                    <a href="<?= base_url('penilaian/detail/').$item['kd_penilaian'] ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
-                  <?php } elseif ($item['status'] == 'Menunggu validasi perbaikan') { ?>
-                    <span class="badge badge-info"><?= $item['status'] ?></span>
-                  <?php } elseif ($item['status'] == 'Menunggu Sertifikat') { ?>
-                    <span class="badge badge-primary"><?= $item['status'] ?></span>
-                  <?php } elseif ($item['status'] == 'Lolos') { ?>
-                    <span class="badge badge-success"><?= $item['status'] ?></span>
-                  <?php } elseif ($item['status'] == 'Tidak Lolos') { ?>
-                    <span class="badge badge-danger"><?= $item['status'] ?></span>
-                  <?php } ?>
+                  <?php if ($item['status'] == 'Menunggu Sertifikat') { ?>
+                    <span class="badge badge-primary"><?= $item['status'] ?></a>
+                    <?php } elseif ($item['status'] == 'Lolos') { ?>
+                      <span class="badge badge-success"><?= $item['status'] ?></a>
+                      <?php } elseif ($item['status'] == 'Perlu Revisi') { ?>
+                        <span class="badge badge-warning"><?= $item['status'] ?></a>
+                        <?php } elseif ($item['status'] == 'Menunggu validasi perbaikan') { ?>
+                          <span class="badge badge-primary"><?= $item['status'] ?></a>
+                          <?php } elseif ($item['status'] == 'Tidak Lolos') { ?>
+                            <span class="badge badge-danger"><?= $item['status'] ?></a>
+                            <?php } ?>
                 </td>
                 <td class="text-center">
                   <div class="btn-group" role="group" aria-label="Opsi">

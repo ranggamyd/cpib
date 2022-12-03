@@ -49,17 +49,17 @@
                   <?php endif ?>
                 </td>
                 <td class="text-center">
-                  <?php if ($item['status'] == 'Perlu Revisi') { ?>
-                    <a href="<?= base_url('penilaian/detail/') . $item['kd_penilaian'] ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
-                  <?php } elseif ($item['status'] == 'Menunggu validasi perbaikan') { ?>
-                    <a href="<?= base_url('perbaikan/detail/') . $this->db->get_where('perbaikan', ['kd_penilaian' => $item['kd_penilaian']])->row('kd_perbaikan'); ?>" class="badge badge-info" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
-                  <?php } elseif ($item['status'] == 'Menunggu Sertifikat') { ?>
-                    <a href="<?= base_url('sertifikat/generate/') . $item['kd_penilaian'] ?>" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Generate Certificate"><?= $item['status'] ?></a>
-                  <?php } elseif ($item['status'] == 'Lolos') { ?>
-                    <span class="badge badge-success"><?= $item['status'] ?></span>
-                  <?php } elseif ($item['status'] == 'Tidak Lolos') { ?>
-                    <span class="badge badge-danger"><?= $item['status'] ?></span>
-                  <?php } ?>
+                  <?php if ($item['status'] == 'Lolos') { ?>
+                    <span class="badge badge-success"><?= $item['status'] ?></a>
+                    <?php } else if ($item['status'] == 'Menunggu Sertifikat') { ?>
+                      <span class="badge badge-primary"><?= $item['status'] ?></a>
+                      <?php } else if ($item['status'] == 'Perlu Revisi') { ?>
+                        <span class="badge badge-warning"><?= $item['status'] ?></a>
+                        <?php } else if ($item['status'] == 'Menunggu validasi perbaikan') { ?>
+                          <span class="badge badge-primary"><?= $item['status'] ?></a>
+                          <?php } else if ($item['status'] == 'Tidak Lolos') { ?>
+                            <span class="badge badge-danger"><?= $item['status'] ?></a>
+                            <?php } ?>
                 </td>
                 <td class="text-center">
                   <div class="btn-group" role="group" aria-label="Opsi">

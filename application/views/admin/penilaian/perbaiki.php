@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Detail Penilaian</h1>
+  <h1 class="h3 mb-2 text-gray-800">Form Perbaikan</h1>
   <hr>
 
   <div class="card shadow mb-4">
@@ -51,11 +51,11 @@
             <label for="jenis_supplier" class="col-sm-4 col-form-label">Jenis Supplier</label>
             <div class="col-sm-8 d-flex align-items-center">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $cek_pengajuan <= 1 ? 'checked' : '' ?>>
+                <input class="form-check-input" type="radio" name="jenis_supplier" id="baru" value="Baru" <?= $penilaian->jenis_supplier == 'Baru' ? 'checked' : '' ?> disabled>
                 <label class="form-check-label" for="baru">Baru</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="jenis_supplier" id="lama" value="Lama" <?= $cek_pengajuan > 1 ? 'checked' : '' ?>>
+                <input class="form-check-input" type="radio" name="jenis_supplier" id="lama" value="Lama" <?= $penilaian->jenis_supplier == 'Lama' ? 'checked' : '' ?> disabled>
                 <label class="form-check-label" for="lama">Lama</label>
               </div>
             </div>
@@ -63,7 +63,7 @@
           <div class="form-group row">
             <label for="tgl_inspeksi" class="col-sm-4 col-form-label">Tanggal Inspeksi</label>
             <div class="col-sm-8">
-              <input type="text" name="tgl_inspeksi" value="<?= date('d M Y', strtotime($penilaian->tgl_inspeksi)) ?>" class="form-control" id="tgl_inspeksi" required>
+              <input type="text" name="tgl_inspeksi" value="<?= date('d M Y', strtotime($penilaian->tgl_inspeksi)) ?>" class="form-control" id="tgl_inspeksi" readonly required>
             </div>
           </div>
           <hr>

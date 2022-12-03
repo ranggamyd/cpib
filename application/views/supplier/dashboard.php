@@ -62,23 +62,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="card border-left-success shadow h-100 py-0">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                        Supplier</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-user-friends fa-2x text-success"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <a href="<?= base_url('pengajuan_supplier/tambah_ajuan') ?>" class="btn btn btn-primary shadow-sm"><i class="mr-2 fas fa-book-reader fa-sm text-white-50"></i> Ajukan Permohonan Baru</a>
         </div>
@@ -321,54 +304,46 @@
                 <div class="card-header">
                     <h5 class="mb-0">Daftar Permohonan Tertunda</h5>
                 </div>
-                <div class="card shadow">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th class="text-center">No.</th>
-                                        <th>Tanggal</th>
-                                        <th>Kode Pengajuan</th>
-                                        <th>Mini Plant</th>
-                                        <th>Pimpinan Supplier</th>
-                                        <th>Jenis Produk</th>
-                                        <th>Status</th>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="text-center">
+                                <tr>
+                                    <th class="text-center">No.</th>
+                                    <th>Tanggal</th>
+                                    <th>Kode Pengajuan</th>
+                                    <th>Mini Plant</th>
+                                    <th>Pimpinan Supplier</th>
+                                    <th>Jenis Produk</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                foreach ($pengajuan as $item) { ?>
+                                    <tr class="align-middle">
+                                        <td class="text-center"><?= $no++; ?></td>
+                                        <td class="text-center"><?= date('d-M-Y', strtotime($item['tgl_pengajuan'])) ?></td>
+                                        <td class="text-center"><span class="badge badge-white"><?= $item['kd_pengajuan']; ?></span></td>
+                                        <td><?= $item['nama_miniplant'] ?></td>
+                                        <td><?= $item['nama_pimpinan'] ?></td>
+                                        <td class="text-center">
+                                            <?php
+                                            $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
+                                            $jenis_produk = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $item['kd_pengajuan'], 'kd_supplier' => $item['kd_supplier']])->result_array();
+                                            foreach ($jenis_produk as $jp) :
+                                            ?>
+                                                <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
+                                            <?php endforeach; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge badge-primary"><?= $item['status'] ?></span>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $no = 1;
-                                    foreach ($pengajuan as $ajuan) { ?>
-                                        <tr class="align-middle">
-                                            <td align="center"><?= $no++; ?></td>
-                                            <td class="text-center"><?= date('d-M-Y', strtotime($ajuan['tgl_pengajuan'])) ?></td>
-                                            <td class="text-center"><span class="badge badge-white"><?= $ajuan['kd_pengajuan']; ?></span></td>
-                                            <td><?= $ajuan['nama_miniplant'] ?></td>
-                                            <td><?= $ajuan['nama_pimpinan'] ?></td>
-                                            <td class="text-center">
-                                                <?php
-                                                $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
-                                                $jenis_produk = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $item['kd_pengajuan'], 'kd_supplier' => $item['kd_supplier']])->result_array();
-                                                foreach ($jenis_produk as $jp) :
-                                                ?>
-                                                    <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
-                                                <?php endforeach; ?>
-                                            </td>
-                                            <td class="text-center">
-                                                <?php if ($ajuan['status'] == 'Tertunda') : ?>
-                                                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $ajuan['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $ajuan['status']; ?></a>
-                                                <?php elseif ($ajuan['status'] == 'Perlu Revisi') : ?>
-                                                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $ajuan['kd_pengajuan']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $ajuan['status']; ?></a>
-                                                <?php elseif ($ajuan['status'] == 'Diterima') : ?>
-                                                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $ajuan['kd_pengajuan']) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $ajuan['status']; ?></a>
-                                                <?php endif; ?>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

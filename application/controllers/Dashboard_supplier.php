@@ -32,7 +32,7 @@ class Dashboard_supplier extends CI_Controller
         $data['menunggu_perbaikan'] = $this->db->get_where('pengajuan', ['kd_supplier' => $supplier->kd_supplier, 'status' => 'Perlu Revisi'])->num_rows();
 
         $this->db->join('suppliers', 'suppliers.kd_supplier = pengajuan.kd_supplier', 'left');
-        $data['pengajuan'] = $this->db->get_where('pengajuan', ['pengajuan.kd_supplier' => $supplier->kd_supplier])->result_array();
+        $data['pengajuan'] = $this->db->get_where('pengajuan', ['pengajuan.kd_supplier' => $supplier->kd_supplier, 'status' => 'Tertunda'])->result_array();
 
         $data['title'] = 'Dashboard Supplier';
         $this->loadView('dashboard', $data);

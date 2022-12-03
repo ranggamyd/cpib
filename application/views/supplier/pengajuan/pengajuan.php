@@ -11,7 +11,7 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr class="text-center">
-              <th>No.</th>
+              <th class="text-center">No.</th>
               <th>Tanggal Pengajuan</th>
               <th>Kode Pengajuan</th>
               <th>Mini Plant</th>
@@ -42,13 +42,17 @@
                 </td>
                 <td class="text-center">
                   <?php if ($item['status'] == 'Tertunda') { ?>
-                    <span class="badge badge-light"><?= $item['status'] ?></span>
-                    <a href="<?= base_url('pengajuan/tambah_ajuan') ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Ajukan ulang?"><?= $item['status'] ?></a>
-                    <span class="badge badge-warning"><?= $item['status'] ?></span>
+                    <span class="badge badge-primary"><?= $item['status'] ?></span>
                   <?php } elseif ($item['status'] == 'Dalam proses Inspeksi') { ?>
                     <span class="badge badge-info"><?= $item['status'] ?></span>
+                  <?php } elseif ($item['status'] == 'Menunggu Sertifikat') { ?>
+                    <span class="badge badge-primary"><?= $item['status'] ?></span>
                   <?php } elseif ($item['status'] == 'Lolos') { ?>
                     <span class="badge badge-success"><?= $item['status'] ?></span>
+                  <?php } elseif ($item['status'] == 'Perlu Revisi') { ?>
+                    <span class="badge badge-warning"><?= $item['status'] ?></span>
+                  <?php } elseif ($item['status'] == 'Menunggu validasi perbaikan') { ?>
+                    <span class="badge badge-primary"><?= $item['status'] ?></span>
                   <?php } elseif ($item['status'] == 'Tidak Lolos') { ?>
                     <span class="badge badge-danger"><?= $item['status'] ?></span>
                   <?php } ?>
@@ -57,8 +61,8 @@
                   <div class="btn-group" role="group" aria-label="Opsi">
                     <?php $penilaian = $this->db->get_where('penilaian', ['kd_pengajuan' => $item['kd_pengajuan']])->row(); ?>
                     <a href="<?= base_url('pengajuan_supplier/detail/' . $item['kd_pengajuan']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Detail"><i class="fas fa-info-circle"></i></a>
-                    <a href="<?= base_url('pengajuan_supplier/ubah/' . $item['kd_pengajuan']) ?>" class="btn btn-primary <?= $penilaian ? 'disabled' : '' ?>" data-toggle="tooltip" data-placement="right" title="Ubah"><i class="fa fa-fw fa-edit"></i></a>
-                    <a href="<?= base_url('pengajuan_supplier/hapus/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger <?= $penilaian ? 'disabled' : '' ?>" data-toggle="tooltip" data-placement="right" title="Hapus"><i class="fas fa-trash-alt"></i></a>
+                    <a href="<?= base_url('pengajuan_supplier/ubah/' . $item['kd_pengajuan']) ?>" class="btn btn-primary <?= $penilaian || $item['status'] == 'Tidak Lolos' ? 'disabled' : '' ?>" data-toggle="tooltip" data-placement="right" title="Ubah"><i class="fa fa-fw fa-edit"></i></a>
+                    <a href="<?= base_url('pengajuan_supplier/hapus/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger <?= $penilaian || $item['status'] == 'Tidak Lolos' ? 'disabled' : '' ?>" data-toggle="tooltip" data-placement="right" title="Hapus"><i class="fas fa-trash-alt"></i></a>
                   </div>
                 </td>
               </tr>

@@ -327,6 +327,11 @@
               </i>
             </small>
           </div>
+          <?php if ($penilaian->status == 'Perlu Revisi') : ?>
+            <div class="col-md-3 text-right d-flex align-items-center justify-content-around border border-dark border-top-0 border-right-0 border-bottom-0">
+              <a href="<?= base_url('penilaian_supplier/perbaiki/') . $penilaian->kd_penilaian ?>" class="btn btn-primary">Perbaiki Ajuan <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
     </div>

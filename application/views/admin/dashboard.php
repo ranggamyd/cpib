@@ -319,60 +319,90 @@
         </div>
     </div>
     <div class="row mt-3">
-        <div class="col">
+        <div class="col-md-8">
             <div class="card mt-3 shadow shadow-sm">
                 <div class="card-header">
-                    <h5 class="mb-0">Daftar Permohonan Tertunda</h5>
+                    <h5 class="mb-0">Permohonan Tertunda</h5>
                 </div>
-                <div class="card shadow">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th class="text-center">No.</th>
-                                        <th>Tanggal</th>
-                                        <th>Kode Pengajuan</th>
-                                        <th>Mini Plant</th>
-                                        <th>Pimpinan Supplier</th>
-                                        <th>Jenis Produk</th>
-                                        <th>Status</th>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="text-center">
+                                <tr>
+                                    <th class="text-center">No.</th>
+                                    <th>Tanggal</th>
+                                    <th>Kode Pengajuan</th>
+                                    <th>Mini Plant</th>
+                                    <th>Pimpinan Supplier</th>
+                                    <th>Jenis Produk</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                foreach ($pengajuan as $item) { ?>
+                                    <tr class="align-middle">
+                                        <td class="text-center"><?= $no++; ?></td>
+                                        <td class="text-center"><?= date('d-M-Y', strtotime($item['tgl_pengajuan'])) ?></td>
+                                        <td class="text-center"><span class="badge badge-white"><?= $item['kd_pengajuan']; ?></span></td>
+                                        <td><?= $item['nama_miniplant'] ?></td>
+                                        <td><?= $item['nama_pimpinan'] ?></td>
+                                        <td class="text-center">
+                                            <?php
+                                            $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
+                                            $jenis_produk = $this->db->get_where('jenis_produk', ['kd_pengajuan' => $item['kd_pengajuan'], 'kd_supplier' => $item['kd_supplier']])->result_array();
+                                            foreach ($jenis_produk as $jp) :
+                                            ?>
+                                                <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
+                                            <?php endforeach; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge badge-primary"><?= $item['status'] ?></span>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $no = 1;
-                                    foreach ($pengajuan as $item) { ?>
-                                        <tr class="align-middle">
-                                            <td align="center"><?= $no++; ?></td>
-                                            <td class="text-center"><?= date('d-M-Y', strtotime($item['tgl_pengajuan'])) ?></td>
-                                            <td class="text-center"><span class="badge badge-white"><?= $item['kd_pengajuan']; ?></span></td>
-                                            <td><?= $item['nama_miniplant'] ?></td>
-                                            <td><?= $item['nama_pimpinan'] ?></td>
-                                            <td class="text-center">
-                                                <?php
-                                                $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
-                                                $this->db->join('jenis_produk', 'jenis_produk.kd_jenis_produk = jenis_produk_supplier.kd_jenis_produk', 'left');
-                                                $jenis_produk_supplier = $this->db->get_where('jenis_produk_supplier', ['kd_pengajuan' => $item['kd_pengajuan'], 'kd_supplier' => $item['kd_supplier']])->result_array();
-                                                foreach ($jenis_produk_supplier as $jp) :
-                                                ?>
-                                                    <div class="badge <?= $colors[array_rand($colors)] ?>"><?= $jp['jenis_produk'] ?></div>
-                                                <?php endforeach; ?>
-                                            </td>
-                                            <td class="text-center">
-                                                <?php if ($item['status'] == 'Tertunda') : ?>
-                                                    <a href="<?= base_url('pengajuan/proses_inspeksi/' . $item['kd_pengajuan']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Lakukan Inspeksi?"><?= $item['status']; ?></a>
-                                                <?php elseif ($item['status'] == 'Perlu Revisi') : ?>
-                                                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $item['kd_pengajuan']) ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
-                                                <?php elseif ($item['status'] == 'Diterima') : ?>
-                                                    <a href="<?= base_url('pengajuan/detail_inspeksi/' . $item['kd_pengajuan']) ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Lihat Detail Inspeksi"><?= $item['status']; ?></a>
-                                                <?php endif; ?>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mt-3 shadow shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">Supplier Baru</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="text-center">
+                                <tr>
+                                    <th class="text-center">No.</th>
+                                    <th>Mini Plant</th>
+                                    <th>Pimpinan Supplier</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                foreach ($suppliers as $item) { ?>
+                                    <tr class="align-middle">
+                                        <td class="text-center"><?= $no++; ?></td>
+                                        <td><?= $item['nama_miniplant'] ?></td>
+                                        <td><?= $item['nama_pimpinan'] ?></td>
+                                        <td class="text-center">
+                                            <?php if ($item['is_active'] == 1) : ?>
+                                                <a href="<?= base_url('suppliers/activation/') . $item['kd_supplier'] ?>" onclick="return confirm('Apakah anda yakin ingin mengaktifkan Supplier ?')" class="badge badge-sm badge-success" data-toggle="tooltip" data-placement="right" title="Nonaktifkan Supplier?">Aktif</a>
+                                            <?php else : ?>
+                                                <a href="<?= base_url('suppliers/activation/') . $item['kd_supplier'] ?>" onclick="return confirm('Apakah anda yakin ingin menonaktifkan Supplier ?')" class="badge badge-sm badge-danger" data-toggle="tooltip" data-placement="right" title="Aktifkan Supplier?">Nonaktif</a>
+                                            <?php endif ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

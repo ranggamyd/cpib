@@ -41,8 +41,10 @@ class Perbaikan_model extends CI_Model
     $kd_perbaikan = $this->input->post('kd_perbaikan');
     $kd_penilaian = $this->input->post('kd_penilaian');
 
-    if (!$this->db->update('penilaian', ['status' => 'Lolos', 'klasifikasi' => $this->input->post('klasifikasi')], ['kd_penilaian' => $kd_penilaian])) return FALSE;
-    if ($this->db->update('perbaikan', ['status' => 'Lolos'], ['kd_perbaikan' => $kd_perbaikan])) return TRUE;
+    $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
+    if (!$this->db->update('pengajuan', ['status' => 'Menunggu Sertifikat'], ['kd_pengajuan' => $penilaian->kd_pengajuan])) return FALSE;
+    if (!$this->db->update('penilaian', ['status' => 'Menunggu Sertifikat', 'klasifikasi' => $this->input->post('klasifikasi')], ['kd_penilaian' => $kd_penilaian])) return FALSE;
+    if ($this->db->update('perbaikan', ['status' => 'Menunggu Sertifikat'], ['kd_perbaikan' => $kd_perbaikan])) return TRUE;
   }
 
   public function revisiKembali()
@@ -51,13 +53,18 @@ class Perbaikan_model extends CI_Model
     $kd_perbaikan = $this->input->post('kd_perbaikan');
 
     if (!$this->input->post('notes')[0]['revisi']) return FALSE;
+
+    $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
+    if (!$this->db->update('pengajuan', ['status' => 'Perlu Revisi'], ['kd_pengajuan' => $penilaian->kd_pengajuan])) return FALSE;
     if (!$this->db->update('penilaian', ['status' => 'Perlu Revisi'], ['kd_penilaian' => $kd_penilaian])) return FALSE;
-    if (!$this->db->update('perbaikan', ['status' => 'Perlu revisi kembali'], ['kd_perbaikan' => $kd_perbaikan])) return FALSE;
+    if (!$this->db->update('perbaikan', ['status' => 'Perlu Revisi'], ['kd_perbaikan' => $kd_perbaikan])) return FALSE;
+
     $penilaian_notes = [];
     foreach ($this->input->post('notes') as $item) {
       $notes = [
         'kd_penilaian' => $kd_penilaian,
         'notes' => $item['revisi'],
+        'is_submit' => 0,
       ];
 
       array_push($penilaian_notes, $notes);

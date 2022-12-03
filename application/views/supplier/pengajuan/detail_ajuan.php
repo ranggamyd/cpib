@@ -6,7 +6,9 @@
         <div class="col-md-4">
             <div class="card shadow">
                 <div class="card-body text-center">
-                    <img src="<?= base_url() . 'assets/img/' . $pengajuan->avatar; ?>" class="rounded-circle" width="200" height="200" alt="" style="object-fit: cover;">
+                    <a class="imgPopup" href="<?= base_url() . 'assets/img/' . $pengajuan->avatar; ?>">
+                        <img src="<?= base_url() . 'assets/img/' . $pengajuan->avatar; ?>" class="rounded-circle" width="200" height="200" alt="" style="object-fit: cover;">
+                    </a>
                 </div>
                 <hr>
                 <h4 class="text-center"><?= $pengajuan->nama_miniplant; ?></h4>

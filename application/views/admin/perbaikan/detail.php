@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Detail Penilaian</h1>
+  <h1 class="h3 mb-2 text-gray-800">Detail Perbaikan</h1>
   <hr>
 
   <div class="card shadow mb-4">
@@ -153,9 +153,11 @@
           <i class="fas fa-eye mr-2"></i>Lihat Detail Penilaian
         </button>
         <div>
-          <?php if ($perbaikan->status == 'Menunggu Validasi') : ?>
+          <?php if ($perbaikan->status == 'Menunggu validasi perbaikan') : ?>
             <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#perluRevisiKembali">Revisi Ulang <i class="fas fa-sync-alt ml-2"></i></button>
             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#terimaPerbaikan">Terima Perbaikan <i class="fas fa-save ml-2"></i></a>
+          <?php elseif ($perbaikan->status == 'Menunggu Sertifikat') : ?>
+            <a href="<?= base_url('sertifikat/generate/') . $penilaian->kd_penilaian ?>" class="btn btn-primary"><i class="fas fa-print mr-2"></i>Generate Certificate</a>
           <?php endif; ?>
         </div>
       </div>
@@ -462,4 +464,4 @@
     </div>
   </div>
 </div>
-<!-- </div> -->
+</div>

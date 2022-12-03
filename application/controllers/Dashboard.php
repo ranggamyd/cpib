@@ -32,6 +32,8 @@ class Dashboard extends CI_Controller
         // $data['total_sertifikat'] = $this->db->get_where('', ['status' => 'Tertunda'])->num_rows();
         $data['total_supplier'] = $this->db->get('suppliers')->num_rows();
         $data['pengajuan'] = $this->pengajuan_model->pengajuanTertunda();
+        $data['suppliers'] = $this->supplier_model->suppliersBaru();
+
         $data['title'] = 'Dashboard';
         $this->loadView('dashboard', $data);
     }

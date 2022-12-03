@@ -94,13 +94,11 @@
                 </div>
             <?php endif; ?>
         </div>
-        <?php if ($pengajuan->status != 'Tidak Lolos') : ?>
-            <?php if (!$this->db->get_where('penilaian', ['kd_pengajuan' => $pengajuan->kd_pengajuan])->row()) : ?>
-                <div class="card-footer text-right">
-                    <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#tolakAjuan">Tolak Ajuan</button>
-                    <a href="<?= base_url('pengajuan/proses_inspeksi/') . $pengajuan->kd_pengajuan ?>" class="btn btn-primary">Lanjutkan Proses <i class="fas fa-arrow-right ml-2"></i></a>
-                </div>
-            <?php endif; ?>
+        <?php if ($pengajuan->status == 'Tertunda') : ?>
+            <div class="card-footer text-right">
+                <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#tolakAjuan">Tolak Ajuan</button>
+                <a href="<?= base_url('pengajuan/proses_inspeksi/') . $pengajuan->kd_pengajuan ?>" class="btn btn-primary">Lanjutkan Proses <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
         <?php endif; ?>
     </div>
 </div>

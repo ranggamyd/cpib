@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h1 class="h3 mb-2 text-gray-800">Form Perbaikan</h1>
+  <h1 class="h3 mb-2 text-gray-800">Detail Perbaikan</h1>
   <hr>
 
   <div class="card shadow mb-4">
@@ -77,19 +77,19 @@
           <div class="form-group row">
             <label for="ketua_inspeksi" class="col-sm-4 col-form-label">Ketua Inspeksi</label>
             <div class="col-sm-8">
-              <input type="text" name="ketua_inspeksi" value="<?= $ketua_tim ?>" class="form-control" id="ketua_inspeksi" readonly required>
+              <input type="text" name="ketua_inspeksi" value="<?= $ketua_tim->nama_admin ?>" class="form-control" id="ketua_inspeksi" readonly required>
             </div>
           </div>
           <div class="form-group row">
             <label for="anggota1" class="col-sm-4 col-form-label">Anggota 1</label>
             <div class="col-sm-8">
-              <input type="text" name="anggota1" value="<?= $anggota1 ?>" class="form-control" id="anggota1" readonly required>
+              <input type="text" name="anggota1" value="<?= $anggota1->nama_admin ?>" class="form-control" id="anggota1" readonly required>
             </div>
           </div>
           <div class="form-group row">
             <label for="anggota2" class="col-sm-4 col-form-label">Anggota 2</label>
             <div class="col-sm-8">
-              <input type="text" name="anggota2" value="<?= $anggota2 ?>" class="form-control" id="anggota2" readonly required>
+              <input type="text" name="anggota2" value="<?= $anggota2->nama_admin ?>" class="form-control" id="anggota2" readonly required>
             </div>
           </div>
 
@@ -97,37 +97,35 @@
       </div>
     </div>
   </div>
-
-  <div class="card shadow mb-4">
+  <div class="card shadow mb-4 mt-3">
     <div class="card-header py-3">
-      <h6 class="font-weight-bold mb-0"><i class="far fa-file-alt mr-2"></i>Revision Notes</h6>
+      <h6 class="font-weight-bold mb-0">Kelengkapan Dokumen Perbaikan</h6>
     </div>
-    <form action="<?= base_url('penilaian_supplier/proses_perbaikan') ?>" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="kd_supplier" value="<?= $penilaian->kd_supplier ?>" required>
+    <form action="<?= base_url('perbaikan/validasi') ?>" method="post" enctype="multipart/form-data">
       <div class="card-body">
         <div class="row">
           <div class="col-md-3">
             <div class="form-group">
               <label for="kd_perbaikan">Kode Perbaikan</label>
-              <input type="text" name="kd_perbaikan" value="<?= $kd_perbaikan_auto ?>" class="form-control" id="kd_perbaikan" readonly required>
+              <input type="text" name="kd_perbaikan" value="<?= $perbaikan->kd_perbaikan ?>" class="form-control" id="kd_perbaikan" readonly required>
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label for="kd_penilaian">Kode Penilaian</label>
-              <input type="text" name="kd_penilaian" value="<?= $penilaian->kd_penilaian ?>" class="form-control" id="kd_penilaian" readonly required>
+              <input type="text" name="kd_penilaian" value="<?= $perbaikan->kd_penilaian ?>" class="form-control" id="kd_penilaian" readonly required>
             </div>
           </div>
           <div class="col-md-4 offset-md-2">
             <div class="form-group">
-              <label for="tgl_perbaikan">Tanggal Perbaikan</label>
+              <label for="tgl_perbaikan">Tanggal Validasi</label>
               <input type="date" name="tgl_perbaikan" value="<?= date('Y-m-d') ?>" class="form-control" id="tgl_perbaikan" required>
             </div>
           </div>
         </div>
         <div class="table-responsive">
           <table class="table table-hover table-bordered">
-            <thead>
+            <thead class="bg-light">
               <tr>
                 <th width="50" class="text-center">No.</th>
                 <th>Revisi</th>
@@ -137,26 +135,23 @@
             <tbody>
               <?php
               $i = 1;
-              foreach ($notes as $item) :
+              foreach ($perbaikan_detail as $item) :
               ?>
                 <tr>
                   <th class="text-center"><?= $i++ ?></th>
                   <td><?= $item['notes'] ?></td>
-                  <td><input type="file" name="<?= $item['id'] ?>" accept="image/*,.pdf" class="form-control-file"></td>
+                  <td><a href="<?= base_url('assets/dokumen/') . $item['file_perbaikan'] ?>" target="__blank" class="pdfPopup btn btn-outline-secondary  btn-sm"><i class="fas fa-download mr-2"></i>Click to open File</a></td>
                 </tr>
               <?php endforeach ?>
             </tbody>
           </table>
         </div>
+        <small class="text-muted">* Click to download Uploaded PDF/Image</small>
       </div>
       <div class="card-footer d-flex justify-content-between">
         <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#detailPenilaian" aria-expanded="false" aria-controls="detailPenilaian">
           <i class="fas fa-eye mr-2"></i>Lihat Detail Penilaian
         </button>
-        <div>
-          <button type="reset" class="btn btn-secondary"><i class="fas fa-sync-alt mr-2"></i>Reset</button>
-          <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Perbaiki Ajuan</button>
-        </div>
       </div>
     </form>
   </div>
@@ -376,4 +371,89 @@
     </div>
   </div>
 </div>
-<!-- </div> -->
+
+<!-- modal revisi kembali -->
+<div class="modal fade" id="perluRevisiKembali" tabindex="-1" role="dialog" aria-labelledby="perluRevisiKembaliLabel" aria-hidden="true">
+  <div class="modal-dialog text-center" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="font-weight-bold mb-0" id="perluRevisiKembaliLabel"><i class="far fa-file-alt mr-2"></i>Revisi Kembali</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= base_url('perbaikan/revisiKembali') ?>" method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+          <h6 class="mb-2">Tambahkan Catatan yang harus diperbaiki oleh Supplier</h6>
+          <div class="table-responsive">
+            <table class="table table-borderless" id="dynamic_field-revisi">
+              <tr>
+                <input type="hidden" name="kd_perbaikan" id="kd_perbaikan" value="<?= $perbaikan->kd_perbaikan ?>">
+                <input type="hidden" name="kd_penilaian" id="kd_penilaian" value="<?= $perbaikan->kd_penilaian ?>">
+                <td><input type="text" name="notes[][revisi]" placeholder="Tuliskan Sesuatu .." class="form-control" required></td>
+                <td><button type="button" name="add" id="addRevisi" class="btn btn-success"><i class="fas fa-plus-circle"></i></button></td>
+              </tr>
+            </table>
+            <small>Notes :
+              <i>
+                <b>Satu baris catatan merepresentasikan file yang harus Supplier upload</b>
+              </i>
+            </small>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Tutup</button>
+          <button type="submit" class="btn btn-success"><i class="fas fa-save mr-2"></i>Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- modal Terima Perbaikan -->
+<div class="modal fade" id="terimaPerbaikan" tabindex="-1" role="dialog" aria-labelledby="terimaPerbaikanLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="font-weight-bold mb-0" id="terimaPerbaikanLabel"><i class="far fa-save mr-2"></i>Terima Perbaikan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= base_url('perbaikan/validasi') ?>" method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+          <input type="hidden" name="kd_perbaikan" id="kd_perbaikan" value="<?= $perbaikan->kd_perbaikan ?>">
+          <input type="hidden" name="kd_penilaian" id="kd_penilaian" value="<?= $perbaikan->kd_penilaian ?>">
+          <div class="row">
+            <div class="col-md-5">
+              <label for="klasifikasi">Klasifikasi Sebelumnya</label>
+              <input type="text" class="form-control mt-2 text-danger font-weight-bold" value="<?= $penilaian->klasifikasi ?>" disabled>
+            </div>
+            <div class="col-md-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-2x fa-arrow-right font-weight-bold text-success"></i>
+            </div>
+            <div class="col-md-5">
+              <label for="klasifikasi">Perbarui Klasifikasi</label>
+              <select name="klasifikasi" id="klasifikasi" class="form-control mt-2 <?= form_error('klasifikasi') ? 'is-invalid' : '' ?>" required>
+                <option value="" selected disabled>== Pilih Opsi ==</option>
+                <option value="Sangat Baik">Sangat Baik</option>
+                <option value="Baik">BAIK</option>
+                <option value="Cukup">Cukup</option>
+                <option value="Kurang">Kurang</option>
+              </select>
+              <div class="invalid-feedback">
+                <?= form_error('klasifikasi') ?>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Tutup</button>
+          <button type="submit" class="btn btn-success"><i class="fas fa-save mr-2"></i>Terima Perbaikan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
