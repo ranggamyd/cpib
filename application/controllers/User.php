@@ -16,8 +16,8 @@ class User extends CI_Controller
   private function loadView($file, $data)
   {
     $data['style'] = [
-    //     'css' => 'user.css',
-        'js' => 'previewImg.js',
+      //     'css' => 'user.css',
+      'js' => 'previewImg.js',
     ];
 
     $this->load->view('admin/parts/header', $data);
@@ -33,7 +33,8 @@ class User extends CI_Controller
     $this->loadView('user', $data);
   }
 
-  public function setting(){
+  public function setting()
+  {
     $data['user'] = $this->user_model->profil_saya();
 
     $data['title'] = 'Pengaturan Akun';

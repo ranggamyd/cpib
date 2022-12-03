@@ -53,7 +53,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                         Sertifikat</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_sertifikat ?></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-medal fa-2x text-info"></i>
@@ -87,9 +87,9 @@
         </div>
         <div class="col">
             <!--Dayspedia.com widget-->
-            <div class="DPDC card shadow" cityid="6582" lang="en" id="dayspedia_widget_35c2ed5bc7d4a1b6" host="https://dayspedia.com" ampm="false" nightsign="true" sun="false" style="background-image: url(&quot;https://cdn.dayspedia.com/img/widgets/bg-12.png&quot;); width: 100%; border-width: 1px; border-color: rgb(207, 207, 207);" auto="false">
+            <div class="DPDC" cityid="6582" lang="en" id="dayspedia_widget_b96f7cf2c6791f1" host="https://dayspedia.com" ampm="false" nightsign="true" sun="false" style="background-image: url(&quot;https://cdn.dayspedia.com/img/widgets/bg-12.png&quot;); border-radius: 8px; width: 100%; border-width: 0px;">
 
-                <style media="screen" id="dayspedia_widget_35c2ed5bc7d4a1b6_style">
+                <style media="screen" id="dayspedia_widget_b96f7cf2c6791f1_style">
                     /*COMMON*/
                     .DPDC {
                         display: table;
@@ -276,12 +276,20 @@
 
                     /* headline & date font-size */
                 </style>
-                <div class="DPDCh" style="text-align: center; margin-left: auto; margin-right: auto;">Current Time in Cirebon</div>
-                <div class="DPDCt" style="text-align: center; margin-left: auto; margin-right: auto; font-weight: normal;">
-                    <span class="DPDCth">14</span><span class="DPDCtm">14</span><span class="DPDCts" style="display: none;">03</span><span class="DPDCt12" style="display: none;"></span>
+
+                <a class="DPl" href="https://dayspedia.com/time/id/Cirebon/" target="_blank" style="display:block!important;text-decoration:none!important;border:none!important;cursor:pointer!important;background:transparent!important;line-height:0!important;text-shadow:none!important;position:absolute;z-index:1;top:0;right:0;bottom:0;left:0">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" style="position:absolute;right:8px;bottom:0;width:16px;height:16px">
+                        <path style="fill:/*defined*/#007DBF" d="M0,0v16h1.7c-0.1-0.2-0.1-0.3-0.1-0.5c0-0.9,0.8-1.6,1.6-1.6c0.9,0,1.6,0.8,1.6,1.6c0,0.2,0,0.3-0.1,0.5h1.8 c-0.1-0.2-0.1-0.3-0.1-0.5c0-0.9,0.8-1.6,1.6-1.6s1.6,0.8,1.6,1.6c0,0.2,0,0.3-0.1,0.5h1.8c-0.1-0.2-0.1-0.3-0.1-0.5 c0-0.9,0.8-1.6,1.6-1.6c0.9,0,1.6,0.8,1.6,1.6c0,0.2,0,0.3-0.1,0.5H16V0H0z M4.2,8H2V2h2.2c2.1,0,3.3,1.3,3.3,3S6.3,8,4.2,8z M11.4,6.3h-0.8V8H9V2h2.5c1.4,0,2.4,0.8,2.4,2.1C13.9,5.6,12.9,6.3,11.4,6.3z M4.4,3.5H3.7v3h0.7C5.4,6.5,6,6,6,5 C6,4.1,5.4,3.5,4.4,3.5z M11.3,3.4h-0.8V5h0.8c0.6,0,0.9-0.3,0.9-0.8C12.2,3.7,11.9,3.4,11.3,3.4z">
+                        </path>
+                    </svg>
+                    <span title="DaysPedia.com" style="position:absolute;right:28px;bottom:6px;height:10px;width:60px;overflow:hidden;text-align:right;font:normal 10px/10px Arial,sans-serif!important;color:/*defined*/#007DBF">Powered&nbsp;by DaysPedia.com</span> -->
+                </a>
+                <div class="DPDCh" style="text-align: center; margin-left: auto; margin-right: auto; font-weight: normal;">Current Time in Cirebon</div>
+                <div class="DPDCt" style="font-weight: normal; text-align: center; margin-left: auto; margin-right: auto;">
+                    <span class="DPDCth">09</span><span class="DPDCtm">42</span><span class="DPDCts" style="display: inline-block;">12</span><span class="DPDCt12" style="display: none;"></span>
                 </div>
-                <div class="DPDCd" style="text-align: center; margin-left: auto; margin-right: auto; font-weight: normal;">
-                    <span class="DPDCdt">Tue, November 15</span><span class="DPDCtn" style="display: none;"><i></i></span>
+                <div class="DPDCd" style="font-weight: normal; text-align: center; margin-left: auto; margin-right: auto;">
+                    <span class="DPDCdt">Sat, December 3</span><span class="DPDCtn" style="display: none;"><i></i></span>
                 </div>
 
                 <div class="DPDCs" style="display: none; text-align: center; margin-left: auto; margin-right: auto;">
@@ -290,15 +298,15 @@
                             <path d="M12,4L7.8,8.2l1.4,1.4c0,0,0.9-0.9,1.8-1.8V14h2c0,0,0-3.3,0-6.2l1.8,1.8l1.4-1.4L12,4z"></path>
                             <path d="M6.8,15.3L5,13.5l-1.4,1.4l1.8,1.8L6.8,15.3z M4,21H1v2h3V21z M20.5,14.9L19,13.5l-1.8,1.8l1.4,1.4L20.5,14.9z M20,21v2h3 v-2H20z M6.1,23C6,22.7,6,22.3,6,22c0-3.3,2.7-6,6-6s6,2.7,6,6c0,0.3,0,0.7-0.1,1H6.1z"></path>
                         </svg>
-                        6:17 am<sup>am</sup>
+                        5:21 am<sup>am</sup>
                     </span>
-                    <span class="DPDCsl">11:30</span>
+                    <span class="DPDCsl">12:29</span>
                     <span class="DPDCss">
                         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
                             <path d="M12,14L7.8,9.8l1.4-1.4c0,0,0.9,0.9,1.8,1.8V4h2c0,0,0,3.3,0,6.2l1.8-1.8l1.4,1.4L12,14z"></path>
                             <path d="M6.8,15.3L5,13.5l-1.4,1.4l1.8,1.8L6.8,15.3z M4,21H1v2h3V21z M20.5,14.9L19,13.5l-1.8,1.8l1.4,1.4L20.5,14.9z M20,21v2h3 v-2H20z M6.1,23C6,22.7,6,22.3,6,22c0-3.3,2.7-6,6-6s6,2.7,6,6c0,0.3,0,0.7-0.1,1H6.1z"></path>
                         </svg>
-                        5:47 pm<sup>pm</sup>
+                        5:50 pm<sup>pm</sup>
                     </span>
                 </div>
                 <script>
@@ -310,7 +318,7 @@
                     t.parentNode.insertBefore(s, t);
                     s.onload = function() {
                         window.dwidget = new window.DigitClock();
-                        window.dwidget.init("dayspedia_widget_35c2ed5bc7d4a1b6");
+                        window.dwidget.init("dayspedia_widget_b96f7cf2c6791f1");
                     };
                 </script>
                 <!--/DPDC-->
@@ -319,10 +327,10 @@
         </div>
     </div>
     <div class="row mt-3">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card mt-3 shadow shadow-sm">
                 <div class="card-header">
-                    <h5 class="mb-0">Permohonan Tertunda</h5>
+                    <h5 class="mb-0"><i class="far fa-clock mr-2"></i>Permohonan Tertunda</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -333,7 +341,7 @@
                                     <th>Tanggal</th>
                                     <th>Kode Pengajuan</th>
                                     <th>Mini Plant</th>
-                                    <th>Pimpinan Supplier</th>
+                                    <!-- <th>Pimpinan Supplier</th> -->
                                     <th>Jenis Produk</th>
                                     <th>Status</th>
                                 </tr>
@@ -347,7 +355,7 @@
                                         <td class="text-center"><?= date('d-M-Y', strtotime($item['tgl_pengajuan'])) ?></td>
                                         <td class="text-center"><span class="badge badge-white"><?= $item['kd_pengajuan']; ?></span></td>
                                         <td><?= $item['nama_miniplant'] ?></td>
-                                        <td><?= $item['nama_pimpinan'] ?></td>
+                                        <!-- <td><?= $item['nama_pimpinan'] ?></td> -->
                                         <td class="text-center">
                                             <?php
                                             $colors = ["badge-primary", "badge-success", "badge-danger", "badge-warning", "badge-info"];
@@ -358,7 +366,17 @@
                                             <?php endforeach; ?>
                                         </td>
                                         <td class="text-center">
-                                            <span class="badge badge-primary"><?= $item['status'] ?></span>
+                                            <?php if ($item['status'] == 'Tertunda') { ?>
+                                                <a href="<?= base_url('pengajuan/detail/') . $item['kd_pengajuan'] ?>" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                                            <?php } elseif ($item['status'] == 'Dokumen tidak lengkap') { ?>
+                                                <a href="<?= base_url('pengajuan/tambah_ajuan') ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Ajukan ulang?"><?= $item['status'] ?></a>
+                                            <?php } elseif ($item['status'] == 'Dalam proses Inspeksi') { ?>
+                                                <span class="badge badge-info"><?= $item['status'] ?></span>
+                                            <?php } elseif ($item['status'] == 'Lolos') { ?>
+                                                <span class="badge badge-success"><?= $item['status'] ?></span>
+                                            <?php } elseif ($item['status'] == 'Tidak Lolos') { ?>
+                                                <a href="<?= base_url('pengajuan/detail/') . $item['kd_pengajuan'] ?>" class="badge badge-danger" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -368,14 +386,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card mt-3 shadow shadow-sm">
                 <div class="card-header">
-                    <h5 class="mb-0">Supplier Baru</h5>
+                    <h5 class="mb-0"><i class="far fa-user-circle mr-2"></i>Supplier Baru</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered table-sm" id="dataTable2" width="100%" cellspacing="0">
                             <thead class="text-center">
                                 <tr>
                                     <th class="text-center">No.</th>
@@ -409,9 +427,117 @@
         </div>
     </div>
 
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <div class="card mt-3 shadow shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-clock mr-2"></i>Menunggu Validasi Perbaikan</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">
+                            <thead class="text-center">
+                                <tr>
+                                    <th class="text-center">No.</th>
+                                    <th>Tanggal</th>
+                                    <th>Kode Perbaikan</th>
+                                    <th>Kode Penilaian</th>
+                                    <th>Mini Plant</th>
+                                    <!-- <th>Pimpinan Supplier</th> -->
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                foreach ($perbaikan as $item) { ?>
+                                    <tr>
+                                        <th class="text-center"><?= $no++; ?></th>
+                                        <td class="text-center" style="width: 125px;"><?= date('d M Y', strtotime($item['tgl_perbaikan'])) ?></td>
+                                        <td class="text-center"><a href="<?= base_url('perbaikan/detail/') . $item['kd_perbaikan'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_perbaikan']; ?></a></td>
+                                        <td class="text-center"><a href="<?= base_url('penilaian/detail/') . $item['kd_penilaian'] ?>" class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['kd_penilaian']; ?></a></td>
+                                        <td><?= $item['nama_miniplant']; ?></td>
+                                        <!-- <td><?= $item['nama_pimpinan'] ?></td> -->
+                                        <td class="text-center">
+                                            <?php if ($item['status'] == 'Perlu revisi kembali') { ?>
+                                                <span class="badge badge-warning"><?= $item['status'] ?></span>
+                                            <?php } elseif ($item['status'] == 'Menunggu Validasi') { ?>
+                                                <a href="<?= base_url('perbaikan/detail/') . $item['kd_perbaikan'] ?>" class="badge badge-info" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                                            <?php } elseif ($item['status'] == 'Lolos') { ?>
+                                                <a href="<?= base_url('perbaikan/detail/') . $item['kd_perbaikan'] ?>" class="badge badge-success" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                                            <?php } elseif ($item['status'] == 'Tidak Lolos') { ?>
+                                                <a href="<?= base_url('perbaikan/detail/') . $item['kd_perbaikan'] ?>" class="badge badge-danger" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mt-3 shadow shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-user-clock mr-2"></i>Menunggu Sertifikat</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm" id="dataTable4" width="100%" cellspacing="0">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>No.</th>
+                                    <th>Tanggal Inspeksi</th>
+                                    <th>Mini Plant</th>
+                                    <th>Pimpinan Supplier</th>
+                                    <th>Klasifikasi</th>
+                                    <!-- <th>Status</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                foreach ($penilaian as $item) { ?>
+                                    <tr>
+                                        <th class="text-center"><?= $no++ ?></th>
+                                        <td class="text-center" style="width: 125px;"><?= date('d M Y', strtotime($item['tgl_inspeksi'])) ?></td>
+                                        <td><?= $item['nama_miniplant'] ?></td>
+                                        <td><?= $item['nama_pimpinan'] ?></td>
+                                        <td class="text-center">
+                                            <?php if ($item['klasifikasi'] == 'Sangat Baik') : ?>
+                                                <span class="badge badge-primary"><?= $item['klasifikasi'] ?></span>
+                                            <?php elseif ($item['klasifikasi'] == 'Baik') : ?>
+                                                <span class="badge badge-success"><?= $item['klasifikasi'] ?></span>
+                                            <?php elseif ($item['klasifikasi'] == 'Cukup') : ?>
+                                                <span class="badge badge-warning"><?= $item['klasifikasi'] ?></span>
+                                            <?php elseif ($item['klasifikasi'] == 'Kurang') : ?>
+                                                <span class="badge badge-danger"><?= $item['klasifikasi'] ?></span>
+                                            <?php endif ?>
+                                        </td>
+                                        <!-- <td class="text-center">
+                                            <?php if ($item['status'] == 'Perlu Revisi') { ?>
+                                                <a href="<?= base_url('penilaian/detail/') . $item['kd_penilaian'] ?>" class="badge badge-warning" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                                            <?php } elseif ($item['status'] == 'Menunggu validasi perbaikan') { ?>
+                                                <a href="<?= base_url('perbaikan/detail/') . $this->db->get_where('perbaikan', ['kd_penilaian' => $item['kd_penilaian']])->row('kd_perbaikan'); ?>" class="badge badge-info" data-toggle="tooltip" data-placement="right" title="Detail"><?= $item['status'] ?></a>
+                                            <?php } elseif ($item['status'] == 'Menunggu Sertifikat') { ?>
+                                                <a href="<?= base_url('sertifikat/generate/') . $item['kd_penilaian'] ?>" class="badge badge-primary" data-toggle="tooltip" data-placement="right" title="Generate Certificate"><?= $item['status'] ?></a>
+                                            <?php } elseif ($item['status'] == 'Lolos') { ?>
+                                                <span class="badge badge-success"><?= $item['status'] ?></span>
+                                            <?php } elseif ($item['status'] == 'Tidak Lolos') { ?>
+                                                <span class="badge badge-danger"><?= $item['status'] ?></span>
+                                            <?php } ?>
+                                        </td> -->
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
 <!-- /.container-fluid -->
 
 </div>

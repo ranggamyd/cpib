@@ -110,14 +110,15 @@ class User_model extends CI_Model
     $avatar = $this->db->get_where('users', ['kd_admin' => $kd_admin])->row('avatar');
 
     if ($_FILES['avatar']['name']) {
-      if ($avatar) unlink('./assets/img/' . $avatar);
-
+      if (!empty($avatar)) {
+        $path = FCPATH . './assets/img/' . $avatar;
+        unlink($path);
+      }
       $config['upload_path']    = './assets/img';
       $config['allowed_types']  = 'jpg|png|jpeg|';
 
       $this->load->library('upload', $config);
       if (!$this->upload->do_upload('avatar')) return FALSE;
-
       return $this->upload->data('file_name');
     };
   }

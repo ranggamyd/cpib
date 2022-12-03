@@ -80,10 +80,11 @@
           <div id='avatar' class='invalid-feedback'>
             <?= form_error('avatar') ?>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tutup</button>
-          <input type="submit" value="Simpan Perubahan" class="btn btn-success">
+          <hr>
+          <div class="mt-3">
+            <button type="button" class="btn btn-outline-danger text-center" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Tutup</button>
+            <button type="submit" class="btn btn-success text-center"><i class="fas fa-check mr-2"></i>Simpan</button>
+          </div>
         </div>
       </form>
     </div>
@@ -148,8 +149,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tutup</button>
-          <input type="submit" value="Simpan Perubahan" class="btn btn-success">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Tutup</button>
+          <button type="submit" class="btn btn-success"><i class="fas fa-check mr-2"></i>Simpan</button>
         </div>
       </form>
     </div>
