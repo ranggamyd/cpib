@@ -58,6 +58,7 @@
                         type: 'iframe'
                     });
                     $('#dataTable').dataTable();
+                    $('#dataTable2').dataTable();
                     $('[data-toggle="tooltip"]').tooltip({
                         placement: "bottom"
                     });
