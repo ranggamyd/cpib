@@ -173,6 +173,15 @@ class Penilaian_model extends CI_Model
       'status' => 'Menunggu validasi perbaikan',
     ];
 
+    $notifikasi = [
+      'kd_supplier' => $this->input->post('kd_supplier'),
+      'kd_perbaikan' => $this->input->post('kd_perbaikan'),
+      'type' => 'perbaikan',
+      'pesan' => 'Supplier telah melakukan perbaikan, validasi sekarang?'
+    ];
+
+    if (!$this->db->insert('notifikasi', $notifikasi)) return FALSE;
+
     $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $this->input->post('kd_penilaian')])->row();
     if (!$this->db->update('pengajuan', ['status' => 'Menunggu validasi perbaikan'], ['kd_pengajuan' => $penilaian->kd_pengajuan])) return FALSE;
     if (!$this->db->update('penilaian', ['status' => 'Menunggu validasi perbaikan'], ['kd_penilaian' => $penilaian->kd_penilaian])) return FALSE;

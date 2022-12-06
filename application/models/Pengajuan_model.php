@@ -78,6 +78,15 @@ class Pengajuan_model extends CI_Model
             'panduan_mutu' => $uploadedFiles[7],
         ];
 
+        $notifikasi = [
+            'kd_supplier' => $kd_supplier,
+            'kd_pengajuan' => $kd_pengajuan,
+            'type' => 'pengajuan',
+            'pesan' => 'Pengajuan baru Tertunda, lanjutkan proses sekarang?'
+        ];
+
+        if (!$this->db->insert('notifikasi', $notifikasi)) return FALSE;
+
         if ($this->input->post('jenis_produk')) $this->tambah_jenis_produk();
         if ($this->db->insert('pengajuan', $data)) return TRUE;
     }

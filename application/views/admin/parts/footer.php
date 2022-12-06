@@ -262,8 +262,14 @@
                         "timeOut": "5000",
                     });
                     <?php if ($this->session->flashdata('hasModalID')) : ?>
+                        console.log($("#<?= $this->session->flashdata('hasModalID') ?>"));
                         $("#<?= $this->session->flashdata('hasModalID') ?>").modal();
                     <?php endif ?>
+                </script>
+            <?php endif ?>
+            <?php if ($this->session->flashdata('showModal')) : ?>
+                <script>
+                    $("#<?= $this->session->flashdata('showModal') ?>").modal();
                 </script>
             <?php endif ?>
 

@@ -122,6 +122,12 @@
                     <span>Pengguna (Administrator)</span>
                 </a>
             </li>
+            <li class="nav-item <?= ($this->uri->segment(1) == 'notifikasi') ? 'active' : ''; ?>">
+                <a class="nav-link py-2" href="<?= base_url('notifikasi') ?>">
+                    <i class="fas fa-fw fa-bell"></i>
+                    <span>Notifikasi</span>
+                </a>
+            </li>
 
             <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading">Lainnya</div>
@@ -164,53 +170,42 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link py-2 dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
+                        <?php
+                        $this->db->select('notifikasi.*, suppliers.nama_miniplant, suppliers.nama_pimpinan, suppliers.no_telp, suppliers.alamat, suppliers.avatar, users.is_active');
+                        $this->db->join('suppliers', 'suppliers.kd_supplier=notifikasi.kd_supplier');
+                        $this->db->join('users', 'users.kd_supplier=suppliers.kd_supplier');
+                        $this->db->order_by('datetime', 'desc');
+                        $this->db->limit(3);
+                        $unread_notifikasi = $this->db->get_where('notifikasi', ['is_read' => 0])->result_array();
+                        $total_unread_notifikasi = $this->db->get_where('notifikasi', ['is_read' => 0])->num_rows();
+                        ?>
+                        <?php if ($total_unread_notifikasi >= 1) : ?>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link py-2 dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-bell fa-fw text-secondary"></i>
+                                    <!-- Counter - Alerts -->
+                                    <span class="badge badge-warning badge-counter" id="totalNotif"><?= $total_unread_notifikasi; ?></span>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
+                                <!-- Dropdown - Alerts -->
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                    <h6 class="dropdown-header">
+                                        Notifikasi <i class="fas fa-bell ml-2"></i>
+                                    </h6>
+                                    <?php foreach ($unread_notifikasi as $item) : ?>
+                                        <a href="<?= base_url('notifikasi/detail/') . $item['id']; ?>" class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="mr-3">
+                                                <img src="<?= base_url('assets/img/') . $item['avatar']; ?>" alt="" class="rounded-circle" width="45" height="45" style="object-fit: cover;">
+                                            </div>
+                                            <div>
+                                                <?= $item['pesan']; ?>
+                                                <div class="small text-gray-500"><?= date('d M Y : H:i', strtotime($item['datetime'])); ?></div>
+                                            </div>
+                                        </a>
+                                    <?php endforeach; ?>
+                                    <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('notifikasi') ?>">Tampilkan semua notifikasi</a>
+                                </div>
+                            </li>
+                        <?php endif ?>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 

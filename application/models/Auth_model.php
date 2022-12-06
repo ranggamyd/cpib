@@ -64,6 +64,14 @@ class Auth_model extends CI_Model
 			'is_active' => 0
 		];
 
+		$notifikasi = [
+			'kd_supplier' => $kd_supplier,
+			'type' => 'registrasi',
+			'pesan' => 'Supplier baru telah mendaftar, aktivasi sekarang?'
+		];
+
+		if (!$this->db->insert('notifikasi', $notifikasi)) return FALSE;
+
 		if ($this->db->insert('users', $user)) return TRUE;
 	}
 }
