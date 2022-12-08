@@ -126,6 +126,9 @@ class User_model extends CI_Model
 
   public function ubah_avatar()
   {
+    $admin = $this->db->get_where('admin', ['kd_admin' => $this->input->post('kd_admin')])->row();
+    if ($admin->avatar != 'default.jpg') unlink('./assets/img/' . $admin->avatar);
+
     $avatar = $this->upload_avatar();
 
     if (!$avatar) return FALSE;
@@ -153,7 +156,13 @@ class User_model extends CI_Model
 
     $avatar = $this->upload_avatar();
 
-    if ($avatar) $admin['avatar'] = $avatar;
+    if ($avatar) {
+      $adm = $this->db->get_where('admin', ['kd_admin' => $this->input->post('kd_admin')])->row();
+      if ($adm->avatar != 'default.jpg') unlink('./assets/img/' . $adm->avatar);
+
+      $admin['avatar'] = $avatar;
+    };
+
 
     if (!$this->db->update('admin', $admin, ['kd_admin' => $kd_admin])) return FALSE;
 

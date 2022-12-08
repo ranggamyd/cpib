@@ -43,14 +43,14 @@ class Auth_model extends CI_Model
 		$phone = $this->input->post('phone');
 		$email = $this->input->post('email');
 		$password = md5($this->input->post('password1'));
-		$avatar = 'default_avatar.jpg';
+		// $avatar = 'default_avatar.jpg';
 
 		$supplier = [
 			'kd_supplier' => $kd_supplier,
 			'nama_miniplant' => $name,
 			'no_telp' => $phone,
 			'email' => $email,
-			'avatar' => $avatar
+			// 'avatar' => $avatar
 		];
 
 		if (!$this->db->insert('suppliers', $supplier)) return FALSE;
@@ -63,6 +63,14 @@ class Auth_model extends CI_Model
 			'kd_supplier' => $kd_supplier,
 			'is_active' => 0
 		];
+
+		$notifikasi = [
+			'kd_supplier' => $kd_supplier,
+			'type' => 'registrasi',
+			'pesan' => 'Supplier baru telah mendaftar, aktivasi sekarang?'
+		];
+
+		if (!$this->db->insert('notifikasi', $notifikasi)) return FALSE;
 
 		if ($this->db->insert('users', $user)) return TRUE;
 	}

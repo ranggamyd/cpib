@@ -45,7 +45,7 @@
                   <div class="btn-group" role="group" aria-label="Opsi">
                     <a href="<?= base_url('suppliers/detail/' . $item['kd_supplier']) ?>" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Detail Supplier"><i class="fas fa-info-circle"></i></a>
                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit_supplier-<?= $item['kd_supplier'] ?>" data-toggle="tooltip" data-placement="right" title="Edit Pengguna"><i class="fa fa-fw fa-edit"></i></a>
-                    <a href="<?= base_url('suppliers/hapus/' . $item['kd_supplier']) ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Pengguna"><i class="fas fa-trash-alt"></i></a>
+                    <a href="<?= base_url('suppliers/hapus/' . $item['kd_supplier']) ?>" onclick="return confirm('Apakah anda yakin ingin menghapus Supplier ?')" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Hapus Pengguna"><i class="fas fa-trash-alt"></i></a>
                   </div>
                 </td>
               </tr>

@@ -41,6 +41,15 @@ class Perbaikan_model extends CI_Model
     $kd_perbaikan = $this->input->post('kd_perbaikan');
     $kd_penilaian = $this->input->post('kd_penilaian');
 
+    $notifikasi = [
+      'kd_supplier' => $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row('kd_supplier'),
+      'kd_penilaian' => $kd_penilaian,
+      'type' => 'sertifikat',
+      'pesan' => 'Satu permohonan menunggu sertifikat, Generate Sertifikat sekarang?'
+    ];
+
+    if (!$this->db->insert('notifikasi', $notifikasi)) return FALSE;
+
     $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
     if (!$this->db->update('pengajuan', ['status' => 'Menunggu Sertifikat'], ['kd_pengajuan' => $penilaian->kd_pengajuan])) return FALSE;
     if (!$this->db->update('penilaian', ['status' => 'Menunggu Sertifikat', 'klasifikasi' => $this->input->post('klasifikasi')], ['kd_penilaian' => $kd_penilaian])) return FALSE;

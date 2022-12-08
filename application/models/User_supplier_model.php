@@ -29,10 +29,13 @@ class User_supplier_model extends CI_Model
 
   public function ubah_avatar()
   {
+    $supplier = $this->db->get_where('suppliers', ['kd_supplier' => $this->input->post('kd_supplier')])->row();
+    if ($supplier->avatar != 'default.jpg') unlink('./assets/img/' . $supplier->avatar);
+
     $avatar = $this->upload_avatar();
 
     if (!$avatar) return FALSE;
-    if ($this->db->update('suppliers', ['avatar' => $avatar], ['kd_supplier' => $this->input->post('kd_supplier')])) return TRUE;
+    if ($this->db->update('suppliers', ['avatar' => $avatar], ['kd_supplier' => $supplier->kd_supplier])) return TRUE;
   }
 
 
@@ -58,7 +61,12 @@ class User_supplier_model extends CI_Model
 
     $avatar = $this->upload_avatar();
 
-    if ($avatar) $supplier['avatar'] = $avatar;
+    if ($avatar) {
+      $spl = $this->db->get_where('suppliers', ['kd_supplier' => $this->input->post('kd_supplier')])->row();
+      if ($spl->avatar != 'default.jpg') unlink('./assets/img/' . $spl->avatar);
+
+      $supplier['avatar'] = $avatar;
+    };
 
     if (!$this->db->update('suppliers', $supplier, ['kd_supplier' => $kd_supplier])) return FALSE;
 

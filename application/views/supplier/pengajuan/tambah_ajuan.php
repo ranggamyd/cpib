@@ -51,7 +51,7 @@
 
             <hr>
             <label for="surat_permohonan">Surat Permohonan <span class="text-danger font-weight-bold">*</span></label>
-            <input type="file" name="surat_permohonan" class="form-control-file mb-3 <?= form_error('surat_permohonan') ? 'is-invalid' : '' ?>" id="surat_permohonan" required>
+            <input type="file" name="surat_permohonan" class="form-control-file mb-3 <?= form_error('surat_permohonan') ? 'is-invalid' : '' ?>" id="surat_permohonan" accept="image/*,.pdf" required>
             <div id='surat_permohonan' class='invalid-feedback'>
               <?= form_error('surat_permohonan') ?>
             </div>
