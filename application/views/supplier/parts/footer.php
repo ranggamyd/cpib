@@ -251,7 +251,11 @@
                     <?php endif ?>
                 </script>
             <?php endif ?>
-
+            <?php if ($this->session->flashdata('showModal')) : ?>
+                <script>
+                    $("#<?= $this->session->flashdata('showModal') ?>").modal();
+                </script>
+            <?php endif ?>
             <!-- Perpage JS -->
             <?php if (isset($style['js'])) : ?>
                 <script src="<?= base_url('assets') ?>/js/<?= $style['js'] ?>"></script>

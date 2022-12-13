@@ -31,18 +31,27 @@ class Sertifikat_model extends CI_Model
             'kepala_upt' => $this->input->post('kepala_upt'),
             'file_sertifikat' => $sertifikat
         ];
-
         if (!$this->db->update('pengajuan', ['status' => 'Lolos'], ['kd_pengajuan' => $this->db->get_where('penilaian', ['kd_penilaian' => $this->input->post('kd_penilaian')])->row('kd_pengajuan')])) return FALSE;
         if (!$this->db->update('penilaian', ['status' => 'Lolos'], ['kd_penilaian' => $this->input->post('kd_penilaian')])) return FALSE;
-
+        
         $perbaikan = $this->db->get_where('perbaikan', ['kd_penilaian' => $this->input->post('kd_penilaian')])->result_array();
         if ($perbaikan) {
             foreach ($perbaikan as $item) {
                 if (!$this->db->update('perbaikan', ['status' => 'Lolos'], ['kd_perbaikan' => $item['kd_perbaikan']])) return FALSE;
             }
         }
+        
+        if (!$this->db->insert('sertifikat', $sertifikat)) return FALSE;
+        $S = $this->db->get_where('sertifikat', ['kd_penilaian' => $this->input->post('kd_penilaian'), 'kd_supplier' => $this->input->post('kd_supplier')])->row();
+        $notifikasi_supplier = [
+            'kd_supplier' => $this->input->post('kd_supplier'),
+            'id_sertifikat' => $S->id,
+            'type' => 'sertifikat',
+            'status' => 'Diterima',
+            'pesan' => 'Selamat Sertifikat telah Dilegalisasi, Harap hubungi pihak BKIPM untuk pengambilan Sertifikat'
+        ];
 
-        if ($this->db->insert('sertifikat', $sertifikat)) return TRUE;
+        if (!$this->db->insert('notifikasi_supplier', $notifikasi_supplier)) return FALSE;
     }
 
     private function generate_certificate()

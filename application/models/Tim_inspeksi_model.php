@@ -29,6 +29,7 @@ class Tim_inspeksi_model extends CI_Model
 
   public function tambah()
   {
+    $kd_pengajuan = $this->input->post('kd_pengajuan');
     $data = [
       'kd_tim_inspeksi' => $this->input->post('kd_tim_inspeksi'),
       'kd_pengajuan' => $this->input->post('kd_pengajuan'),
@@ -37,6 +38,18 @@ class Tim_inspeksi_model extends CI_Model
       'anggota1' => $this->input->post('anggota1'),
       'anggota2' => $this->input->post('anggota2'),
     ];
+
+   $pengajuan= $this->db->get_where('pengajuan',['kd_pengajuan'=>$kd_pengajuan])->row();
+
+    $notifikasi = [
+      'kd_supplier' => $pengajuan->kd_supplier,
+      'kd_pengajuan' => $kd_pengajuan,
+      'type' => 'pengajuan',
+      'status'=> 'Diterima',
+      'pesan' => 'Pengajuan Diterima, Mohon Menunggu Proses Inspeksi'
+    ];
+
+    if (!$this->db->insert('notifikasi_supplier', $notifikasi)) return FALSE;
 
     if (!$this->db->update('pengajuan', ['status' => 'Dalam proses Inspeksi'], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return FALSE;
     if ($this->db->insert('tim_inspeksi', $data)) return TRUE;
