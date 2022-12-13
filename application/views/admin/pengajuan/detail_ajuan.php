@@ -94,7 +94,7 @@
                 </div>
             <?php endif; ?>
         </div>
-        <?php if ($pengajuan->status == 'Tertunda') : ?>
+        <?php if ($pengajuan->status == 'Tertunda' || $pengajuan->status == 'Dalam proses Inspeksi') : ?>
             <div class="card-footer text-right">
                 <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#tolakAjuan">Tolak Ajuan</button>
                 <a href="<?= base_url('pengajuan/proses_inspeksi/') . $pengajuan->kd_pengajuan ?>" class="btn btn-primary">Lanjutkan Proses <i class="fas fa-arrow-right ml-2"></i></a>

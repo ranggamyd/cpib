@@ -54,9 +54,26 @@ class Penilaian_model extends CI_Model
       'status' => $this->input->post('is_needRevisi') ? 'Perlu Revisi' : 'Menunggu Sertifikat'
     ];
 
+    
     // update status pengajuan
     $status = $this->input->post('is_needRevisi') ? 'Perlu Revisi' : 'Menunggu Sertifikat';
     if (!$this->db->update('pengajuan', ['status' => $status], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return FALSE;
+    if ($status == 'Perlu Revisi') {
+      $status_notifikasi = 'Ditolak';
+      $pesan = 'Penilaian Tidak Memenuhi Klasifikasi, Mohon Perbaiki Catatan Berikut';
+    }else {
+      $status_notifikasi = 'Diterima';
+      $pesan = 'Selamat! Proses Inspeksi Telah Dilaksanakan, Mohon Menunggu Sertifikat';
+    }
+    $notifikasi = [
+      'kd_supplier' => $this->input->post('kd_supplier'),
+      'kd_penilaian' => $this->input->post('kd_penilaian'),
+      'type' => 'penilaian',
+      'status' => $status_notifikasi,
+      'pesan' => $pesan
+    ];
+
+    if (!$this->db->insert('notifikasi_supplier', $notifikasi)) return FALSE;
 
     // insert penilaian
     if (!$this->tambah_tahap_penanganan()) return FALSE;

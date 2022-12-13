@@ -50,6 +50,16 @@ class Perbaikan_model extends CI_Model
 
     if (!$this->db->insert('notifikasi', $notifikasi)) return FALSE;
 
+    $notifikasi_supplier = [
+      'kd_supplier' => $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row('kd_supplier'),
+      'kd_perbaikan' => $kd_perbaikan,
+      'type' => 'perbaikan',
+      'status' => 'Diterima',
+      'pesan' => 'Selamat! Perbaikan Telah Divalidasi, Mohon Menunggu Sertifikat'
+    ];
+
+    if (!$this->db->insert('notifikasi_supplier', $notifikasi_supplier)) return FALSE;
+
     $penilaian = $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row();
     if (!$this->db->update('pengajuan', ['status' => 'Menunggu Sertifikat'], ['kd_pengajuan' => $penilaian->kd_pengajuan])) return FALSE;
     if (!$this->db->update('penilaian', ['status' => 'Menunggu Sertifikat', 'klasifikasi' => $this->input->post('klasifikasi')], ['kd_penilaian' => $kd_penilaian])) return FALSE;
@@ -60,6 +70,16 @@ class Perbaikan_model extends CI_Model
   {
     $kd_penilaian = $this->input->post('kd_penilaian');
     $kd_perbaikan = $this->input->post('kd_perbaikan');
+
+    $notifikasi_supplier = [
+      'kd_supplier' => $this->db->get_where('penilaian', ['kd_penilaian' => $kd_penilaian])->row('kd_supplier'),
+      'kd_perbaikan' => $kd_perbaikan,
+      'type' => 'perbaikan',
+      'status' => 'Ditolak',
+      'pesan' => 'Perbaikan Ditolak, Mohon Perbaiki Kembali List Berikut:'
+    ];
+
+    if (!$this->db->insert('notifikasi_supplier', $notifikasi_supplier)) return FALSE;
 
     if (!$this->input->post('notes')[0]['revisi']) return FALSE;
 

@@ -114,6 +114,18 @@ class Pengajuan_model extends CI_Model
 
     public function tolak_ajuan()
     {
+        $kd_pengajuan = $this->input->post('kd_pengajuan');
+        $pengajuan = $this->db->get_where('pengajuan', ['kd_pengajuan' => $kd_pengajuan])->row();
+
+        $notifikasi = [
+            'kd_supplier' => $pengajuan->kd_supplier,
+            'kd_pengajuan' => $kd_pengajuan,
+            'type' => 'pengajuan',
+            'status' => 'Ditolak',
+            'pesan' => 'Pengajuan Ditolak, Mohon Upload ulang kelengkapan dokumen'
+        ];
+
+        if (!$this->db->insert('notifikasi_supplier', $notifikasi)) return FALSE;
         if ($this->db->update('pengajuan', ['status' => 'Tidak Lolos', 'keterangan' => $this->input->post('keterangan')], ['kd_pengajuan' => $this->input->post('kd_pengajuan')])) return TRUE;
     }
 
