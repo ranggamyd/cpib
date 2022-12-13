@@ -53,13 +53,14 @@ class Perbaikan_supplier extends CI_Controller
     $this->db->join('penanganan', 'penanganan.kd_penanganan = penilaian_penanganan.kd_penanganan', 'left');
     $penanganan = $this->db->get_where('penilaian_penanganan', ['kd_penilaian' => $perbaikan->kd_penilaian])->result_array();
     $notes = $this->db->get_where('penilaian_notes', ['kd_penilaian' => $perbaikan->kd_penilaian])->result_array();
+    $anggota2 = $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota2])->row('nama_admin');
 
     $data = [
       'supplier' => $supplier,
       'jenis_produk' => $jenis_produk,
       'ketua_tim' => $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->ketua_inspeksi])->row(),
       'anggota1' => $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota1])->row(),
-      'anggota2' => $this->db->get_where('admin', ['kd_admin' => $tim_inspeksi->anggota2])->row(),
+      'anggota2' => $anggota2 ? $anggota2 : '-',
       'penilaian' => $penilaian,
       'penilaian_detail' => $penilaian_detail,
       'kategori_daftar_isian' => $kategori_daftar_isian,

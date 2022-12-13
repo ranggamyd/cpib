@@ -89,7 +89,7 @@
           <div class="form-group row">
             <label for="anggota2" class="col-sm-4 col-form-label">Anggota 2</label>
             <div class="col-sm-8">
-              <input type="text" name="anggota2" value="<?= $anggota2->nama_admin ?>" class="form-control" id="anggota2" readonly required>
+              <input type="text" name="anggota2" value="<?= $anggota2 ?>" class="form-control" id="anggota2" readonly required>
             </div>
           </div>
 

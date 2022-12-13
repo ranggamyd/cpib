@@ -184,7 +184,7 @@
                                 <a class="nav-link py-2 dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-bell fa-fw text-secondary"></i>
                                     <!-- Counter - Alerts -->
-                                    <span class="badge badge-warning badge-counter" id="totalNotif"><?= $total_unread_notifikasi; ?></span>
+                                    <span class="badge badge-danger badge-counter" id="totalNotif"><?= $total_unread_notifikasi; ?></span>
                                 </a>
                                 <!-- Dropdown - Alerts -->
                                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
