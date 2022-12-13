@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="row mb-4 mt-3">
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
             <div class="card shadow h-100">
                 <div class="card-header">
                     <h6 class="font-weight-bold mb-0"><i class="fas fa-medal text-primary mr-2"></i>Sertifikat</h6>
@@ -77,8 +77,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-8">
+        </div> -->
+        <div class="col">
             <div class="card shadow">
                 <div class="card-header">
                     <h6 class="font-weight-bold mb-0"><i class="fas fa-file-alt text-primary mr-2"></i>Data Sertifikat</h6>
