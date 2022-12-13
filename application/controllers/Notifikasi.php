@@ -45,7 +45,7 @@ class Notifikasi extends CI_Controller
         $this->db->order_by('datetime', 'desc');
         $data['read_notifikasi'] = $this->db->get_where('notifikasi', ['is_read' => 1])->result_array();
 
-        $data['title'] = 'Jenis Produk';
+        $data['title'] = 'Notifikasi';
         $this->loadView('notifikasi', $data);
     }
 
