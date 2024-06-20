@@ -69,9 +69,5 @@ We welcome contributions from the community. To contribute, please fork the repo
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Contact
-For more information, please contact the project maintainers at contact@example.com.
-
-vbnet
-Copy code
-
+For more information, please contact the project maintainers at contact@example.com. 
 Feel free to customize the installation instructions, usage guide, and contact information as per y
