@@ -1,71 +1,77 @@
-###################
-What is CodeIgniter
-###################
+# CPIB Certification Application
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+## Description
 
-*******************
-Release Information
-*******************
+The CPIB Certification Application is a web application used to manage the certification process for Good Fish Handling Practices (CPIB) in Indonesia. This application was developed for the Agency for Quarantine, Quality Control, and Security of Fishery Products (BKIPM) to assist CPIB certification applicants in the process of submitting applications, assessments, and certificate issuance.
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+## Key Features
 
-**************************
-Changelog and New Features
-**************************
+The CPIB Certification Application has several main features, including:
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+- **CPIB Certification Submission**: Applicants can submit CPIB certification applications online through this application.
+- **Inspection Team Formation**: BKIPM can form an inspection team to conduct assessments on CPIB certification applicants.
+- **Assessment System**: The inspection team can assess CPIB certification applicants based on the established CPIB standards.
+- **Certificate Issuance**: BKIPM can issue CPIB certificates for applicants who have passed the assessment.
+- **App Notifications**: Applicants can receive notifications regarding the status of their CPIB certification application.
+- **Certificate Templates**: BKIPM can provide editable CPIB certificate templates for applicants.
+- **Editable Certificate Format**: BKIPM can edit the CPIB certificate format according to their needs.
+- **User Management**: BKIPM can manage user accounts for this application.
 
-*******************
-Server Requirements
-*******************
+## Technology
 
-PHP version 5.6 or newer is recommended.
+The CPIB Certification Application is built using the following technologies:
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+- **Codeigniter 3**: A powerful PHP framework with a small footprint, designed for developers who need a simple and elegant toolkit to create full-featured web applications.
+- **jQuery**: A fast, small, and feature-rich JavaScript library.
+- **Bootstrap 4**: The most popular HTML, CSS, and JS library in the world for building responsive, mobile-first projects on the web.
 
-************
-Installation
-************
+This application can be accessed through any web browser.
 
-Please see the `installation section <https://codeigniter.com/userguide3/installation/index.html>`_
-of the CodeIgniter User Guide.
+## Installation
 
-*******
-License
-*******
+1. Clone the repository:
+```bash
+git clone <repository-url>
+```
 
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+2. Navigate to the project directory:
+```bash
+cd cpib-certification-application
+```
 
-*********
-Resources
-*********
+3. Install the dependencies:
+```bash
+composer install
+npm install
+```
 
--  `User Guide <https://codeigniter.com/docs>`_
--  `Contributing Guide <https://github.com/bcit-ci/CodeIgniter/blob/develop/contributing.md>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
+4. Set up the environment variables by copying .env.example to .env and adjusting the settings as needed.
 
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
+5. Run the database migrations:
+```bash
+php artisan migrate
+```
 
-***************
-Acknowledgement
-***************
+6. Start the development server:
+```bash
+php artisan serve
+```
 
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+## Usage
+1. Open your web browser and navigate to http://localhost:8000.
+2. Register for a new account or log in with your existing credentials.
+3. Follow the on-screen instructions to submit a CPIB certification application.
+
+## Contributing
+We welcome contributions from the community. To contribute, please fork the repository, create a new branch for your feature or bug fix, and submit a pull request. Please make sure to follow the code style and include appropriate tests.
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Contact
+For more information, please contact the project maintainers at contact@example.com.
+
+vbnet
+Copy code
+
+Feel free to customize the installation instructions, usage guide, and contact information as per y
